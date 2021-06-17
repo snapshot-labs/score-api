@@ -43,7 +43,7 @@ export default async function(parent, args) {
 
   if (!scores) {
     console.log('Get scores');
-    scores = await snapshot.utils.getScores(
+    scores = await snapshot.utils.getScoresDirect(
       space,
       strategies,
       network,
