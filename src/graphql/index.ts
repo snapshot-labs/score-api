@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { ApolloServer } from 'apollo-server-express';
 import query from './query';
-import scores from './scores';
+import scores from '../scores';
 global['fetch'] = fetch;
 
 export const schemaFile = path.join(__dirname, './schema.gql');
