@@ -43,6 +43,7 @@ export default async function(parent, args) {
 
   if (!scores) {
     console.log('Get scores');
+    // @ts-ignore
     scores = await snapshot.utils.getScoresDirect(
       space,
       strategies,
