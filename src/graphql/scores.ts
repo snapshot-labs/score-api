@@ -1,11 +1,14 @@
+import { createHash } from 'crypto';
 import snapshot from '@snapshot-labs/snapshot.js';
+import { get, set } from '../aws';
 
 const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
+const delay = 15;
 
 async function getBlockNum(network) {
   const ts = parseInt((Date.now() / 1e3).toFixed());
-  if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - 15) return blockNumByNetwork[network];
+  if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay) return blockNumByNetwork[network];
 
   const provider = snapshot.utils.getProvider(network);
   const blockNum = await provider.getBlockNumber();
@@ -16,8 +19,13 @@ async function getBlockNum(network) {
   return blockNum;
 }
 
-export default async function async(parent, args) {
+export default async function(parent, args) {
   const { space = '', strategies, network, addresses } = args;
+
+  const key = createHash('sha256')
+    .update(JSON.stringify(args))
+    .digest('hex');
+  console.log('Key', key);
 
   let snapshotBlockNum = 'latest';
   if (args.snapshot !== 'latest') {
@@ -25,17 +33,32 @@ export default async function async(parent, args) {
     snapshotBlockNum = currentBlockNum < args.snapshot ? 'latest' : args.snapshot;
   }
 
-  const scores = await snapshot.utils.getScores(
-    space,
-    strategies,
-    network,
-    snapshot.utils.getProvider(network),
-    addresses,
-    snapshotBlockNum
-  );
+  const state = snapshotBlockNum === 'latest' ? 'pending' : 'final';
+  let scores;
+
+  if (state === 'final') {
+    console.log('Check cache');
+    scores = await get(key);
+  }
+
+  if (!scores) {
+    console.log('Get scores');
+    scores = await snapshot.utils.getScores(
+      space,
+      strategies,
+      network,
+      snapshot.utils.getProvider(network),
+      addresses,
+      snapshotBlockNum
+    );
+
+    if (state === 'final') {
+      set(key, scores).then(() => console.log('Stored!'));
+    }
+  }
 
   return {
-    scores,
-    state: snapshotBlockNum === 'latest' ? 'pending' : 'final'
+    state,
+    scores
   };
 }

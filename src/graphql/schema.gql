@@ -2,11 +2,11 @@ scalar Any
 
 type Query {
   scores(
-    space: String
-    strategies: [Any]!
+    space: String = ""
     network: String!
+    snapshot: Any = "latest"
+    strategies: [Any]!
     addresses: [String]!
-    snapshot: Any
   ): Scores
 }
 
