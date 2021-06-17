@@ -24,7 +24,7 @@ const server = new ApolloServer({
     shareEnabled: true,
     tabs: [
       {
-        endpoint: './graphql',
+        endpoint: 'https://score.snapshot.org/graphql',
         query
       }
     ]
