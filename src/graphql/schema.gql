@@ -1,0 +1,16 @@
+scalar Any
+
+type Query {
+  scores(
+    space: String
+    strategies: [Any]!
+    network: String!
+    addresses: [String]!
+    snapshot: Any
+  ): Scores
+}
+
+type Scores {
+  scores: [Any]
+  state: String
+}
