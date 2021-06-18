@@ -4,7 +4,7 @@ import { get, set } from './aws';
 
 const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
-const delay = 15;
+const delay = 30;
 
 async function getBlockNum(network) {
   const ts = parseInt((Date.now() / 1e3).toFixed());
