@@ -1,7 +1,11 @@
 import express from 'express';
-import scores from './scores';
+import scores, { blockNumByNetwork } from './scores';
 
 const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.json(blockNumByNetwork);
+});
 
 router.post('/scores', async (req, res) => {
   const { params } = req.body;

@@ -2,7 +2,7 @@ import { createHash } from 'crypto';
 import snapshot from '@snapshot-labs/snapshot.js';
 import { get, set } from './aws';
 
-const blockNumByNetwork = {};
+export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
 const delay = 15;
 
