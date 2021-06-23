@@ -19,12 +19,16 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   tracing: true,
+  introspection: true,
   playground: {
     // @ts-ignore
     shareEnabled: true,
     tabs: [
       {
-        endpoint: 'https://score.snapshot.org/graphql',
+        endpoint:
+          process.env.NODE_ENV === 'production'
+            ? `https://score.snapshot.org/graphql`
+            : 'http://localhost:3000/graphql/',
         query
       }
     ]
