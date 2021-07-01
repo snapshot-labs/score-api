@@ -19,7 +19,7 @@ async function getBlockNum(network) {
   return blockNum;
 }
 
-export default async function(parent, args) {
+export default async function scores(parent, args) {
   const { space = '', strategies, network, addresses } = args;
 
   const key = createHash('sha256')
@@ -36,14 +36,9 @@ export default async function(parent, args) {
   const state = snapshotBlockNum === 'latest' ? 'pending' : 'final';
   let scores;
 
-  if (state === 'final') {
-    console.log('Check cache');
-    scores = await get(key);
-  }
+  if (state === 'final') scores = await get(key);
 
   if (!scores) {
-    console.log('Get scores');
-    // @ts-ignore
     scores = await snapshot.utils.getScoresDirect(
       space,
       strategies,
