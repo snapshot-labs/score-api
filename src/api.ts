@@ -24,7 +24,7 @@ router.post('/scores', async (req, res) => {
       }
     );
   } catch (e) {
-    console.log('Get scores failed', e);
+    console.log('Get scores failed', space, e);
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
