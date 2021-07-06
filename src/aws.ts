@@ -18,7 +18,7 @@ export async function set(key, value) {
   try {
     return await client.putObject({
       Bucket: process.env.AWS_BUCKET_NAME,
-      Key: `public/${key}.json`,
+      Key: `public/snapshot/1/${key}.json`,
       Body: JSON.stringify(value),
       ContentType: 'application/json; charset=utf-8'
     });
@@ -32,7 +32,7 @@ export async function get(key) {
   try {
     const { Body } = await client.getObject({
       Bucket: process.env.AWS_BUCKET_NAME,
-      Key: `public/${key}.json`
+      Key: `public/snapshot/1/${key}.json`
     });
     // @ts-ignore
     const str = await streamToString(Body);
