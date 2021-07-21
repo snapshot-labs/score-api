@@ -1,10 +1,15 @@
 import express from 'express';
 import scores, { blockNumByNetwork } from './scores';
+import strategies from './strategies';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
   res.json(blockNumByNetwork);
+});
+
+router.get('/strategies', (req, res) => {
+  res.json(strategies);
 });
 
 router.post('/scores', async (req, res) => {
