@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "eslint": "^6.7.2",
     "express": "^4.17.1",
+    "node-require-context": "^1.0.0",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
