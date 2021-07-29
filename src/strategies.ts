@@ -8,4 +8,4 @@ export default {
     about: '...from README.md',
     examples: []
   }
-}
+};
