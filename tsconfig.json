@@ -8,5 +8,8 @@
     "strict": true,
     "noImplicitAny": false,
     "resolveJsonModule": true
-  }
+  },
+  "files": [
+    "./typings.d.ts"
+  ]
 }
