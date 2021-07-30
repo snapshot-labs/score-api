@@ -4,7 +4,8 @@
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "build": "tsc",
-    "start": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "start": "node build/src/index.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.18.0",
