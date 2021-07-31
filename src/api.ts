@@ -1,6 +1,7 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/snapshot.js';
 import scores, { blockNumByNetwork } from './scores';
+import { clone } from './utils';
 
 const router = express.Router();
 
@@ -9,7 +10,14 @@ router.get('/', (req, res) => {
 });
 
 router.get('/strategies', (req, res) => {
-  res.json(snapshot.strategies);
+  const strategies = Object.fromEntries(
+    Object.entries(clone(snapshot.strategies)).map(([key, strategy]) => [
+      key,
+      // @ts-ignore
+      { key, ...strategy }
+    ])
+  );
+  res.json(strategies);
 });
 
 router.post('/scores', async (req, res) => {
