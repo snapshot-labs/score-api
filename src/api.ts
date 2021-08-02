@@ -1,5 +1,5 @@
 import express from 'express';
-import snapshot from '@snapshot-labs/snapshot.js';
+import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
 import { clone } from './utils';
 
