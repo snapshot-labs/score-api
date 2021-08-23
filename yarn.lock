@@ -1138,9 +1138,9 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@snapshot-labs/strategies@github:snapshot-labs/snapshot-strategies#master":
+"@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies.git#master":
   version "0.1.0"
-  resolved "https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies.git#daa3a5a545800e5e5d03128f6342d10b3baab28d"
   dependencies:
     "@ethersproject/abi" "^5.0.4"
     "@ethersproject/address" "^5.0.4"
