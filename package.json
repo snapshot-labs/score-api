@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.18.0",
-    "@snapshot-labs/strategies": "https://codeload.github.com/snapshot-labs/snapshot.js/tar.gz/master",
+    "@snapshot-labs/strategies": "https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "eslint": "^6.7.2",
