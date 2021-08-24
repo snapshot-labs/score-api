@@ -1138,9 +1138,9 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@snapshot-labs/strategies@https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master":
+"@snapshot-labs/strategies@github:snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master#8144e6abf762f0617d11eec11912dac72d85c959"
+  resolved "https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master"
   dependencies:
     "@ethersproject/abi" "^5.0.4"
     "@ethersproject/address" "^5.0.4"
@@ -1160,9 +1160,9 @@
     json-to-graphql-query "^2.0.0"
     lodash.set "^4.3.2"
 
-"@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies.git#master":
+"@snapshot-labs/strategies@https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies.git#569a426a5b0dfd6c5fc9f4944dc0110f117d5ee6"
+  resolved "https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master#8144e6abf762f0617d11eec11912dac72d85c959"
   dependencies:
     "@ethersproject/abi" "^5.0.4"
     "@ethersproject/address" "^5.0.4"
