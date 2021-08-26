@@ -1138,31 +1138,9 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@snapshot-labs/strategies@https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master":
-  version "0.1.0"
-  resolved "https://codeload.github.com/snapshot-labs/snapshot-strategies/tar.gz/master"
-  dependencies:
-    "@ethersproject/abi" "^5.0.4"
-    "@ethersproject/address" "^5.0.4"
-    "@ethersproject/bignumber" "^5.0.12"
-    "@ethersproject/bytes" "^5.0.8"
-    "@ethersproject/contracts" "^5.0.3"
-    "@ethersproject/hash" "^5.0.9"
-    "@ethersproject/providers" "^5.3.1"
-    "@ethersproject/solidity" "^5.0.10"
-    "@ethersproject/strings" "^5.0.5"
-    "@ethersproject/units" "^5.0.3"
-    "@ethersproject/wallet" "^5.4.0"
-    "@uniswap/sdk-core" "^3.0.1"
-    "@uniswap/v3-sdk" "^3.3.1"
-    cross-fetch "^3.0.6"
-    eth-ens-namehash "^2.0.8"
-    json-to-graphql-query "^2.0.0"
-    lodash.set "^4.3.2"
-
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#cd77fb9c3876696191f6a7e6f0f045178f01109e"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#master"
   dependencies:
     "@ethersproject/abi" "^5.0.4"
     "@ethersproject/address" "^5.0.4"
@@ -1239,14 +1217,14 @@
   integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
 
 "@types/node@*":
-  version "16.7.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.1.tgz#c6b9198178da504dfca1fd0be9b2e1002f1586f0"
-  integrity sha512-ncRdc45SoYJ2H4eWU9ReDfp3vtFqDYhjOsKlFFUDEn8V1Bgr2RjYal8YT5byfadWIRluhPFU6JiDOl0H6Sl87A==
+  version "16.7.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.2.tgz#0465a39b5456b61a04d98bd5545f8b34be340cb7"
+  integrity "sha1-BGWjm1RWthoE2YvVVF+LNL40DLc= sha512-TbG4TOx9hng8FKxaVrCisdaxKxqEwJ3zwHoCWXZ0Jw6mnvTInpaB99/2Cy4+XxpXtjNv9/TgfGSvZFyfV/t8Fw=="
 
 "@types/node@^14.14.21":
-  version "14.17.11"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.11.tgz#82d266d657aec5ff01ca59f2ffaff1bb43f7bf0f"
-  integrity sha512-n2OQ+0Bz6WEsUjrvcHD1xZ8K+Kgo4cn9/w94s1bJS690QMUWfJPW/m7CCb7gPkA1fcYwL2UpjXP/rq/Eo41m6w==
+  version "14.17.12"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.12.tgz#7a31f720b85a617e54e42d24c4ace136601656c7"
+  integrity "sha1-ejH3ILhaYX5U5C0kxKzhNmAWVsc= sha512-vhUqgjJR1qxwTWV5Ps5txuy2XMdf7Fw+OrdChRboy8BmWUPkckOhphaohzFG6b8DW7CrxaBMdrdJ47SYFq1okw=="
 
 "@types/qs@*":
   version "6.9.7"
