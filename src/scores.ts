@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import snapshot from '@snapshot-labs/strategies';
+import snapshot from '../../snapshot-strategies';
 import { get, set } from './aws';
 
 export const blockNumByNetwork = {};

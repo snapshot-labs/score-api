@@ -9,5 +9,8 @@
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "moduleResolution": "Node"
-  }
+  },
+  "exclude": [
+    "snapshot-strategies"
+  ]
 }

@@ -1,0 +1,3 @@
+[submodule "snapshot-strategies"]
+	path = snapshot-strategies
+	url = https://github.com/snapshot-labs/snapshot-strategies
