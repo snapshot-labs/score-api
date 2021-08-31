@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "nodemon src/index.ts",
     "start": "node build/src/index.js",
-    "preinstall": "git init && git submodule update --init --remote && npm run install-strategies",
+    "preinstall": "git submodule update --init --remote && npm run install-strategies",
     "install-strategies": "cd snapshot-strategies && npm install"
   },
   "dependencies": {
