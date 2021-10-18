@@ -22,8 +22,14 @@ router.get('/strategies', (req, res) => {
 
 router.post('/scores', async (req, res) => {
   const { params } = req.body;
-  const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
-
+  const { space = '', network, snapshot: snapshotBlock = 'latest', addresses } = params;
+  let { strategies } = params;
+  strategies = strategies.map(strategy => {
+    if (snapshot.alias && snapshot.alias[strategy.name]) {
+      strategy.name = snapshot.alias[strategy.name];
+    }
+    return strategy;
+  });
   let result;
   try {
     result = await scores(
@@ -31,7 +37,7 @@ router.post('/scores', async (req, res) => {
       {
         space,
         network,
-        snapshot,
+        snapshot: snapshotBlock,
         strategies,
         addresses
       }
