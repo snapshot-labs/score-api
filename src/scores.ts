@@ -25,7 +25,7 @@ export default async function scores(parent, args) {
   const key = createHash('sha256')
     .update(JSON.stringify(args))
     .digest('hex');
-  console.log('Key', key);
+  console.log('Key', key, JSON.stringify(args));
 
   let snapshotBlockNum = 'latest';
   if (args.snapshot !== 'latest') {
