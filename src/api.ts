@@ -24,6 +24,15 @@ router.post('/scores', async (req, res) => {
   const { params } = req.body;
   const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
 
+  if (strategies.map(strategy => strategy.name).includes('pod-leader'))
+    return res.status(500).json({
+      jsonrpc: '2.0',
+      error: {
+        code: 500,
+        data: 'something wrong with the strategies'
+      }
+    });
+
   let result;
   try {
     result = await scores(
