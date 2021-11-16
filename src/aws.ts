@@ -1,7 +1,7 @@
 import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
 
-const cb = '5';
+const cb = '6';
 
 async function streamToString(stream: Readable): Promise<string> {
   return await new Promise((resolve, reject) => {
