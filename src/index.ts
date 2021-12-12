@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json({ limit: '8mb' }));
 app.use(bodyParser.urlencoded({ limit: '8mb', extended: false }));
 app.use(cors({ maxAge: 86400 }));
+app.set('trust proxy', 1);
 app.use(rateLimit);
 app.use('/api', api);
 
