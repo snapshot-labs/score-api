@@ -1,5 +1,6 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
+import { cacheMiddleware } from './cache';
 import scores, { blockNumByNetwork } from './scores';
 import { clone } from './utils';
 
@@ -20,7 +21,7 @@ router.get('/strategies', (req, res) => {
   res.json(strategies);
 });
 
-router.post('/scores', async (req, res) => {
+router.post('/scores', cacheMiddleware, async (req, res) => {
   const { params } = req.body;
   const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
 
