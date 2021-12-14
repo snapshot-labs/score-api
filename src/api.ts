@@ -26,7 +26,7 @@ router.post('/scores', cacheMiddleware, async (req, res) => {
   const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
 
   const strategyNames = strategies.map(strategy => strategy.name);
-  if (strategyNames.includes('pod-leader') || strategyNames.includes('biswap'))
+  if (strategyNames.includes('pod-leader'))
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
