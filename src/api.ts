@@ -24,9 +24,10 @@ router.get('/strategies', (req, res) => {
 router.post('/scores', pendingRequestsHandler, async (req, res) => {
   const { params } = req.body;
   const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
-
   const strategyNames = strategies.map(strategy => strategy.name);
-  if (strategyNames.includes('pod-leader'))
+  console.log('Request:', space, network, strategyNames);
+
+  if (space === 'revotu.eth' || strategyNames.includes('pod-leader'))
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {

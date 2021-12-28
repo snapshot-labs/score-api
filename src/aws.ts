@@ -1,7 +1,7 @@
 import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
 
-const cb = '7';
+const cb = '9';
 
 async function streamToString(stream: Readable): Promise<string> {
   return await new Promise((resolve, reject) => {
@@ -25,7 +25,7 @@ export async function set(key, value) {
       ContentType: 'application/json; charset=utf-8'
     });
   } catch (e) {
-    console.log(e);
+    console.log('Store cache failed', e);
     throw e;
   }
 }
