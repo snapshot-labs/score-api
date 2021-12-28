@@ -1,7 +1,9 @@
 import { createHash } from 'crypto';
+import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
 
+const eventEmitter = new events.EventEmitter();
 export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
 const delay = 30;
@@ -19,14 +21,8 @@ async function getBlockNum(network) {
   return blockNum;
 }
 
-export default async function scores(parent, args) {
+async function calculateScores(args, key) {
   const { space = '', strategies, network, addresses } = args;
-
-  const key = createHash('sha256')
-    .update(JSON.stringify(args))
-    .digest('hex');
-  // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
-
   let snapshotBlockNum = 'latest';
   if (args.snapshot !== 'latest') {
     const currentBlockNum = await getBlockNum(network);
@@ -59,4 +55,22 @@ export default async function scores(parent, args) {
     state,
     scores
   };
+}
+
+export default async function scores(parent, args) {
+  const key = createHash('sha256')
+    .update(JSON.stringify(args))
+    .digest('hex');
+  // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
+
+  return new Promise(async resolve => {
+    // Wait for scores to be calculated
+    eventEmitter.once(key, data => resolve(data));
+    console.log(eventEmitter.listenerCount(key));
+    // If this request is the first one, calculate scores
+    if (eventEmitter.listenerCount(key) === 1) {
+      const scoresData = await calculateScores(args, key);
+      eventEmitter.emit(key, scoresData);
+    }
+  });
 }

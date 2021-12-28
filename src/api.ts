@@ -1,6 +1,5 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
-import { pendingRequestsHandler } from './helpers/pendingRequests';
 import scores, { blockNumByNetwork } from './scores';
 import { clone } from './utils';
 
@@ -21,7 +20,7 @@ router.get('/strategies', (req, res) => {
   res.json(strategies);
 });
 
-router.post('/scores', pendingRequestsHandler, async (req, res) => {
+router.post('/scores', async (req, res) => {
   const { params } = req.body;
   const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
   const strategyNames = strategies.map(strategy => strategy.name);
