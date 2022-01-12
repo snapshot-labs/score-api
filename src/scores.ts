@@ -66,7 +66,6 @@ export default async function scores(parent, args) {
   return new Promise(async resolve => {
     // Wait for scores to be calculated
     eventEmitter.once(key, data => resolve(data));
-    console.log(eventEmitter.listenerCount(key));
     // If this request is the first one, calculate scores
     if (eventEmitter.listenerCount(key) === 1) {
       const scoresData = await calculateScores(args, key);
