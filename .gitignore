@@ -2,7 +2,6 @@
 node_modules
 dist
 build
-*/**/build
 
 # Remove some common IDE working directories
 .idea
