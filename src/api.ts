@@ -24,7 +24,6 @@ router.post('/scores', async (req, res) => {
   const { params } = req.body;
   const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
   const strategyNames = strategies.map(strategy => strategy.name);
-  console.log('Request:', space, network, strategyNames);
 
   if (space === 'revotu.eth' || strategyNames.includes('pod-leader'))
     return res.status(500).json({

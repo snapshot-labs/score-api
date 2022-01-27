@@ -27,6 +27,8 @@ export default async function scores(parent, args) {
     .digest('hex');
   // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
 
+  console.log('Request:', space, network, key);
+
   let snapshotBlockNum = 'latest';
   if (args.snapshot !== 'latest') {
     const currentBlockNum = await getBlockNum(network);
