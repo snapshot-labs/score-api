@@ -1,6 +1,6 @@
-import { createHash } from 'crypto';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
+import { paginateStrategies, sha256 } from './utils';
 
 export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
@@ -22,9 +22,7 @@ async function getBlockNum(network) {
 export default async function scores(parent, args) {
   const { space = '', strategies, network, addresses } = args;
 
-  const key = createHash('sha256')
-    .update(JSON.stringify(args))
-    .digest('hex');
+  const key = sha256(JSON.stringify(args));
   // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
 
   console.log('Request:', space, network, key);
@@ -41,9 +39,10 @@ export default async function scores(parent, args) {
   if (state === 'final') scores = await get(key);
 
   if (!scores) {
+    const strategiesWithPagination = paginateStrategies(space, network, strategies);
     scores = await snapshot.utils.getScoresDirect(
       space,
-      strategies,
+      strategiesWithPagination,
       network,
       snapshot.utils.getProvider(network),
       addresses,

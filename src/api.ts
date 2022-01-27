@@ -1,7 +1,7 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
-import { clone } from './utils';
+import { clone, sha256 } from './utils';
 
 const router = express.Router();
 
@@ -47,7 +47,8 @@ router.post('/scores', async (req, res) => {
       }
     );
   } catch (e) {
-    console.log('Get scores failed', network, space, JSON.stringify(e).slice(0, 256));
+    const strategiesHashes = strategies.map(strategy => sha256(JSON.stringify({ space, network, strategy })));
+    console.log('Get scores failed', network, space, JSON.stringify(e).slice(0, 256), strategiesHashes);
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
