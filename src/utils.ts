@@ -12,7 +12,7 @@ export function sha256(str) {
 }
 
 export function paginateStrategies(space, network, strategies) {
-  return strategies.forEach(strategy => {
+  return strategies.map(strategy => {
     const key = sha256(JSON.stringify({ space, network, strategy }));
     if (pagination[key]) {
       console.log('Custom pagination', space, key, pagination[key]);
