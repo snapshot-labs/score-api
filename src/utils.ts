@@ -15,7 +15,7 @@ export function paginateStrategies(space, network, strategies) {
   return strategies.forEach(strategy => {
     const key = sha256(JSON.stringify({ space, network, strategy }));
     if (pagination[key]) {
-      console.log('Custom pagination', key, pagination[key]);
+      console.log('Custom pagination', space, key, pagination[key]);
       return {
         name: 'pagination',
         params: {
