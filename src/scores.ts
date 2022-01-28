@@ -23,12 +23,6 @@ async function getBlockNum(network) {
 
 async function calculateScores(args, key) {
   const { space = '', strategies, network, addresses } = args;
-
-  const key = createHash('sha256')
-    .update(JSON.stringify(args))
-    .digest('hex');
-  // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
-
   console.log('Request:', space, network, key);
 
   let snapshotBlockNum = 'latest';
