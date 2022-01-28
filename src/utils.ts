@@ -38,8 +38,10 @@ const networks = {
 
 export async function tsToBlockNum(network, ts) {
   const provider = snapshot.utils.getProvider(network);
-  let from = await provider.getBlock(networks[network] || 1);
-  let to = await provider.getBlock('latest');
+  let [from, to] = await Promise.all([
+    provider.getBlock(networks[network] || 1),
+    provider.getBlock('latest')
+  ]);
   if (ts > to.timestamp) return 'latest';
   if (ts < from.timestamp) return 0;
 
