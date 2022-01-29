@@ -37,7 +37,9 @@ async function calculateScores(args, key) {
 
   if (state === 'final') scores = await get(key);
 
+  let cache = true;
   if (!scores) {
+    cache = false;
     const strategiesWithPagination = paginateStrategies(space, network, strategies);
     scores = await snapshot.utils.getScoresDirect(
       space,
@@ -57,6 +59,7 @@ async function calculateScores(args, key) {
 
   return {
     state,
+    cache,
     scores
   };
 }
