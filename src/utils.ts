@@ -33,15 +33,13 @@ export function paginateStrategies(space, network, strategies) {
 const networks = {
   '1': 7929876,
   '137': 9834491,
-  '100': 4108192
+  '100': 4108192,
+  '42161': 256508
 };
 
 export async function tsToBlockNum(network, ts) {
   const provider = snapshot.utils.getProvider(network);
-  let [from, to] = await Promise.all([
-    provider.getBlock(networks[network] || 1),
-    provider.getBlock('latest')
-  ]);
+  let [from, to] = await Promise.all([provider.getBlock(networks[network] || 1), provider.getBlock('latest')]);
   if (ts > to.timestamp) return 'latest';
   if (ts < from.timestamp) return 0;
 

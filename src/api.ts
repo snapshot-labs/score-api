@@ -2,6 +2,7 @@ import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
 import { clone, sha256, tsToBlockNum } from './utils';
+import client from './redis';
 
 const router = express.Router();
 
@@ -13,8 +14,24 @@ router.get('/block', async (req, res) => {
   let networks: any = req.query.network || '1';
   const ts = req.query.ts || 1640300930;
   if (!Array.isArray(networks)) networks = [networks];
-  const blockNums = await Promise.all(networks.map(network => tsToBlockNum(network, ts)));
-  res.json(Object.fromEntries(blockNums.map((blockNum, i) => [networks[i], blockNum])));
+
+  // Check cache
+  const cache: any = await client.hGetAll(`blocks:${ts}`);
+
+  const p: any[] = [];
+  networks.map(network => {
+    p.push(cache[network] ? parseInt(cache[network]) : tsToBlockNum(network, ts));
+  });
+  const blockNums = await Promise.all(p);
+  const blockNumsObj = Object.fromEntries(blockNums.map((blockNum, i) => [networks[i], blockNum]));
+  res.json(blockNumsObj);
+
+  // Cache results
+  const multi = client.multi();
+  Object.entries(blockNumsObj).forEach(([network, blockNum]: any) => {
+    if (![0, 'error', 'latest'].includes(blockNum)) multi.hSet(`blocks:${ts}`, network, blockNum);
+  });
+  await multi.exec();
 });
 
 router.get('/strategies', (req, res) => {
