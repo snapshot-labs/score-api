@@ -38,7 +38,9 @@ export default async function scores(parent, args) {
 
   if (state === 'final') scores = await get(key);
 
+  let cache = true;
   if (!scores) {
+    cache = false;
     const strategiesWithPagination = paginateStrategies(space, network, strategies);
     scores = await snapshot.utils.getScoresDirect(
       space,
@@ -58,6 +60,7 @@ export default async function scores(parent, args) {
 
   return {
     state,
+    cache,
     scores
   };
 }
