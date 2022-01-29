@@ -61,7 +61,7 @@ export async function tsToBlockNum(network, ts) {
     blockNums.push(trialBlockNum);
     let leftSpace = Math.ceil((trialBlockNum - from.number) / 2);
     let rightSpace = Math.ceil((to.number - trialBlockNum) / 2);
-    Array.from(Array(12)).forEach(() => {
+    Array.from(Array(24)).forEach(() => {
       blockNums.push(trialBlockNum - leftSpace);
       blockNums.push(trialBlockNum + rightSpace);
       leftSpace = Math.ceil(leftSpace / 2);
