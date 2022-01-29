@@ -22,7 +22,16 @@ router.get('/block', async (req, res) => {
   networks.map(network => {
     p.push(cache[network] ? parseInt(cache[network]) : tsToBlockNum(network, ts));
   });
-  const blockNums = await Promise.all(p);
+  let blockNums: number[] = [];
+
+  try {
+    blockNums = await Promise.all(p);
+  } catch (e) {
+    return res.status(500).json({
+      jsonrpc: '2.0',
+      error: { code: 500 }
+    });
+  }
   const blockNumsObj = Object.fromEntries(blockNums.map((blockNum, i) => [networks[i], blockNum]));
   res.json(blockNumsObj);
 
