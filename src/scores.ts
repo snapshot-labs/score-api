@@ -72,13 +72,17 @@ export default async function scores(parent, args) {
     .digest('hex');
   // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
 
-  return new Promise(async resolve => {
+  return new Promise(async (resolve, reject) => {
     // Wait for scores to be calculated
-    eventEmitter.once(key, data => resolve(data));
+    eventEmitter.once(key, data => data.error ? reject(data.e) : resolve(data));
     // If this request is the first one, calculate scores
     if (eventEmitter.listenerCount(key) === 1) {
-      const scoresData = await calculateScores(args, key);
-      eventEmitter.emit(key, scoresData);
+      try {
+        const scoresData = await calculateScores(args, key);
+        eventEmitter.emit(key, scoresData);
+      } catch(e) {
+        eventEmitter.emit(key, {error: true, e});
+      }
     }
   });
 }
