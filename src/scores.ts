@@ -5,8 +5,8 @@ import { get, set } from './aws';
 import { paginateStrategies, sha256 } from './utils';
 
 const eventEmitter = new events.EventEmitter();
-// https://stackoverflow.com/a/9768586
-eventEmitter.setMaxListeners(100);
+// https://stackoverflow.com/a/26176922
+eventEmitter.setMaxListeners(1000);
 export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
 const delay = 30;
