@@ -6,7 +6,7 @@ import { paginateStrategies, sha256 } from './utils';
 
 const eventEmitter = new events.EventEmitter();
 // https://stackoverflow.com/a/9768586
-process.setMaxListeners(0);
+eventEmitter.setMaxListeners(100);
 export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
 const delay = 30;
