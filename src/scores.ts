@@ -2,6 +2,7 @@ import { createHash } from 'crypto';
 import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
+import { paginateStrategies, sha256 } from './utils';
 
 const eventEmitter = new events.EventEmitter();
 export const blockNumByNetwork = {};
@@ -37,9 +38,10 @@ async function calculateScores(args, key) {
   if (state === 'final') scores = await get(key);
 
   if (!scores) {
+    const strategiesWithPagination = paginateStrategies(space, network, strategies);
     scores = await snapshot.utils.getScoresDirect(
       space,
-      strategies,
+      strategiesWithPagination,
       network,
       snapshot.utils.getProvider(network),
       addresses,
