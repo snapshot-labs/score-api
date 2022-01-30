@@ -22,6 +22,7 @@ router.get('/strategies', (req, res) => {
 
 router.post('/scores', async (req, res) => {
   const { params } = req.body;
+  const requestId = req.headers['x-request-id'];
   const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
   const strategyNames = strategies.map(strategy => strategy.name);
 
@@ -37,7 +38,7 @@ router.post('/scores', async (req, res) => {
   let result;
   try {
     result = await scores(
-      {},
+      {requestId},
       {
         space,
         network,
@@ -48,7 +49,7 @@ router.post('/scores', async (req, res) => {
     );
   } catch (e) {
     const strategiesHashes = strategies.map(strategy => sha256(JSON.stringify({ space, network, strategy })));
-    console.log('Get scores failed', network, space, JSON.stringify(e).slice(0, 256), strategiesHashes);
+    console.log('Get scores failed', network, space, JSON.stringify(e).slice(0, 256), strategiesHashes, requestId);
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
