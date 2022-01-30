@@ -74,14 +74,14 @@ export default async function scores(parent, args) {
 
   return new Promise(async (resolve, reject) => {
     // Wait for scores to be calculated
-    eventEmitter.once(key, data => data.error ? reject(data.e) : resolve(data));
+    eventEmitter.once(key, data => (data.error ? reject(data.e) : resolve(data)));
     // If this request is the first one, calculate scores
     if (eventEmitter.listenerCount(key) === 1) {
       try {
         const scoresData = await calculateScores(args, key);
         eventEmitter.emit(key, scoresData);
-      } catch(e) {
-        eventEmitter.emit(key, {error: true, e});
+      } catch (e) {
+        eventEmitter.emit(key, { error: true, e });
       }
     }
   });
