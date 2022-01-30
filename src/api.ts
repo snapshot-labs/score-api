@@ -25,7 +25,7 @@ router.post('/scores', async (req, res) => {
   const { space = '', network, snapshot = 'latest', strategies, addresses } = params;
   const strategyNames = strategies.map(strategy => strategy.name);
 
-  if (['revotu.eth', 'bestfork.eth'].includes(space) || strategyNames.includes('pod-leader'))
+  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader'))
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
