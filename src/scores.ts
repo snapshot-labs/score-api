@@ -13,7 +13,7 @@ const providers = {};
 
 function getProvider(network: string) {
   const url: any = networks[network].rpc[0];
-  const connectionInfo = typeof url === 'object' ? {...url, timeout: 30000} : {url, timeout: 30000};
+  const connectionInfo = typeof url === 'object' ? {...url, timeout: 25000} : {url, timeout: 25000};
   if (!providers[network]) providers[network] = new StaticJsonRpcProvider(connectionInfo);
   return providers[network];
 }
