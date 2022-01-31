@@ -24,9 +24,9 @@ async function getBlockNum(network) {
   return blockNum;
 }
 
-async function calculateScores(args, key) {
+async function calculateScores(parent, args, key) {
   const { space = '', strategies, network, addresses } = args;
-  console.log('Request:', space, network, key);
+  console.log('Request:', space, network, key, parent.requestId);
 
   let snapshotBlockNum = 'latest';
   if (args.snapshot !== 'latest') {
@@ -78,7 +78,7 @@ export default async function scores(parent, args) {
     // If this request is the first one, calculate scores
     if (eventEmitter.listenerCount(key) === 1) {
       try {
-        const scoresData = await calculateScores(args, key);
+        const scoresData = await calculateScores(parent, args, key);
         eventEmitter.emit(key, scoresData);
       } catch (e) {
         eventEmitter.emit(key, { error: true, e });
