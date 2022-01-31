@@ -10,6 +10,7 @@ eventEmitter.setMaxListeners(1000);
 export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
 const delay = 30;
+const withCache = !!process.env.AWS_REGION;
 
 async function getBlockNum(network) {
   const ts = parseInt((Date.now() / 1e3).toFixed());
@@ -37,7 +38,7 @@ async function calculateScores(parent, args, key) {
   const state = snapshotBlockNum === 'latest' ? 'pending' : 'final';
   let scores;
 
-  if (state === 'final') scores = await get(key);
+  if (withCache && state === 'final') scores = await get(key);
 
   let cache = true;
   if (!scores) {
@@ -52,7 +53,7 @@ async function calculateScores(parent, args, key) {
       snapshotBlockNum
     );
 
-    if (state === 'final') {
+    if (withCache && state === 'final') {
       set(key, scores).then(() => {
         // console.log('Stored!');
       });
