@@ -27,7 +27,7 @@ async function getBlockNum(network) {
 
 async function calculateScores(parent, args, key) {
   const { space = '', strategies, network, addresses } = args;
-  console.log('Request:', space, network, key, parent.requestId);
+  console.log('Request:', space, network, parent.strategyNames, key, parent.requestId);
 
   let snapshotBlockNum = 'latest';
   if (args.snapshot !== 'latest') {
