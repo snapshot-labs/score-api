@@ -38,7 +38,10 @@ router.post('/scores', async (req, res) => {
   let result;
   try {
     result = await scores(
-      { requestId },
+      {
+        requestId,
+        strategyNames
+      },
       {
         space,
         network,
