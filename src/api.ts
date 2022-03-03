@@ -21,7 +21,7 @@ router.get('/strategies', (req, res) => {
 });
 
 router.post('/scores', async (req, res) => {
-  const { params } = req.body;
+  const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];
   const { space = '', network, snapshot = 'latest', strategies = [], addresses = [] } = params;
   const strategyNames = strategies.map(strategy => strategy.name);
