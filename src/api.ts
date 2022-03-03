@@ -23,7 +23,9 @@ router.get('/strategies', (req, res) => {
 router.post('/scores', async (req, res) => {
   const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];
-  const { space = '', network, snapshot = 'latest', strategies = [], addresses = [] } = params;
+  const { space = '', network, snapshot = 'latest', addresses = [] } = params;
+  let { strategies = [] } = params;
+  strategies = Array.isArray(strategies) ? strategies : [];
   const strategyNames = strategies.map(strategy => strategy.name);
 
   if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader'))

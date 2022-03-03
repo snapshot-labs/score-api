@@ -68,9 +68,7 @@ async function calculateScores(parent, args, key) {
 }
 
 export default async function scores(parent, args) {
-  const key = createHash('sha256')
-    .update(JSON.stringify(args))
-    .digest('hex');
+  const key = sha256(JSON.stringify(args));
   // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
 
   return new Promise(async (resolve, reject) => {
