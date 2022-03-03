@@ -2,7 +2,7 @@ import { createHash } from 'crypto';
 import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
-import { paginateStrategies, sha256 } from './utils';
+import { paginateStrategies } from './utils';
 
 const eventEmitter = new events.EventEmitter();
 // https://stackoverflow.com/a/26176922
