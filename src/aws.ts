@@ -1,7 +1,11 @@
 import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
 
-const cb = '9';
+const cb = '10';
+
+let client;
+const region = process.env.AWS_REGION;
+if (region) client = new AWS.S3({ region });
 
 async function streamToString(stream: Readable): Promise<string> {
   return await new Promise((resolve, reject) => {
@@ -11,10 +15,6 @@ async function streamToString(stream: Readable): Promise<string> {
     stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')));
   });
 }
-
-const client = new AWS.S3({
-  region: process.env.AWS_REGION
-});
 
 export async function set(key, value) {
   try {
