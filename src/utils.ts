@@ -18,6 +18,7 @@ export function paginateStrategies(space, network, strategies) {
       console.log('Custom pagination', space, key, pagination[key]);
       return {
         name: 'pagination',
+        network: strategy.network || network,
         params: {
           limit: pagination[key],
           symbol: strategy.params.symbol || '',
