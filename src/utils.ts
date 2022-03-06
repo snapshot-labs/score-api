@@ -15,12 +15,12 @@ export function paginateStrategies(space, network, strategies) {
   return strategies.map(strategy => {
     const key = sha256(JSON.stringify({ space, network, strategy }));
     if (pagination[key]) {
-      console.log('Custom pagination', space, key, pagination[key]);
+      console.log('Custom pagination', space, key, pagination[key].value);
       return {
         name: 'pagination',
         network: strategy.network || network,
         params: {
-          limit: pagination[key],
+          limit: pagination[key].value,
           symbol: strategy.params.symbol || '',
           strategy
         }
