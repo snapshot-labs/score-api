@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import pagination from './pagination.json';
+import pagination from './pagination';
 
 export function clone(item) {
   return JSON.parse(JSON.stringify(item));

@@ -1,4 +1,3 @@
-import { createHash } from 'crypto';
 import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
