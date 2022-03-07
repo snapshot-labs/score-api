@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import pagination from './pagination.json';
+import pagination from './pagination';
 
 export function clone(item) {
   return JSON.parse(JSON.stringify(item));
@@ -15,12 +15,12 @@ export function paginateStrategies(space, network, strategies) {
   return strategies.map(strategy => {
     const key = sha256(JSON.stringify({ space, network, strategy }));
     if (pagination[key]) {
-      console.log('Custom pagination', space, key, pagination[key].value);
+      console.log('Custom pagination', space, key, pagination[key]);
       return {
         name: 'pagination',
         network: strategy.network || network,
         params: {
-          limit: pagination[key].value,
+          limit: pagination[key],
           symbol: strategy.params.symbol || '',
           strategy
         }
