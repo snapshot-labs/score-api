@@ -17,7 +17,8 @@ const pagination: { [key: string]: number } = {
   dcc5a5e12cbdb193906e843b1e72a57c98011d2f3f9088e0e2a316d336907d33: 100,
   b2364d1a796e976e386f264877b97587d0a59e02ae7ed7309e6b94eb5cdfed51: 100,
   a499e620346f465fa1d200c62f593187b1a7febe33c50bdb901885293d16f3ae: 100, // space: 'cryptogs.eth', proposal: 'QmQ9wCEpSf53WofReDpmJZUmAW74RzWd6T9BtLod3tUUMb'
-  '5e1002368bb94b4785ab2a9937ef7bf989bb59867d230c576ed78a6f2bb6c6da': 1 // space: 'quickvote.eth', proposal: '0xaaf6615bc324208d1d0184d5eb1ead812a21695e2c16aabc1e18c82262a7ec1c'
+  '5e1002368bb94b4785ab2a9937ef7bf989bb59867d230c576ed78a6f2bb6c6da': 1, // space: 'quickvote.eth', proposal: '0xaaf6615bc324208d1d0184d5eb1ead812a21695e2c16aabc1e18c82262a7ec1c'
+  c5d5cf41c212c3a3207f37a3a636ca459008b8a2cb8d8d15ab4f93fa489314de: 100 // space: 'cryptogs.eth', proposal: 'QmVsbQwCxwGi69zJ9WYQC2RHPQAnQgNmiM6SnxYJnygYsm'
 };
 
 export default pagination;
