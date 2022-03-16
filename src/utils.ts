@@ -29,3 +29,14 @@ export function paginateStrategies(space, network, strategies) {
     return strategy;
   });
 }
+
+export function sortObjectByParam(obj) {
+  // sort object by param name
+  const sortedObj = {};
+  Object.keys(obj)
+    .sort()
+    .forEach(function(key) {
+      sortedObj[key] = obj[key];
+    });
+  return sortedObj;
+}
