@@ -54,7 +54,7 @@ router.post('/scores', async (req, res) => {
     );
   } catch (e) {
     const strategiesHashes = strategies.map(strategy => sha256(JSON.stringify({ space, network, strategy })));
-    console.log('Get scores failed', network, space, JSON.stringify(e).slice(0, 256), strategiesHashes, requestId);
+    console.log('Get scores failed', network, space, strategies, JSON.stringify(e).slice(0, 256), strategiesHashes, requestId);
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
