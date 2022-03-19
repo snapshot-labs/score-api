@@ -27,6 +27,8 @@ router.post('/scores', async (req, res) => {
   let { strategies = [] } = params;
   // strategy parameters should be same order to maintain consistent key hashes
   strategies = Array.isArray(strategies) ? strategies.map(sortObjectByParam) : [];
+  // Limit to 8 strategies
+  strategies = strategies.slice(0,8)
   const strategyNames = strategies.map(strategy => strategy.name);
 
   if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategies.length === 0)
