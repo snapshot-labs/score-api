@@ -23,13 +23,13 @@ router.get('/strategies', (req, res) => {
 router.post('/scores', async (req, res) => {
   const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];
-  const { space = '', network, snapshot = 'latest', addresses = [] } = params;
+  const { space = '', network = '1', snapshot = 'latest', addresses = [] } = params;
   let { strategies = [] } = params;
   // strategy parameters should be same order to maintain consistent key hashes
   strategies = Array.isArray(strategies) ? strategies.map(sortObjectByParam) : [];
   const strategyNames = strategies.map(strategy => strategy.name);
 
-  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader'))
+  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategies.length === 0)
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
