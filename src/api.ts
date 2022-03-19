@@ -31,7 +31,7 @@ router.post('/scores', async (req, res) => {
   strategies = strategies.slice(0,8)
   const strategyNames = strategies.map(strategy => strategy.name);
 
-  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategies.length === 0)
+  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategyNames.includes('cake') || strategies.length === 0)
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
