@@ -29,12 +29,12 @@ router.post('/scores', async (req, res) => {
   strategies = Array.isArray(strategies) ? strategies.map(sortObjectByParam) : [];
   const strategyNames = strategies.map(strategy => strategy.name);
 
-  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategies.length === 0)
+  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategies.length === 0 || strategies.length > 8)
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
         code: 500,
-        data: 'something wrong with the strategies'
+        data: strategies.length > 8 ? 'strategy limit exceeded' : 'something wrong with the strategies'
       }
     });
 
