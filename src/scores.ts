@@ -2,6 +2,7 @@ import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
 import { paginateStrategies, sha256 } from './utils';
+import getProvider from './provider';
 
 const eventEmitter = new events.EventEmitter();
 // https://stackoverflow.com/a/26176922
@@ -15,7 +16,7 @@ async function getBlockNum(network) {
   const ts = parseInt((Date.now() / 1e3).toFixed());
   if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay) return blockNumByNetwork[network];
 
-  const provider = snapshot.utils.getProvider(network);
+  const provider = getProvider(network);
   const blockNum = await provider.getBlockNumber();
 
   blockNumByNetwork[network] = blockNum;
@@ -47,7 +48,7 @@ async function calculateScores(parent, args, key) {
       space,
       strategiesWithPagination,
       network,
-      snapshot.utils.getProvider(network),
+      getProvider(network),
       addresses,
       snapshotBlockNum
     );
