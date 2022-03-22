@@ -1,7 +1,7 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
-import { clone, sha256 } from './utils';
+import { clone, sha256, sortObjectByParam } from './utils';
 
 const router = express.Router();
 
@@ -21,12 +21,17 @@ router.get('/strategies', (req, res) => {
 });
 
 router.post('/scores', async (req, res) => {
-  const { params } = req.body;
+  const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];
-  const { space = '', network, snapshot = 'latest', strategies = [], addresses = [] } = params;
+  const { space = '', network = '1', snapshot = 'latest', addresses = [] } = params;
+  let { strategies = [] } = params;
+  // strategy parameters should be same order to maintain consistent key hashes
+  strategies = Array.isArray(strategies) ? strategies.map(sortObjectByParam) : [];
+  // Limit to 8 strategies
+  strategies = strategies.slice(0,8)
   const strategyNames = strategies.map(strategy => strategy.name);
 
-  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader'))
+  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategyNames.includes('cake') || strategies.length === 0)
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {
@@ -52,7 +57,15 @@ router.post('/scores', async (req, res) => {
     );
   } catch (e) {
     const strategiesHashes = strategies.map(strategy => sha256(JSON.stringify({ space, network, strategy })));
-    console.log('Get scores failed', network, space, JSON.stringify(e).slice(0, 256), strategiesHashes, requestId);
+    console.log(
+      'Get scores failed',
+      network,
+      space,
+      JSON.stringify(strategies),
+      JSON.stringify(e).slice(0, 256),
+      strategiesHashes,
+      requestId
+    );
     return res.status(500).json({
       jsonrpc: '2.0',
       error: {

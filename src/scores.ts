@@ -1,4 +1,3 @@
-import { createHash } from 'crypto';
 import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
@@ -27,7 +26,7 @@ async function getBlockNum(network) {
 
 async function calculateScores(parent, args, key) {
   const { space = '', strategies, network, addresses } = args;
-  console.log('Request:', space, network, parent.strategyNames, key, parent.requestId);
+  console.log('Request:', space, network, JSON.stringify(parent.strategyNames), key, parent.requestId);
 
   let snapshotBlockNum = 'latest';
   if (args.snapshot !== 'latest') {
@@ -68,9 +67,7 @@ async function calculateScores(parent, args, key) {
 }
 
 export default async function scores(parent, args) {
-  const key = createHash('sha256')
-    .update(JSON.stringify(args))
-    .digest('hex');
+  const key = sha256(JSON.stringify(args));
   // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
 
   return new Promise(async (resolve, reject) => {

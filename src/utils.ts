@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import pagination from './pagination.json';
+import pagination from './pagination';
 
 export function clone(item) {
   return JSON.parse(JSON.stringify(item));
@@ -28,4 +28,15 @@ export function paginateStrategies(space, network, strategies) {
     }
     return strategy;
   });
+}
+
+export function sortObjectByParam(obj) {
+  // sort object by param name
+  const sortedObj = {};
+  Object.keys(obj)
+    .sort()
+    .forEach(function(key) {
+      sortedObj[key] = obj[key];
+    });
+  return sortedObj;
 }
