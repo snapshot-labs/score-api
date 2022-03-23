@@ -1,4 +1,4 @@
-const pagination: { [key: string]: number } = {
+export default {
   '3210044a56e6b1bdfa1c05be6147d708e5d92e3b34390db6261d3ee134fda5df': 6,
   '04da6c880ebec9f702645245df335dcb0007a04287929e0e12343a40c3a70c4f': 240,
   '52eab768c31dff6c4df6406e46fdd0511796ce19455b28c0dd6c4c35d9bb3e32': 24,
@@ -19,7 +19,6 @@ const pagination: { [key: string]: number } = {
   a499e620346f465fa1d200c62f593187b1a7febe33c50bdb901885293d16f3ae: 100, // space: 'cryptogs.eth', proposal: 'QmQ9wCEpSf53WofReDpmJZUmAW74RzWd6T9BtLod3tUUMb'
   '5e1002368bb94b4785ab2a9937ef7bf989bb59867d230c576ed78a6f2bb6c6da': 1, // space: 'quickvote.eth', proposal: '0xaaf6615bc324208d1d0184d5eb1ead812a21695e2c16aabc1e18c82262a7ec1c'
   c5d5cf41c212c3a3207f37a3a636ca459008b8a2cb8d8d15ab4f93fa489314de: 100, // space: 'cryptogs.eth', proposal: 'QmVsbQwCxwGi69zJ9WYQC2RHPQAnQgNmiM6SnxYJnygYsm'
-  dab80917618a9c7de14df2d7b1a6c82fe291b86081cf8dff7d80e1ae25834f63: 175 // space: 'mmfinance.eth', proposal: '0x8fa96903c9a26119b25401dbf45e1b960ee898bca549a51e4c18bc1b4e4eb988'
+  dab80917618a9c7de14df2d7b1a6c82fe291b86081cf8dff7d80e1ae25834f63: 175, // space: 'mmfinance.eth', proposal: '0x8fa96903c9a26119b25401dbf45e1b960ee898bca549a51e4c18bc1b4e4eb988'
+  '975772cdfe213993585d07d67f2555895c39daa0aa3843a2160be14cfda72b92': 150 // space: cow.eth
 };
-
-export default pagination;
