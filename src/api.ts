@@ -34,7 +34,6 @@ router.post('/scores', async (req, res) => {
   if (
     ['revotu.eth'].includes(space) ||
     strategyNames.includes('pod-leader') ||
-    strategyNames.includes('cake') ||
     strategies.length === 0
   )
     return res.status(500).json({
