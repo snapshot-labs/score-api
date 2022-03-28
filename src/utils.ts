@@ -30,14 +30,7 @@ export function paginateStrategies(space, network, strategies) {
   });
 }
 
-export function updateStrategyNetwork(network) {
-  return strategy => {
-    strategy.network = strategy.network || network;
-    return strategy;
-  };
-}
-
-export function sortObjectByParam(obj) {
+function sortObjectByParam(obj) {
   // sort object by param name
   const sortedObj = {};
   Object.keys(obj)
@@ -46,4 +39,16 @@ export function sortObjectByParam(obj) {
       sortedObj[key] = obj[key];
     });
   return sortedObj;
+}
+
+export function formatStrategies(strategies: Array<any> = [], network) {
+  strategies = Array.isArray(strategies) ? strategies : [];
+  // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to 8 strategies
+  return strategies
+    .map(strategy => ({
+      ...strategy,
+      network: strategy.network || network
+    }))
+    .map(sortObjectByParam)
+    .slice(0, 8);
 }
