@@ -1,7 +1,7 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
-import { clone, sha256, sortObjectByParam } from './utils';
+import { clone, sha256, formatStrategies } from './utils';
 
 const router = express.Router();
 
@@ -25,10 +25,7 @@ router.post('/scores', async (req, res) => {
   const requestId = req.headers['x-request-id'];
   const { space = '', network = '1', snapshot = 'latest', addresses = [] } = params;
   let { strategies = [] } = params;
-  // strategy parameters should be same order to maintain consistent key hashes
-  strategies = Array.isArray(strategies) ? strategies.map(sortObjectByParam) : [];
-  // Limit to 8 strategies
-  strategies = strategies.slice(0, 8);
+  strategies = formatStrategies(strategies, network);
   const strategyNames = strategies.map(strategy => strategy.name);
 
   if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategies.length === 0)
