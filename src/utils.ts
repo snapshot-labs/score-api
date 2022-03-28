@@ -18,7 +18,7 @@ export function paginateStrategies(space, network, strategies) {
       console.log('Custom pagination', space, key, pagination[key]);
       return {
         name: 'pagination',
-        network: strategy.network || network,
+        network: strategy.network,
         params: {
           limit: pagination[key],
           symbol: strategy.params.symbol || '',
@@ -28,6 +28,13 @@ export function paginateStrategies(space, network, strategies) {
     }
     return strategy;
   });
+}
+
+export function updateStrategyNetwork(network) {
+  return strategy => {
+    strategy.network = strategy.network || network;
+    return strategy;
+  };
 }
 
 export function sortObjectByParam(obj) {

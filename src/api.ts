@@ -1,7 +1,7 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
-import { clone, sha256, sortObjectByParam } from './utils';
+import { clone, sha256, sortObjectByParam, updateStrategyNetwork } from './utils';
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router.post('/scores', async (req, res) => {
   const { space = '', network = '1', snapshot = 'latest', addresses = [] } = params;
   let { strategies = [] } = params;
   // strategy parameters should be same order to maintain consistent key hashes
-  strategies = Array.isArray(strategies) ? strategies.map(sortObjectByParam) : [];
+  strategies = Array.isArray(strategies) ? strategies.map(updateStrategyNetwork(network)).map(sortObjectByParam) : [];
   // Limit to 8 strategies
   strategies = strategies.slice(0, 8);
   const strategyNames = strategies.map(strategy => strategy.name);

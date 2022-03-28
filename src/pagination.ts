@@ -21,5 +21,5 @@ export default {
   c5d5cf41c212c3a3207f37a3a636ca459008b8a2cb8d8d15ab4f93fa489314de: 100, // space: 'cryptogs.eth', proposal: 'QmVsbQwCxwGi69zJ9WYQC2RHPQAnQgNmiM6SnxYJnygYsm'
   dab80917618a9c7de14df2d7b1a6c82fe291b86081cf8dff7d80e1ae25834f63: 175, // space: 'mmfinance.eth', proposal: '0x8fa96903c9a26119b25401dbf45e1b960ee898bca549a51e4c18bc1b4e4eb988'
   '975772cdfe213993585d07d67f2555895c39daa0aa3843a2160be14cfda72b92': 125, // space: cow.eth
-  '3ab4b239724bc040fb6aae383629fbac96c590e0e3ae74456bbe739bb73acc94': 90 // space: 'treasuredao.eth', proposal: '0xe20d1acb3c302890f4bfe07098a9f06511dbbdcea26f1af4f5f04707a038ab19'
+  e072fb6c950854557b360b367f0119fbb90e24c2c390cc71fb8559342f11a3e6: 90 // space: 'treasuredao.eth', proposal: '0xe20d1acb3c302890f4bfe07098a9f06511dbbdcea26f1af4f5f04707a038ab19'
 };
