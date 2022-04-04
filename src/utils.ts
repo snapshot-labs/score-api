@@ -47,7 +47,7 @@ export function formatStrategies(strategies: Array<any> = [], network) {
   return strategies
     .map(strategy => ({
       ...strategy,
-      network: strategy.network || network
+      network: strategy?.network || network
     }))
     .map(sortObjectByParam)
     .slice(0, 8);
