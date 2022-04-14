@@ -24,5 +24,5 @@ export default {
   e072fb6c950854557b360b367f0119fbb90e24c2c390cc71fb8559342f11a3e6: 90, // space: 'treasuredao.eth', proposal: '0xe20d1acb3c302890f4bfe07098a9f06511dbbdcea26f1af4f5f04707a038ab19'
   '00a96d148e6f10d589bca1ccca6b2e5632f57ae186d4e9d306b807ff6223963a': 160, // space: 'blockchainminers.eth', proposal: '0x7d839b5268b509581802bea7f16e22f48a06180eef3a97f0ca83b1dd6df09651',
   ec7111997cf362c1f06dc5840008b786ed5ae642e0a4c77512de0fe90a9521ff: 135, // space: 'ethlizards.eth', proposal: '0x43e9b082189fa289595f32e4156935245ec035aac46d7c9f3ba0169a28c05bcc'
-  'a1fa0b11c7f3b6d94d6be6e7d4af976ab7fc0b98cb600c66dbf40e466cd48a9f': 300 // space: 'arbitrum-odyssey.eth', proposal: '0x44aba87414d2d7ce88218b676d9938338d7866a245f48a7829e805a99bcda6a2'
+  'a1fa0b11c7f3b6d94d6be6e7d4af976ab7fc0b98cb600c66dbf40e466cd48a9f': 240 // space: 'arbitrum-odyssey.eth', proposal: '0x44aba87414d2d7ce88218b676d9938338d7866a245f48a7829e805a99bcda6a2'
 };
