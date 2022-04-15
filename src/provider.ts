@@ -3,7 +3,7 @@ import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 
 networks['100'].rpc[0] = 'https://gno.getblock.io/mainnet/?api_key=6c1d1e6e-75d9-452f-a863-a694bff93d5c';
 networks['80001'].rpc[0] = 'https://speedy-nodes-nyc.moralis.io/b9aed21e7bb7bdeb35972c9a/polygon/mumbai/archive';
-networks['42161'].rpc[0] = 'https://rpc.ankr.com/arbitrum';
+networks['42161'].rpc[0] = 'https://speedy-nodes-nyc.moralis.io/9e03baabdc27be2a35bdec4a/arbitrum/mainnet';
 
 const providers = {};
 
