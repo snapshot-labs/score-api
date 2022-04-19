@@ -29,7 +29,7 @@ router.post('/scores', async (req, res) => {
   const strategyNames = strategies.map(strategy => strategy.name);
 
   if (
-    ['revotu.eth', 'biswap-org.eth'].includes(space) ||
+    ['revotu.eth'].includes(space) ||
     strategyNames.includes('pod-leader') ||
     strategies.length === 0
   )
