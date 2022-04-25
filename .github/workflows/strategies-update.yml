@@ -1,3 +1,4 @@
+name: Update @snapshot-labs/strategies
 on:
  workflow_dispatch:
  schedule:
