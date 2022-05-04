@@ -26,7 +26,6 @@ export async function set(key, value) {
     });
   } catch (e) {
     console.log('Store cache failed', e);
-    throw e;
   }
 }
 
