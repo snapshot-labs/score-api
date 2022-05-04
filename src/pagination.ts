@@ -29,5 +29,5 @@ export default {
   f7206b75c5e937be313c1edd6dd58b9d0c4f9e2e4a6ff0c8cfb570827aa830eb: 70, // space: 'toxicskullsclubvoting.eth', proposal: '0x5dd0ef3f52e20ef72b17008cb5753cef3c1190922f7834e2f4ec4cd401a7181e',
   fb16ec122148f41e7e5f6e71fdcf5724dd716a4c8332aa5b1a05a09786e42651: 75, // space: 'huckleberrydex.eth', proposal: '0xa88b6fc1564d34e429d6369e6c0c79258cef562573954de090cec255cd909847'
   '85c3b28a6eb90e682239621eb6619fb39c0a1a375675855e802cc1bca4360edc': 165, // space: 'qidao.eth', proposal: '0xc2b93c2101120ed5b1a71832d51b8833cac8e8ea17d59e98c1eebde94015b8ca'
-  '52a6aa780673faf33e94e8fae48a0c633cfddb70de3726c620ae2e6d56e203a6': 150 // space: 'badgerdao.eth', proposal: '0xee17da712e1a18b64d2de08f2570c0824def3cc016f66d75f873be0bf8933fd6'
+  '52a6aa780673faf33e94e8fae48a0c633cfddb70de3726c620ae2e6d56e203a6': 100 // space: 'badgerdao.eth', proposal: '0xee17da712e1a18b64d2de08f2570c0824def3cc016f66d75f873be0bf8933fd6'
 };
