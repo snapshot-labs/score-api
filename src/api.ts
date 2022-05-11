@@ -5,8 +5,18 @@ import { clone, sha256, formatStrategies } from './utils';
 
 const router = express.Router();
 
+const revision = require('child_process')
+  .execSync('git rev-parse HEAD')
+  .toString()
+  .trim()
+  .slice(0, 7);
+
 router.get('/', (req, res) => {
-  res.json(blockNumByNetwork);
+  const response = {
+    revision,
+    blockNumByNetwork
+  };
+  res.json(response);
 });
 
 router.get('/strategies', (req, res) => {
