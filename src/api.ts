@@ -2,11 +2,15 @@ import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
 import { clone, sha256, formatStrategies } from './utils';
+import { version } from '../package.json';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.json(blockNumByNetwork);
+  res.json({
+    block_num: blockNumByNetwork,
+    version
+  });
 });
 
 router.get('/strategies', (req, res) => {
