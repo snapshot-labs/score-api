@@ -7,9 +7,11 @@ import { version } from '../package.json';
 const router = express.Router();
 
 router.get('/', (req, res) => {
+  const commit = process.env.COMMIT_HASH || '';
+  const v = commit ? `${version}#${commit.substr(0, 7)}` : version;
   res.json({
     block_num: blockNumByNetwork,
-    version
+    version: v
   });
 });
 
