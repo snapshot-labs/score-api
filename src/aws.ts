@@ -2,7 +2,7 @@ import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
 import { name } from '../package.json';
 
-const cb = '2';
+const cb = '3';
 
 let client;
 const bucket = process.env.AWS_BUCKET_NAME;
