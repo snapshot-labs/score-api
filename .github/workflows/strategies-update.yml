@@ -14,7 +14,7 @@ jobs:
           node-version: '14.x'
       - name: Update snapshot strategies
         run: |
-          npm upgrade @snapshot-labs/strategies
+          npm install github:snapshot-labs/snapshot-strategies#master
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
