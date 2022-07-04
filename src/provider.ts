@@ -7,9 +7,15 @@ import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 
 const providers = {};
 
-export default function getProvider(network: string) {
-  const url: any = networks[network].rpc[0];
+// TODO: use getProvider from @snapshot-labs/snapshot.js
+export default function getProvider(network: string, type = 'archive') {
+  let url: any = networks[network].rpc[0];
+  if (type === 'light' && networks[network].light?.length) url = networks[network].light[0];
+  if (type === 'brovider') url = `https://brovider.xyz/${network}`;
   const connectionInfo = typeof url === 'object' ? { ...url, timeout: 25000 } : { url, timeout: 25000 };
-  if (!providers[network]) providers[network] = new StaticJsonRpcProvider(connectionInfo);
-  return providers[network];
+  if (!providers[network] || !providers[network][type]) {
+    providers[network] = { ...providers[network] };
+    providers[network][type] = new StaticJsonRpcProvider(connectionInfo);
+  }
+  return providers[network][type];
 }
