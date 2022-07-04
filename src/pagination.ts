@@ -30,5 +30,6 @@ export default {
   fb16ec122148f41e7e5f6e71fdcf5724dd716a4c8332aa5b1a05a09786e42651: 75, // space: 'huckleberrydex.eth', proposal: '0xa88b6fc1564d34e429d6369e6c0c79258cef562573954de090cec255cd909847'
   '85c3b28a6eb90e682239621eb6619fb39c0a1a375675855e802cc1bca4360edc': 165, // space: 'qidao.eth', proposal: '0xc2b93c2101120ed5b1a71832d51b8833cac8e8ea17d59e98c1eebde94015b8ca'
   '52a6aa780673faf33e94e8fae48a0c633cfddb70de3726c620ae2e6d56e203a6': 100, // space: 'badgerdao.eth', proposal: '0xee17da712e1a18b64d2de08f2570c0824def3cc016f66d75f873be0bf8933fd6'
-  e2e311a4e7e52e1ba0b751ee3f9326fb5fb08e71c5b633d194dd5db0240f9db2: 450 // space: 'babydogevote.eth', proposal: '0x40d2e57a7cfe87d79059929d793fc7a10c3d480b0396a9c26095e28aecb7657c'
+  e2e311a4e7e52e1ba0b751ee3f9326fb5fb08e71c5b633d194dd5db0240f9db2: 450, // space: 'babydogevote.eth', proposal: '0x40d2e57a7cfe87d79059929d793fc7a10c3d480b0396a9c26095e28aecb7657c'
+  '8c04603f1cbe824b94b384b8df28d840ef15ef8e5c98cede0423c875d1812fba': 145 // space: 'qidao.eth', proposal: '0x36e52a331a5c4d0fd27ea15a3f78cacdbf971e3ae1403433bcda93cbf33800ec'
 };
