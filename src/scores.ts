@@ -16,7 +16,7 @@ async function getBlockNum(network) {
   const ts = parseInt((Date.now() / 1e3).toFixed());
   if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay) return blockNumByNetwork[network];
 
-  const provider = getProvider(network);
+  const provider = getProvider(network, 'brovider');
   const blockNum = await provider.getBlockNumber();
 
   blockNumByNetwork[network] = blockNum;
@@ -48,7 +48,7 @@ async function calculateScores(parent, args, key) {
       space,
       strategiesWithPagination,
       network,
-      getProvider(network),
+      getProvider(network, 'brovider'),
       addresses,
       snapshotBlockNum
     );
