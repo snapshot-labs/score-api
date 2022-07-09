@@ -16,7 +16,8 @@ export function sha256(str) {
 
 export function getProvider(network) {
   const url = `https://brovider.xyz/${network}`;
-  providers[network] = new StaticJsonRpcProvider(url);
+  if (providers[network]) return providers[network];
+  providers[network] = new StaticJsonRpcProvider({ url, timeout: 25000 });
   return providers[network];
 }
 
