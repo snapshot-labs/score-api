@@ -1,8 +1,5 @@
 import { createHash } from 'crypto';
-import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import pagination from './pagination';
-
-const providers = {};
 
 export function clone(item) {
   return JSON.parse(JSON.stringify(item));
@@ -12,12 +9,6 @@ export function sha256(str) {
   return createHash('sha256')
     .update(str)
     .digest('hex');
-}
-
-export function getProvider(network) {
-  const url = `https://brovider.xyz/${network}`;
-  if (!providers[network]) providers[network] = new StaticJsonRpcProvider({ url, timeout: 30000 });
-  return providers[network];
 }
 
 export function paginateStrategies(space, network, strategies) {
