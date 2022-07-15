@@ -32,5 +32,5 @@ export default {
   '52a6aa780673faf33e94e8fae48a0c633cfddb70de3726c620ae2e6d56e203a6': 100, // space: 'badgerdao.eth', proposal: '0xee17da712e1a18b64d2de08f2570c0824def3cc016f66d75f873be0bf8933fd6'
   e2e311a4e7e52e1ba0b751ee3f9326fb5fb08e71c5b633d194dd5db0240f9db2: 450, // space: 'babydogevote.eth', proposal: '0x40d2e57a7cfe87d79059929d793fc7a10c3d480b0396a9c26095e28aecb7657c'
   '8c04603f1cbe824b94b384b8df28d840ef15ef8e5c98cede0423c875d1812fba': 145, // space: 'qidao.eth', proposal: '0x36e52a331a5c4d0fd27ea15a3f78cacdbf971e3ae1403433bcda93cbf33800ec'
-  '69828f53993c3fb9722fa0c0d3fb5ef8692555af6b66766b2457f3600abb2aae': 27 // space: 'brokenclub.eth', proposal: '0xa6ec57b77b95a4377f0b79fdc04b495770fe225875440474fff61a74ff52a549'
+  '6af2928029da7649a4ec174118afb6549d99af24978d398624cdb0bbf47d9299': 27 // space: 'brokenclub.eth', proposal: '0xa6ec57b77b95a4377f0b79fdc04b495770fe225875440474fff61a74ff52a549'
 };
