@@ -1305,9 +1305,9 @@
     json-to-graphql-query "^2.0.0"
     lodash.set "^4.3.2"
 
-"@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#fix-build-issues":
+"@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#6ff66228931209941a9bcc26a9f52f10ab9735e5"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#3470ba7486c40dd0a402bac957e58be554c9b474"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
