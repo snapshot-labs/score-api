@@ -11,10 +11,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: '16.10.0'
       - name: Update snapshot strategies
         run: |
-          npm install github:snapshot-labs/snapshot-strategies#master
+          yarn upgrade @snapshot-labs/strategies
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
