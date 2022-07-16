@@ -1,12 +1,29 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
-import { clone, sha256, formatStrategies } from './utils';
+import { clone, sha256, formatStrategies, rpcSuccess, rpcError } from './utils';
 import { version } from '../package.json';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.post('/', async (req, res) => {
+  const { id = null, params = {} } = req.body;
+  try {
+    const result = await snapshot.utils.getVp(
+      params.address,
+      params.network,
+      params.strategies,
+      params.snapshot,
+      params.space,
+      params.delegation
+    );
+    return rpcSuccess(res, result, id);
+  } catch (e) {
+    return rpcError(res, 500, e, id);
+  }
+});
+
+router.get('/api', (req, res) => {
   const commit = process.env.COMMIT_HASH || '';
   const v = commit ? `${version}#${commit.substr(0, 7)}` : version;
   res.json({
@@ -15,7 +32,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/strategies', (req, res) => {
+router.get('/api/strategies', (req, res) => {
   const strategies = Object.fromEntries(
     Object.entries(clone(snapshot.strategies)).map(([key, strategy]) => [
       key,
@@ -26,7 +43,7 @@ router.get('/strategies', (req, res) => {
   res.json(strategies);
 });
 
-router.post('/scores', async (req, res) => {
+router.post('/api/scores', async (req, res) => {
   const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];
   const { space = '', network = '1', snapshot = 'latest', addresses = [] } = params;
@@ -35,13 +52,7 @@ router.post('/scores', async (req, res) => {
   const strategyNames = strategies.map(strategy => strategy.name);
 
   if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategies.length === 0)
-    return res.status(500).json({
-      jsonrpc: '2.0',
-      error: {
-        code: 500,
-        data: 'something wrong with the strategies'
-      }
-    });
+    return rpcError(res, 500, 'something wrong with the strategies', null);
 
   let result;
   try {
@@ -71,20 +82,10 @@ router.post('/scores', async (req, res) => {
       strategiesHashes,
       requestId
     );
-    return res.status(500).json({
-      jsonrpc: '2.0',
-      error: {
-        code: 500,
-        data: e,
-        message: errorMessage
-      }
-    });
+    return rpcError(res, 500, e, null);
   }
 
-  return res.json({
-    jsonrpc: '2.0',
-    result
-  });
+  return rpcSuccess(res, result, null);
 });
 
 export default router;
