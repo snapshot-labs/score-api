@@ -1287,10 +1287,10 @@
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-3.4.2-solc-0.7.tgz#38f4dbab672631034076ccdf2f3201fab1726635"
   integrity sha512-W6QmqgkADuFcTLzHL8vVoNBtkwjvQRpYIAom7KiUNoLKghyx3FgH0GBjt8NRvigV1ZmMOBllvE1By1C+bi8WpA==
 
-"@snapshot-labs/snapshot.js@^0.4.10":
-  version "0.4.10"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.10.tgz#0e83ac8b8518ae627a17f178c102bfb122228236"
-  integrity sha512-eNJ8wEw+CrPNj3mUJ/p7vTz9dTgXHBgJFZ4cuKaMjlWo014Rtz2nAbF/1QKPwVD1Hw/BlBZgz1aRkK9kbzQTZA==
+"@snapshot-labs/snapshot.js@^0.4.13":
+  version "0.4.13"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.13.tgz#0294248f8272a12f1a74cebe05b7ffb2717711e2"
+  integrity sha512-QRAXt3YG0PXDXnhfvkXbcdafn8OBKObtM3ZeYsSgRE+vGakbdKE/MUlLB3Nn28YvF8hMelEA7aUWC/nMq+Pzpg==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -1307,7 +1307,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#813e0ac3344fe7360534aaf5bf44923927b602f6"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#858f4f00dbb79417d72ba35e9d5fe47bd85fd7e3"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -1320,7 +1320,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.4.10"
+    "@snapshot-labs/snapshot.js" "^0.4.13"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
     copyfiles "^2.4.1"
