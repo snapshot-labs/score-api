@@ -1287,6 +1287,51 @@
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-3.4.2-solc-0.7.tgz#38f4dbab672631034076ccdf2f3201fab1726635"
   integrity sha512-W6QmqgkADuFcTLzHL8vVoNBtkwjvQRpYIAom7KiUNoLKghyx3FgH0GBjt8NRvigV1ZmMOBllvE1By1C+bi8WpA==
 
+"@redis/bloom@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@redis/bloom/-/bloom-1.0.2.tgz#42b82ec399a92db05e29fffcdfd9235a5fc15cdf"
+  integrity sha512-EBw7Ag1hPgFzdznK2PBblc1kdlj5B5Cw3XwI9/oG7tSn85/HKy3X9xHy/8tm/eNXJYHLXHJL/pkwBpFMVVefkw==
+
+"@redis/client@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@redis/client/-/client-1.2.0.tgz#be2ef974881e57276123cb76d08756c03eed946f"
+  integrity sha512-a8Nlw5fv2EIAFJxTDSSDVUT7yfBGpZO96ybZXzQpgkyLg/dxtQ1uiwTc0EGfzg1mrPjZokeBSEGTbGXekqTNOg==
+  dependencies:
+    cluster-key-slot "1.1.0"
+    generic-pool "3.8.2"
+    yallist "4.0.0"
+
+"@redis/graph@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@redis/graph/-/graph-1.0.1.tgz#eabc58ba99cd70d0c907169c02b55497e4ec8a99"
+  integrity sha512-oDE4myMCJOCVKYMygEMWuriBgqlS5FqdWerikMoJxzmmTUErnTRRgmIDa2VcgytACZMFqpAOWDzops4DOlnkfQ==
+
+"@redis/json@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@redis/json/-/json-1.0.3.tgz#a13fde1d22ebff0ae2805cd8e1e70522b08ea866"
+  integrity sha512-4X0Qv0BzD9Zlb0edkUoau5c1bInWSICqXAGrpwEltkncUwcxJIGEcVryZhLgb0p/3PkKaLIWkjhHRtLe9yiA7Q==
+
+"@redis/search@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@redis/search/-/search-1.0.6.tgz#53d7451c2783f011ebc48ec4c2891264e0b22f10"
+  integrity sha512-pP+ZQRis5P21SD6fjyCeLcQdps+LuTzp2wdUbzxEmNhleighDDTD5ck8+cYof+WLec4csZX7ks+BuoMw0RaZrA==
+
+"@redis/time-series@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@redis/time-series/-/time-series-1.0.3.tgz#4cfca8e564228c0bddcdf4418cba60c20b224ac4"
+  integrity sha512-OFp0q4SGrTH0Mruf6oFsHGea58u8vS/iI5+NpYdicaM+7BgqBZH8FFvNZ8rYYLrUO/QRqMq72NpXmxLVNcdmjA==
+
+"@snapshot-labs/eslint-config@^0.1.0-beta.2":
+  version "0.1.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/eslint-config/-/eslint-config-0.1.0-beta.2.tgz#b01fa667b5ae2b26dcc797cbdc89a61740f38fc4"
+  integrity sha512-soOFuLaC9le25PH97xDKfTTJH6raecRNVLZw1uFpHqYlz22IcGddETJ71A5MbQ/GK9ZErmhNHvay3wTJUKxPKg==
+  dependencies:
+    "@typescript-eslint/eslint-plugin" "^2.33.0"
+    "@typescript-eslint/parser" "^2.33.0"
+    eslint "^6.7.2"
+    eslint-plugin-prettier "^3.1.3"
+    prettier "^2.6.2"
+
 "@snapshot-labs/snapshot.js@^0.4.13":
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.13.tgz#0294248f8272a12f1a74cebe05b7ffb2717711e2"
@@ -1822,6 +1867,11 @@ cliui@^7.0.2:
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
 
+cluster-key-slot@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cluster-key-slot/-/cluster-key-slot-1.1.0.tgz#30474b2a981fb12172695833052bc0d01336d10d"
+  integrity sha512-2Nii8p3RwAPiFwsnZvukotvow2rIHM+yQ6ZcBXGHdniadkYGZYiGmkHJIbZPIV9nfv7m/U1IPMVVcAhoWFeklw==
+
 color-convert@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
@@ -2314,6 +2364,11 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha512-dsKNQNdj6xA3T+QlADDA7mOSlX0qiMINjn0cgr+eGHGsbSHzTabcIogz2+p/iqP1Xs6EP/sS2SbqH+brGTbq0g==
+
+generic-pool@3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/generic-pool/-/generic-pool-3.8.2.tgz#aab4f280adb522fdfbdc5e5b64d718d3683f04e9"
+  integrity sha512-nGToKy6p3PAbYQ7p1UlWl6vSPwfwU6TMSWK7TTu+WUY4ZjyZQGniGGt2oNVvyNSpyZYSB43zMXVLcBm08MTMkg==
 
 get-caller-file@^2.0.5:
   version "2.0.5"
@@ -2854,10 +2909,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^1.19.1:
-  version "1.19.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
-  integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
+prettier@^2.6.2:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -2943,6 +2998,18 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+redis@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/redis/-/redis-4.2.0.tgz#1278a265b8aa1e096a585d103bdead027cd04e43"
+  integrity sha512-bCR0gKVhIXFg8zCQjXEANzgI01DDixtPZgIUZHBCmwqixnu+MK3Tb2yqGjh+HCLASQVVgApiwhNkv+FoedZOGQ==
+  dependencies:
+    "@redis/bloom" "1.0.2"
+    "@redis/client" "1.2.0"
+    "@redis/graph" "1.0.1"
+    "@redis/json" "1.0.3"
+    "@redis/search" "1.0.6"
+    "@redis/time-series" "1.0.3"
 
 regexpp@^2.0.1:
   version "2.0.1"
@@ -3440,7 +3507,7 @@ y18n@^5.0.5:
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-5.0.8.tgz#7f4934d0f7ca8c56f95314939ddcd2dd91ce1d55"
   integrity sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==
 
-yallist@^4.0.0:
+yallist@4.0.0, yallist@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
