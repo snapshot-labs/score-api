@@ -1,6 +1,7 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores, { blockNumByNetwork } from './scores';
+import redis from './redis';
 import { clone, sha256, formatStrategies, rpcSuccess, rpcError } from './utils';
 import { version } from '../package.json';
 
@@ -9,6 +10,15 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const { id = null, params = {} } = req.body;
   try {
+    const key = sha256(JSON.stringify(params));
+    if (redis && params.snapshot !== 'latest') {
+      const cache = await redis.hGetAll(`vp:${key}`);
+      if (cache && cache.vp_state) {
+        cache.vp = parseFloat(cache.vp);
+        cache.vp_by_strategy = JSON.parse(cache.vp_by_strategy);
+        return rpcSuccess(res, cache, id);
+      }
+    }
     const result = await snapshot.utils.getVp(
       params.address,
       params.network,
@@ -17,8 +27,16 @@ router.post('/', async (req, res) => {
       params.space,
       params.delegation
     );
+    if (redis && result.vp_state === 'final') {
+      const multi = redis.multi();
+      multi.hSet(`vp:${key}`, 'vp', result.vp);
+      multi.hSet(`vp:${key}`, 'vp_by_strategy', JSON.stringify(result.vp_by_strategy));
+      multi.hSet(`vp:${key}`, 'vp_state', result.vp_state);
+      multi.exec();
+    }
     return rpcSuccess(res, result, id);
   } catch (e) {
+    console.log(e);
     return rpcError(res, 500, e, id);
   }
 });
@@ -49,9 +67,13 @@ router.post('/api/scores', async (req, res) => {
   const { space = '', network = '1', snapshot = 'latest', addresses = [] } = params;
   let { strategies = [] } = params;
   strategies = formatStrategies(strategies, network);
-  const strategyNames = strategies.map(strategy => strategy.name);
+  const strategyNames = strategies.map((strategy) => strategy.name);
 
-  if (['revotu.eth'].includes(space) || strategyNames.includes('pod-leader') || strategies.length === 0)
+  if (
+    ['revotu.eth'].includes(space) ||
+    strategyNames.includes('pod-leader') ||
+    strategies.length === 0
+  )
     return rpcError(res, 500, 'something wrong with the strategies', null);
 
   let result;
@@ -72,7 +94,9 @@ router.post('/api/scores', async (req, res) => {
   } catch (e) {
     // @ts-ignore
     const errorMessage = e?.message || e;
-    const strategiesHashes = strategies.map(strategy => sha256(JSON.stringify({ space, network, strategy })));
+    const strategiesHashes = strategies.map((strategy) =>
+      sha256(JSON.stringify({ space, network, strategy }))
+    );
     console.log(
       'Get scores failed',
       network,

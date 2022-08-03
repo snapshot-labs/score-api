@@ -6,13 +6,11 @@ export function clone(item) {
 }
 
 export function sha256(str) {
-  return createHash('sha256')
-    .update(str)
-    .digest('hex');
+  return createHash('sha256').update(str).digest('hex');
 }
 
 export function paginateStrategies(space, network, strategies) {
-  return strategies.map(strategy => {
+  return strategies.map((strategy) => {
     const key = sha256(JSON.stringify({ space, network, strategy }));
     if (pagination[key]) {
       console.log('Custom pagination', space, key, pagination[key]);
@@ -35,7 +33,7 @@ function sortObjectByParam(obj) {
   const sortedObj = {};
   Object.keys(obj)
     .sort()
-    .forEach(function(key) {
+    .forEach(function (key) {
       sortedObj[key] = obj[key];
     });
   return sortedObj;
@@ -45,7 +43,7 @@ export function formatStrategies(strategies: Array<any> = [], network) {
   strategies = Array.isArray(strategies) ? strategies : [];
   // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to 8 strategies
   return strategies
-    .map(strategy => ({
+    .map((strategy) => ({
       ...strategy,
       network: strategy?.network || network
     }))

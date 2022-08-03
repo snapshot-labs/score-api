@@ -14,7 +14,8 @@ const withCache = !!process.env.AWS_REGION;
 
 async function getBlockNum(network) {
   const ts = parseInt((Date.now() / 1e3).toFixed());
-  if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay) return blockNumByNetwork[network];
+  if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay)
+    return blockNumByNetwork[network];
 
   const provider = snapshot.utils.getProvider(network);
   const blockNum = await provider.getBlockNumber();
@@ -27,7 +28,14 @@ async function getBlockNum(network) {
 
 async function calculateScores(parent, args, key) {
   const { space = '', strategies, network, addresses } = args;
-  console.log('Request:', space, network, JSON.stringify(parent.strategyNames), key, parent.requestId);
+  console.log(
+    'Request:',
+    space,
+    network,
+    JSON.stringify(parent.strategyNames),
+    key,
+    parent.requestId
+  );
 
   let snapshotBlockNum = 'latest';
   if (args.snapshot !== 'latest') {
@@ -73,7 +81,7 @@ export default async function scores(parent, args) {
 
   return new Promise(async (resolve, reject) => {
     // Wait for scores to be calculated
-    eventEmitter.once(key, data => (data.error ? reject(data.e) : resolve(data)));
+    eventEmitter.once(key, (data) => (data.error ? reject(data.e) : resolve(data)));
     // If this request is the first one, calculate scores
     if (eventEmitter.listenerCount(key) === 1) {
       try {
