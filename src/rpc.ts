@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
       if (cache && cache.vp_state) {
         cache.vp = parseFloat(cache.vp);
         cache.vp_by_strategy = JSON.parse(cache.vp_by_strategy);
-        return rpcSuccess(res, cache, id);
+        return rpcSuccess(res, cache, id, true);
       }
     }
     const result = await snapshot.utils.getVp(
@@ -108,8 +108,9 @@ router.post('/api/scores', async (req, res) => {
     );
     return rpcError(res, 500, e, null);
   }
-
-  return rpcSuccess(res, result, null);
+  const cache = result.cache || false;
+  delete result.cache;
+  return rpcSuccess(res, result, null, cache);
 });
 
 export default router;
