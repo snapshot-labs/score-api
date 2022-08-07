@@ -51,11 +51,12 @@ export function formatStrategies(strategies: Array<any> = [], network) {
     .slice(0, 8);
 }
 
-export function rpcSuccess(res, result, id) {
+export function rpcSuccess(res, result, id, cache = false) {
   res.json({
     jsonrpc: '2.0',
     result,
-    id
+    id,
+    cache
   });
 }
 
