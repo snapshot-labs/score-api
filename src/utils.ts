@@ -51,7 +51,7 @@ export function formatStrategies(strategies: Array<any> = [], network) {
     .slice(0, 8);
 }
 
-export function rpcSuccess(res, result, id, cache = false) {
+export function rpcSuccess(res, result, id = null, cache = false) {
   res.json({
     jsonrpc: '2.0',
     result,
@@ -60,7 +60,7 @@ export function rpcSuccess(res, result, id, cache = false) {
   });
 }
 
-export function rpcError(res, code, e, id) {
+export function rpcError(res, code, e, id = null) {
   res.status(code).json({
     jsonrpc: '2.0',
     error: {
