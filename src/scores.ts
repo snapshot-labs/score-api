@@ -1,30 +1,13 @@
 import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
-import { paginateStrategies, sha256 } from './utils';
+import { getBlockNum, paginateStrategies, sha256 } from './utils';
 
 const eventEmitter = new events.EventEmitter();
 // https://stackoverflow.com/a/26176922
 eventEmitter.setMaxListeners(1000);
 
-export const blockNumByNetwork = {};
-const blockNumByNetworkTs = {};
-const delay = 30;
 const withCache = !!process.env.AWS_REGION;
-
-async function getBlockNum(network) {
-  const ts = parseInt((Date.now() / 1e3).toFixed());
-  if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay)
-    return blockNumByNetwork[network];
-
-  const provider = snapshot.utils.getProvider(network);
-  const blockNum = await provider.getBlockNumber();
-
-  blockNumByNetwork[network] = blockNum;
-  blockNumByNetworkTs[network] = ts;
-
-  return blockNum;
-}
 
 async function calculateScores(parent, args, key) {
   const { space = '', strategies, network, addresses } = args;
@@ -37,10 +20,10 @@ async function calculateScores(parent, args, key) {
     parent.requestId
   );
 
-  let snapshotBlockNum = 'latest';
-  if (args.snapshot !== 'latest') {
+  let snapshotBlockNum = typeof args.snapshot == 'number' ? args.snapshot : 'latest';
+  if (snapshotBlockNum !== 'latest') {
     const currentBlockNum = await getBlockNum(network);
-    snapshotBlockNum = currentBlockNum < args.snapshot ? 'latest' : args.snapshot;
+    snapshotBlockNum = currentBlockNum < snapshotBlockNum ? 'latest' : snapshotBlockNum;
   }
 
   const state = snapshotBlockNum === 'latest' ? 'pending' : 'final';
