@@ -18,7 +18,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const { id = null, params = {} } = req.body;
   try {
-    typeof params.snapshot != 'number' && (params.snapshot = 'latest');
+    if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
     if (params.snapshot !== 'latest') {
       const currentBlockNum = await getBlockNum(params.network);
       params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
