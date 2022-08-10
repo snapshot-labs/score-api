@@ -20,10 +20,10 @@ async function calculateScores(parent, args, key) {
     parent.requestId
   );
 
-  let snapshotBlockNum = typeof args.snapshot == 'number' ? args.snapshot : 'latest';
-  if (snapshotBlockNum !== 'latest') {
+  let snapshotBlockNum = 'latest';
+  if (args.snapshot !== 'latest') {
     const currentBlockNum = await getBlockNum(network);
-    snapshotBlockNum = currentBlockNum < snapshotBlockNum ? 'latest' : snapshotBlockNum;
+    snapshotBlockNum = currentBlockNum < args.snapshot ? 'latest' : args.snapshot;
   }
 
   const state = snapshotBlockNum === 'latest' ? 'pending' : 'final';
