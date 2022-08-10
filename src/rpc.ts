@@ -1,8 +1,16 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
-import scores, { blockNumByNetwork } from './scores';
+import scores from './scores';
 import redis from './redis';
-import { clone, sha256, formatStrategies, rpcSuccess, rpcError } from './utils';
+import {
+  clone,
+  sha256,
+  formatStrategies,
+  rpcSuccess,
+  rpcError,
+  getBlockNum,
+  blockNumByNetwork
+} from './utils';
 import { version } from '../package.json';
 
 const router = express.Router();
@@ -10,6 +18,11 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const { id = null, params = {} } = req.body;
   try {
+    if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
+    if (params.snapshot !== 'latest') {
+      const currentBlockNum = await getBlockNum(params.network);
+      params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
+    }
     const key = sha256(JSON.stringify(params));
     if (redis && params.snapshot !== 'latest') {
       const cache = await redis.hGetAll(`vp:${key}`);

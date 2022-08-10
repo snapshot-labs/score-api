@@ -1,5 +1,10 @@
+import snapshot from '@snapshot-labs/strategies';
 import { createHash } from 'crypto';
 import pagination from './pagination';
+
+export const blockNumByNetwork = {};
+const blockNumByNetworkTs = {};
+const delay = 30;
 
 export function clone(item) {
   return JSON.parse(JSON.stringify(item));
@@ -70,4 +75,18 @@ export function rpcError(res, code, e, id) {
     },
     id
   });
+}
+
+export async function getBlockNum(network) {
+  const ts = parseInt((Date.now() / 1e3).toFixed());
+  if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay)
+    return blockNumByNetwork[network];
+
+  const provider = snapshot.utils.getProvider(network);
+  const blockNum = await provider.getBlockNumber();
+
+  blockNumByNetwork[network] = blockNum;
+  blockNumByNetworkTs[network] = ts;
+
+  return blockNum;
 }
