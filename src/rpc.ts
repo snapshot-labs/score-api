@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
     }
     return rpcSuccess(res, result, id);
   } catch (e) {
-    console.log(e);
+    console.log("getVp failed", JSON.stringify(e));
     return rpcError(res, 500, e, id);
   }
 });
