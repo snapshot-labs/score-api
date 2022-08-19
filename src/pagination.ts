@@ -20,7 +20,7 @@ export default {
   '5e1002368bb94b4785ab2a9937ef7bf989bb59867d230c576ed78a6f2bb6c6da': 1, // space: 'quickvote.eth', proposal: '0xaaf6615bc324208d1d0184d5eb1ead812a21695e2c16aabc1e18c82262a7ec1c'
   c5d5cf41c212c3a3207f37a3a636ca459008b8a2cb8d8d15ab4f93fa489314de: 100, // space: 'cryptogs.eth', proposal: 'QmVsbQwCxwGi69zJ9WYQC2RHPQAnQgNmiM6SnxYJnygYsm'
   dab80917618a9c7de14df2d7b1a6c82fe291b86081cf8dff7d80e1ae25834f63: 175, // space: 'mmfinance.eth', proposal: '0x8fa96903c9a26119b25401dbf45e1b960ee898bca549a51e4c18bc1b4e4eb988'
-  '975772cdfe213993585d07d67f2555895c39daa0aa3843a2160be14cfda72b92': 125, // space: cow.eth 
+  '975772cdfe213993585d07d67f2555895c39daa0aa3843a2160be14cfda72b92': 125, // space: cow.eth
   e072fb6c950854557b360b367f0119fbb90e24c2c390cc71fb8559342f11a3e6: 90, // space: 'treasuredao.eth', proposal: '0xe20d1acb3c302890f4bfe07098a9f06511dbbdcea26f1af4f5f04707a038ab19'
   '00a96d148e6f10d589bca1ccca6b2e5632f57ae186d4e9d306b807ff6223963a': 50, // space: 'blockchainminers.eth', proposal: '0x75f27e080e255ca053c78bbeab977c6054be8886302face0ae824730d3ac2722',
   ec7111997cf362c1f06dc5840008b786ed5ae642e0a4c77512de0fe90a9521ff: 50, // space: 'ethlizards.eth', proposal: '0x43e9b082189fa289595f32e4156935245ec035aac46d7c9f3ba0169a28c05bcc'
@@ -34,5 +34,6 @@ export default {
   e149299507e875c6e2b924d056c3f07848bbd4d2d7461dbc2995397aad0af38b: 165, // space: 'qidao.eth', proposal: '0xa61dd3561d388f66ed11bd4a2321d3b878f320ffe1610c063689b620894fa779'
   '6af2928029da7649a4ec174118afb6549d99af24978d398624cdb0bbf47d9299': 27, // space: 'brokenclub.eth', proposal: '0xa6ec57b77b95a4377f0b79fdc04b495770fe225875440474fff61a74ff52a549'
   '49eb229c27bb2f47355ed46c01eebc17b589246e3d3c8fdd3034cc815391017c': 7, // space: 'otterclam.eth', proposal: '0x16b04ebdb59d9c2af3635be733ab6bbbc943e0a11fe21ee6ace7f641e14a160c'
-  '2e69359685ea9a250a8b73a4046c87588e0d3cfece90321eb83272b3ae8aea34': 115 // space: 'aavegotchi.eth', proposal: '0xec282bd937a1d85a17726cc00711b78e2fc2f0125ff9af127ddb77497dd024e5'
+  '2e69359685ea9a250a8b73a4046c87588e0d3cfece90321eb83272b3ae8aea34': 115, // space: 'aavegotchi.eth', proposal: '0xec282bd937a1d85a17726cc00711b78e2fc2f0125ff9af127ddb77497dd024e5'
+  '8f4e05546538c66a89f59282d005421781f6616e5ade087f45e7bdc71859efd4': 2100 // space: 'snapshot.dcl.eth', proposal: 'None/Request from decentraland/ util we add a pagination for decentraland-estate-size subgraph'
 };
