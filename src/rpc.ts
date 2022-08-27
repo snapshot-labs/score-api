@@ -32,6 +32,13 @@ router.post('/', async (req, res) => {
         return rpcSuccess(res, cache, id, true);
       }
     }
+
+    if (
+      ['1319'].includes(params.network) ||
+      ['revotu.eth', 'aitd.eth', 'benttest.eth'].includes(params.space)
+    )
+      return rpcError(res, 500, 'something wrong with the strategies', null);
+
     const result = await snapshot.utils.getVp(
       params.address,
       params.network,
@@ -49,7 +56,7 @@ router.post('/', async (req, res) => {
     }
     return rpcSuccess(res, result, id);
   } catch (e) {
-    console.log("getVp failed", JSON.stringify(e));
+    console.log('getVp failed', JSON.stringify(e));
     return rpcError(res, 500, e, id);
   }
 });
