@@ -84,7 +84,7 @@ router.post('/api/scores', async (req, res) => {
 
   if (
     ['1319'].includes(network) ||
-    ['revotu.eth', 'aitd.eth'].includes(space) ||
+    ['revotu.eth', 'aitd.eth', 'benttest.eth'].includes(space) ||
     strategyNames.includes('pod-leader') ||
     strategies.length === 0
   )
