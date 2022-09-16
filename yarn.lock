@@ -1353,7 +1353,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#dfc4d8f9eb3bfe1860ae3143db0bf6cdfadc31e0"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#5fd157b1e3b93835399c5e6e3d7c7af7d1c3f33c"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -1553,7 +1553,7 @@
   resolved "https://registry.yarnpkg.com/@uniswap/v3-core/-/v3-core-1.0.0.tgz#6c24adacc4c25dceee0ba3ca142b35adbd7e359d"
   integrity sha512-kSC4djMGKMHj7sLMYVnn61k9nu+lHjMIxgg9CDQT+s2QYLoA56GbSK9Oxr+qJXzzygbkrmuY6cwgP6cW2JXPFA==
 
-"@uniswap/v3-periphery@1.4.1", "@uniswap/v3-periphery@^1.0.1", "@uniswap/v3-periphery@^1.1.1":
+"@uniswap/v3-periphery@1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@uniswap/v3-periphery/-/v3-periphery-1.4.1.tgz#b90f08b7386163c0abfd7258831caef6339c7862"
   integrity sha512-Ab0ZCKOQrQMKIcpBTezTsEhWfQjItd0TtkCG8mPhoQu+wC67nPaf4hYUhM6wGHeFUmDiYY5MpEQuokB0ENvoTg==
@@ -1564,6 +1564,17 @@
     "@uniswap/v3-core" "1.0.0"
     base64-sol "1.0.1"
     hardhat-watcher "^2.1.1"
+
+"@uniswap/v3-periphery@^1.0.1", "@uniswap/v3-periphery@^1.1.1":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@uniswap/v3-periphery/-/v3-periphery-1.4.2.tgz#4ecf7d93db975c385a2cadb0d79a7a9e7f956c83"
+  integrity sha512-V7rGquOu/C11082nkWb/NkQ5Qpd6Softrjf398EtpQe7wIfOasgq8fJEk1JMBQXBpYjmZNDMdh9AV0Bgag01zw==
+  dependencies:
+    "@openzeppelin/contracts" "3.4.2-solc-0.7"
+    "@uniswap/lib" "^4.0.1-alpha"
+    "@uniswap/v2-core" "1.0.1"
+    "@uniswap/v3-core" "1.0.0"
+    base64-sol "1.0.1"
 
 "@uniswap/v3-sdk@^3.9.0":
   version "3.9.0"
