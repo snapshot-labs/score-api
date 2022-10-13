@@ -1,6 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import rpc from './rpc';
+import strategy from './pagination';
+
+export default {
+  strategy
+};
 
 const app = express();
 const PORT = process.env.PORT || 3000;
