@@ -1,3 +1,37 @@
+import strategies from '@snapshot-labs/strategies';
+
+export const author = 'bonustrack';
+export const version = '0.1.0';
+
+export async function strategy(
+  space,
+  network,
+  provider,
+  addresses,
+  options,
+  snapshot
+) {
+  const max = options.limit || 300;
+  const pages = Math.ceil(addresses.length / max);
+  const promises: any = [];
+  Array.from(Array(pages)).forEach((x, i) => {
+    const addressesInPage = addresses.slice(max * i, max * (i + 1));
+    promises.push(
+      strategies[options.strategy.name].strategy(
+        space,
+        network,
+        provider,
+        addressesInPage,
+        options.strategy.params,
+        snapshot
+      )
+    );
+  });
+  const results = await Promise.all(promises);
+  // @ts-ignore
+  return results.reduce((obj, result: any) => ({ ...obj, ...result }), {});
+}
+
 export default {
   '3210044a56e6b1bdfa1c05be6147d708e5d92e3b34390db6261d3ee134fda5df': 6,
   '04da6c880ebec9f702645245df335dcb0007a04287929e0e12343a40c3a70c4f': 240,
