@@ -1,137 +1,72 @@
-import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
-import scores from './scores';
 import redis from './redis';
-import {
-  clone,
-  sha256,
-  formatStrategies,
-  rpcSuccess,
-  rpcError,
-  getBlockNum,
-  blockNumByNetwork
-} from './utils';
-import { version } from '../package.json';
+import { sha256, rpcSuccess, rpcError, getBlockNum } from './utils';
 
-const router = express.Router();
+interface GetVpRequestParams {
+  address: string;
+  network: string;
+  strategies: any[];
+  snapshot: number | 'latest';
+  space: string;
+  delegation?: boolean;
+}
 
-router.post('/', async (req, res) => {
-  const { id = null, params = {} } = req.body;
-  try {
-    if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
-    if (params.snapshot !== 'latest') {
-      const currentBlockNum = await getBlockNum(params.network);
-      params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
-    }
-    const key = sha256(JSON.stringify(params));
-    if (redis && params.snapshot !== 'latest') {
-      const cache = await redis.hGetAll(`vp:${key}`);
-      if (cache && cache.vp_state) {
-        cache.vp = parseFloat(cache.vp);
-        cache.vp_by_strategy = JSON.parse(cache.vp_by_strategy);
-        return rpcSuccess(res, cache, id, true);
-      }
-    }
+interface ValidateRequestParams {
+  validation: string;
+  author: string;
+  space: string;
+  network: string;
+  snapshot: number | 'latest';
+  params: any;
+}
 
-    if (
-      ['1319'].includes(params.network) ||
-      ['revotu.eth', 'aitd.eth', 'benttest.eth'].includes(params.space)
-    )
-      return rpcError(res, 500, 'something wrong with the strategies', null);
-
-    const result = await snapshot.utils.getVp(
-      params.address,
-      params.network,
-      params.strategies,
-      params.snapshot,
-      params.space,
-      params.delegation
-    );
-    if (redis && result.vp_state === 'final') {
-      const multi = redis.multi();
-      multi.hSet(`vp:${key}`, 'vp', result.vp);
-      multi.hSet(`vp:${key}`, 'vp_by_strategy', JSON.stringify(result.vp_by_strategy));
-      multi.hSet(`vp:${key}`, 'vp_state', result.vp_state);
-      multi.exec();
-    }
-    return rpcSuccess(res, result, id);
-  } catch (e) {
-    console.log('getVp failed', JSON.stringify(e));
-    return rpcError(res, 500, e, id);
+export async function getVp(res, params: GetVpRequestParams, id) {
+  if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
+  if (params.snapshot !== 'latest') {
+    const currentBlockNum = await getBlockNum(params.network);
+    params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
   }
-});
-
-router.get('/api', (req, res) => {
-  const commit = process.env.COMMIT_HASH || '';
-  const v = commit ? `${version}#${commit.substr(0, 7)}` : version;
-  res.json({
-    block_num: blockNumByNetwork,
-    version: v
-  });
-});
-
-router.get('/api/strategies', (req, res) => {
-  const strategies = Object.fromEntries(
-    Object.entries(clone(snapshot.strategies)).map(([key, strategy]) => [
-      key,
-      // @ts-ignore
-      { key, ...strategy }
-    ])
-  );
-  res.json(strategies);
-});
-
-router.post('/api/scores', async (req, res) => {
-  const { params = {} } = req.body || {};
-  const requestId = req.headers['x-request-id'];
-  const { space = '', network = '1', snapshot = 'latest', addresses = [] } = params;
-  let { strategies = [] } = params;
-  strategies = formatStrategies(strategies, network);
-  const strategyNames = strategies.map((strategy) => strategy.name);
+  const key = sha256(JSON.stringify(params));
+  if (redis && params.snapshot !== 'latest') {
+    const cache = await redis.hGetAll(`vp:${key}`);
+    if (cache && cache.vp_state) {
+      cache.vp = parseFloat(cache.vp);
+      cache.vp_by_strategy = JSON.parse(cache.vp_by_strategy);
+      return rpcSuccess(res, cache, id, true);
+    }
+  }
 
   if (
-    ['1319'].includes(network) ||
-    ['revotu.eth', 'aitd.eth', 'benttest.eth'].includes(space) ||
-    strategyNames.includes('pod-leader') ||
-    strategies.length === 0
+    ['1319'].includes(params.network) ||
+    ['revotu.eth', 'aitd.eth', 'benttest.eth'].includes(params.space)
   )
     return rpcError(res, 500, 'something wrong with the strategies', null);
 
-  let result;
-  try {
-    result = await scores(
-      {
-        requestId,
-        strategyNames
-      },
-      {
-        space,
-        network,
-        snapshot,
-        strategies,
-        addresses
-      }
-    );
-  } catch (e) {
-    // @ts-ignore
-    const errorMessage = e?.message || e;
-    const strategiesHashes = strategies.map((strategy) =>
-      sha256(JSON.stringify({ space, network, strategy }))
-    );
-    console.log(
-      'Get scores failed',
-      network,
-      space,
-      JSON.stringify(strategies),
-      JSON.stringify(errorMessage).slice(0, 256),
-      strategiesHashes,
-      requestId
-    );
-    return rpcError(res, 500, e, null);
+  const result = await snapshot.utils.getVp(
+    params.address,
+    params.network,
+    params.strategies,
+    params.snapshot,
+    params.space,
+    params.delegation
+  );
+  if (redis && result.vp_state === 'final') {
+    const multi = redis.multi();
+    multi.hSet(`vp:${key}`, 'vp', result.vp);
+    multi.hSet(`vp:${key}`, 'vp_by_strategy', JSON.stringify(result.vp_by_strategy));
+    multi.hSet(`vp:${key}`, 'vp_state', result.vp_state);
+    multi.exec();
   }
-  const cache = result.cache || false;
-  delete result.cache;
-  return rpcSuccess(res, result, null, cache);
-});
+  return rpcSuccess(res, result, id);
+}
 
-export default router;
+export async function validate(res, params: ValidateRequestParams, id) {
+  const validation = new snapshot.validations[params.validation](
+    params.author,
+    params.space,
+    params.network,
+    params.snapshot,
+    params.params
+  );
+  return rpcSuccess(res, await validation.validate(), id);
+}
