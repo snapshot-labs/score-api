@@ -3,7 +3,7 @@ import snapshot from '@snapshot-labs/strategies';
 import scores from './scores';
 import { clone, sha256, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
-import { getVp, validate } from './rpc';
+import { getVp, validate } from './methods';
 
 const router = express.Router();
 
