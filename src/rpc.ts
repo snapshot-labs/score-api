@@ -1,64 +1,36 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores from './scores';
-import redis from './redis';
-import {
-  clone,
-  sha256,
-  formatStrategies,
-  rpcSuccess,
-  rpcError,
-  getBlockNum,
-  blockNumByNetwork
-} from './utils';
+import { clone, sha256, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
+import { getVp, validate } from './methods';
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { id = null, params = {} } = req.body;
-  try {
-    if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
-    if (params.snapshot !== 'latest') {
-      const currentBlockNum = await getBlockNum(params.network);
-      params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
-    }
-    const key = sha256(JSON.stringify(params));
-    if (redis && params.snapshot !== 'latest') {
-      const cache = await redis.hGetAll(`vp:${key}`);
-      if (cache && cache.vp_state) {
-        cache.vp = parseFloat(cache.vp);
-        cache.vp_by_strategy = JSON.parse(cache.vp_by_strategy);
-        return rpcSuccess(res, cache, id, true);
-      }
-    }
+  const { id = null, method, params = {} } = req.body;
 
-    if (
-      ['1319'].includes(params.network) ||
-      ['revotu.eth', 'aitd.eth', 'benttest.eth'].includes(params.space)
-    )
-      return rpcError(res, 500, 'something wrong with the strategies', null);
+  if (!method) return rpcError(res, 500, 'missing method', id);
 
-    const result = await snapshot.utils.getVp(
-      params.address,
-      params.network,
-      params.strategies,
-      params.snapshot,
-      params.space,
-      params.delegation
-    );
-    if (redis && result.vp_state === 'final') {
-      const multi = redis.multi();
-      multi.hSet(`vp:${key}`, 'vp', result.vp);
-      multi.hSet(`vp:${key}`, 'vp_by_strategy', JSON.stringify(result.vp_by_strategy));
-      multi.hSet(`vp:${key}`, 'vp_state', result.vp_state);
-      multi.exec();
+  if (method === 'get_vp') {
+    try {
+      return await getVp(res, params, id);
+    } catch (e) {
+      console.log('getVp failed', JSON.stringify(e));
+      return rpcError(res, 500, e, id);
     }
-    return rpcSuccess(res, result, id);
-  } catch (e) {
-    console.log('getVp failed', JSON.stringify(e));
-    return rpcError(res, 500, e, id);
   }
+
+  if (method === 'validate') {
+    try {
+      return await validate(res, params, id);
+    } catch (e) {
+      console.log('validate failed', e);
+      return rpcError(res, 500, e, id);
+    }
+  }
+
+  if (!method) return rpcError(res, 500, 'wrong method', id);
 });
 
 router.get('/api', (req, res) => {
