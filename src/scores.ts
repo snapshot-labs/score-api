@@ -1,7 +1,7 @@
 import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
-import { getBlockNum, paginateStrategies, sha256 } from './utils';
+import { getBlockNum, sha256 } from './utils';
 
 const eventEmitter = new events.EventEmitter();
 // https://stackoverflow.com/a/26176922
@@ -34,10 +34,9 @@ async function calculateScores(parent, args, key) {
   let cache = true;
   if (!scores) {
     cache = false;
-    const strategiesWithPagination = paginateStrategies(space, network, strategies);
     scores = await snapshot.utils.getScoresDirect(
       space,
-      strategiesWithPagination,
+      strategies,
       network,
       snapshot.utils.getProvider(network),
       addresses,
