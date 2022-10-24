@@ -1333,7 +1333,7 @@
     eslint-plugin-prettier "^3.1.3"
     prettier "^2.6.2"
 
-"@snapshot-labs/snapshot.js@^0.4.40":
+"@snapshot-labs/snapshot.js@^0.4.41":
   version "0.4.41"
   resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.41.tgz#7bdcaacdabf39cdb8e985affdbd4ad0b0c254084"
   integrity sha512-xH4HUW1PRtnjo6BUsCHb0ZtXPYgPnzi1xZPRRq2VVWixQpgRWs3VVBXjmV6LfhlGDkjmoBX2mIh9M+kgdDsQsw==
@@ -1353,7 +1353,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#4fc26f41cbd93e7c9f5e11ef33ff17d57145e070"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#ea4d2c65e79822093e23c796be1b26c09e7a744a"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -1366,7 +1366,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.4.40"
+    "@snapshot-labs/snapshot.js" "^0.4.41"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
