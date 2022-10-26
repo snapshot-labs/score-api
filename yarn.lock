@@ -1334,9 +1334,9 @@
     prettier "^2.6.2"
 
 "@snapshot-labs/snapshot.js@^0.4.42":
-  version "0.4.42"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.42.tgz#2439708bd97c2eb2fc3fa1f747f5644c19d15a00"
-  integrity sha512-2LA4tFpd5EWRgltM0b8VLW+ii14s7BoRjj96FJQQAMreViK3Wl9Y/lu8T+A1Mm3lYnaInoQ3Xb4q/AqFYq10DA==
+  version "0.4.43"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.43.tgz#0263d08ac4f621200377ba7d81084d214c08fbc9"
+  integrity sha512-H279y596WTUOaRbirgnDAGSqVsIhCuDfB9Obt2hmVmnFVgUSmGzXHY83a3i2B8osSvdFKV0VxozikWlvu/V/mw==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -1353,7 +1353,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#6e099e68627856f44992f504b1acb48756be16e0"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#81358b4ed8f5aa2aecaa819a6e38cfe1b83770fb"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
