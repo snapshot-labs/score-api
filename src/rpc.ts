@@ -53,6 +53,17 @@ router.get('/api/strategies', (req, res) => {
   res.json(strategies);
 });
 
+router.get('/api/validations', (req, res) => {
+  const validations = Object.fromEntries(
+    Object.entries(clone(snapshot.validations)).map(([key, validation]) => [
+      key,
+      // @ts-ignore
+      { key, ...validation }
+    ])
+  );
+  res.json(validations);
+});
+
 router.post('/api/scores', async (req, res) => {
   const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];

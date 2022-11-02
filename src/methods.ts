@@ -61,7 +61,7 @@ export async function getVp(res, params: GetVpRequestParams, id) {
 }
 
 export async function validate(res, params: ValidateRequestParams, id) {
-  const validation = new snapshot.validations[params.validation](
+  const validation = new snapshot.validations[params.validation].validation(
     params.author,
     params.space,
     params.network,
