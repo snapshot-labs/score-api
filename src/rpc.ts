@@ -100,7 +100,7 @@ router.post('/api/scores', async (req, res) => {
     // @ts-ignore
     const errorMessage = e?.message || e;
     console.log(
-      'Get scores failed',
+      '[rpc] Get scores failed',
       network,
       space,
       JSON.stringify(strategies),
