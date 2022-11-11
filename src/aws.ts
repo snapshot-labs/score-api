@@ -28,7 +28,7 @@ export async function set(key, value) {
       ContentType: 'application/json; charset=utf-8'
     });
   } catch (e) {
-    console.log('Store cache failed', e);
+    console.log('[aws] Store cache failed', e);
   }
 }
 
