@@ -5,7 +5,8 @@ const whitelistKeyHashes = ['a67acacdb3b382847fc058c206d6290c9873ccea4c656e06f22
 
 export default rateLimit({
   windowMs: 16 * 1e3,
-  max: 32,
+  max: 80,
+  keyGenerator: req => getIp(req),
   standardHeaders: true,
   skip: (request) =>
     request.headers['x-api-key']
