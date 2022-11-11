@@ -4,6 +4,7 @@ import scores from './scores';
 import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
+import disabled from './disabled.json';
 
 const router = express.Router();
 
@@ -74,7 +75,7 @@ router.post('/api/scores', async (req, res) => {
 
   if (
     ['1319'].includes(network) ||
-    ['revotu.eth', 'aitd.eth', 'benttest.eth'].includes(space) ||
+    disabled.includes(space) ||
     strategyNames.includes('pod-leader') ||
     strategies.length === 0
   )
