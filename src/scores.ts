@@ -11,16 +11,8 @@ const withCache = !!process.env.AWS_REGION;
 
 async function calculateScores(parent, args, key) {
   const { space = '', strategies, network, addresses } = args;
-  console.log(
-    'Request:',
-    space,
-    network,
-    JSON.stringify(parent.strategyNames),
-    key,
-    parent.requestId
-  );
-
   let snapshotBlockNum = 'latest';
+
   if (args.snapshot !== 'latest') {
     const currentBlockNum = await getBlockNum(network);
     snapshotBlockNum = currentBlockNum < args.snapshot ? 'latest' : args.snapshot;
@@ -44,9 +36,7 @@ async function calculateScores(parent, args, key) {
     );
 
     if (withCache && state === 'final') {
-      set(key, scores).then(() => {
-        // console.log('Stored!');
-      });
+      set(key, scores);
     }
   }
 
@@ -59,7 +49,6 @@ async function calculateScores(parent, args, key) {
 
 export default async function scores(parent, args) {
   const key = sha256(JSON.stringify(args));
-  // console.log('Key', key, JSON.stringify({ space, strategies, network }), addresses.length);
 
   return new Promise(async (resolve, reject) => {
     // Wait for scores to be calculated

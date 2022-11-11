@@ -1,7 +1,7 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores from './scores';
-import { clone, sha256, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
+import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
 
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     try {
       return await getVp(res, params, id);
     } catch (e) {
-      console.log('getVp failed', JSON.stringify(e));
+      console.log('[rpc] get_vp failed', e);
       return rpcError(res, 500, e, id);
     }
   }
@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
     try {
       return await validate(res, params, id);
     } catch (e) {
-      console.log('validate failed', e);
+      console.log('[rpc] validate failed', e);
       return rpcError(res, 500, e, id);
     }
   }
@@ -96,18 +96,12 @@ router.post('/api/scores', async (req, res) => {
       }
     );
   } catch (e) {
-    // @ts-ignore
-    const errorMessage = e?.message || e;
-    const strategiesHashes = strategies.map((strategy) =>
-      sha256(JSON.stringify({ space, network, strategy }))
-    );
     console.log(
-      'Get scores failed',
+      '[rpc] Get scores failed',
       network,
       space,
       JSON.stringify(strategies),
-      JSON.stringify(errorMessage).slice(0, 256),
-      strategiesHashes,
+      e,
       requestId
     );
     return rpcError(res, 500, e, null);
