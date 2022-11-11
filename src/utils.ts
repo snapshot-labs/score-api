@@ -70,3 +70,7 @@ export async function getBlockNum(network) {
 
   return blockNum;
 }
+
+export function getIp(req) {
+  return req.headers['cf-connecting-ip'] || req.ip;
+}
