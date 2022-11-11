@@ -37,7 +37,7 @@ export async function getVp(res, params: GetVpRequestParams, id) {
     }
   }
 
-  if (['1319'].includes(params.network) || disabled.includes(params.space))
+  if (['1319'].includes(params.network)) // || disabled.includes(params.space)
     return rpcError(res, 500, 'something wrong with the strategies', null);
 
   const result = await snapshot.utils.getVp(
