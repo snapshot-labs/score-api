@@ -5,6 +5,7 @@ import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
 import disabled from './disabled.json';
+import serve from './ee';
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.post('/', async (req, res) => {
 
   if (method === 'get_vp') {
     try {
-      return await getVp(res, params, id);
+      return await serve(JSON.stringify(params), getVp, [res, params, id]);
     } catch (e) {
       console.log('[rpc] get_vp failed', params.space, e);
       return rpcError(res, 500, e, id);
