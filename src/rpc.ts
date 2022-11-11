@@ -1,44 +1,37 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
-import scores, { blockNumByNetwork } from './scores';
-import redis from './redis';
-import { clone, sha256, formatStrategies, rpcSuccess, rpcError } from './utils';
+import scores from './scores';
+import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
+import { getVp, validate } from './methods';
+import disabled from './disabled.json';
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { id = null, params = {} } = req.body;
-  try {
-    const key = sha256(JSON.stringify(params));
-    if (redis && params.snapshot !== 'latest') {
-      const cache = await redis.hGetAll(`vp:${key}`);
-      if (cache && cache.vp_state) {
-        cache.vp = parseFloat(cache.vp);
-        cache.vp_by_strategy = JSON.parse(cache.vp_by_strategy);
-        return rpcSuccess(res, cache, id, true);
-      }
+  const { id = null, method, params = {} } = req.body;
+
+  if (!method) return rpcError(res, 500, 'missing method', id);
+
+  if (method === 'get_vp') {
+    try {
+      return await getVp(res, params, id);
+    } catch (e) {
+      console.log('[rpc] get_vp failed', params.space, e);
+      return rpcError(res, 500, e, id);
     }
-    const result = await snapshot.utils.getVp(
-      params.address,
-      params.network,
-      params.strategies,
-      params.snapshot,
-      params.space,
-      params.delegation
-    );
-    if (redis && result.vp_state === 'final') {
-      const multi = redis.multi();
-      multi.hSet(`vp:${key}`, 'vp', result.vp);
-      multi.hSet(`vp:${key}`, 'vp_by_strategy', JSON.stringify(result.vp_by_strategy));
-      multi.hSet(`vp:${key}`, 'vp_state', result.vp_state);
-      multi.exec();
-    }
-    return rpcSuccess(res, result, id);
-  } catch (e) {
-    console.log(e);
-    return rpcError(res, 500, e, id);
   }
+
+  if (method === 'validate') {
+    try {
+      return await validate(res, params, id);
+    } catch (e) {
+      console.log('[rpc] validate failed', e);
+      return rpcError(res, 500, e, id);
+    }
+  }
+
+  if (!method) return rpcError(res, 500, 'wrong method', id);
 });
 
 router.get('/api', (req, res) => {
@@ -61,6 +54,17 @@ router.get('/api/strategies', (req, res) => {
   res.json(strategies);
 });
 
+router.get('/api/validations', (req, res) => {
+  const validations = Object.fromEntries(
+    Object.entries(clone(snapshot.validations)).map(([key, validation]) => [
+      key,
+      // @ts-ignore
+      { key, ...validation }
+    ])
+  );
+  res.json(validations);
+});
+
 router.post('/api/scores', async (req, res) => {
   const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];
@@ -70,7 +74,8 @@ router.post('/api/scores', async (req, res) => {
   const strategyNames = strategies.map((strategy) => strategy.name);
 
   if (
-    ['revotu.eth'].includes(space) ||
+    ['1319'].includes(network) ||
+    disabled.includes(space) ||
     strategyNames.includes('pod-leader') ||
     strategies.length === 0
   )
@@ -94,16 +99,12 @@ router.post('/api/scores', async (req, res) => {
   } catch (e) {
     // @ts-ignore
     const errorMessage = e?.message || e;
-    const strategiesHashes = strategies.map((strategy) =>
-      sha256(JSON.stringify({ space, network, strategy }))
-    );
     console.log(
-      'Get scores failed',
+      '[rpc] Get scores failed',
       network,
       space,
       JSON.stringify(strategies),
       JSON.stringify(errorMessage).slice(0, 256),
-      strategiesHashes,
       requestId
     );
     return rpcError(res, 500, e, null);

@@ -27,5 +27,8 @@
   },
   "engines": {
     "node": "^16.10.0"
+  },
+  "resolutions": {
+    "@uniswap/v3-periphery": "1.4.1"
   }
 }
