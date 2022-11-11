@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     try {
       return await getVp(res, params, id);
     } catch (e) {
-      console.log('[rpc] get_vp failed', e);
+      console.log('[rpc] get_vp failed', params.space, e);
       return rpcError(res, 500, e, id);
     }
   }
