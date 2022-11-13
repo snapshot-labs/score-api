@@ -69,14 +69,14 @@ router.get('/api/validations', (req, res) => {
 router.post('/api/scores', async (req, res) => {
   const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];
-  const { space = '', network = '1', snapshot = 'latest', addresses = [] } = params;
+  const { space = '', network = '1', snapshot = 'latest', addresses = [], force = false } = params;
   let { strategies = [] } = params;
   strategies = formatStrategies(strategies, network);
   const strategyNames = strategies.map((strategy) => strategy.name);
 
   if (
     ['1319'].includes(network) ||
-    disabled.includes(space) ||
+    (disabled.includes(space) && !force) ||
     strategyNames.includes('pod-leader') ||
     strategies.length === 0
   )
