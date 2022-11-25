@@ -1,7 +1,6 @@
 import snapshot from '@snapshot-labs/strategies';
 import redis from './redis';
 import { sha256, rpcSuccess, rpcError, getBlockNum } from './utils';
-import disabled from './disabled.json';
 
 interface GetVpRequestParams {
   address: string;
@@ -60,6 +59,8 @@ export async function getVp(res, params: GetVpRequestParams, id) {
 }
 
 export async function validate(res, params: ValidateRequestParams, id) {
+  if (!params.validation || params.validation === 'any') return true;
+
   const validation = new snapshot.validations[params.validation].validation(
     params.author,
     params.space,
@@ -67,5 +68,6 @@ export async function validate(res, params: ValidateRequestParams, id) {
     params.snapshot,
     params.params
   );
+
   return rpcSuccess(res, await validation.validate(), id);
 }
