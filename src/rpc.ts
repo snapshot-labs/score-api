@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     }
   }
 
-  if (!method) return rpcError(res, 500, 'wrong method', id);
+  return rpcError(res, 500, 'wrong method', id);
 });
 
 router.get('/api', (req, res) => {
