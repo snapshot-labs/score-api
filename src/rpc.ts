@@ -1,5 +1,6 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
+import { getDelegatesBySpace } from './utils/delegations';
 import scores from './scores';
 import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
@@ -32,12 +33,20 @@ router.post('/', async (req, res) => {
     }
   }
 
+  if (method === 'get_delegates_by_space') {
+    try {
+      return await serve(JSON.stringify(params), getDelegatesBySpace, [res, params, id]);
+    } catch (e) {
+      console.log('[rpc] getDelegatesBySpace failed', e);
+      return rpcError(res, 500, e, id);
+    }
+  }
   return rpcError(res, 500, 'wrong method', id);
 });
 
 router.get('/api', (req, res) => {
   const commit = process.env.COMMIT_HASH || '';
-  const v = commit ? `${version}#${commit.substr(0, 7)}` : version;
+  const v = commit ? `${version}#${commit.substring(0, 7)}` : version;
   res.json({
     block_num: blockNumByNetwork,
     version: v
