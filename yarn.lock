@@ -1333,10 +1333,10 @@
     eslint-plugin-prettier "^3.1.3"
     prettier "^2.6.2"
 
-"@snapshot-labs/snapshot.js@^0.4.53":
-  version "0.4.53"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.53.tgz#9aa8d32d5ed2be51cdd373a05bd417e1bee8f938"
-  integrity sha512-fn/PPNuO6BzJxMZYSnLhH8gVyOX6mKbqftqSgKwAYAIfEfYJiEenZXhQRROi0aZ1JK2Qycf3pkqHv+ghy0YDEg==
+"@snapshot-labs/snapshot.js@^0.4.54":
+  version "0.4.54"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.54.tgz#a8c5b5e432487fcd15a9ce4f4706f8c84a9509e3"
+  integrity sha512-Hv7kDr6xOJDZbQjmHEP9xFwksOcoWSv5ZeLIcwqPV2mscydCMNx3GmATSPAW0FykDc8f0L6ngUahU87X5wUC7Q==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -1354,7 +1354,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#ea14aaa30e1a5560417d19b58a9953c7d483aece"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#436ddcc0056d01dd759200a009a086cd4598507e"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -1367,7 +1367,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.4.53"
+    "@snapshot-labs/snapshot.js" "^0.4.54"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
