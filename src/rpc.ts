@@ -56,8 +56,13 @@ router.get('/api/strategies', (req, res) => {
 });
 
 router.get('/api/validations', (req, res) => {
+  const hiddenValidations = ['passport-weighted'];
+  let validationsList: any = Object.entries(clone(snapshot.validations));
+  validationsList = validationsList.filter(
+    (validationName) => !hiddenValidations.includes(validationName[0])
+  );
   const validations = Object.fromEntries(
-    Object.entries(clone(snapshot.validations)).map(([key, validation]) => [
+    validationsList.map(([key, validation]) => [
       key,
       // @ts-ignore
       { key, ...validation }
