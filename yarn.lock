@@ -1354,7 +1354,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#95fd8458971d3a5e44dfbd0c6285c96558825d7c"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#2dfa7c70dab1c46b572bf712a2b949b2aa9a1869"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -1529,9 +1529,9 @@
   integrity sha512-f6UIliwBbRsgVLxIaBANF6w09tYqc6Y/qXdsrbEmXHyFA7ILiKrIwRFXe1yOg8M3cksgVsO9N7yuL2DdCGQKBA==
 
 "@uniswap/sdk-core@^3.0.1":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-3.1.2.tgz#c2cfd04ef3b9d5aa529a8a2326b3aac7d987929e"
-  integrity sha512-UwBOgqy+/20VB2mpZDLPDYl+E1xn6YSgzI8p/VIZvxxgdWrCmiIYdrnyGDkhp/pxz8mpMnTVPA/nZRwFwepu7w==
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-3.2.0.tgz#cabee6b21469d2e8d41c367503cfd961dddc8305"
+  integrity sha512-KXCIDNRhKF9DeDBY2j7SiAlD56ZqD/T6his2m9y8ZCMdObLBVt/oCt4kaQGrWUjJuf2Flr5dryHMmMQBXqA9pA==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     big.js "^5.2.2"
