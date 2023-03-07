@@ -1333,10 +1333,10 @@
     eslint-plugin-prettier "^3.1.3"
     prettier "^2.6.2"
 
-"@snapshot-labs/snapshot.js@^0.4.67":
-  version "0.4.67"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.67.tgz#86bf5066c51235e3455b6f38b7954ee086ef6296"
-  integrity sha512-9JEuMe3wVcUVaDq+03owIk0hFC1JijnFKPy1JTfW+7ow314YYQR76zTvJ4jkpivXuaBKWAh/EwyVPFaPdw+HhQ==
+"@snapshot-labs/snapshot.js@^0.4.68":
+  version "0.4.68"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.68.tgz#01b1da4a47d2a8f27a9d662e8768a457e46c8024"
+  integrity sha512-RVPo4iNnnt51nY7A0mVLSl3HGzsEmAQlH/ZtbI3TQtpCjI0pNG/VVvyvVG3/ue9/xgo5U6OzirD8DKcPT51fYQ==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -1354,7 +1354,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#f06a28cce116e867fe6482db961e4eee89532c2e"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#c023dc65dbcfafb07d8386077322d35a9cfeefc3"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -1367,7 +1367,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.4.67"
+    "@snapshot-labs/snapshot.js" "^0.4.68"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
@@ -1529,9 +1529,9 @@
   integrity sha512-f6UIliwBbRsgVLxIaBANF6w09tYqc6Y/qXdsrbEmXHyFA7ILiKrIwRFXe1yOg8M3cksgVsO9N7yuL2DdCGQKBA==
 
 "@uniswap/sdk-core@^3.0.1":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-3.2.0.tgz#cabee6b21469d2e8d41c367503cfd961dddc8305"
-  integrity sha512-KXCIDNRhKF9DeDBY2j7SiAlD56ZqD/T6his2m9y8ZCMdObLBVt/oCt4kaQGrWUjJuf2Flr5dryHMmMQBXqA9pA==
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-3.2.1.tgz#d12416adc820e0b0cfbff8d23e197c8a077210d1"
+  integrity sha512-HhMRLdcQlUTU0wP2r2H+kpKhiut5qBuuFVrp51kfe2wbdyUtT+/kGDeA4RJRPJBoDjQdrU4g0B7Obu0X3WJaoQ==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     big.js "^5.2.2"
