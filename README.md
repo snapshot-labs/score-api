@@ -3,29 +3,29 @@ The Score API is a simple RESTful API that calculates scores for various strateg
 
 
 
-API Endpoints
-1. POST /
+## API Endpoints
+### 1. POST /
 The base endpoint serves as the entry point for various methods:
 
 - get_vp: Calculate voting power for a given address using strategies.
 - validate: Validate a given address using validation strategies.
 
-2. GET /api
+### 2. GET /api
 This endpoint returns the current version of the Snapshot Score API and block numbers for different networks.
 
 Send a GET request to this endpoint to receive a JSON object containing the version and block_num properties.
 
-3. GET /api/strategies
+### 3. GET /api/strategies
 This endpoint returns a list of available strategies for calculating voting power.
 
 Send a GET request to this endpoint to receive a JSON object containing key-value pairs representing the strategies and their respective information.
 
-4. GET /api/validations
+### 4. GET /api/validations
 This endpoint returns a list of available validation strategies for address validation.
 
 Send a GET request to this endpoint to receive a JSON object containing key-value pairs representing the validation strategies and their respective information.
 
-5. POST /api/scores
+### 5. POST /api/scores
 This endpoint calculates scores for a given set of strategies and addresses.
 
 To use this endpoint, send a POST request with a JSON body containing the params object. The params object should include:
