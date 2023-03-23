@@ -1,6 +1,6 @@
 # Snapshot Score API
 
-We recommend using the [snapshot.js](https://github.com/snapshot-labs/snapshot.js) library for obtaining voting power and validation information, as it provides a simple and convenient way to interact with the Snapshot Score API. The snapshot.js library offers the following methods:
+We recommend using the [snapshot.js](https://github.com/snapshot-labs/snapshot.js) library for obtaining voting power and doing validation, as it provides a simple and convenient way to interact with the Snapshot Score API. The snapshot.js library offers the following methods:
 
 - `getScores()` - https://github.com/snapshot-labs/snapshot.js/blob/ad55119b0b684f7d6eeaa06f3642f7424d1fa949/src/utils.ts#L162
 - `getVp()` - https://github.com/snapshot-labs/snapshot.js/blob/ad55119b0b684f7d6eeaa06f3642f7424d1fa949/src/utils.ts#L190
