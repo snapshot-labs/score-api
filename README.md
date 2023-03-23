@@ -1,7 +1,13 @@
 # Snapshot Score API
+
+We recommend using the [snapshot.js](https://github.com/snapshot-labs/snapshot.js) library for obtaining voting power and validation information, as it provides a simple and convenient way to interact with the Snapshot Score API. The snapshot.js library offers the following methods:
+
+- `getScores()` - https://github.com/snapshot-labs/snapshot.js/blob/ad55119b0b684f7d6eeaa06f3642f7424d1fa949/src/utils.ts#L162
+- `getVp()` - https://github.com/snapshot-labs/snapshot.js/blob/ad55119b0b684f7d6eeaa06f3642f7424d1fa949/src/utils.ts#L190
+- `validate()` - https://github.com/snapshot-labs/snapshot.js/blob/ad55119b0b684f7d6eeaa06f3642f7424d1fa949/src/utils.ts#L227
+
+
 The Score API is a simple RESTful API that calculates scores for various strategies based on the Snapshot protocol. This README outlines the functionality provided by the API and how to use it without any specific code examples.
-
-
 
 ## API Endpoints
 ### 1. POST /
@@ -9,6 +15,8 @@ The base endpoint serves as the entry point for various methods:
 
 - get_vp: Calculate voting power for a given address using strategies.
 - validate: Validate a given address using validation strategies.
+
+
 
 ### 2. GET /api
 This endpoint returns the current version of the Snapshot Score API and block numbers for different networks.
