@@ -60,6 +60,8 @@ export async function getVp(res, params: GetVpRequestParams, id) {
 
 export async function validate(res, params: ValidateRequestParams, id) {
   if (!params.validation || params.validation === 'any') return true;
+  if (!snapshot.validations[params.validation])
+    return rpcError(res, 500, 'Validation not found', id);
 
   const validation = new snapshot.validations[params.validation].validation(
     params.author,
