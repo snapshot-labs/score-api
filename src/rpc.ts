@@ -109,6 +109,7 @@ router.post('/api/scores', async (req, res) => {
       '[rpc] Get scores failed',
       network,
       space,
+      snapshot,
       JSON.stringify(strategies),
       JSON.stringify(errorMessage).slice(0, 256),
       requestId
