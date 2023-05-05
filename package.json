@@ -12,6 +12,7 @@
     "@aws-sdk/client-s3": "^3.18.0",
     "@snapshot-labs/strategies": "https://github.com/snapshot-labs/snapshot-strategies#master",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "eslint": "^6.7.2",
     "express": "^4.17.1",
     "nodemon": "^2.0.15",
