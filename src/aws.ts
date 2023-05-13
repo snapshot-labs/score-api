@@ -1,8 +1,8 @@
 import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
-import { name } from '../package.json';
 
-const cb = '5';
+const name = 'score-api';
+const cb = '1';
 
 let client;
 const bucket = process.env.AWS_BUCKET_NAME;
