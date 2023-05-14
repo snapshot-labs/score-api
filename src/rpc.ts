@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
     try {
       return await serve(JSON.stringify(params), getVp, [res, params, id]);
     } catch (e) {
-      console.log('[rpc] get_vp failed', params.space, e);
+      console.log('[rpc] get_vp failed', params.space, JSON.stringify(e));
       return rpcError(res, 500, e, id);
     }
   }
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     try {
       return await validate(res, params, id);
     } catch (e) {
-      console.log('[rpc] validate failed', e);
+      console.log('[rpc] validate failed', JSON.stringify(e));
       return rpcError(res, 500, e, id);
     }
   }
@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
   return rpcError(res, 500, 'wrong method', id);
 });
 
-router.get('/api', (req, res) => {
+router.get('/', (req, res) => {
   const commit = process.env.COMMIT_HASH || '';
   const v = commit ? `${version}#${commit.substr(0, 7)}` : version;
   res.json({
