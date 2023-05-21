@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  score-api:
+    build: .
+    ports:
+      - "3003:3003"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
