@@ -18,7 +18,8 @@ router.post('/', async (req, res) => {
     try {
       return await serve(JSON.stringify(params), getVp, [res, params, id]);
     } catch (e) {
-      console.log('[rpc] get_vp failed', params.space, JSON.stringify(e));
+      const errorMessage = e?.message || e;
+      console.log('[rpc] get_vp failed', params.space, JSON.stringify(errorMessage).slice(0, 256));
       return rpcError(res, 500, e, id);
     }
   }
