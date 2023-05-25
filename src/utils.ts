@@ -3,7 +3,7 @@ import { createHash } from 'crypto';
 
 export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
-const delay = 30;
+const delay = 120;
 
 export function clone(item) {
   return JSON.parse(JSON.stringify(item));
