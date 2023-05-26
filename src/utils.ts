@@ -70,3 +70,9 @@ export async function getBlockNum(network) {
 
   return blockNum;
 }
+
+export function checkSnapshot(snapshot, network) {
+  return (
+    snapshot !== 'latest' || !blockNumByNetwork[network] || snapshot > blockNumByNetwork[network]
+  );
+}

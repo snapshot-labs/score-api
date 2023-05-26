@@ -1,7 +1,7 @@
 import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
-import { getBlockNum, sha256 } from './utils';
+import { getBlockNum, checkSnapshot, sha256 } from './utils';
 
 const eventEmitter = new events.EventEmitter();
 // https://stackoverflow.com/a/26176922
@@ -13,7 +13,7 @@ async function calculateScores(parent, args, key) {
   const { space = '', strategies, network, addresses } = args;
   let snapshotBlockNum = 'latest';
 
-  if (args.snapshot !== 'latest') {
+  if (checkSnapshot(args.snapshot, network)) {
     const currentBlockNum = await getBlockNum(network);
     snapshotBlockNum = currentBlockNum < args.snapshot ? 'latest' : args.snapshot;
   }
