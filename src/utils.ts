@@ -57,7 +57,9 @@ export function rpcError(res, code, e, id) {
   });
 }
 
-export async function getBlockNum(network) {
+export async function getBlockNum(snapshotBlock, network) {
+  if (blockNumByNetwork[network] && snapshotBlock <= blockNumByNetwork[network])
+    return blockNumByNetwork[network];
   const ts = parseInt((Date.now() / 1e3).toFixed());
   if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay)
     return blockNumByNetwork[network];
