@@ -23,7 +23,7 @@ interface ValidateRequestParams {
 export async function getVp(res, params: GetVpRequestParams, id) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
   if (params.snapshot !== 'latest') {
-    const currentBlockNum = await getBlockNum(params.network);
+    const currentBlockNum = await getBlockNum(params.snapshot, params.network);
     params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
   }
   const key = sha256(JSON.stringify(params));
