@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
     } catch (e) {
       // @ts-ignore
       const errorMessage = e?.message || e;
-      console.log('[rpc] get_vp failed', params.space, JSON.stringify(errorMessage).slice(0, 512));
+      console.log('[rpc] get_vp failed', params.space, JSON.stringify(errorMessage).slice(0, 1024));
       return rpcError(res, 500, e, id);
     }
   }
