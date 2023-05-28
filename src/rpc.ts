@@ -16,9 +16,9 @@ router.post('/', async (req, res) => {
 
   if (method === 'get_vp') {
     try {
-      return await serve(JSON.stringify(params), getVp, [res, params, id]);
-    } catch (e) {
-      // @ts-ignore
+      const response: any = await serve(JSON.stringify(params), getVp, [params]);
+      return rpcSuccess(res, response.result, id, response.cache);
+    } catch (e: any) {
       const errorMessage = e?.message || e;
       console.log('[rpc] get_vp failed', params.space, JSON.stringify(errorMessage).slice(0, 1024));
       return rpcError(res, 500, e, id);
@@ -27,9 +27,11 @@ router.post('/', async (req, res) => {
 
   if (method === 'validate') {
     try {
-      return await validate(res, params, id);
-    } catch (e) {
-      console.log('[rpc] validate failed', JSON.stringify(e));
+      const result = await serve(JSON.stringify(params), validate, [params]);
+      return rpcSuccess(res, result, id);
+    } catch (e: any) {
+      const errorMessage = e?.message || e;
+      console.log('[rpc] validate failed', JSON.stringify(errorMessage).slice(0, 256));
       return rpcError(res, 500, e, id);
     }
   }
