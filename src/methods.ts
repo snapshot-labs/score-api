@@ -1,6 +1,6 @@
 import snapshot from '@snapshot-labs/strategies';
 import redis from './redis';
-import { sha256, rpcSuccess, rpcError, getBlockNum } from './utils';
+import { sha256, getBlockNum } from './utils';
 
 interface GetVpRequestParams {
   address: string;
