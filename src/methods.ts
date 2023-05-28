@@ -40,6 +40,14 @@ export async function getVp(params: GetVpRequestParams) {
     // || disabled.includes(params.space)
     throw 'something wrong with the strategies';
 
+  console.log(
+    'Received:',
+    params.space,
+    params.address,
+    params.network,
+    params.snapshot,
+    params.strategies
+  );
   const result = await snapshot.utils.getVp(
     params.address,
     params.network,
