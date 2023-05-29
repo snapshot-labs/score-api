@@ -20,7 +20,12 @@ router.post('/', async (req, res) => {
       return rpcSuccess(res, response.result, id, response.cache);
     } catch (e: any) {
       const errorMessage = e?.message || e;
-      console.log('[rpc] get_vp failed', params.space, JSON.stringify(errorMessage).slice(0, 1024));
+      console.log(
+        '[rpc] get_vp failed',
+        params.space,
+        params.snapshot,
+        JSON.stringify(errorMessage).slice(0, 1024)
+      );
       return rpcError(res, 500, e, id);
     }
   }
@@ -40,8 +45,8 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  const commit = process.env.COMMIT_HASH || '';
-  const v = commit ? `${version}#${commit.substr(0, 7)}` : version;
+  const commit = process.env.COMMIT_HASH ?? '';
+  const v = commit ? `${version}#${commit.substring(0, 7)}` : version;
   res.json({
     block_num: blockNumByNetwork,
     version: v
@@ -80,7 +85,7 @@ router.post('/api/scores', async (req, res) => {
   const requestId = req.headers['x-request-id'];
   const { space = '', network = '1', snapshot = 'latest', addresses = [], force = false } = params;
   let { strategies = [] } = params;
-  strategies = formatStrategies(strategies, network);
+  strategies = formatStrategies(network, strategies);
   const strategyNames = strategies.map((strategy) => strategy.name);
 
   if (

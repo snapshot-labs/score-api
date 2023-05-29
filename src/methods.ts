@@ -29,7 +29,7 @@ export async function getVp(params: GetVpRequestParams) {
   const key = sha256(JSON.stringify(params));
   if (redis && params.snapshot !== 'latest') {
     const cache = await redis.hGetAll(`vp:${key}`);
-    if (cache && cache.vp_state) {
+    if (cache?.vp_state) {
       cache.vp = parseFloat(cache.vp);
       cache.vp_by_strategy = JSON.parse(cache.vp_by_strategy);
       return { result: cache, cache: true };
