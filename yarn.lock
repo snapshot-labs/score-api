@@ -1333,10 +1333,10 @@
     eslint-plugin-prettier "^3.1.3"
     prettier "^2.6.2"
 
-"@snapshot-labs/snapshot.js@^0.4.88":
-  version "0.4.88"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.88.tgz#381e36bf23e622f103e1a6fac56b6ace9fdf0b67"
-  integrity sha512-PJB1UJrSCWLsU+rdoYPoYfnWjOAdDPxK3oO671o5nqB/KiLGdqXzpL/OBRQQop2RqNCdPiH36tmkAYZ1irY+gw==
+"@snapshot-labs/snapshot.js@^0.4.89":
+  version "0.4.89"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.4.89.tgz#533b6d99ec90f889470821b6f6b755eca830b069"
+  integrity sha512-O2slv4S0fvtzz1ajuD+oOSY5RvkNLmHvAW7huxlzfgMhrNnM35Blgp8Uw1rLhkIwtF0GrhPn/m1VZninchPIYQ==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -1348,13 +1348,13 @@
     "@ethersproject/wallet" "^5.6.2"
     ajv "^8.11.0"
     ajv-formats "^2.1.1"
-    cross-fetch "^3.1.5"
+    cross-fetch "^3.1.6"
     json-to-graphql-query "^2.2.4"
     lodash.set "^4.3.2"
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#243d1e428d3b7f45c449cb8dbd3298886d89d322"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#5f3d1adc9ab48e2bf5c79de445cc54d9f0b5fbdd"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -1367,13 +1367,13 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.4.88"
+    "@snapshot-labs/snapshot.js" "^0.4.89"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
     blakejs "^1.2.1"
     copyfiles "^2.4.1"
-    cross-fetch "^3.1.5"
+    cross-fetch "^3.1.6"
     eth-ens-namehash "^2.0.8"
     json-to-graphql-query "^2.2.4"
     tulons "^0.0.7"
@@ -1989,7 +1989,7 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
-cross-fetch@^3.1.5:
+cross-fetch@^3.1.6:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.6.tgz#bae05aa31a4da760969756318feeee6e70f15d6c"
   integrity sha512-riRvo06crlE8HiqOwIpQhxwdOk4fOeR7FVM/wXoxchFEqMNUjvbs3bfo4OTgMEMHzppd4DxFBDbyySj8Cv781g==
