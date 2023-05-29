@@ -20,6 +20,7 @@ interface ValidateRequestParams {
   params: any;
 }
 
+const disabled = ['stgdao.eth']; // Disabled space until we find some node with higher capacity
 export async function getVp(params: GetVpRequestParams) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
   if (params.snapshot !== 'latest') {
@@ -36,8 +37,7 @@ export async function getVp(params: GetVpRequestParams) {
     }
   }
 
-  if (['1319'].includes(params.network))
-    // || disabled.includes(params.space)
+  if (['1319'].includes(params.network) || disabled.includes(params.space))
     throw 'something wrong with the strategies';
 
   const result = await snapshot.utils.getVp(
