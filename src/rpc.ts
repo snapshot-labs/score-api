@@ -19,14 +19,15 @@ router.post('/', async (req, res) => {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
       return rpcSuccess(res, response.result, id, response.cache);
     } catch (e: any) {
-      const errorMessage = e?.message || e;
-      console.log(
-        '[rpc] get_vp failed',
-        params.space,
-        params.snapshot,
-        getIp(req),
-        JSON.stringify(errorMessage).slice(0, 1024)
-      );
+      let error = JSON.stringify(e).slice(0, 500);
+
+      // Detect provider error
+      if (e?.reason && e?.error?.reason && e?.error?.url) {
+        error = `[provider request failed] reason: ${e.reason}, ${e.error.reason}, URL: ${e.error.url}`;
+      }
+
+      console.log('[rpc] get_vp failed', params.space, params.snapshot, error);
+
       return rpcError(res, 500, e, id);
     }
   }
