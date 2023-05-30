@@ -1,7 +1,7 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores from './scores';
-import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
+import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork, getIp } from './utils';
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
 import disabled from './disabled.json';
@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
         '[rpc] get_vp failed',
         params.space,
         params.snapshot,
+        getIp(req),
         JSON.stringify(errorMessage).slice(0, 1024)
       );
       return rpcError(res, 500, e, id);
@@ -119,6 +120,7 @@ router.post('/api/scores', async (req, res) => {
       network,
       space,
       snapshot,
+      getIp(req),
       JSON.stringify(strategies),
       JSON.stringify(errorMessage).slice(0, 256),
       requestId
