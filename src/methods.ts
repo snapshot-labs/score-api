@@ -1,6 +1,7 @@
 import snapshot from '@snapshot-labs/strategies';
 import redis from './redis';
 import { sha256, getBlockNum } from './utils';
+import disabled from './disabled.json';
 
 interface GetVpRequestParams {
   address: string;
@@ -20,7 +21,6 @@ interface ValidateRequestParams {
   params: any;
 }
 
-const disabled = ['stgdao.eth']; // Disabled space until we find some node with higher capacity
 export async function getVp(params: GetVpRequestParams) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
   if (params.snapshot !== 'latest') {
