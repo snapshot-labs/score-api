@@ -22,12 +22,17 @@ interface ValidateRequestParams {
 }
 
 export async function getVp(params: GetVpRequestParams) {
+  if (params.address === '0x0000000000000000000000000000000000000000') throw 'invalid address';
+
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
+
   if (params.snapshot !== 'latest') {
     const currentBlockNum = await getBlockNum(params.snapshot, params.network);
     params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
   }
+
   const key = sha256(JSON.stringify(params));
+
   if (redis && params.snapshot !== 'latest') {
     const cache = await redis.hGetAll(`vp:${key}`);
     if (cache?.vp_state) {
@@ -48,6 +53,7 @@ export async function getVp(params: GetVpRequestParams) {
     params.space,
     params.delegation
   );
+
   if (redis && result.vp_state === 'final') {
     const multi = redis.multi();
     multi.hSet(`vp:${key}`, 'vp', result.vp);
@@ -55,11 +61,13 @@ export async function getVp(params: GetVpRequestParams) {
     multi.hSet(`vp:${key}`, 'vp_state', result.vp_state);
     multi.exec();
   }
+
   return { result, cache: false };
 }
 
 export async function validate(params: ValidateRequestParams) {
   if (!params.validation || params.validation === 'any') return true;
+
   if (!snapshot.validations[params.validation]) throw 'Validation not found';
 
   const validation = new snapshot.validations[params.validation].validation(
