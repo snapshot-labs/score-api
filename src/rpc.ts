@@ -27,6 +27,9 @@ router.post('/', async (req, res) => {
       }
 
       console.log('[rpc] get_vp failed', params.space, params.address, params.snapshot, error);
+      if (params.space === 'rocketpool-dao.eth') {
+        console.log('[rpc] rocketpool-dao.eth error', JSON.stringify(params));
+      }
 
       return rpcError(res, 500, e, id);
     }
