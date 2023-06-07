@@ -6,14 +6,22 @@ import { version } from '../package.json';
 import { getVp, validate } from './methods';
 import disabled from './disabled.json';
 import serve from './ee';
+import { getAddress } from '@ethersproject/address';
 
+const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
   const { id = null, method, params = {} } = req.body;
 
   if (!method) return rpcError(res, 500, 'missing method', id);
-
+  if (
+    (method === 'get_vp' && !params.address) ||
+    (method === 'validate' && !params.author) ||
+    params.address === EMPTY_ADDRESS ||
+    params.author === EMPTY_ADDRESS
+  )
+    return rpcError(res, 500, 'invalid address', id);
   if (method === 'get_vp') {
     try {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
@@ -27,10 +35,6 @@ router.post('/', async (req, res) => {
       }
 
       console.log('[rpc] get_vp failed', params.space, params.address, params.snapshot, error);
-      if (params.space === 'rocketpool-dao.eth') {
-        console.log('[rpc] rocketpool-dao.eth error', JSON.stringify(params));
-      }
-
       return rpcError(res, 500, e, id);
     }
   }
