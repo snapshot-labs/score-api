@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
       return rpcSuccess(res, response.result, id, response.cache);
     } catch (e: any) {
-      let error = JSON.stringify(e?.message || e).slice(0, 500);
+      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 500);
 
       // Detect provider error
       if (e?.reason && e?.error?.reason && e?.error?.url) {
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
       const result = await serve(JSON.stringify(params), validate, [params]);
       return rpcSuccess(res, result, id);
     } catch (e: any) {
-      const errorMessage = e?.message || e;
+      const errorMessage = e?.message || e || 'Unknown error';
       console.log('[rpc] validate failed', JSON.stringify(errorMessage).slice(0, 256));
       return rpcError(res, 500, e, id);
     }
@@ -121,7 +121,7 @@ router.post('/api/scores', async (req, res) => {
     );
   } catch (e) {
     // @ts-ignore
-    const errorMessage = e?.message || e;
+    const errorMessage = e?.message || e || 'Unknown error';
     console.log(
       '[rpc] Get scores failed',
       network,
