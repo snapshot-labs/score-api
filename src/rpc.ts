@@ -33,7 +33,14 @@ router.post('/', async (req, res) => {
         error = `[provider issue] ${e.error.url}, reason: ${e.reason}, ${e.error.reason}`;
       }
 
-      console.log('[rpc] get_vp failed', params.space, params.address, params.snapshot, error);
+      console.log(
+        '[rpc] get_vp failed',
+        params.space,
+        params.address,
+        params.network,
+        params.snapshot,
+        error
+      );
       return rpcError(res, 500, e, id);
     }
   }
