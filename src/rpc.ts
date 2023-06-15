@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
       return rpcSuccess(res, response.result, id, response.cache);
     } catch (e: any) {
-      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 500);
+      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
       // Detect provider error
       if (e?.reason && e?.error?.reason && e?.error?.url) {
