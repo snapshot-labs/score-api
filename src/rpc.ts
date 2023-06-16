@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
     } catch (e: any) {
       const errorMessage = e?.message || e || 'Unknown error';
       console.log('[rpc] validate failed', JSON.stringify(errorMessage).slice(0, 256));
-      return rpcError(res, 500, e, id);
+      return rpcError(res, 500, errorMessage, id);
     }
   }
 
