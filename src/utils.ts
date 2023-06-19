@@ -3,7 +3,7 @@ import { createHash } from 'crypto';
 
 export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
-const delay = 30;
+const delay = 120;
 
 export function clone(item) {
   return JSON.parse(JSON.stringify(item));
@@ -24,7 +24,7 @@ function sortObjectByParam(obj) {
   return sortedObj;
 }
 
-export function formatStrategies(strategies: Array<any> = [], network) {
+export function formatStrategies(network, strategies: Array<any> = []) {
   strategies = Array.isArray(strategies) ? strategies : [];
   // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to 8 strategies
   return strategies
@@ -57,7 +57,9 @@ export function rpcError(res, code, e, id) {
   });
 }
 
-export async function getBlockNum(network) {
+export async function getBlockNum(snapshotBlock, network) {
+  if (blockNumByNetwork[network] && snapshotBlock <= blockNumByNetwork[network])
+    return blockNumByNetwork[network];
   const ts = parseInt((Date.now() / 1e3).toFixed());
   if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay)
     return blockNumByNetwork[network];
@@ -69,4 +71,16 @@ export async function getBlockNum(network) {
   blockNumByNetworkTs[network] = ts;
 
   return blockNum;
+}
+
+export function getIp(req) {
+  const ips = (
+    req.headers['cf-connecting-ip'] ||
+    req.headers['x-real-ip'] ||
+    req.headers['x-forwarded-for'] ||
+    req.connection.remoteAddress ||
+    ''
+  ).split(',');
+
+  return ips[0].trim();
 }

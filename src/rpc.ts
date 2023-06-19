@@ -1,34 +1,58 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import scores from './scores';
-import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
+import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork, getIp } from './utils';
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
 import disabled from './disabled.json';
 import serve from './ee';
 
+const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
   const { id = null, method, params = {} } = req.body;
 
   if (!method) return rpcError(res, 500, 'missing method', id);
-
+  if (
+    (method === 'get_vp' && !params.address) ||
+    (method === 'validate' && !params.author) ||
+    params.address === EMPTY_ADDRESS ||
+    params.author === EMPTY_ADDRESS
+  )
+    return rpcError(res, 500, 'invalid address', id);
   if (method === 'get_vp') {
     try {
-      return await serve(JSON.stringify(params), getVp, [res, params, id]);
-    } catch (e) {
-      console.log('[rpc] get_vp failed', params.space, JSON.stringify(e));
+      const response: any = await serve(JSON.stringify(params), getVp, [params]);
+      return rpcSuccess(res, response.result, id, response.cache);
+    } catch (e: any) {
+      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
+
+      // Detect provider error
+      if (e?.reason && e?.error?.reason && e?.error?.url) {
+        error = `[provider issue] ${e.error.url}, reason: ${e.reason}, ${e.error.reason}`;
+      }
+
+      console.log(
+        '[rpc] get_vp failed',
+        params.space,
+        params.address,
+        params.network,
+        params.snapshot,
+        error
+      );
       return rpcError(res, 500, e, id);
     }
   }
 
   if (method === 'validate') {
     try {
-      return await validate(res, params, id);
-    } catch (e) {
-      console.log('[rpc] validate failed', JSON.stringify(e));
-      return rpcError(res, 500, e, id);
+      const result = await serve(JSON.stringify(params), validate, [params]);
+      return rpcSuccess(res, result, id);
+    } catch (e: any) {
+      const errorMessage = e?.message || e || 'Unknown error';
+      console.log('[rpc] validate failed', JSON.stringify(errorMessage).slice(0, 256));
+      return rpcError(res, 500, errorMessage, id);
     }
   }
 
@@ -36,8 +60,8 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  const commit = process.env.COMMIT_HASH || '';
-  const v = commit ? `${version}#${commit.substr(0, 7)}` : version;
+  const commit = process.env.COMMIT_HASH ?? '';
+  const v = commit ? `${version}#${commit.substring(0, 7)}` : version;
   res.json({
     block_num: blockNumByNetwork,
     version: v
@@ -76,7 +100,7 @@ router.post('/api/scores', async (req, res) => {
   const requestId = req.headers['x-request-id'];
   const { space = '', network = '1', snapshot = 'latest', addresses = [], force = false } = params;
   let { strategies = [] } = params;
-  strategies = formatStrategies(strategies, network);
+  strategies = formatStrategies(network, strategies);
   const strategyNames = strategies.map((strategy) => strategy.name);
 
   if (
@@ -104,12 +128,13 @@ router.post('/api/scores', async (req, res) => {
     );
   } catch (e) {
     // @ts-ignore
-    const errorMessage = e?.message || e;
+    const errorMessage = e?.message || e || 'Unknown error';
     console.log(
       '[rpc] Get scores failed',
       network,
       space,
       snapshot,
+      getIp(req),
       JSON.stringify(strategies),
       JSON.stringify(errorMessage).slice(0, 256),
       requestId
