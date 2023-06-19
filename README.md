@@ -48,7 +48,6 @@ To use this endpoint, send a POST request with a JSON body containing the params
 - strategies: An array of strategy objects, each containing a name and params property.
 - force: A boolean indicating whether to force the calculation of scores despite potential restrictions.
 
-
 ## Running the API locally with Docker
 
 You can run the API locally using Docker. To do so, follow these steps:
