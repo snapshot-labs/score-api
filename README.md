@@ -11,7 +11,6 @@ We recommend using the [snapshot.js](https://github.com/snapshot-labs/snapshot.j
 
 The URL for score api is `https://score.snapshot.org`
 
-
 ## API Endpoints
 
 ### 1. POST /
@@ -48,3 +47,11 @@ To use this endpoint, send a POST request with a JSON body containing the params
 - addresses: An array of addresses for which the scores will be calculated.
 - strategies: An array of strategy objects, each containing a name and params property.
 - force: A boolean indicating whether to force the calculation of scores despite potential restrictions.
+
+## Running the API locally with Docker
+
+You can run the API locally using Docker. To do so, follow these steps:
+
+1. Clone the repository and `cd` into it.
+2. Copy the `.env.example` file to `.env` and set necessary values.
+3. Run `docker-compose up -d` to start the API.
