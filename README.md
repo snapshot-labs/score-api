@@ -54,4 +54,4 @@ You can run the API locally using Docker. To do so, follow these steps:
 
 1. Clone the repository and `cd` into it.
 2. Copy the `.env.example` file to `.env` and set necessary values.
-3. Run `docker-compose up -d` to start the API.
+3. Run `docker-compose up` to start the API.
