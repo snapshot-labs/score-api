@@ -5,6 +5,7 @@ let client;
 (async () => {
   if (!process.env.DATABASE_URL) return;
 
+  console.log('[redis] Connecting to Redis');
   client = createClient({ url: process.env.DATABASE_URL });
   client.on('connect', () => console.log('[redis] Redis connect'));
   client.on('ready', () => console.log('[redis] Redis ready'));
