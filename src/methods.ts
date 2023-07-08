@@ -21,9 +21,9 @@ interface ValidateRequestParams {
   params: any;
 }
 
-export async function getVp(params: GetVpRequestParams) {
-  if (params.address === '0x0000000000000000000000000000000000000000') throw 'invalid address';
+const disableCachingForSpaces = ['magicappstore.eth'];
 
+export async function getVp(params: GetVpRequestParams) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
 
   if (params.snapshot !== 'latest') {
@@ -32,8 +32,9 @@ export async function getVp(params: GetVpRequestParams) {
   }
 
   const key = sha256(JSON.stringify(params));
-
-  if (redis && params.snapshot !== 'latest') {
+  const useCache =
+    redis && params.snapshot !== 'latest' && !disableCachingForSpaces.includes(params.space);
+  if (useCache) {
     const cache = await redis.hGetAll(`vp:${key}`);
     if (cache?.vp_state) {
       cache.vp = parseFloat(cache.vp);
@@ -54,7 +55,7 @@ export async function getVp(params: GetVpRequestParams) {
     params.delegation
   );
 
-  if (redis && result.vp_state === 'final') {
+  if (useCache && result.vp_state === 'final') {
     const multi = redis.multi();
     multi.hSet(`vp:${key}`, 'vp', result.vp);
     multi.hSet(`vp:${key}`, 'vp_by_strategy', JSON.stringify(result.vp_by_strategy));
