@@ -21,7 +21,7 @@ interface ValidateRequestParams {
   params: any;
 }
 
-const disableCachingForSpaces = ['magicappstore.eth'];
+const disableCachingForSpaces = ['magicappstore.eth', 'moonbeam-foundation.eth'];
 
 export async function getVp(params: GetVpRequestParams) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
