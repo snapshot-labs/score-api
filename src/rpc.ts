@@ -59,10 +59,7 @@ router.post('/', async (req, res) => {
 
       console.log(
         '[rpc] validate failed',
-        params.space,
-        params.author,
-        params.network,
-        params.snapshot,
+        JSON.stringify(params),
         error
       );
       return rpcError(res, 500, e, id);
