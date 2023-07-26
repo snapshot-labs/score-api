@@ -6,6 +6,7 @@ import { version } from '../package.json';
 import { getVp, validate } from './methods';
 import disabled from './disabled.json';
 import serve from './ee';
+import { capture } from './sentry';
 
 const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';
 const router = express.Router();
@@ -26,6 +27,7 @@ router.post('/', async (req, res) => {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
       return rpcSuccess(res, response.result, id, response.cache);
     } catch (e: any) {
+      capture(e, { context: { params, method } });
       let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
       // Detect provider error
@@ -50,6 +52,7 @@ router.post('/', async (req, res) => {
       const result = await serve(JSON.stringify(params), validate, [params]);
       return rpcSuccess(res, result, id);
     } catch (e: any) {
+      capture(e, { context: { params, method } });
       let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
       // Detect provider error
@@ -57,11 +60,7 @@ router.post('/', async (req, res) => {
         error = `[provider issue] ${e.error.url}, reason: ${e.reason}, ${e.error.reason}`;
       }
 
-      console.log(
-        '[rpc] validate failed',
-        JSON.stringify(params),
-        error
-      );
+      console.log('[rpc] validate failed', JSON.stringify(params), error);
       return rpcError(res, 500, e, id);
     }
   }
@@ -136,7 +135,8 @@ router.post('/api/scores', async (req, res) => {
         addresses
       }
     );
-  } catch (e) {
+  } catch (e: any) {
+    capture(e, { context: { params, strategies } });
     // @ts-ignore
     const errorMessage = e?.message || e || 'Unknown error';
     console.log(

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.18.0",
+    "@sentry/node": "^7.60.1",
     "@snapshot-labs/strategies": "https://github.com/snapshot-labs/snapshot-strategies#master",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
