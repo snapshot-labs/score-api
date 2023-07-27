@@ -1,5 +1,6 @@
 import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
+import { capture } from './sentry';
 
 const name = 'score-api';
 const cb = '2';
@@ -27,7 +28,8 @@ export async function set(key, value) {
       Body: JSON.stringify(value),
       ContentType: 'application/json; charset=utf-8'
     });
-  } catch (e) {
+  } catch (e: any) {
+    capture(e, { context: { key } });
     console.log('[aws] Store cache failed', e);
   }
 }
