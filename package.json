@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint . --ext .ts --fix",
+    "lint": "yarn lint:nofix --fix",
+    "lint:nofix": "eslint . --ext .ts",
+    "typecheck": "tsc --noEmit",
     "build": "tsc",
     "dev": "nodemon src/index.ts",
     "start": "node build/src/index.js"
