@@ -8,6 +8,9 @@
     "strict": true,
     "noImplicitAny": false,
     "resolveJsonModule": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "sourceMap": true,
+    "inlineSources": true,
+    "sourceRoot": "/"
   }
 }
