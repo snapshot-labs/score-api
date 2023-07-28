@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node';
 import type { Express } from 'express';
 
 export function initLogger(app: Express) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!process.env.SENTRY_DSN) {
     return;
   }
 
@@ -22,7 +22,7 @@ export function initLogger(app: Express) {
 }
 
 export function fallbackLogger(app: Express) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!process.env.SENTRY_DSN) {
     return;
   }
 
@@ -35,7 +35,7 @@ export function fallbackLogger(app: Express) {
 }
 
 export function capture(e: any, captureContext?: any) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!process.env.SENTRY_DSN) {
     return console.error(e);
   }
 
