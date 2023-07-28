@@ -8,7 +8,10 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "dev": "nodemon src/index.ts",
-    "start": "node build/src/index.js"
+    "start": "node build/src/index.js",
+    "start:test": "dotenv -e test/.env.test yarn dev",
+    "test": "PORT=3033 start-server-and-test 'yarn start:test' 3033 'dotenv -e test/.env.test jest --runInBand'",
+    "test:e2e": "PORT=3033 start-server-and-test 'yarn start:test' 3033 'dotenv -e test/.env.test jest --runInBand --collectCoverage=false test/e2e/'"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.18.0",
@@ -26,7 +29,14 @@
   "devDependencies": {
     "@snapshot-labs/eslint-config": "^0.1.0-beta.2",
     "@types/express": "^4.17.11",
-    "@types/node": "^14.14.21"
+    "@types/jest": "^28.0.0",
+    "@types/node": "^14.14.21",
+    "dotenv-cli": "^7.2.1",
+    "jest": "^28.0.0",
+    "jest-environment-node-single-context": "28",
+    "start-server-and-test": "^2.0.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^28.0.0"
   },
   "engines": {
     "node": ">=17.0.0"
