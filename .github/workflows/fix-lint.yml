@@ -16,7 +16,7 @@ jobs:
       - name: Run lint script
         run: |
           yarn install --frozen-lockfile
-          yarn lint
+          yarn lint:fix
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
