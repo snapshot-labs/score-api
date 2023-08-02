@@ -1,6 +1,6 @@
 import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
-import { capture } from './sentry';
+import { capture } from '@snapshot-labs/snapshot-sentry';
 
 const name = 'score-api';
 const cb = '2';
