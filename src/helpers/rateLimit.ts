@@ -4,6 +4,8 @@ import { getIp, rpcError } from '../utils';
 export default rateLimit({
   windowMs: 20 * 1e3,
   max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
   keyGenerator: (req) => getIp(req),
   skip: (req, res) => {
     const keycardData = res.locals.keycardData;
