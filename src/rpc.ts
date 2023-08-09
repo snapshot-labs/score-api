@@ -5,7 +5,7 @@ import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork, getIp
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
 import disabled from './disabled.json';
-import serve from './ee';
+import serve from './requestDeduplicator';
 import { capture } from '@snapshot-labs/snapshot-sentry';
 
 const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';
