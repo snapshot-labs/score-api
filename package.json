@@ -46,6 +46,7 @@
     "husky": "^8.0.3",
     "jest": "^28.0.0",
     "jest-environment-node-single-context": "28",
+    "lint-staged": "^14.0.0",
     "start-server-and-test": "^2.0.0",
     "supertest": "^6.3.3",
     "ts-jest": "^28.0.0"
