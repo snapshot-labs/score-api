@@ -17,6 +17,5 @@ export default async function serve(id, action, args) {
     ongoingRequests.set(key, requestPromise);
   }
 
-  return;
-  ongoingRequests.get(key);
+  return ongoingRequests.get(key);
 }
