@@ -10,7 +10,7 @@ export default async function serve(id, action, args) {
         ongoingRequests.delete(key);
         return result;
       })
-      .catch((e) => {
+  .catch((e) => {
         ongoingRequests.delete(key);
         throw e;
       });
