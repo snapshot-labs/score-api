@@ -1,6 +1,6 @@
 import scores from './scores';
 import { get, set } from './aws';
-import { sha256 } from './utils';
+import { getBlockNum, sha256 } from './utils';
 import snapshot from '@snapshot-labs/strategies';
 
 jest.mock('./utils');
@@ -84,5 +84,18 @@ describe('scores function', () => {
       state: 'final'
     });
     expect(get).not.toHaveBeenCalled();
+  });
+
+  it('should restrict block number by `latest`', async () => {
+    (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
+    (getBlockNum as jest.Mock).mockResolvedValue('100');
+
+    const result = await scores(null, {...mockArgs, snapshot: '99999999'});
+
+    expect(result).toEqual({
+      cache: false,
+      scores: mockScores,
+      state: 'pending'
+    });
   });
 });
