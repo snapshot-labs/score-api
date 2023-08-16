@@ -6,7 +6,7 @@ export default async function serve(id, action, args) {
   const key = sha256(id);
   if (!ongoingRequests.has(key)) {
     const requestPromise = action(...args)
-      .then((result) => {
+  .then((result) => {
         ongoingRequests.delete(key);
         return result;
       })
