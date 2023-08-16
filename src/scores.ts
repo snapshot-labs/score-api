@@ -7,9 +7,8 @@ const eventEmitter = new events.EventEmitter();
 // https://stackoverflow.com/a/26176922
 eventEmitter.setMaxListeners(1000);
 
-const withCache = !!process.env.AWS_REGION;
-
 async function calculateScores(parent, args, key) {
+  const withCache = !!process.env.AWS_REGION;
   const { space = '', strategies, network, addresses } = args;
   let snapshotBlockNum = 'latest';
 
