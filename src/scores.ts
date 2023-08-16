@@ -1,11 +1,7 @@
-import events from 'events';
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
 import { getBlockNum, sha256 } from './utils';
-
-const eventEmitter = new events.EventEmitter();
-// https://stackoverflow.com/a/26176922
-eventEmitter.setMaxListeners(1000);
+import serve from './requestDeduplicator';
 
 async function calculateScores(parent, args, key) {
   const withCache = !!process.env.AWS_REGION;
@@ -46,20 +42,8 @@ async function calculateScores(parent, args, key) {
   };
 }
 
-export default async function scores(parent, args) {
-  const key = sha256(JSON.stringify(args));
-
-  return new Promise(async (resolve, reject) => {
-    // Wait for scores to be calculated
-    eventEmitter.once(key, (data) => (data.error ? reject(data.e) : resolve(data)));
-    // If this request is the first one, calculate scores
-    if (eventEmitter.listenerCount(key) === 1) {
-      try {
-        const scoresData = await calculateScores(parent, args, key);
-        eventEmitter.emit(key, scoresData);
-      } catch (e) {
-        eventEmitter.emit(key, { error: true, e });
-      }
-    }
-  });
+export default function scores(parent, args) {
+  const id = JSON.stringify(args);
+  const cacheKey = sha256(id);
+  return serve(id, calculateScores, [parent, args, cacheKey]);
 }
