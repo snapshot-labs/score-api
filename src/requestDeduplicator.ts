@@ -1,4 +1,4 @@
-import { sha256 } from './utils';
+import {sha256} from './utils';
 
 const ongoingRequests = new Map();
 
