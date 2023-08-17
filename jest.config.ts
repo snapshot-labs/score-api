@@ -17,7 +17,7 @@ export default {
   testEnvironment: 'jest-environment-node-single-context',
   setupFiles: ['dotenv/config'],
   moduleFileExtensions: ['js', 'ts'],
-  testMatch: ['<rootDir>/test/**/?(*.)+(spec|test).(ts|js)'],
+  testMatch: ['<rootDir>/test/e2e/**/?(*.)+(spec|test).(ts|js)'],
   testPathIgnorePatterns: ['dist/'],
   verbose: true
 };

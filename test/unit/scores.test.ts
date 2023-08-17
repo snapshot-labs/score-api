@@ -1,10 +1,10 @@
-import scores from './scores';
-import { get, set } from './aws';
-import { getBlockNum, sha256 } from './utils';
+import scores from '../../src/scores';
+import { get, set } from '../../src/aws';
+import { getBlockNum, sha256 } from '../../src/utils';
 import snapshot from '@snapshot-labs/strategies';
 
-jest.mock('./utils');
-jest.mock('./aws');
+jest.mock('../../src/utils');
+jest.mock('../../src/aws');
 jest.mock('@snapshot-labs/strategies');
 
 describe('scores function', () => {
