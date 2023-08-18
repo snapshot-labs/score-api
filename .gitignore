@@ -3,6 +3,7 @@ node_modules
 dist
 build
 coverage
+coverage-unit
 
 # Remove some common IDE working directories
 .idea
