@@ -5138,6 +5138,11 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
+rate-limit-redis@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/rate-limit-redis/-/rate-limit-redis-3.0.2.tgz#0c923db4ab77960ef1c5c495f14c08e6fad602de"
+  integrity sha512-4SBK6AzIr9PKkCF4HmSDcJH2O2KKMF3fZEcsbNMXyaL5I9d6X71uOreUldFRiyrRyP+qkQrTxzJ38ZKKN+sScw==
+
 raw-body@2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.5.1.tgz#fe1b1628b181b700215e5fd42389f98b71392857"
