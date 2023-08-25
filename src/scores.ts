@@ -25,7 +25,7 @@ async function calculateScores(parent, args, key) {
       space,
       strategies,
       network,
-      snapshot.utils.getProvider(network),
+      snapshot.utils.getProvider(network, { broviderUrl: process.env.BROVIDER_URL }),
       addresses,
       snapshotBlockNum
     );

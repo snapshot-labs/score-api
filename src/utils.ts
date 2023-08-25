@@ -64,7 +64,7 @@ export async function getBlockNum(snapshotBlock, network) {
   if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay)
     return blockNumByNetwork[network];
 
-  const provider = snapshot.utils.getProvider(network);
+  const provider = snapshot.utils.getProvider(network, { broviderUrl: process.env.BROVIDER_URL });
   const blockNum = await provider.getBlockNumber();
 
   blockNumByNetwork[network] = blockNum;
