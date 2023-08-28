@@ -2,7 +2,7 @@ import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
 import { getAddress } from '@ethersproject/address';
 import scores from './scores';
-import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork, getIp } from './utils';
+import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
 import disabled from './disabled.json';
@@ -153,7 +153,6 @@ router.post('/api/scores', async (req, res) => {
       network,
       space,
       snapshot,
-      getIp(req),
       JSON.stringify(strategies),
       JSON.stringify(errorMessage).slice(0, 256),
       requestId
