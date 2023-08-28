@@ -1,7 +1,7 @@
 import snapshot from '@snapshot-labs/strategies';
 import { createHash } from 'crypto';
 
-const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org'
+const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 
 export const blockNumByNetwork = {};
 const blockNumByNetworkTs = {};
