@@ -7,16 +7,18 @@ export default {
   clearMocks: true,
   collectCoverage: true,
   collectCoverageFrom: ['./src/**'],
-  coverageDirectory: 'coverage',
+  coverageDirectory: 'coverage-unit',
   coverageProvider: 'v8',
-
-  // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/build/', '<rootDir>/test/fixtures/'],
-
+  coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/dist/', '<rootDir>/test/fixtures/'],
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-node-single-context',
-  setupFiles: ['dotenv/config'],
   moduleFileExtensions: ['js', 'ts'],
-  testPathIgnorePatterns: ['build/'],
-  verbose: true
+  testMatch: ['<rootDir>/test/unit/**/?(*.)+(spec|test).(ts|js)'],
+  testPathIgnorePatterns: ['dist/', 'node_modules/'],
+  verbose: true,
+  globals: {
+    'ts-jest': {
+      isolatedModules: true
+    }
+  }
 };
