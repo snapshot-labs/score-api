@@ -3,6 +3,8 @@ import { get, set } from './aws';
 import { getBlockNum, sha256 } from './utils';
 import serve from './requestDeduplicator';
 
+const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org'
+
 async function calculateScores(parent, args, key) {
   const withCache = !!process.env.AWS_REGION;
   const { space = '', strategies, network, addresses } = args;
@@ -25,7 +27,7 @@ async function calculateScores(parent, args, key) {
       space,
       strategies,
       network,
-      snapshot.utils.getProvider(network, { broviderUrl: process.env.BROVIDER_URL }),
+      snapshot.utils.getProvider(network, { broviderUrl }),
       addresses,
       snapshotBlockNum
     );
