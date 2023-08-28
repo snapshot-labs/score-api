@@ -1,5 +1,6 @@
 import express from 'express';
 import snapshot from '@snapshot-labs/strategies';
+import { getAddress } from '@ethersproject/address';
 import scores from './scores';
 import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork, getIp } from './utils';
 import { version } from '../package.json';
@@ -14,14 +15,22 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const { id = null, method, params = {} } = req.body;
 
-  if (!method) return rpcError(res, 500, 'missing method', id);
-  if (
-    (method === 'get_vp' && !params.address) ||
-    (method === 'validate' && !params.author) ||
-    params.address === EMPTY_ADDRESS ||
-    params.author === EMPTY_ADDRESS
-  )
-    return rpcError(res, 500, 'invalid address', id);
+  if (!method) return rpcError(res, 400, 'missing method', id);
+
+  try {
+    if (
+      (method === 'get_vp' && !params.address) ||
+      (method === 'validate' && !params.author) ||
+      params.address === EMPTY_ADDRESS ||
+      params.author === EMPTY_ADDRESS
+    ) {
+      throw new Error('invalid address');
+    }
+    getAddress(params.address || params.author);
+  } catch (e: any) {
+    return rpcError(res, 400, 'invalid address', id);
+  }
+
   if (method === 'get_vp') {
     try {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
@@ -65,7 +74,7 @@ router.post('/', async (req, res) => {
     }
   }
 
-  return rpcError(res, 500, 'wrong method', id);
+  return rpcError(res, 400, 'wrong method', id);
 });
 
 router.get('/', (req, res) => {
