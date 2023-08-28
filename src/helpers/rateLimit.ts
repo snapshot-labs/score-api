@@ -1,7 +1,7 @@
 import rateLimit from 'express-rate-limit';
 import RedisStore from 'rate-limit-redis';
 import { createClient } from 'redis';
-import { getIp, rpcError } from '../utils';
+import { getIp, rpcError, sha256 } from '../utils';
 
 let client;
 
@@ -18,12 +18,14 @@ let client;
   await client.connect();
 })();
 
+const hashedIp = (req): string => sha256(getIp(req)).slice(0, 7);
+
 export default rateLimit({
   windowMs: 20 * 1e3,
   max: 60,
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req) => getIp(req),
+  keyGenerator: (req) => hashedIp(req),
   skip: (req, res) => {
     const keycardData = res.locals.keycardData;
     if (keycardData?.valid && !keycardData.rateLimited) {
@@ -35,7 +37,7 @@ export default rateLimit({
   handler: (req, res) => {
     const { id = null } = req.body;
 
-    console.log(`too many requests ${getIp(req).slice(0, 7)}`);
+    console.log(`too many requests ${hashedIp(req)}`);
     rpcError(
       res,
       429,
