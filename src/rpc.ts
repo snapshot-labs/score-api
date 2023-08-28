@@ -131,19 +131,13 @@ router.post('/api/scores', async (req, res) => {
 
   let result;
   try {
-    result = await scores(
-      {
-        requestId,
-        strategyNames
-      },
-      {
-        space,
-        network,
-        snapshot,
-        strategies,
-        addresses
-      }
-    );
+    result = await scores({
+      space,
+      network,
+      snapshot,
+      strategies,
+      addresses
+    });
   } catch (e: any) {
     capture(e, { context: { params, strategies } });
     // @ts-ignore

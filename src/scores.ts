@@ -5,7 +5,7 @@ import serve from './requestDeduplicator';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 
-async function calculateScores(parent, args, key) {
+async function calculateScores(args, key) {
   const withCache = !!process.env.AWS_REGION;
   const { space = '', strategies, network, addresses } = args;
   let snapshotBlockNum = 'latest';
@@ -44,8 +44,8 @@ async function calculateScores(parent, args, key) {
   };
 }
 
-export default function scores(parent, args) {
+export default function scores(args) {
   const id = JSON.stringify(args);
   const cacheKey = sha256(id);
-  return serve(id, calculateScores, [parent, args, cacheKey]);
+  return serve(id, calculateScores, [args, cacheKey]);
 }
