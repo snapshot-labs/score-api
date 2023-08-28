@@ -1,7 +1,6 @@
 import rateLimit from 'express-rate-limit';
 import RedisStore from 'rate-limit-redis';
 import { createClient } from 'redis';
-import { rateLimitedRequestsCount } from '../metrics';
 import { getIp, rpcError } from '../utils';
 
 let client;
@@ -28,11 +27,9 @@ export default rateLimit({
   skip: (req, res) => {
     const keycardData = res.locals.keycardData;
     if (keycardData?.valid && !keycardData.rateLimited) {
-      rateLimitedRequestsCount.inc({ rate_limited: 1 });
       return true;
     }
 
-    rateLimitedRequestsCount.inc({ rate_limited: 0 });
     return false;
   },
   handler: (req, res) => {
