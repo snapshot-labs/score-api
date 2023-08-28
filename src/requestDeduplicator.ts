@@ -1,4 +1,5 @@
 import { sha256 } from './utils';
+import { requestDeduplicatorSize } from './metrics';
 
 const ongoingRequests = new Map();
 
@@ -7,15 +8,17 @@ export default async function serve(id, action, args) {
   if (!ongoingRequests.has(key)) {
     const requestPromise = action(...args)
       .then((result) => {
-        ongoingRequests.delete(key);
         return result;
       })
       .catch((e) => {
-        ongoingRequests.delete(key);
         throw e;
+      })
+      .finally(() => {
+        ongoingRequests.delete(key);
       });
     ongoingRequests.set(key, requestPromise);
   }
 
+  requestDeduplicatorSize.set(ongoingRequests.size);
   return ongoingRequests.get(key);
 }
