@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
       return rpcSuccess(res, response.result, id, response.cache);
     } catch (e: any) {
-      capture(e, { context: { params, method } });
+      capture(e, { contexts: { input: { params, method } } });
       let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
       // Detect provider error
@@ -61,7 +61,7 @@ router.post('/', async (req, res) => {
       const result = await serve(JSON.stringify(params), validate, [params]);
       return rpcSuccess(res, result, id);
     } catch (e: any) {
-      capture(e, { context: { params, method } });
+      capture(e, { contexts: { input: { params, method } } });
       let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
       // Detect provider error
@@ -145,7 +145,7 @@ router.post('/api/scores', async (req, res) => {
       }
     );
   } catch (e: any) {
-    capture(e, { context: { params, strategies } });
+    capture(e, { contexts: { input: { params, strategies } } });
     // @ts-ignore
     const errorMessage = e?.message || e || 'Unknown error';
     console.log(

@@ -29,7 +29,7 @@ export async function set(key, value) {
       ContentType: 'application/json; charset=utf-8'
     });
   } catch (e: any) {
-    capture(e, { context: { key } });
+    capture(e, { contexts: { input: { key } } });
     console.log('[aws] Store cache failed', e);
   }
 }
