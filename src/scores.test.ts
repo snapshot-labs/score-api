@@ -1,10 +1,10 @@
-import scores from '../../src/scores';
-import { get, set } from '../../src/aws';
-import { getBlockNum, sha256 } from '../../src/utils';
+import scores from './scores';
+import { get, set } from './aws';
+import { getBlockNum, sha256 } from './utils';
 import snapshot from '@snapshot-labs/strategies';
 
-jest.mock('../../src/utils');
-jest.mock('../../src/aws');
+jest.mock('./utils');
+jest.mock('./aws');
 jest.mock('@snapshot-labs/strategies');
 
 describe('scores function', () => {
@@ -25,8 +25,8 @@ describe('scores function', () => {
 
   it('should deduplicate requests', async () => {
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
-    const firstCall = scores(null, mockArgs);
-    const secondCall = scores(null, mockArgs);
+    const firstCall = scores(mockArgs);
+    const secondCall = scores(mockArgs);
 
     const firstResult = await firstCall;
     const secondResult = await secondCall;
@@ -39,7 +39,7 @@ describe('scores function', () => {
     process.env.AWS_REGION = 'us-west-1';
     (get as jest.Mock).mockResolvedValue(mockScores);
 
-    const result = await scores(null, mockArgs);
+    const result = await scores(mockArgs);
 
     expect(result).toEqual({
       cache: true,
@@ -54,7 +54,7 @@ describe('scores function', () => {
     (get as jest.Mock).mockResolvedValue(null); // Not in cache
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
 
-    await scores(null, mockArgs);
+    await scores(mockArgs);
 
     expect(set).toHaveBeenCalledWith(key, mockScores);
   });
@@ -63,7 +63,7 @@ describe('scores function', () => {
     process.env.AWS_REGION = 'us-west-1';
     (get as jest.Mock).mockResolvedValue(null); // Not in cache
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
-    const result = await scores(null, { ...mockArgs, snapshot: 'latest' }); // "latest" should bypass cache
+    const result = await scores({ ...mockArgs, snapshot: 'latest' }); // "latest" should bypass cache
 
     expect(result).toEqual({
       cache: false,
@@ -76,7 +76,7 @@ describe('scores function', () => {
   it("shouldn't return cached results when cache is not available", async () => {
     process.env.AWS_REGION = '';
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
-    const result = await scores(null, mockArgs);
+    const result = await scores(mockArgs);
 
     expect(result).toEqual({
       cache: false,
@@ -90,7 +90,7 @@ describe('scores function', () => {
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
     (getBlockNum as jest.Mock).mockResolvedValue('100');
 
-    const result = await scores(null, { ...mockArgs, snapshot: '99999999' });
+    const result = await scores({ ...mockArgs, snapshot: '99999999' });
 
     expect(result).toEqual({
       cache: false,

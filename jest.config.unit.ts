@@ -13,8 +13,7 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-node-single-context',
   moduleFileExtensions: ['js', 'ts'],
-  testMatch: ['<rootDir>/test/unit/**/?(*.)+(spec|test).(ts|js)'],
-  testPathIgnorePatterns: ['dist/', 'node_modules/'],
+  testMatch: ['<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)'],
   verbose: true,
   globals: {
     'ts-jest': {

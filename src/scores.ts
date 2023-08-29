@@ -8,26 +8,31 @@ const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 async function calculateScores(args, key) {
   const withCache = !!process.env.AWS_REGION;
   const { space = '', strategies, network, addresses } = args;
-  let snapshotBlockNum = 'latest';
+  let snapshotBlockNum = args.snapshot || 'latest';
 
-  if (args.snapshot !== 'latest') {
-    const currentBlockNum = await getBlockNum(args.snapshot, network);
-    snapshotBlockNum = currentBlockNum < args.snapshot ? 'latest' : args.snapshot;
+  if (snapshotBlockNum !== 'latest') {
+    const currentBlockNum = await getBlockNum(snapshotBlockNum, network);
+    snapshotBlockNum = currentBlockNum < snapshotBlockNum ? 'latest' : snapshotBlockNum;
   }
 
   const state = snapshotBlockNum === 'latest' ? 'pending' : 'final';
+
   let scores;
+  let cache = false;
 
-  if (withCache && state === 'final') scores = await get(key);
+  if (withCache && state === 'final') {
+    cache = true;
+    scores = await get(key);
+  }
 
-  let cache = true;
   if (!scores) {
     cache = false;
+    const provider = snapshot.utils.getProvider(network, { broviderUrl });
     scores = await snapshot.utils.getScoresDirect(
       space,
       strategies,
       network,
-      snapshot.utils.getProvider(network, { broviderUrl }),
+      provider,
       addresses,
       snapshotBlockNum
     );
