@@ -5,29 +5,29 @@ import serve from './requestDeduplicator';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 
-async function calculateScores(parent, args, key) {
+async function calculateScores(args, key) {
   const withCache = !!process.env.AWS_REGION;
   const { space = '', strategies, network, addresses } = args;
-  let snapshotBlockNum = 'latest';
-
-  if (args.snapshot !== 'latest') {
-    const currentBlockNum = await getBlockNum(args.snapshot, network);
-    snapshotBlockNum = currentBlockNum < args.snapshot ? 'latest' : args.snapshot;
-  }
+  const snapshotBlockNum = await getBlockNum(args.snapshot, network);
 
   const state = snapshotBlockNum === 'latest' ? 'pending' : 'final';
+
   let scores;
+  let cache = false;
 
-  if (withCache && state === 'final') scores = await get(key);
+  if (withCache && state === 'final') {
+    cache = true;
+    scores = await get(key);
+  }
 
-  let cache = true;
   if (!scores) {
     cache = false;
+    const provider = snapshot.utils.getProvider(network, { broviderUrl });
     scores = await snapshot.utils.getScoresDirect(
       space,
       strategies,
       network,
-      snapshot.utils.getProvider(network, { broviderUrl }),
+      provider,
       addresses,
       snapshotBlockNum
     );
@@ -44,8 +44,8 @@ async function calculateScores(parent, args, key) {
   };
 }
 
-export default function scores(parent, args) {
+export default function scores(args) {
   const id = JSON.stringify(args);
   const cacheKey = sha256(id);
-  return serve(id, calculateScores, [parent, args, cacheKey]);
+  return serve(id, calculateScores, [args, cacheKey]);
 }
