@@ -94,6 +94,5 @@ export function getIp(req) {
     ''
   ).split(',');
 
-  // substring(0, 10) reduces uniqueness of IP address
-  return sha256(ips[0].trim()).substring(0, 10);
+  return ips[0].trim();
 }
