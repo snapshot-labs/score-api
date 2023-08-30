@@ -4,7 +4,7 @@ import { getAddress } from '@ethersproject/address';
 import scores from './scores';
 import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
-import { getVp, validate } from './methods';
+import { getVp, validate, disabledNetworks } from './methods';
 import disabled from './disabled.json';
 import serve from './requestDeduplicator';
 import { capture } from '@snapshot-labs/snapshot-sentry';
@@ -87,6 +87,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/api/strategies', (req, res) => {
+  console.log('[rpc] Get strategies', Object.keys(snapshot.strategies));
   const strategies = Object.fromEntries(
     Object.entries(clone(snapshot.strategies)).map(([key, strategy]) => [
       key,
@@ -122,7 +123,7 @@ router.post('/api/scores', async (req, res) => {
   const strategyNames = strategies.map((strategy) => strategy.name);
 
   if (
-    ['1319'].includes(network) ||
+    disabledNetworks.includes(network) ||
     (disabled.includes(space) && !force) ||
     strategyNames.includes('pod-leader') ||
     strategies.length === 0

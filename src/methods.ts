@@ -21,7 +21,7 @@ interface ValidateRequestParams {
   params: any;
 }
 
-const disabledNetworks = ['1319'];
+export const disabledNetworks = ['1319'];
 const disableCachingForSpaces = ['magicappstore.eth', 'moonbeam-foundation.eth'];
 
 export async function getVp(params: GetVpRequestParams) {
