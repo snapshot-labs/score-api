@@ -5,7 +5,7 @@ import router from './rpc';
 import snapshot from '@snapshot-labs/strategies';
 import serve from './requestDeduplicator';
 import scores from './scores';
-import { validate, getVp, disabledNetworks } from './methods';
+import { validate, getVp } from './methods';
 import * as utils from './utils';
 
 jest.mock('./methods', () => ({
