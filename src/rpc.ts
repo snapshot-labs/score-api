@@ -4,7 +4,7 @@ import { getAddress } from '@ethersproject/address';
 import scores from './scores';
 import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
-import { getVp, validate, disabledNetworks } from './methods';
+import { getVp, validate } from './methods';
 import disabled from './disabled.json';
 import serve from './requestDeduplicator';
 import { capture } from '@snapshot-labs/snapshot-sentry';
@@ -123,7 +123,7 @@ router.post('/api/scores', async (req, res) => {
   const strategyNames = strategies.map((strategy) => strategy.name);
 
   if (
-    disabledNetworks.includes(network) ||
+    ['1319'].includes(network) ||
     (disabled.includes(space) && !force) ||
     strategyNames.includes('pod-leader') ||
     strategies.length === 0
@@ -132,13 +132,19 @@ router.post('/api/scores', async (req, res) => {
 
   let result;
   try {
-    result = await scores({
-      space,
-      network,
-      snapshot,
-      strategies,
-      addresses
-    });
+    result = await scores(
+      {
+        requestId,
+        strategyNames
+      },
+      {
+        space,
+        network,
+        snapshot,
+        strategies,
+        addresses
+      }
+    );
   } catch (e: any) {
     capture(e, { params, strategies });
     // @ts-ignore

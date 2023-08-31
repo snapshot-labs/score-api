@@ -59,22 +59,12 @@ export function rpcError(res, code, e, id) {
   });
 }
 
-type SnapshotBlockType = number | 'latest';
-export async function getBlockNum(snapshotBlock: SnapshotBlockType = 'latest', network) {
-  if (snapshotBlock === 'latest') {
-    return snapshotBlock;
-  }
-
-  // TODO: if a user pass a block number in the future, we always try to get the latest block number
-  if (blockNumByNetwork[network] && snapshotBlock <= blockNumByNetwork[network]) {
+export async function getBlockNum(snapshotBlock, network) {
+  if (blockNumByNetwork[network] && snapshotBlock <= blockNumByNetwork[network])
     return blockNumByNetwork[network];
-  }
-
   const ts = parseInt((Date.now() / 1e3).toFixed());
-
-  if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay) {
+  if (blockNumByNetwork[network] && blockNumByNetworkTs[network] > ts - delay)
     return blockNumByNetwork[network];
-  }
 
   const provider = snapshot.utils.getProvider(network, { broviderUrl });
   const blockNum = await provider.getBlockNumber();
@@ -82,7 +72,7 @@ export async function getBlockNum(snapshotBlock: SnapshotBlockType = 'latest', n
   blockNumByNetwork[network] = blockNum;
   blockNumByNetworkTs[network] = ts;
 
-  return blockNum < snapshotBlock ? 'latest' : snapshotBlock;
+  return blockNum;
 }
 
 export function getIp(req) {

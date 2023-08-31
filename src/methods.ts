@@ -21,13 +21,15 @@ interface ValidateRequestParams {
   params: any;
 }
 
-export const disabledNetworks = ['1319'];
 const disableCachingForSpaces = ['magicappstore.eth', 'moonbeam-foundation.eth'];
 
 export async function getVp(params: GetVpRequestParams) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
 
-  params.snapshot = await getBlockNum(params.snapshot, params.network);
+  if (params.snapshot !== 'latest') {
+    const currentBlockNum = await getBlockNum(params.snapshot, params.network);
+    params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
+  }
 
   const key = sha256(JSON.stringify(params));
   const useCache =
@@ -43,9 +45,9 @@ export async function getVp(params: GetVpRequestParams) {
     }
   }
 
-  if (disabledNetworks.includes(params.network) || disabled.includes(params.space)) {
+  if (['1319'].includes(params.network) || disabled.includes(params.space))
     throw 'something wrong with the strategies';
-  }
+
   const result = await snapshot.utils.getVp(
     params.address,
     params.network,
