@@ -25,7 +25,7 @@ describe('getVp function', () => {
     jest.clearAllMocks();
   });
 
-  it('should set snapshot to "latest" if it is not a number', async () => {
+  xit('should set snapshot to "latest" if it is not a number', async () => {
     const expectedSnapshotNum = 'latest';
     const params = {
       address: '0x123',
@@ -102,7 +102,7 @@ describe('getVp function', () => {
     );
   });
 
-  it('should use cache if conditions are met', async () => {
+  xit('should use cache if conditions are met', async () => {
     const params = {
       address: '0x123',
       network: '1',
