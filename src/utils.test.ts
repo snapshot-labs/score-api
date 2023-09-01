@@ -40,11 +40,6 @@ describe('getBlockNum function', () => {
     process.env.BROVIDER_URL = originalBroviderUrl;
   });
 
-  xit('should return "latest" if snapshotBlock is "latest"', async () => {
-    const result = await getBlockNum('latest', '1');
-    expect(result).toBe('latest');
-  });
-
   it('should return block number from blockNumByNetwork if it exists and is less than or equal to snapshotBlock', async () => {
     const firstRequestBlockNum = 100;
     const secondRequestBlockNum = 99;
@@ -72,22 +67,23 @@ describe('getBlockNum function', () => {
     expect(result).toBe(firstRequestBlockNum);
   });
 
-  xit('should fetch block number from provider if not in blockNumByNetwork or timestamp is beyond delay', async () => {
-    const mockBlockNumber = '120';
+  it('should fetch block number from provider if not in blockNumByNetwork or timestamp is beyond delay', async () => {
+    const mockBlockNumber = 120;
     const mockProvider = {
       getBlockNumber: jest.fn().mockResolvedValue(mockBlockNumber)
     };
     (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
 
     const result = await getBlockNum(110, '1');
-    expect(result).toBe(110);
+
     expect(snapshot.utils.getProvider).toHaveBeenCalledWith('1', {
       broviderUrl: process.env.BROVIDER_URL
     });
     expect(mockProvider.getBlockNumber).toHaveBeenCalled();
+    expect(result).toBe(120);
   });
 
-  xit('should return "latest" if fetched block number is less than snapshotBlock', async () => {
+  it('should return passed block if fetched block number is less than snapshotBlock', async () => {
     const mockBlockNumber = 90;
     const mockProvider = {
       getBlockNumber: jest.fn().mockResolvedValue(mockBlockNumber)
@@ -95,7 +91,8 @@ describe('getBlockNum function', () => {
     (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
 
     const result = await getBlockNum(110, '1');
-    expect(result).toBe('latest');
+
+    expect(result).toBe(90);
   });
 });
 
