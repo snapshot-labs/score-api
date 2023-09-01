@@ -59,7 +59,7 @@ export function rpcError(res, code, e, id) {
   });
 }
 
-export async function getBlockNum(snapshotBlock, network) {
+export async function getCurrentBlockNum(snapshotBlock, network) {
   if (blockNumByNetwork[network] && snapshotBlock <= blockNumByNetwork[network])
     return blockNumByNetwork[network];
   const ts = parseInt((Date.now() / 1e3).toFixed());

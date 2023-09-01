@@ -1,6 +1,6 @@
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
-import { getBlockNum, sha256 } from './utils';
+import { getCurrentBlockNum, sha256 } from './utils';
 import serve from './requestDeduplicator';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
@@ -11,7 +11,7 @@ async function calculateScores(parent, args, key) {
   let snapshotBlockNum = 'latest';
 
   if (args.snapshot !== 'latest') {
-    const currentBlockNum = await getBlockNum(args.snapshot, network);
+    const currentBlockNum = await getCurrentBlockNum(args.snapshot, network);
     snapshotBlockNum = currentBlockNum < args.snapshot ? 'latest' : args.snapshot;
   }
 

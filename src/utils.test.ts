@@ -2,7 +2,7 @@ const originalBroviderUrl = process.env.BROVIDER_URL;
 process.env.BROVIDER_URL = 'test.brovider.url';
 
 import {
-  getBlockNum,
+  getCurrentBlockNum,
   blockNumByNetwork,
   getIp,
   rpcError,
@@ -26,11 +26,11 @@ jest.mock('./utils', () => {
   const originalModule = jest.requireActual('./utils');
   return {
     ...originalModule,
-    getBlockNum: jest.fn(originalModule.getBlockNum)
+    getCurrentBlockNum: jest.fn(originalModule.getCurrentBlockNum)
   };
 });
 
-describe('getBlockNum function', () => {
+describe('getCurrentBlockNum function', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     Object.keys(blockNumByNetwork).forEach((key) => delete blockNumByNetwork[key]);
@@ -41,7 +41,7 @@ describe('getBlockNum function', () => {
   });
 
   xit('should return "latest" if snapshotBlock is "latest"', async () => {
-    const result = await getBlockNum('latest', '1');
+    const result = await getCurrentBlockNum('latest', '1');
     expect(result).toBe('latest');
   });
 
@@ -52,9 +52,9 @@ describe('getBlockNum function', () => {
       getBlockNumber: jest.fn().mockResolvedValue(firstRequestBlockNum)
     };
     (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
-    await getBlockNum(firstRequestBlockNum, '1');
+    await getCurrentBlockNum(firstRequestBlockNum, '1');
 
-    const result = await getBlockNum(secondRequestBlockNum, '1');
+    const result = await getCurrentBlockNum(secondRequestBlockNum, '1');
     expect(result).toBe(firstRequestBlockNum);
   });
 
@@ -66,9 +66,9 @@ describe('getBlockNum function', () => {
       getBlockNumber: jest.fn().mockResolvedValue(firstRequestBlockNum)
     };
     (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
-    await getBlockNum(firstRequestBlockNum, '1');
+    await getCurrentBlockNum(firstRequestBlockNum, '1');
 
-    const result = await getBlockNum(secondRequestBlockNum, '1');
+    const result = await getCurrentBlockNum(secondRequestBlockNum, '1');
     expect(result).toBe(firstRequestBlockNum);
   });
 
@@ -79,7 +79,7 @@ describe('getBlockNum function', () => {
     };
     (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
 
-    const result = await getBlockNum(110, '1');
+    const result = await getCurrentBlockNum(110, '1');
     expect(result).toBe(110);
     expect(snapshot.utils.getProvider).toHaveBeenCalledWith('1', {
       broviderUrl: process.env.BROVIDER_URL
@@ -94,7 +94,7 @@ describe('getBlockNum function', () => {
     };
     (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
 
-    const result = await getBlockNum(110, '1');
+    const result = await getCurrentBlockNum(110, '1');
     expect(result).toBe('latest');
   });
 });

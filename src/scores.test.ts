@@ -1,6 +1,6 @@
 import scores from './scores';
 import { get, set } from './aws';
-import { getBlockNum, sha256 } from './utils';
+import { getCurrentBlockNum, sha256 } from './utils';
 import snapshot from '@snapshot-labs/strategies';
 
 jest.mock('./utils');
@@ -61,7 +61,7 @@ describe('scores function', () => {
 
   it('should return uncached results when cache is not needed', async () => {
     process.env.AWS_REGION = 'us-west-1';
-    (getBlockNum as jest.Mock).mockResolvedValue('latest');
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue('latest');
     (get as jest.Mock).mockResolvedValue(null); // Not in cache
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
     const result = await scores(null, { ...mockArgs, snapshot: 'latest' }); // "latest" should bypass cache
@@ -76,7 +76,7 @@ describe('scores function', () => {
 
   it("shouldn't return cached results when cache is not available", async () => {
     process.env.AWS_REGION = '';
-    (getBlockNum as jest.Mock).mockResolvedValue(mockArgs.snapshot);
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(mockArgs.snapshot);
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
     const result = await scores(null, mockArgs);
 
@@ -90,7 +90,7 @@ describe('scores function', () => {
 
   xit('should restrict block number by `latest`', async () => {
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
-    (getBlockNum as jest.Mock).mockResolvedValue('latest');
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue('latest');
 
     const args = { ...mockArgs, snapshot: '99999999' }; // block in the future
     const result = await scores(null, args);
