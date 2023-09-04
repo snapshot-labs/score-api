@@ -1,6 +1,6 @@
 import snapshot from '@snapshot-labs/strategies';
 import redis from './redis';
-import { sha256, getBlockNum } from './utils';
+import { sha256, getCurrentBlockNum } from './utils';
 import disabled from './disabled.json';
 
 interface GetVpRequestParams {
@@ -27,7 +27,7 @@ export async function getVp(params: GetVpRequestParams) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
 
   if (params.snapshot !== 'latest') {
-    const currentBlockNum = await getBlockNum(params.snapshot, params.network);
+    const currentBlockNum = await getCurrentBlockNum(params.snapshot, params.network);
     params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
   }
 
