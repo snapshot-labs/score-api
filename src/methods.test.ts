@@ -1,6 +1,6 @@
 import { getVp } from './methods';
 import snapshot from '@snapshot-labs/strategies';
-import { getBlockNum } from './utils';
+import { getCurrentBlockNum } from './utils';
 import * as redisModule from './redis';
 
 jest.mock('@snapshot-labs/strategies');
@@ -36,16 +36,16 @@ describe('getVp function', () => {
     };
 
     (snapshot.utils.getVp as jest.Mock).mockResolvedValue({ vp_state: 'pending', vp: 100 });
-    (getBlockNum as jest.Mock).mockResolvedValue(expectedSnapshotNum);
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(expectedSnapshotNum);
 
     // @ts-expect-error
     await getVp(params);
 
-    expect(getBlockNum).toHaveBeenCalledWith(expectedSnapshotNum, params.network);
+    expect(getCurrentBlockNum).toHaveBeenCalledWith(expectedSnapshotNum, params.network);
     expect(params.snapshot).toBe('latest');
   });
 
-  it('should call getBlockNum if snapshot is not "latest"', async () => {
+  it('should call getCurrentBlockNum if snapshot is not "latest"', async () => {
     const params = {
       address: '0x123',
       network: '1',
@@ -54,11 +54,11 @@ describe('getVp function', () => {
       space: 'testSpace'
     };
 
-    (getBlockNum as jest.Mock).mockResolvedValue(900);
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(900);
 
     await getVp(params);
 
-    expect(getBlockNum).toHaveBeenCalledWith(1000, '1');
+    expect(getCurrentBlockNum).toHaveBeenCalledWith(1000, '1');
   });
 
   it('should throw an error for disabled networks or spaces', async () => {
@@ -88,7 +88,7 @@ describe('getVp function', () => {
     };
 
     (snapshot.utils.getVp as jest.Mock).mockResolvedValue({ vp_state: 'pending', vp: 100 });
-    (getBlockNum as jest.Mock).mockResolvedValue(params.snapshot);
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(params.snapshot);
 
     await getVp(params);
 
@@ -111,7 +111,7 @@ describe('getVp function', () => {
       space: 'testSpace'
     };
 
-    (getBlockNum as jest.Mock).mockResolvedValue(900);
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(900);
     mockRedis.hGetAll.mockResolvedValue({ vp_state: 'pending', vp: 100, vp_by_strategy: '{}' });
 
     const result = await getVp(params);
@@ -136,7 +136,7 @@ describe('getVp function', () => {
       vp: 100,
       vp_by_strategy: '{}'
     });
-    (getBlockNum as jest.Mock).mockResolvedValue(params.snapshot);
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(params.snapshot);
 
     const result = await getVp(params);
 
@@ -156,7 +156,7 @@ describe('getVp function', () => {
     };
 
     (snapshot.utils.getVp as jest.Mock).mockResolvedValue({ vp_state: 'pending', vp: 100 });
-    (getBlockNum as jest.Mock).mockResolvedValue(params.snapshot);
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(params.snapshot);
 
     await getVp(params);
 
