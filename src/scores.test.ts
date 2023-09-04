@@ -88,7 +88,7 @@ describe('scores function', () => {
     expect(get).not.toHaveBeenCalled();
   });
 
-  xit('should restrict block number by `latest`', async () => {
+  it('should restrict block number by `latest`', async () => {
     (snapshot.utils.getScoresDirect as jest.Mock).mockResolvedValue(mockScores);
     (getCurrentBlockNum as jest.Mock).mockResolvedValue('latest');
 
@@ -98,7 +98,31 @@ describe('scores function', () => {
     expect(result).toEqual({
       cache: false,
       scores: mockScores,
+      state: 'final'
+    });
+  });
+
+  it('should set snapshotBlockNum to "latest" if currentBlockNum is less than args.snapshot', async () => {
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(1);
+    const result = await scores(null, mockArgs);
+
+    expect(getCurrentBlockNum).toBeCalled();
+    expect(result).toEqual({
+      cache: false,
+      scores: mockScores,
       state: 'pending'
+    });
+  });
+
+  it('should set snapshotBlockNum to args.snapshot if currentBlockNum is greater than or equal to args.snapshot', async () => {
+    (getCurrentBlockNum as jest.Mock).mockResolvedValue(99999999);
+    const result = await scores(null, mockArgs);
+
+    expect(getCurrentBlockNum).toBeCalled();
+    expect(result).toEqual({
+      cache: false,
+      scores: mockScores,
+      state: 'final'
     });
   });
 });
