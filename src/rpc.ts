@@ -87,7 +87,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/api/strategies', (req, res) => {
-  console.log('[rpc] Get strategies', Object.keys(snapshot.strategies));
+  // TODO: should be cached. We do not need to continuously do the same thing.
   const strategies = Object.fromEntries(
     Object.entries(clone(snapshot.strategies)).map(([key, strategy]) => [
       key,

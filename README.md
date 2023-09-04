@@ -55,3 +55,13 @@ You can run the API locally using Docker. To do so, follow these steps:
 1. Clone the repository and `cd` into it.
 2. Copy the `.env.example` file to `.env` and set necessary values.
 3. Run `docker-compose up` to start the API.
+
+## Running load tests with Artillery
+
+You can run load tests on the API using Artillery. To do so, follow these steps:
+
+1. Clone the repository and `cd` into it.
+2. Copy the `.env.example` file to `.env` and set necessary values.
+3. Run `npm install` to install dependencies.
+4. Install Artillery globally by running `npm install -g artillery`.
+5. Run `artillery run -t <your server url> -o <output file name> ./test/load/<test-file>.yml` to run the load test.` to run the load test.
