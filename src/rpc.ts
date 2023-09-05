@@ -87,7 +87,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/api/strategies', (req, res) => {
-  console.log('[rpc] Get strategies', Object.keys(snapshot.strategies));
   const strategies = Object.fromEntries(
     Object.entries(clone(snapshot.strategies)).map(([key, strategy]) => [
       key,
