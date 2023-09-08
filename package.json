@@ -19,7 +19,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.18.0",
     "@ethersproject/address": "^5.7.0",
-    "@snapshot-labs/keycard": "0.2.0",
+    "@snapshot-labs/keycard": "0.4.0",
     "@snapshot-labs/snapshot-metrics": "^1.0.0",
     "@snapshot-labs/snapshot-sentry": "^1.1.0",
     "@snapshot-labs/strategies": "https://github.com/snapshot-labs/snapshot-strategies#master",

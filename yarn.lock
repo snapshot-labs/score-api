@@ -2055,12 +2055,12 @@
   dependencies:
     "@snapshot-labs/eslint-config-base" "^0.1.0-beta.11"
 
-"@snapshot-labs/keycard@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/keycard/-/keycard-0.2.0.tgz#7a9e4dd2224089fd291fe63ada738a70a5407d46"
-  integrity sha512-cfA2/fNy9MhChl0MR/rF0AY+Dzj9sQPd/jcZbIxsx7p4Dd8ZmSo6ufHz60H7pHBM5r4KgozHTlscN7sQVShZYg==
+"@snapshot-labs/keycard@0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/keycard/-/keycard-0.4.0.tgz#7b97c59150c198552df36b02992fd6b6a5cc22e3"
+  integrity sha512-K+g5RUNewgnQPYxI6HeEZXeSaRiNF0j3+d7T02O4woq1YUPkz4vc/IE4Kyj4ABS4O2qlrlg9xwr03pCsyr9SRg==
   dependencies:
-    cross-fetch "^3.1.5"
+    node-fetch "^2.7.0"
 
 "@snapshot-labs/prettier-config@^0.1.0-beta.7":
   version "0.1.0-beta.7"
@@ -2104,7 +2104,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#48fe81ad253f868e77f32a18e3cad69a066915f2"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#e978c32bf128969db9af78c681b4d06fecf31149"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2427,9 +2427,9 @@
     toformat "^2.0.0"
 
 "@uniswap/sdk-core@^4":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-4.0.6.tgz#7b6d562f54293bbe0a9d101fb84e619db325f7b6"
-  integrity sha512-6GzCVfnOiJtvo91zlF/VjnC2OEbBRThVclzrh7+Zmo8dBovXwSlXwqn3RkSWACn/XEOzAKH70TficfOWm6mWJA==
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-4.0.7.tgz#90dfd070d7e44494234618af398da158363ae827"
+  integrity sha512-jscx7KUIWzQatcL5PHY6xy0gEL9IGQcL5h/obxzX9foP2KoNk9cq66Ia8I2Kvpa7zBcPOeW1hU0hJNBq6CzcIQ==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     big.js "^5.2.2"
@@ -3179,7 +3179,7 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
-cross-fetch@^3.1.5, cross-fetch@^3.1.6:
+cross-fetch@^3.1.6:
   version "3.1.8"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.8.tgz#0327eba65fd68a7d119f8fb2bf9334a1a7956f82"
   integrity sha512-cvA+JwZoU0Xq+h6WkMvAUqPEYy92Obet6UdKLfW60qn99ftItKjB5T+BkyWOFWe2pUyfQ+IJHmpOTznqk1M6Kg==
@@ -5343,7 +5343,7 @@ negotiator@0.6.3:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.3.tgz#58e323a72fedc0d6f9cd4d31fe49f51479590ccd"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
 
-node-fetch@^2.6.12:
+node-fetch@^2.6.12, node-fetch@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
