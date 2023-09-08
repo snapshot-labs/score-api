@@ -9,9 +9,9 @@ let client;
   client = createClient({ url: process.env.DATABASE_URL });
   client.on('connect', () => console.log('[redis] Redis connect'));
   client.on('ready', () => console.log('[redis] Redis ready'));
-  client.on('reconnecting', (err) => console.log('[redis] Redis reconnecting', err));
-  client.on('error', (err) => console.log('[redis] Redis error', err));
-  client.on('end', (err) => console.log('[redis] Redis end', err));
+  client.on('reconnecting', err => console.log('[redis] Redis reconnecting', err));
+  client.on('error', err => console.log('[redis] Redis error', err));
+  client.on('end', err => console.log('[redis] Redis end', err));
   await client.connect();
 
   setInterval(async () => {

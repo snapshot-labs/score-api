@@ -33,7 +33,7 @@ jest.mock('./utils', () => {
 describe('getCurrentBlockNum function', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    Object.keys(blockNumByNetwork).forEach((key) => delete blockNumByNetwork[key]);
+    Object.keys(blockNumByNetwork).forEach(key => delete blockNumByNetwork[key]);
   });
 
   afterAll(() => {

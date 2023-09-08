@@ -7,10 +7,10 @@ export default async function serve(id, action, args) {
   const key = sha256(id);
   if (!ongoingRequests.has(key)) {
     const requestPromise = action(...args)
-      .then((result) => {
+      .then(result => {
         return result;
       })
-      .catch((e) => {
+      .catch(e => {
         throw e;
       })
       .finally(() => {

@@ -25,7 +25,6 @@
     "@snapshot-labs/strategies": "https://github.com/snapshot-labs/snapshot-strategies#master",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "eslint": "^6.7.2",
     "express": "^4.17.1",
     "express-rate-limit": "^6.9.0",
     "nodemon": "^2.0.15",
@@ -40,19 +39,26 @@
     ]
   },
   "devDependencies": {
-    "@snapshot-labs/eslint-config": "^0.1.0-beta.2",
+    "@snapshot-labs/eslint-config": "^0.1.0-beta.11",
+    "@snapshot-labs/prettier-config": "^0.1.0-beta.7",
     "@types/express": "^4.17.11",
     "@types/jest": "^29.5.3",
     "@types/node": "^14.14.21",
     "dotenv-cli": "^7.2.1",
+    "eslint": "8.28.0",
     "husky": "^8.0.3",
     "jest": "^28.0.0",
     "jest-environment-node-single-context": "28",
     "lint-staged": "^14.0.0",
+    "prettier": "^2.8.0",
     "start-server-and-test": "^2.0.0",
     "supertest": "^6.3.3",
     "ts-jest": "^28.0.0"
   },
+  "eslintConfig": {
+    "extends": "@snapshot-labs"
+  },
+  "prettier": "@snapshot-labs/prettier-config",
   "engines": {
     "node": ">=16 < 17 || >= 18"
   },

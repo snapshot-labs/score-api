@@ -30,7 +30,7 @@ export function formatStrategies(network, strategies: Array<any> = []) {
   strategies = Array.isArray(strategies) ? strategies : [];
   // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to 8 strategies
   return strategies
-    .map((strategy) => ({
+    .map(strategy => ({
       ...strategy,
       network: strategy?.network || network
     }))
