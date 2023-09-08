@@ -11,6 +11,7 @@
     "moduleResolution": "Node",
     "sourceMap": true,
     "inlineSources": true,
-    "sourceRoot": "/"
+    "sourceRoot": "/",
+    "skipLibCheck": true
   }
 }

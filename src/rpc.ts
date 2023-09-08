@@ -101,7 +101,7 @@ router.get('/api/validations', (req, res) => {
   const hiddenValidations = ['passport-weighted'];
   let validationsList: any = Object.entries(clone(snapshot.validations));
   validationsList = validationsList.filter(
-    (validationName) => !hiddenValidations.includes(validationName[0])
+    validationName => !hiddenValidations.includes(validationName[0])
   );
   const validations = Object.fromEntries(
     validationsList.map(([key, validation]) => [
@@ -119,7 +119,7 @@ router.post('/api/scores', async (req, res) => {
   const { space = '', network = '1', snapshot = 'latest', addresses = [], force = false } = params;
   let { strategies = [] } = params;
   strategies = formatStrategies(network, strategies);
-  const strategyNames = strategies.map((strategy) => strategy.name);
+  const strategyNames = strategies.map(strategy => strategy.name);
 
   if (
     ['1319'].includes(network) ||
