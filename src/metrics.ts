@@ -1,8 +1,8 @@
 import init, { client } from '@snapshot-labs/snapshot-metrics';
+import { capture } from '@snapshot-labs/snapshot-sentry';
 import { Express } from 'express';
 
 const whitelistedPath = [/^\/$/, /^\/api\/(strategies|validations|scores)$/];
-let server;
 
 const rateLimitedRequestsCount = new client.Counter({
   name: 'http_requests_by_rate_limit_count',
@@ -21,30 +21,12 @@ function instrumentRateLimitedRequests(req, res, next) {
 }
 
 export default function initMetrics(app: Express) {
-  init(app, { whitelistedPath });
+  init(app, { whitelistedPath, errorHandler: (e: any) => capture(e) });
 
   app.use(instrumentRateLimitedRequests);
-
-  app.use((req, res, next) => {
-    if (!server) {
-      // @ts-ignore
-      server = req.socket.server;
-    }
-    next();
-  });
 }
 
 export const requestDeduplicatorSize = new client.Gauge({
   name: 'request_deduplicator_size',
   help: 'Total number of items in the deduplicator queue'
-});
-
-new client.Gauge({
-  name: 'express_open_connections_size',
-  help: 'Number of open connections on the express server',
-  async collect() {
-    if (server) {
-      this.set(server._connections);
-    }
-  }
 });
