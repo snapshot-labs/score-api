@@ -21,7 +21,7 @@ function instrumentRateLimitedRequests(req, res, next) {
 }
 
 export default function initMetrics(app: Express) {
-  init(app, { whitelistedPath, errorHandler: (e: any) => capture(e) });
+  init(app, { whitelistedPath, errorHandler: capture });
 
   app.use(instrumentRateLimitedRequests);
 }
