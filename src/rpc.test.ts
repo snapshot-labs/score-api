@@ -24,7 +24,7 @@ jest.mock('./utils', () => ({
   blockNumByNetwork: { 1: 123 },
   clone: jest.fn(),
   formatStrategies: jest.fn(),
-  rpcSuccess: jest.fn((res) => {
+  rpcSuccess: jest.fn(res => {
     res.send();
   }),
   rpcError: jest.fn((res, code) => {

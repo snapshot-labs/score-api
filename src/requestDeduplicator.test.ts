@@ -2,7 +2,7 @@ import serve from './requestDeduplicator';
 import { requestDeduplicatorSize } from './metrics';
 
 jest.mock('./utils', () => ({
-  sha256: jest.fn((id) => `hashed_${id}`)
+  sha256: jest.fn(id => `hashed_${id}`)
 }));
 jest.mock('./metrics', () => ({
   requestDeduplicatorSize: {
@@ -28,7 +28,7 @@ describe('serve function', () => {
 
   it('should not initiate a new request if one is ongoing with the same id', async () => {
     const mockAction = jest.fn(
-      () => new Promise((resolve) => setTimeout(() => resolve('response'), 100))
+      () => new Promise(resolve => setTimeout(() => resolve('response'), 100))
     );
     const id = '12345';
 
