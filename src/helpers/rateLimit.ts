@@ -41,7 +41,7 @@ export default rateLimit({
     rpcError(
       res,
       429,
-      'too many requests, Refer to https://docs.snapshot.org/tools/api/api-keys#limits',
+      'too many requests, refer to https://docs.snapshot.org/tools/api/api-keys#limits',
       id
     );
   },
