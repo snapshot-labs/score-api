@@ -32,6 +32,9 @@ router.post('/', async (req, res) => {
   }
 
   if (method === 'get_vp') {
+    if (params.space && disabled.includes(params.space))
+      return rpcError(res, 500, 'too many requests', null);
+
     try {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
       return rpcSuccess(res, response.result, id, response.cache);
