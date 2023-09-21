@@ -31,13 +31,10 @@ export default rateLimit({
     if (keycardData?.valid && !keycardData.rateLimited) {
       return true;
     }
-
     return false;
   },
   handler: (req, res) => {
     const { id = null } = req.body;
-
-    console.log(`too many requests ${hashedIp(req)}`);
     rpcError(
       res,
       429,
