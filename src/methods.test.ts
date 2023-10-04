@@ -233,6 +233,7 @@ describe('validate', () => {
   });
 
   it('returns true if params.validation is not defined', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { validation, ...restParams } = mockedArgs;
 
     // @ts-expect-error
