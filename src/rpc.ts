@@ -132,6 +132,12 @@ router.post('/api/scores', async (req, res) => {
   )
     return rpcError(res, 500, 'something wrong with the strategies', null);
 
+  try {
+    addresses.forEach(getAddress);
+  } catch (e: any) {
+    return rpcError(res, 400, 'invalid address', null);
+  }
+
   let result;
   try {
     result = await scores(
