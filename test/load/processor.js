@@ -10,6 +10,13 @@ function getStrategies(userContext, events, done) {
   return done();
 }
 
+function getValidations(userContext, events, done) {
+  userContext.vars.ip = getIp();
+
+  return done();
+}
+
 module.exports = {
-  getStrategies
+  getStrategies,
+  getValidations
 };
