@@ -32,6 +32,9 @@ router.post('/', async (req, res) => {
   }
 
   if (method === 'get_vp') {
+    if (params.space && disabled.includes(params.space))
+      return rpcError(res, 500, 'too many requests', null);
+
     try {
       const response: any = await serve(JSON.stringify(params), getVp, [params]);
       return rpcSuccess(res, response.result, id, response.cache);
@@ -102,7 +105,7 @@ router.get('/api/validations', (req, res) => {
   const hiddenValidations = ['passport-weighted'];
   let validationsList: any = Object.entries(clone(snapshot.validations));
   validationsList = validationsList.filter(
-    (validationName) => !hiddenValidations.includes(validationName[0])
+    validationName => !hiddenValidations.includes(validationName[0])
   );
   const validations = Object.fromEntries(
     validationsList.map(([key, validation]) => [
@@ -120,7 +123,7 @@ router.post('/api/scores', async (req, res) => {
   const { space = '', network = '1', snapshot = 'latest', addresses = [], force = false } = params;
   let { strategies = [] } = params;
   strategies = formatStrategies(network, strategies);
-  const strategyNames = strategies.map((strategy) => strategy.name);
+  const strategyNames = strategies.map(strategy => strategy.name);
 
   if (
     ['1319'].includes(network) ||
@@ -129,6 +132,12 @@ router.post('/api/scores', async (req, res) => {
     strategies.length === 0
   )
     return rpcError(res, 500, 'something wrong with the strategies', null);
+
+  try {
+    addresses.forEach(getAddress);
+  } catch (e: any) {
+    return rpcError(res, 400, 'invalid address', null);
+  }
 
   let result;
   try {
