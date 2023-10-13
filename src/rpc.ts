@@ -1,11 +1,10 @@
 import express from 'express';
+import snapshot from '@snapshot-labs/strategies';
 import { getAddress } from '@ethersproject/address';
 import scores from './scores';
-import { formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
+import { clone, formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
-import getStrategies from './helpers/strategies';
-import getValidations from './helpers/validations';
 import disabled from './disabled.json';
 import serve from './requestDeduplicator';
 import { capture } from '@snapshot-labs/snapshot-sentry';
@@ -91,12 +90,29 @@ router.get('/', (req, res) => {
 });
 
 router.get('/api/strategies', (req, res) => {
-  const strategies = getStrategies();
+  const strategies = Object.fromEntries(
+    Object.entries(clone(snapshot.strategies)).map(([key, strategy]) => [
+      key,
+      // @ts-ignore
+      { key, ...strategy }
+    ])
+  );
   res.json(strategies);
 });
 
 router.get('/api/validations', (req, res) => {
-  const validations = getValidations();
+  const hiddenValidations = ['passport-weighted'];
+  let validationsList: any = Object.entries(clone(snapshot.validations));
+  validationsList = validationsList.filter(
+    validationName => !hiddenValidations.includes(validationName[0])
+  );
+  const validations = Object.fromEntries(
+    validationsList.map(([key, validation]) => [
+      key,
+      // @ts-ignore
+      { key, ...validation }
+    ])
+  );
   res.json(validations);
 });
 
