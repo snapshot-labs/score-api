@@ -3,7 +3,7 @@ import { clone } from '../utils';
 
 let strategiesCache;
 
-export default async function getStrategies() {
+export default function getStrategies() {
   if (strategiesCache) {
     return strategiesCache;
   }

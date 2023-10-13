@@ -4,7 +4,7 @@ import { clone } from '../utils';
 let validationsCache;
 const hiddenValidations = ['passport-weighted'];
 
-export default async function getValidations() {
+export default function getValidations() {
   if (validationsCache) {
     return validationsCache;
   }
