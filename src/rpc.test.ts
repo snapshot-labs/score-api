@@ -2,9 +2,8 @@ import request from 'supertest';
 
 import express from 'express';
 import router from './rpc';
+import snapshot from '@snapshot-labs/strategies';
 import serve from './requestDeduplicator';
-import getStrategies from './helpers/strategies';
-import getValidations from './helpers/validations';
 import scores from './scores';
 import { validate, getVp } from './methods';
 import * as utils from './utils';
@@ -15,8 +14,6 @@ jest.mock('./methods', () => ({
   disabledNetworks: ['1319']
 }));
 jest.mock('./scores', () => jest.fn().mockResolvedValue({ result: {}, cache: false }));
-jest.mock('./helpers/strategies', () => jest.fn());
-jest.mock('./helpers/validations', () => jest.fn());
 jest.mock('./requestDeduplicator', () =>
   jest.fn().mockImplementation((id, fn, args) => fn(...args))
 );
@@ -25,6 +22,7 @@ jest.mock('@ethersproject/address', () => ({
 }));
 jest.mock('./utils', () => ({
   blockNumByNetwork: { 1: 123 },
+  clone: jest.fn(),
   formatStrategies: jest.fn(),
   rpcSuccess: jest.fn(res => {
     res.send();
@@ -161,10 +159,12 @@ describe('API Routes', () => {
       const expectedStrategies = {
         gno: { key: 'gno', ...mockStrategies.gno }
       };
-      (getStrategies as jest.Mock).mockReturnValue(expectedStrategies);
+      (snapshot as any).strategies = mockStrategies;
+      (utils.clone as jest.Mock).mockReturnValue(mockStrategies);
 
       const response = await request(app).get('/api/strategies');
 
+      expect(utils.clone).toBeCalledWith(snapshot.strategies);
       expect(response.status).toBe(200);
       expect(response.body).toEqual(expectedStrategies);
     });
@@ -206,7 +206,8 @@ describe('API Routes', () => {
       const expectedValidations = {
         basic: { key: 'basic', ...mockedValidations.basic }
       };
-      (getValidations as jest.Mock).mockReturnValue(expectedValidations);
+      (snapshot as any).validations = mockedValidations;
+      (utils.clone as jest.Mock).mockReturnValue(mockedValidations);
 
       const response = await request(app).get('/api/validations');
 
