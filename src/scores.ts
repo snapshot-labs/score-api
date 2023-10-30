@@ -1,12 +1,13 @@
 import snapshot from '@snapshot-labs/strategies';
-import { get, set } from './aws';
 import { getCurrentBlockNum, sha256 } from './utils';
 import serve from './requestDeduplicator';
+import { cachedScores } from './helpers/cache';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 
+type ScoresResult = ReturnType<typeof snapshot.utils.getScoresDirect>;
+
 async function calculateScores(parent, args, key) {
-  const withCache = !!process.env.AWS_REGION;
   const { space = '', strategies, network, addresses } = args;
   let snapshotBlockNum = 'latest';
 
@@ -16,32 +17,23 @@ async function calculateScores(parent, args, key) {
   }
 
   const state = snapshotBlockNum === 'latest' ? 'pending' : 'final';
-
-  let scores;
-
-  if (withCache && state === 'final') scores = await get(key);
-
-  let cache = true;
-  if (!scores) {
-    cache = false;
-    scores = await snapshot.utils.getScoresDirect(
-      space,
-      strategies,
-      network,
-      snapshot.utils.getProvider(network, { broviderUrl }),
-      addresses,
-      snapshotBlockNum
-    );
-
-    if (withCache && state === 'final') {
-      set(key, scores);
-    }
-  }
+  const results = await cachedScores<ScoresResult>(
+    key,
+    async () =>
+      await snapshot.utils.getScoresDirect(
+        space,
+        strategies,
+        network,
+        snapshot.utils.getProvider(network, { broviderUrl }),
+        addresses,
+        snapshotBlockNum
+      ),
+    state === 'final'
+  );
 
   return {
     state,
-    cache,
-    scores
+    ...results
   };
 }
 

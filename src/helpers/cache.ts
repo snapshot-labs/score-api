@@ -1,4 +1,5 @@
 import redis from '../redis';
+import { get, set } from '../aws';
 
 const VP_KEY_PREFIX = 'vp';
 
@@ -37,4 +38,21 @@ export async function cachedVp<Type extends Promise<VpResult>>(
   }
 
   return { result, cache: false };
+}
+
+export async function cachedScores<Type>(key: string, callback: () => Type, toCache = false) {
+  if (!toCache || !!process.env.AWS_REGION) {
+    return { scores: await callback(), cache: false };
+  }
+
+  const cache = await get(key);
+
+  if (cache) {
+    return { scores: cache as Awaited<Type>, cache: true };
+  }
+
+  const scores = await callback();
+  set(key, scores);
+
+  return { scores, cache: false };
 }
