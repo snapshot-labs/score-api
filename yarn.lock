@@ -2095,10 +2095,10 @@
   dependencies:
     "@sentry/node" "^7.60.1"
 
-"@snapshot-labs/snapshot.js@^0.7.8":
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.7.8.tgz#9a94b2a6de1331ccee5ffea3877af62dde4c2b33"
-  integrity sha512-TD0GQ+CKPsQWh7Ir5kELLjjdrvmDtH/UbKVgEx+wJYOMHn6IIfqA2Cw3OqmV2WG8SNqAj85hbalIzCBWMDbZ4A==
+"@snapshot-labs/snapshot.js@^0.7.9":
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.7.9.tgz#6e0117b8601c794af7aefd1ad1daf4d354c8c078"
+  integrity sha512-YcQXQ7CeEemPHwR1HfDPNN3qdGL3xPsmP/iKiVcD93pJzl7vXOoTmKjiBW8qRPNS2JI65OY72V+5Zt4geaBWaw==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -2117,7 +2117,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#6fefb8ddf1d103112edade87d666082166894c74"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#05c70be665f65dfe146aa1b89ac278399f57361f"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2130,7 +2130,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.7.8"
+    "@snapshot-labs/snapshot.js" "^0.7.9"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
@@ -5787,9 +5787,9 @@ punycode@2.1.0:
   integrity sha512-Yxz2kRwT90aPiWEMHVYnEf4+rhwF1tBmmZ4KepCP+Wkium9JxtWnUm1nqGwpiAHr/tnTSeHqr3wb++jgSkXjhA==
 
 punycode@^2.1.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
-  integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
+  integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
 qs@6.10.3:
   version "6.10.3"
