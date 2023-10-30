@@ -6,3 +6,5 @@ jobs:
   test:
     uses: snapshot-labs/actions/.github/workflows/test.yml@main
     secrets: inherit
+    with:
+      redis: true
