@@ -4,7 +4,12 @@ import { getCurrentBlockNum, sha256 } from './utils';
 import snapshot from '@snapshot-labs/strategies';
 
 jest.mock('./utils');
-jest.mock('./helpers/cache');
+jest.mock('./helpers/cache', () => {
+  return {
+    cachedScores: jest.fn(),
+    cachedVp: jest.fn()
+  };
+});
 jest.mock('@snapshot-labs/strategies');
 
 describe('scores function', () => {
