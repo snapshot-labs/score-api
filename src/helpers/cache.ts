@@ -1,6 +1,6 @@
 import redis from '../redis';
 
-const VP_KEY_PREFIX = 'vp';
+export const VP_KEY_PREFIX = 'vp';
 
 interface VpResult {
   vp: number;
@@ -11,7 +11,7 @@ interface VpResult {
 export async function cachedVp<Type extends Promise<VpResult>>(
   key: string,
   callback: () => Type,
-  toCache = false
+  toCache = true
 ) {
   if (!toCache || !redis) {
     return { result: await callback(), cache: false };
