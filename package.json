@@ -12,6 +12,7 @@
     "start": "node build/src/index.js",
     "test:unit": "jest --config=jest.config.unit.ts",
     "test:unit:watch": "yarn test:unit --watch",
+    "test:integration": "dotenv -e test/.env.test yarn jest --collectCoverage=false test/integration/",
     "start:test": "dotenv -e test/.env.test yarn dev",
     "test": "PORT=3033 start-server-and-test 'yarn start:test' 3033 'dotenv -e test/.env.test jest --runInBand'",
     "test:e2e": "PORT=3033 start-server-and-test 'yarn start:test' 3033 'dotenv -e test/.env.test jest --runInBand --collectCoverage=false test/e2e/'"
