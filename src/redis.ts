@@ -14,13 +14,15 @@ let client;
   client.on('end', err => console.log('[redis] Redis end', err));
   await client.connect();
 
-  setInterval(async () => {
-    try {
-      await client.set('heartbeat', (Date.now() / 1e3).toFixed());
-    } catch (e) {
-      console.log('[redis] Heartbeat failed', e);
-    }
-  }, 10e3);
+  if (process.env.NODE_ENV !== 'test') {
+    setInterval(async () => {
+      try {
+        await client.set('heartbeat', (Date.now() / 1e3).toFixed());
+      } catch (e) {
+        console.log('[redis] Heartbeat failed', e);
+      }
+    }, 10e3);
+  }
 })();
 
 export default client;
