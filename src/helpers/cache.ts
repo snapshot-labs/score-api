@@ -1,11 +1,18 @@
-import snapshot from '@snapshot-labs/strategies';
 import redis from '../redis';
-
-type VpResult = ReturnType<typeof snapshot.utils.getVp>;
 
 const VP_KEY_PREFIX = 'vp';
 
-export async function cachedVp(key: string, callback: () => VpResult, toCache = false) {
+interface VpResult {
+  vp: number;
+  vp_by_strategy?: number[];
+  vp_state: string;
+}
+
+export async function cachedVp<Type extends Promise<VpResult>>(
+  key: string,
+  callback: () => Type,
+  toCache = false
+) {
   if (!toCache || !redis) {
     return { result: await callback(), cache: false };
   }
@@ -16,7 +23,7 @@ export async function cachedVp(key: string, callback: () => VpResult, toCache = 
     cache.vp = parseFloat(cache.vp);
     cache.vp_by_strategy = JSON.parse(cache.vp_by_strategy);
 
-    return { result: cache as Awaited<VpResult>, cache: true };
+    return { result: cache as Awaited<Type>, cache: true };
   }
 
   const result = await callback();

@@ -21,6 +21,8 @@ interface ValidateRequestParams {
   params: any;
 }
 
+type VpResult = ReturnType<typeof snapshot.utils.getVp>;
+
 const disableCachingForSpaces = ['magicappstore.eth', 'moonbeam-foundation.eth'];
 
 export async function getVp(params: GetVpRequestParams) {
@@ -34,7 +36,7 @@ export async function getVp(params: GetVpRequestParams) {
     params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
   }
 
-  return await cachedVp(
+  return await cachedVp<VpResult>(
     sha256(JSON.stringify(params)),
     async () => {
       return await snapshot.utils.getVp(
