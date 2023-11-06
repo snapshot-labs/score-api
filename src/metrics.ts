@@ -30,3 +30,9 @@ export const requestDeduplicatorSize = new client.Gauge({
   name: 'request_deduplicator_size',
   help: 'Total number of items in the deduplicator queue'
 });
+
+export const cacheActivitesCount = new client.Gauge({
+  name: 'cache_activites_count',
+  help: 'Number of requests to the cache layer',
+  labelNames: ['type', 'status']
+});
