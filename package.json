@@ -20,7 +20,7 @@
     "@aws-sdk/client-s3": "^3.18.0",
     "@ethersproject/address": "^5.7.0",
     "@snapshot-labs/keycard": "0.5.1",
-    "@snapshot-labs/snapshot-metrics": "^1.4.0",
+    "@snapshot-labs/snapshot-metrics": "^1.4.1",
     "@snapshot-labs/snapshot-sentry": "^1.5.4",
     "@snapshot-labs/strategies": "https://github.com/snapshot-labs/snapshot-strategies#master",
     "cors": "^2.8.5",
