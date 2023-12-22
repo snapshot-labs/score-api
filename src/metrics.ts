@@ -13,7 +13,9 @@ const rateLimitedRequestsCount = new client.Counter({
 function instrumentRateLimitedRequests(req, res, next) {
   res.on('finish', () => {
     if (whitelistedPath.some(path => path.test(req.path))) {
-      rateLimitedRequestsCount.inc({ rate_limited: res.statusCode === 429 ? 1 : 0 });
+      rateLimitedRequestsCount.inc({
+        rate_limited: res.statusCode === 429 ? 1 : 0
+      });
     }
   });
 

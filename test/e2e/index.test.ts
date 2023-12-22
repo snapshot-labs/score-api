@@ -11,7 +11,9 @@ describe('/', () => {
 
   describe('when method params is invalid', () => {
     it('returns a 400 error', async () => {
-      const response = await request(process.env.HOST).post('/').send({ method: 'test' });
+      const response = await request(process.env.HOST)
+        .post('/')
+        .send({ method: 'test' });
 
       expect(response.status).toEqual(400);
     });
