@@ -96,7 +96,10 @@ describe('getVp function', () => {
       space: 'testSpace'
     };
 
-    (snapshot.utils.getVp as jest.Mock).mockResolvedValue({ vp_state: 'pending', vp: 100 });
+    (snapshot.utils.getVp as jest.Mock).mockResolvedValue({
+      vp_state: 'pending',
+      vp: 100
+    });
     (getCurrentBlockNum as jest.Mock).mockResolvedValue(params.snapshot);
 
     const result = await getVp(params);
@@ -161,13 +164,21 @@ describe('getVp function', () => {
 
     expect(mockRedis.multi).toHaveBeenCalled();
 
-    expect(mockMulti.hSet).toHaveBeenCalledWith(`vp:${cacheKey}`, 'vp', votingPower.vp);
+    expect(mockMulti.hSet).toHaveBeenCalledWith(
+      `vp:${cacheKey}`,
+      'vp',
+      votingPower.vp
+    );
     expect(mockMulti.hSet).toHaveBeenCalledWith(
       `vp:${cacheKey}`,
       'vp_by_strategy',
       JSON.stringify(votingPower.vp_by_strategy)
     );
-    expect(mockMulti.hSet).toHaveBeenCalledWith(`vp:${cacheKey}`, 'vp_state', votingPower.vp_state);
+    expect(mockMulti.hSet).toHaveBeenCalledWith(
+      `vp:${cacheKey}`,
+      'vp_state',
+      votingPower.vp_state
+    );
     expect(mockMulti.exec).toHaveBeenCalled();
 
     expect(result).toEqual({
@@ -210,12 +221,22 @@ describe('getVp function', () => {
       delegation: true
     };
 
-    (snapshot.utils.getVp as jest.Mock).mockResolvedValue({ vp_state: 'pending', vp: 100 });
+    (snapshot.utils.getVp as jest.Mock).mockResolvedValue({
+      vp_state: 'pending',
+      vp: 100
+    });
     (getCurrentBlockNum as jest.Mock).mockResolvedValue(params.snapshot);
 
     await getVp(params);
 
-    expect(snapshot.utils.getVp).toHaveBeenCalledWith('0x123', '1', [], 1000, 'testSpace', true);
+    expect(snapshot.utils.getVp).toHaveBeenCalledWith(
+      '0x123',
+      '1',
+      [],
+      1000,
+      'testSpace',
+      true
+    );
   });
 });
 

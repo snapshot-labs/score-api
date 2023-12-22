@@ -14,7 +14,9 @@ jest.mock('./methods', () => ({
   validate: jest.fn().mockResolvedValue(true),
   disabledNetworks: ['1319']
 }));
-jest.mock('./scores', () => jest.fn().mockResolvedValue({ result: {}, cache: false }));
+jest.mock('./scores', () =>
+  jest.fn().mockResolvedValue({ result: {}, cache: false })
+);
 jest.mock('./helpers/strategies', () => jest.fn());
 jest.mock('./helpers/validations', () => jest.fn());
 jest.mock('./requestDeduplicator', () =>
@@ -51,7 +53,12 @@ describe('API Routes', () => {
       const mockedRes = expect.anything();
       const response = await request(app).post('/').send({});
 
-      expect(utils.rpcError).toBeCalledWith(mockedRes, 400, 'missing method', null);
+      expect(utils.rpcError).toBeCalledWith(
+        mockedRes,
+        400,
+        'missing method',
+        null
+      );
       expect(response.status).toBe(400);
     });
 
@@ -63,7 +70,12 @@ describe('API Routes', () => {
           method: 'get_vp',
           params: { address: '0x0000000000000000000000000000000000000000' }
         });
-      expect(utils.rpcError).toBeCalledWith(mockedRes, 400, 'invalid address', null);
+      expect(utils.rpcError).toBeCalledWith(
+        mockedRes,
+        400,
+        'invalid address',
+        null
+      );
       expect(response.status).toBe(400);
     });
 
@@ -75,9 +87,11 @@ describe('API Routes', () => {
           method: 'get_vp',
           params: { address: '0x123' }
         });
-      expect(serve).toBeCalledWith(JSON.stringify({ address: '0x123' }), getVp, [
-        { address: '0x123' }
-      ]);
+      expect(serve).toBeCalledWith(
+        JSON.stringify({ address: '0x123' }),
+        getVp,
+        [{ address: '0x123' }]
+      );
       expect(response.status).toBe(200);
     });
 
@@ -103,9 +117,11 @@ describe('API Routes', () => {
           method: 'validate',
           params: { author: '0x123' }
         });
-      expect(serve).toBeCalledWith(JSON.stringify({ author: '0x123' }), validate, [
-        { author: '0x123' }
-      ]);
+      expect(serve).toBeCalledWith(
+        JSON.stringify({ author: '0x123' }),
+        validate,
+        [{ author: '0x123' }]
+      );
       expect(response.status).toBe(200);
     });
 
@@ -131,7 +147,12 @@ describe('API Routes', () => {
           method: 'wrong_method',
           params: { address: '0x123' }
         });
-      expect(utils.rpcError).toBeCalledWith(mockedRes, 400, 'wrong method', null);
+      expect(utils.rpcError).toBeCalledWith(
+        mockedRes,
+        400,
+        'wrong method',
+        null
+      );
       expect(response.status).toBe(400);
     });
   });
@@ -218,11 +239,17 @@ describe('API Routes', () => {
   describe('POST /api/scores', () => {
     it('should return error for disabled networks', async () => {
       const mockedRes = expect.anything();
-      (utils.formatStrategies as jest.Mock).mockReturnValueOnce([{ name: 'test-strategy' }]);
+      (utils.formatStrategies as jest.Mock).mockReturnValueOnce([
+        { name: 'test-strategy' }
+      ]);
       const response = await request(app)
         .post('/api/scores')
         .send({
-          params: { network: '1319', strategies: [{ name: 'basic-strategy' }], space: '' }
+          params: {
+            network: '1319',
+            strategies: [{ name: 'basic-strategy' }],
+            space: ''
+          }
         });
 
       expect(utils.rpcError).toBeCalledWith(
@@ -236,7 +263,9 @@ describe('API Routes', () => {
 
     it('should return error for spaces with name that includes `pod-leader`', async () => {
       const mockedRes = expect.anything();
-      (utils.formatStrategies as jest.Mock).mockReturnValueOnce([{ name: 'pod-leader' }]);
+      (utils.formatStrategies as jest.Mock).mockReturnValueOnce([
+        { name: 'pod-leader' }
+      ]);
       const response = await request(app)
         .post('/api/scores')
         .send({
@@ -293,7 +322,9 @@ describe('API Routes', () => {
         cache: isCached,
         data: 'test data'
       });
-      (utils.formatStrategies as jest.Mock).mockReturnValueOnce([{ name: 'test-strategy' }]);
+      (utils.formatStrategies as jest.Mock).mockReturnValueOnce([
+        { name: 'test-strategy' }
+      ]);
 
       const response = await request(app)
         .post('/api/scores')
@@ -301,14 +332,21 @@ describe('API Routes', () => {
           params: { network: '1', strategies: [{ name: 'test-strategy' }] }
         });
 
-      expect(utils.rpcSuccess).toBeCalledWith(mockedRes, { data: 'test data' }, null, isCached);
+      expect(utils.rpcSuccess).toBeCalledWith(
+        mockedRes,
+        { data: 'test data' },
+        null,
+        isCached
+      );
       expect(response.status).toBe(200);
     });
 
     it('should return error if score calculation fails', async () => {
       const mockedRes = expect.anything();
       (scores as jest.Mock).mockRejectedValueOnce(new Error('Test error'));
-      (utils.formatStrategies as jest.Mock).mockReturnValueOnce([{ name: 'test-strategy' }]);
+      (utils.formatStrategies as jest.Mock).mockReturnValueOnce([
+        { name: 'test-strategy' }
+      ]);
 
       const response = await request(app)
         .post('/api/scores')
@@ -316,7 +354,12 @@ describe('API Routes', () => {
           params: { network: '1', strategies: [{ name: 'test-strategy' }] }
         });
 
-      expect(utils.rpcError).toBeCalledWith(mockedRes, 500, new Error('Test error'), null);
+      expect(utils.rpcError).toBeCalledWith(
+        mockedRes,
+        500,
+        new Error('Test error'),
+        null
+      );
       expect(response.status).toBe(500);
     });
   });

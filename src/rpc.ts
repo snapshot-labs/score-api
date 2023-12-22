@@ -1,7 +1,12 @@
 import express from 'express';
 import { getAddress } from '@ethersproject/address';
 import scores from './scores';
-import { formatStrategies, rpcSuccess, rpcError, blockNumByNetwork } from './utils';
+import {
+  formatStrategies,
+  rpcSuccess,
+  rpcError,
+  blockNumByNetwork
+} from './utils';
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
 import getStrategies from './helpers/strategies';
@@ -37,11 +42,16 @@ router.post('/', async (req, res) => {
       return rpcError(res, 429, 'too many requests', null);
 
     try {
-      const response: any = await serve(JSON.stringify(params), getVp, [params]);
+      const response: any = await serve(JSON.stringify(params), getVp, [
+        params
+      ]);
       return rpcSuccess(res, response.result, id, response.cache);
     } catch (e: any) {
       capture(e, { params, method });
-      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
+      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(
+        0,
+        1000
+      );
 
       // Detect provider error
       if (e?.reason && e?.error?.reason && e?.error?.url) {
@@ -66,7 +76,10 @@ router.post('/', async (req, res) => {
       return rpcSuccess(res, result, id);
     } catch (e: any) {
       capture(e, { params, method });
-      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
+      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(
+        0,
+        1000
+      );
 
       // Detect provider error
       if (e?.reason && e?.error?.reason && e?.error?.url) {
@@ -103,7 +116,13 @@ router.get('/api/validations', (req, res) => {
 router.post('/api/scores', async (req, res) => {
   const { params = {} } = req.body || {};
   const requestId = req.headers['x-request-id'];
-  const { space = '', network = '1', snapshot = 'latest', addresses = [], force = false } = params;
+  const {
+    space = '',
+    network = '1',
+    snapshot = 'latest',
+    addresses = [],
+    force = false
+  } = params;
   let { strategies = [] } = params;
   strategies = formatStrategies(network, strategies);
   const strategyNames = strategies.map(strategy => strategy.name);

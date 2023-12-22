@@ -21,19 +21,28 @@ interface ValidateRequestParams {
   params: any;
 }
 
-const disableCachingForSpaces = ['magicappstore.eth', 'moonbeam-foundation.eth'];
+const disableCachingForSpaces = [
+  'magicappstore.eth',
+  'moonbeam-foundation.eth'
+];
 
 export async function getVp(params: GetVpRequestParams) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
 
   if (params.snapshot !== 'latest') {
-    const currentBlockNum = await getCurrentBlockNum(params.snapshot, params.network);
-    params.snapshot = currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
+    const currentBlockNum = await getCurrentBlockNum(
+      params.snapshot,
+      params.network
+    );
+    params.snapshot =
+      currentBlockNum < params.snapshot ? 'latest' : params.snapshot;
   }
 
   const key = sha256(JSON.stringify(params));
   const useCache =
-    redis && params.snapshot !== 'latest' && !disableCachingForSpaces.includes(params.space);
+    redis &&
+    params.snapshot !== 'latest' &&
+    !disableCachingForSpaces.includes(params.space);
   if (useCache) {
     const cache = await redis.hGetAll(`vp:${key}`);
 
@@ -60,7 +69,11 @@ export async function getVp(params: GetVpRequestParams) {
   if (useCache && result.vp_state === 'final') {
     const multi = redis.multi();
     multi.hSet(`vp:${key}`, 'vp', result.vp);
-    multi.hSet(`vp:${key}`, 'vp_by_strategy', JSON.stringify(result.vp_by_strategy));
+    multi.hSet(
+      `vp:${key}`,
+      'vp_by_strategy',
+      JSON.stringify(result.vp_by_strategy)
+    );
     multi.hSet(`vp:${key}`, 'vp_state', result.vp_state);
     multi.exec();
   }
