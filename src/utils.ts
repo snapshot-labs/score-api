@@ -28,7 +28,7 @@ function sortObjectByParam(obj) {
 
 export function formatStrategies(network, strategies: Array<any> = []) {
   strategies = Array.isArray(strategies) ? strategies : [];
-  // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to 8 strategies
+  // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to 10 strategies
   return strategies
     .map(strategy => ({
       ...strategy,

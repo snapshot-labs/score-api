@@ -39,8 +39,14 @@ router.post('/', async (req, res) => {
 
   if (method === 'get_vp') {
     if (params.space && disabled.includes(params.space))
-      return rpcError(res, 429, 'too many requests', null);
-
+      return rpcError(res, 429, 'too many requests', id);
+    if (
+      !params.strategies ||
+      params.strategies.length === 0 ||
+      params.strategies.length > 10
+    ) {
+      return rpcError(res, 400, 'invalid strategies length', id);
+    }
     try {
       const response: any = await serve(JSON.stringify(params), getVp, [
         params
