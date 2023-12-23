@@ -258,13 +258,13 @@ describe('formatStrategies function', () => {
     expect(formattedStrategies).toHaveLength(2);
   });
 
-  it('should limit strategies to 8', () => {
-    const strategies = new Array(10).fill({ name: 'strategy', param: 'a' });
+  it('should limit strategies to 10', () => {
+    const strategies = new Array(12).fill({ name: 'strategy', param: 'a' });
     const network = 'defaultNetwork';
 
     const formattedStrategies = formatStrategies(network, strategies);
 
-    expect(formattedStrategies).toHaveLength(8);
+    expect(formattedStrategies).toHaveLength(10);
   });
 });
 

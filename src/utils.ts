@@ -35,7 +35,7 @@ export function formatStrategies(network, strategies: Array<any> = []) {
       network: strategy?.network || network
     }))
     .map(sortObjectByParam)
-    .slice(0, 8);
+    .slice(0, 10);
 }
 
 export function rpcSuccess(res, result, id, cache = false) {
