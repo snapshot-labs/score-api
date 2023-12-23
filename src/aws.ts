@@ -3,7 +3,7 @@ import { Readable } from 'stream';
 import { capture } from '@snapshot-labs/snapshot-sentry';
 
 const name = 'score-api';
-const cb = '3';
+const cb = '4';
 
 let client;
 const bucket = process.env.AWS_BUCKET_NAME;
