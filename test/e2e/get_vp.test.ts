@@ -16,5 +16,21 @@ describe('getVp', () => {
     });
   });
 
+  describe('when the strategies are invalid', () => {
+    it.each([
+      ['no strategies', null],
+      ['empty strategies', []],
+      ['too many strategies', Array(12).fill({ name: 'test', param: 'a' })]
+    ])('returns a 400 error on %s', async (title, strategies) => {
+      const response = await request(process.env.HOST).post('/').send({
+        method: 'get_vp',
+        address: '0x662a9706c7122D620D410ba565CAfaB29e4CB47f',
+        strategies
+      });
+
+      expect(response.status).toEqual(400);
+    });
+  });
+
   it.todo('returns the voting power');
 });
