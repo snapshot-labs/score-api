@@ -85,12 +85,12 @@ describe('API Routes', () => {
         .post('/')
         .send({
           method: 'get_vp',
-          params: { address: '0x123' }
+          params: { address: '0x123', strategies: [{ name: 'ticket' }] }
         });
       expect(serve).toBeCalledWith(
-        JSON.stringify({ address: '0x123' }),
+        JSON.stringify({ address: '0x123', strategies: [{ name: 'ticket' }] }),
         getVp,
-        [{ address: '0x123' }]
+        [{ address: '0x123', strategies: [{ name: 'ticket' }] }]
       );
       expect(response.status).toBe(200);
     });
@@ -103,7 +103,7 @@ describe('API Routes', () => {
         .post('/')
         .send({
           method: 'get_vp',
-          params: { address: '0x123' }
+          params: { address: '0x123', strategies: [{ name: 'ticket' }] }
         });
       expect(utils.rpcError).toBeCalledWith(mockedRes, 500, err, null);
       expect(response.status).toBe(500);

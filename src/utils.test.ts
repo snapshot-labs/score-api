@@ -13,6 +13,7 @@ import {
 } from './utils';
 import snapshot from '@snapshot-labs/strategies';
 import { createHash } from 'crypto';
+import { MAX_STRATEGIES } from './constants';
 
 jest.mock('@snapshot-labs/strategies');
 jest.mock('crypto', () => ({
@@ -258,13 +259,16 @@ describe('formatStrategies function', () => {
     expect(formattedStrategies).toHaveLength(2);
   });
 
-  it('should limit strategies to 8', () => {
-    const strategies = new Array(10).fill({ name: 'strategy', param: 'a' });
+  it(`should limit strategies to ${MAX_STRATEGIES}`, () => {
+    const strategies = new Array(MAX_STRATEGIES + 1).fill({
+      name: 'strategy',
+      param: 'a'
+    });
     const network = 'defaultNetwork';
 
     const formattedStrategies = formatStrategies(network, strategies);
 
-    expect(formattedStrategies).toHaveLength(8);
+    expect(formattedStrategies).toHaveLength(MAX_STRATEGIES);
   });
 });
 

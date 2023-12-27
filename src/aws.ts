@@ -1,9 +1,7 @@
 import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
 import { capture } from '@snapshot-labs/snapshot-sentry';
-
-const name = 'score-api';
-const cb = '4';
+import { AWS_CACHE_KEY, APP_NAME } from './constants';
 
 let client;
 const bucket = process.env.AWS_BUCKET_NAME;
@@ -24,7 +22,7 @@ export async function set(key, value) {
   try {
     return await client.putObject({
       Bucket: bucket,
-      Key: `public/${name}/${cb}/${key}.json`,
+      Key: `public/${APP_NAME}/${AWS_CACHE_KEY}/${key}.json`,
       Body: JSON.stringify(value),
       ContentType: 'application/json; charset=utf-8'
     });
@@ -38,7 +36,7 @@ export async function get(key) {
   try {
     const { Body } = await client.getObject({
       Bucket: bucket,
-      Key: `public/${name}/${cb}/${key}.json`
+      Key: `public/${APP_NAME}/${AWS_CACHE_KEY}/${key}.json`
     });
     // @ts-ignore
     const str = await streamToString(Body);

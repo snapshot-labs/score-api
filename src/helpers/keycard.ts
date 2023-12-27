@@ -1,8 +1,9 @@
 import { Keycard } from '@snapshot-labs/keycard';
 import { rpcError } from '../utils';
+import { APP_NAME } from '../constants';
 
 const keycard = new Keycard({
-  app: 'score-api',
+  app: APP_NAME,
   secret: process.env.KEYCARD_SECRET || '',
   URL: process.env.KEYCARD_URL || 'https://keycard.snapshot.org'
 });

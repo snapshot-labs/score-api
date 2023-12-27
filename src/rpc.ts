@@ -14,8 +14,8 @@ import getValidations from './helpers/validations';
 import disabled from './disabled.json';
 import serve from './requestDeduplicator';
 import { capture } from '@snapshot-labs/snapshot-sentry';
+import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
 
-const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -39,8 +39,14 @@ router.post('/', async (req, res) => {
 
   if (method === 'get_vp') {
     if (params.space && disabled.includes(params.space))
-      return rpcError(res, 429, 'too many requests', null);
-
+      return rpcError(res, 429, 'too many requests', id);
+    if (
+      !params.strategies ||
+      params.strategies.length === 0 ||
+      params.strategies.length > MAX_STRATEGIES
+    ) {
+      return rpcError(res, 400, 'invalid strategies length', id);
+    }
     try {
       const response: any = await serve(JSON.stringify(params), getVp, [
         params

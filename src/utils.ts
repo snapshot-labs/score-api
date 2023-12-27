@@ -1,5 +1,6 @@
 import snapshot from '@snapshot-labs/strategies';
 import { createHash } from 'crypto';
+import { MAX_STRATEGIES } from './constants';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 
@@ -28,14 +29,14 @@ function sortObjectByParam(obj) {
 
 export function formatStrategies(network, strategies: Array<any> = []) {
   strategies = Array.isArray(strategies) ? strategies : [];
-  // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to 8 strategies
+  // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to max strategies
   return strategies
     .map(strategy => ({
       ...strategy,
       network: strategy?.network || network
     }))
     .map(sortObjectByParam)
-    .slice(0, 8);
+    .slice(0, MAX_STRATEGIES);
 }
 
 export function rpcSuccess(res, result, id, cache = false) {
