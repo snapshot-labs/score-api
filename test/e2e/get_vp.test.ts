@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { MAX_STRATEGIES } from '../../src/constants';
 
 describe('getVp', () => {
   describe('when the address is invalid', () => {
@@ -20,7 +21,10 @@ describe('getVp', () => {
     it.each([
       ['no strategies', null],
       ['empty strategies', []],
-      ['too many strategies', Array(12).fill({ name: 'test', param: 'a' })]
+      [
+        'too many strategies',
+        Array(MAX_STRATEGIES + 1).fill({ name: 'test', param: 'a' })
+      ]
     ])('returns a 400 error on %s', async (title, strategies) => {
       const response = await request(process.env.HOST).post('/').send({
         method: 'get_vp',
