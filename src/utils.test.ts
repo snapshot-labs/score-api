@@ -260,7 +260,10 @@ describe('formatStrategies function', () => {
   });
 
   it(`should limit strategies to ${MAX_STRATEGIES}`, () => {
-    const strategies = new Array(12).fill({ name: 'strategy', param: 'a' });
+    const strategies = new Array(MAX_STRATEGIES + 1).fill({
+      name: 'strategy',
+      param: 'a'
+    });
     const network = 'defaultNetwork';
 
     const formattedStrategies = formatStrategies(network, strategies);
