@@ -22,8 +22,12 @@ describe('getVp', () => {
       ['no strategies', null],
       ['empty strategies', []],
       [
-        'too many strategies',
-        Array(MAX_STRATEGIES + 1).fill({ name: 'test', param: 'a' })
+        'too many strategies for default spaces',
+        Array(MAX_STRATEGIES['default'] + 1).fill({ name: 'test', param: 'a' })
+      ],
+      [
+        'too many strategies for turbo spaces',
+        Array(MAX_STRATEGIES['turbo'] + 1).fill({ name: 'test', param: 'a' })
       ]
     ])('returns a 400 error on %s', async (title, strategies) => {
       const response = await request(process.env.HOST).post('/').send({

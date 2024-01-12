@@ -7,12 +7,14 @@ import rpc from './rpc';
 import { rpcError } from './utils';
 import rateLimit from './helpers/rateLimit';
 import initMetrics from './metrics';
+import syncTurboSpaces from './helpers/turbo';
 
 const app = express();
 const PORT = process.env.PORT ?? 3003;
 
 initLogger(app);
 initMetrics(app);
+syncTurboSpaces();
 
 app.disable('x-powered-by');
 app.use(express.json({ limit: '8mb' }));

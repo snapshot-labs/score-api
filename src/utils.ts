@@ -27,7 +27,11 @@ function sortObjectByParam(obj) {
   return sortedObj;
 }
 
-export function formatStrategies(network, strategies: Array<any> = []) {
+export function formatStrategies(
+  network,
+  strategies: Array<any> = [],
+  options = { turbo: false }
+) {
   strategies = Array.isArray(strategies) ? strategies : [];
   // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to max strategies
   return strategies
@@ -36,7 +40,7 @@ export function formatStrategies(network, strategies: Array<any> = []) {
       network: strategy?.network || network
     }))
     .map(sortObjectByParam)
-    .slice(0, MAX_STRATEGIES);
+    .slice(0, MAX_STRATEGIES[options.turbo ? 'turbo' : 'default']);
 }
 
 export function rpcSuccess(res, result, id, cache = false) {

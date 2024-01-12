@@ -15,6 +15,7 @@ import disabled from './disabled.json';
 import serve from './requestDeduplicator';
 import { capture } from '@snapshot-labs/snapshot-sentry';
 import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import { turboSpaces } from './helpers/turbo';
 
 const router = express.Router();
 
@@ -43,7 +44,8 @@ router.post('/', async (req, res) => {
     if (
       !params.strategies ||
       params.strategies.length === 0 ||
-      params.strategies.length > MAX_STRATEGIES
+      params.strategies.length >
+        MAX_STRATEGIES[turboSpaces.has(params.space) ? 'turbo' : 'default']
     ) {
       return rpcError(res, 400, 'invalid strategies length', id);
     }

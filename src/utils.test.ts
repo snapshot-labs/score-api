@@ -259,8 +259,8 @@ describe('formatStrategies function', () => {
     expect(formattedStrategies).toHaveLength(2);
   });
 
-  it(`should limit strategies to ${MAX_STRATEGIES}`, () => {
-    const strategies = new Array(MAX_STRATEGIES + 1).fill({
+  it(`should limit strategies to ${MAX_STRATEGIES['default']} for default spaces`, () => {
+    const strategies = new Array(MAX_STRATEGIES['default'] + 1).fill({
       name: 'strategy',
       param: 'a'
     });
@@ -268,7 +268,21 @@ describe('formatStrategies function', () => {
 
     const formattedStrategies = formatStrategies(network, strategies);
 
-    expect(formattedStrategies).toHaveLength(MAX_STRATEGIES);
+    expect(formattedStrategies).toHaveLength(MAX_STRATEGIES['default']);
+  });
+
+  it(`should limit strategies to ${MAX_STRATEGIES['turbo']} for turbo spaces`, () => {
+    const strategies = new Array(MAX_STRATEGIES['turbo'] + 1).fill({
+      name: 'strategy',
+      param: 'a'
+    });
+    const network = 'defaultNetwork';
+
+    const formattedStrategies = formatStrategies(network, strategies, {
+      turbo: true
+    });
+
+    expect(formattedStrategies).toHaveLength(MAX_STRATEGIES['turbo']);
   });
 });
 
