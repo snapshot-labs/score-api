@@ -2434,7 +2434,7 @@
     tiny-invariant "^1.1.0"
     toformat "^2.0.0"
 
-"@uniswap/sdk-core@^4":
+"@uniswap/sdk-core@^4.0.7":
   version "4.0.10"
   resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-4.0.10.tgz#6173cc39d4e6b5ed679775447bb96a5b3c3fb2f2"
   integrity sha512-RiobXJKXvVVb+wfNM09Ik8djOMOuRQGfyRP5pHgUjojicK/7nscZILjZ87DjVCGjXEoD8yTSIps0UAQuz6pJIw==
@@ -2486,13 +2486,13 @@
     hardhat-watcher "^2.1.1"
 
 "@uniswap/v3-sdk@^3.9.0":
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.10.0.tgz#962c9e598250ced00702d944783c2d9ee3fa12f6"
-  integrity sha512-sbmSA1O+Ct960r66Ie/c1rOmVadpwRu8nQ79pGICv0pZJdnFIQ/SReG3F+iC2C2UNNjNP6aC2WDUggXrjyrgnA==
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.10.1.tgz#a7c3d798e022cdc080854094005702839041a431"
+  integrity sha512-Ed3A/O0egU6qEuW5EaF+DiFIVNOHBgOXdCdtUsJ1J2862mEKiDU9zZjDQ03AZjME9BLj/xJiDTWMdQ+Y5D8+7w==
   dependencies:
     "@ethersproject/abi" "^5.0.12"
     "@ethersproject/solidity" "^5.0.9"
-    "@uniswap/sdk-core" "^4"
+    "@uniswap/sdk-core" "^4.0.7"
     "@uniswap/swap-router-contracts" "^1.2.1"
     "@uniswap/v3-periphery" "^1.1.1"
     "@uniswap/v3-staker" "1.0.0"
