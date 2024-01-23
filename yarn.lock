@@ -2089,10 +2089,10 @@
   dependencies:
     "@sentry/node" "^7.81.1"
 
-"@snapshot-labs/snapshot.js@^0.9.9":
-  version "0.9.9"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.9.9.tgz#c7c7f8209129a38e50621aa325833ddd373b23e1"
-  integrity sha512-9c9GVphUs/JwnNrQ39wvpjHhSZ3zqKUH5CSRXacwU1DSCmAg3/b21hauxavAUgK40oXCPkyZ5O1jrGKjbHeT8Q==
+"@snapshot-labs/snapshot.js@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.10.1.tgz#d783ee394d6e3ad3d3a6e91fea67411752d15180"
+  integrity sha512-PacD8HdsYZhb1Yifp6n+11Og+nZUvGhTosu+ejnEwhP6zQOFMg6gaIEsWGjoAMnjos0sgA/oIbWdPIzqJRTECw==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -2111,7 +2111,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#dd89cb94dfa4eb4bf5ea52997c21e9f19b1101de"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#b79cf325678b23f3ba76768587fbd807713473f4"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2124,7 +2124,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.9.9"
+    "@snapshot-labs/snapshot.js" "^0.10.1"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
@@ -2486,9 +2486,9 @@
     hardhat-watcher "^2.1.1"
 
 "@uniswap/v3-sdk@^3.9.0":
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.10.1.tgz#a7c3d798e022cdc080854094005702839041a431"
-  integrity sha512-Ed3A/O0egU6qEuW5EaF+DiFIVNOHBgOXdCdtUsJ1J2862mEKiDU9zZjDQ03AZjME9BLj/xJiDTWMdQ+Y5D8+7w==
+  version "3.10.2"
+  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.10.2.tgz#dd23aa80b9b3a539ecdd5532e6778cd2aa799e31"
+  integrity sha512-5sfYSvRB9ityrB0c/MFaYUsTBQvrwgCuXSyBPsqU8fh6v2dzFgOD3SLx/tHFg8R0RRyN4XPTrw6nqDYXRFtu+g==
   dependencies:
     "@ethersproject/abi" "^5.0.12"
     "@ethersproject/solidity" "^5.0.9"
