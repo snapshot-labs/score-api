@@ -54,7 +54,7 @@ export function rpcError(res, code, e, id) {
     error: {
       code,
       message: 'unauthorized',
-      data: e
+      data: e.message || e
     },
     id
   });

@@ -188,7 +188,7 @@ describe('rpcError function', () => {
       error: {
         code: mockCode,
         message: 'unauthorized',
-        data: mockError
+        data: mockError.message
       },
       id: mockId
     });
@@ -207,7 +207,7 @@ describe('rpcError function', () => {
       error: {
         code: mockCode,
         message: 'unauthorized',
-        data: mockError
+        data: mockError.message
       },
       id: mockId
     });
