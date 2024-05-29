@@ -1,6 +1,7 @@
 import snapshot from '@snapshot-labs/strategies';
 import { createHash } from 'crypto';
 import { MAX_STRATEGIES } from './constants';
+import getStrategies from './helpers/strategies';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 
@@ -37,6 +38,16 @@ export function formatStrategies(network, strategies: Array<any> = []) {
     }))
     .map(sortObjectByParam)
     .slice(0, MAX_STRATEGIES);
+}
+
+export function checkInvalidStrategies(strategies): Array<string> {
+  const strategyNames = strategies.map(strategy => strategy.name);
+  const snapshotStrategiesNames = Object.keys(getStrategies());
+  const invalidStrategies: Array<string> = strategyNames.filter(
+    s => s === undefined || !snapshotStrategiesNames.includes(s)
+  );
+
+  return [...new Set(invalidStrategies)];
 }
 
 export function rpcSuccess(res, result, id, cache = false) {

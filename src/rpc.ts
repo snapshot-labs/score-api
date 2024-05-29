@@ -5,7 +5,8 @@ import {
   formatStrategies,
   rpcSuccess,
   rpcError,
-  blockNumByNetwork
+  blockNumByNetwork,
+  checkInvalidStrategies
 } from './utils';
 import { version } from '../package.json';
 import { getVp, validate } from './methods';
@@ -47,6 +48,17 @@ router.post('/', async (req, res) => {
     ) {
       return rpcError(res, 400, 'invalid strategies length', id);
     }
+
+    const invalidStrategies = checkInvalidStrategies(params.strategies);
+    if (invalidStrategies.length > 0) {
+      return rpcError(
+        res,
+        400,
+        `invalid strategies: ${invalidStrategies}`,
+        null
+      );
+    }
+
     try {
       const response: any = await serve(JSON.stringify(params), getVp, [
         params
@@ -131,8 +143,12 @@ router.post('/api/scores', async (req, res) => {
   } = params;
   let { strategies = [] } = params;
   strategies = formatStrategies(network, strategies);
-  const strategyNames = strategies.map(strategy => strategy.name);
+  const invalidStrategies = checkInvalidStrategies(strategies);
+  if (invalidStrategies.length > 0) {
+    return rpcError(res, 400, `invalid strategies: ${invalidStrategies}`, null);
+  }
 
+  const strategyNames = strategies.map(strategy => strategy.name);
   if (
     ['1319'].includes(network) ||
     (disabled.includes(space) && !force) ||
