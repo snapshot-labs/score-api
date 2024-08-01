@@ -1,5 +1,5 @@
-import snapshot from '@snapshot-labs/strategies';
 import { createHash } from 'crypto';
+import snapshot from '@snapshot-labs/strategies';
 import { MAX_STRATEGIES } from './constants';
 import getStrategies from './helpers/strategies';
 

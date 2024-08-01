@@ -1,5 +1,5 @@
-import serve from './requestDeduplicator';
 import { requestDeduplicatorSize } from './metrics';
+import serve from './requestDeduplicator';
 
 jest.mock('./utils', () => ({
   sha256: jest.fn(id => `hashed_${id}`)

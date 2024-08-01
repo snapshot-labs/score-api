@@ -1,19 +1,19 @@
 const originalBroviderUrl = process.env.BROVIDER_URL;
 process.env.BROVIDER_URL = 'test.brovider.url';
 
+import { createHash } from 'crypto';
+import snapshot from '@snapshot-labs/strategies';
+import { MAX_STRATEGIES } from './constants';
 import {
-  getCurrentBlockNum,
   blockNumByNetwork,
+  clone,
+  formatStrategies,
+  getCurrentBlockNum,
   getIp,
   rpcError,
-  clone,
-  sha256,
-  formatStrategies,
-  rpcSuccess
+  rpcSuccess,
+  sha256
 } from './utils';
-import snapshot from '@snapshot-labs/strategies';
-import { createHash } from 'crypto';
-import { MAX_STRATEGIES } from './constants';
 
 jest.mock('@snapshot-labs/strategies');
 jest.mock('crypto', () => ({

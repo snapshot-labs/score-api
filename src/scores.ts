@@ -1,7 +1,7 @@
 import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
-import { getCurrentBlockNum, sha256 } from './utils';
 import serve from './requestDeduplicator';
+import { getCurrentBlockNum, sha256 } from './utils';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 
