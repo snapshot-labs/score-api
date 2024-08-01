@@ -1,21 +1,21 @@
-import express from 'express';
 import { getAddress } from '@ethersproject/address';
-import scores from './scores';
-import {
-  formatStrategies,
-  rpcSuccess,
-  rpcError,
-  blockNumByNetwork,
-  checkInvalidStrategies
-} from './utils';
-import { version } from '../package.json';
-import { getVp, validate } from './methods';
+import { capture } from '@snapshot-labs/snapshot-sentry';
+import express from 'express';
+import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import disabled from './disabled.json';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
-import disabled from './disabled.json';
+import { getVp, validate } from './methods';
 import serve from './requestDeduplicator';
-import { capture } from '@snapshot-labs/snapshot-sentry';
-import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import scores from './scores';
+import {
+  blockNumByNetwork,
+  checkInvalidStrategies,
+  formatStrategies,
+  rpcError,
+  rpcSuccess
+} from './utils';
+import { version } from '../package.json';
 
 const router = express.Router();
 

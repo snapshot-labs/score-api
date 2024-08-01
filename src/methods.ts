@@ -1,7 +1,7 @@
 import snapshot from '@snapshot-labs/strategies';
-import redis from './redis';
-import { sha256, getCurrentBlockNum } from './utils';
 import disabled from './disabled.json';
+import redis from './redis';
+import { getCurrentBlockNum, sha256 } from './utils';
 
 interface GetVpRequestParams {
   address: string;

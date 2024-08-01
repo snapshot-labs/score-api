@@ -1,12 +1,11 @@
-import request from 'supertest';
-
 import express from 'express';
-import router from './rpc';
-import serve from './requestDeduplicator';
+import request from 'supertest';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
+import { getVp, validate } from './methods';
+import serve from './requestDeduplicator';
+import router from './rpc';
 import scores from './scores';
-import { validate, getVp } from './methods';
 import * as utils from './utils';
 
 jest.mock('./methods', () => ({
