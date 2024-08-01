@@ -1,7 +1,7 @@
-import * as AWS from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
+import * as AWS from '@aws-sdk/client-s3';
 import { capture } from '@snapshot-labs/snapshot-sentry';
-import { AWS_CACHE_KEY, APP_NAME } from './constants';
+import { APP_NAME, AWS_CACHE_KEY } from './constants';
 
 let client;
 const bucket = process.env.AWS_BUCKET_NAME;

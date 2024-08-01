@@ -1,12 +1,12 @@
 import 'dotenv/config';
-import express from 'express';
+import { fallbackLogger, initLogger } from '@snapshot-labs/snapshot-sentry';
 import cors from 'cors';
-import { initLogger, fallbackLogger } from '@snapshot-labs/snapshot-sentry';
+import express from 'express';
 import { checkKeycard } from './helpers/keycard';
-import rpc from './rpc';
-import { rpcError } from './utils';
 import rateLimit from './helpers/rateLimit';
 import initMetrics from './metrics';
+import rpc from './rpc';
+import { rpcError } from './utils';
 
 const app = express();
 const PORT = process.env.PORT ?? 3003;

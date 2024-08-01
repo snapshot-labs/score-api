@@ -1,6 +1,6 @@
 import { Keycard } from '@snapshot-labs/keycard';
-import { rpcError } from '../utils';
 import { APP_NAME } from '../constants';
+import { rpcError } from '../utils';
 
 const keycard = new Keycard({
   app: APP_NAME,

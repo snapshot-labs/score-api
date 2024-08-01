@@ -1,7 +1,7 @@
-import scores from './scores';
-import { get, set } from './aws';
-import { getCurrentBlockNum, sha256 } from './utils';
 import snapshot from '@snapshot-labs/strategies';
+import { get, set } from './aws';
+import scores from './scores';
+import { getCurrentBlockNum, sha256 } from './utils';
 
 jest.mock('./utils');
 jest.mock('./aws');
