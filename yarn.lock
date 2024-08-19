@@ -2169,7 +2169,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#2067352d020f66770199c392f1ca1b977b5d5606"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#bf3515bf8338eb21fb7f0e3d6d0ec8da1ddb9774"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2586,9 +2586,9 @@ abbrev@1:
     yargs "^17.7.2"
 
 "abi-wan-kanabi-v2@npm:abi-wan-kanabi@^2.1.1":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/abi-wan-kanabi/-/abi-wan-kanabi-2.2.2.tgz#82c48e8fa08d9016cf92d3d81d494cc60e934693"
-  integrity sha512-sTCv2HyNIj1x2WFUoc9oL8ZT9liosrL+GoqEGZJK1kDND096CfA7lwx06vLxLWMocQ41FQXO3oliwoh/UZHYdQ==
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/abi-wan-kanabi/-/abi-wan-kanabi-2.2.3.tgz#d1c410325aac866f31f3d589279a87b341e5641f"
+  integrity sha512-JlqiAl9CPvTm5kKG0QXmVCWNWoC/XyRMOeT77cQlbxXWllgjf6SqUmaNqFon72C2o5OSZids+5FvLdsw6dvWaw==
   dependencies:
     ansicolors "^0.3.2"
     cardinal "^2.1.1"
