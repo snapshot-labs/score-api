@@ -25,7 +25,7 @@
     "@snapshot-labs/strategies": "https://github.com/snapshot-labs/snapshot-strategies#master",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.17.1",
+    "express": "^4.19.2",
     "express-rate-limit": "^6.9.0",
     "nodemon": "^2.0.15",
     "rate-limit-redis": "^3.0.2",
