@@ -2144,7 +2144,7 @@
   dependencies:
     "@sentry/node" "^7.81.1"
 
-"@snapshot-labs/snapshot.js@^0.12.7":
+"@snapshot-labs/snapshot.js@^0.12.8":
   version "0.12.8"
   resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.8.tgz#4923f312f905c3697844d8704c91308c39902a47"
   integrity sha512-PZ9NgqC5QKiEw29NiEs5HPHrjmuREroNS8FSJ5hHudY720eLWEuE+8h+/pSxSJB3TlBvZ6LkBj+2fplgmq9+1w==
@@ -2169,7 +2169,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#1be3b77857df36b8b79d153e9d78a7a77996e506"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#a44c3195f88c577dd8bc0c3881be97726749441f"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2182,7 +2182,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.12.7"
+    "@snapshot-labs/snapshot.js" "^0.12.8"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
