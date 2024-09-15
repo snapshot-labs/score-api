@@ -2169,7 +2169,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#c9280df08ec22d7cd4c3d0a0cfc11e8b15a1fa10"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#3746739107a5a8300d9a29de8da37ce9d13c2d57"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2493,9 +2493,9 @@
     toformat "^2.0.0"
 
 "@uniswap/sdk-core@^5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-5.3.1.tgz#22d753e9ef8666c2f3b4d9a89b9658d169be4ce8"
-  integrity sha512-XLJY8PcMZnKYBGLABJnLXcr3EgWql3mmnmpHyV1/MmEh9pLJLHYz4HLwVHb8pGDCqpOFX0e+Ei44/qhC7Q5Dsg==
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-5.4.0.tgz#0cf92ce2f9135c2c209e586ece3c814678889bfb"
+  integrity sha512-L8wxC2aC+kIo4Xq1vXWYOiql3CmC/jrXTYpqqCBAI0/ODUomrBY76jSajzqWEEqnTGC67nI8+Hl7aEhA5/UVBg==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     "@ethersproject/bytes" "^5.7.0"
@@ -5275,9 +5275,9 @@ json-stable-stringify-without-jsonify@^1.0.1:
   integrity sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==
 
 json-to-graphql-query@^2.2.4:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/json-to-graphql-query/-/json-to-graphql-query-2.2.5.tgz#56b072a693b50fd4dc981367b60d52e3dc78f426"
-  integrity sha512-5Nom9inkIMrtY992LMBBG1Zaekrc10JaRhyZgprwHBVMDtRgllTvzl0oBbg13wJsVZoSoFNNMaeIVQs0P04vsA==
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/json-to-graphql-query/-/json-to-graphql-query-2.2.6.tgz#20ee8a3c406492d42c3a58290a5d635212677cc3"
+  integrity sha512-Vq3pIHjserhqGbZqcIeQrMOPXTlk4aaGGICS7/sWxWJU3haz3OexHdCNzT5neaKJL6qKx2eyRAj2uGQVhzbLMg==
 
 json5@^1.0.2:
   version "1.0.2"
