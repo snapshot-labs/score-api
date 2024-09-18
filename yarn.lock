@@ -2005,9 +2005,9 @@
   integrity sha512-yHSKYidqJMV9nADqg78GYA+cZ0hS1twANAjiFibQdXj9aGzD+s/IzIFEIi/U/OBLvWYg/SCw0QVozi2vTlKFDQ==
 
 "@scure/base@~1.1.3":
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/@scure/base/-/base-1.1.8.tgz#8f23646c352f020c83bca750a82789e246d42b50"
-  integrity sha512-6CyAclxj3Nb0XT7GHK6K4zK6k2xJm6E4Ft0Ohjt4WgegiFUHEtFb2CGzmPmGBwoIhrLsqNLYfLr04Y1GePrzZg==
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@scure/base/-/base-1.1.9.tgz#e5e142fbbfe251091f9c5f1dd4c834ac04c3dbd1"
+  integrity sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg==
 
 "@scure/starknet@~1.0.0":
   version "1.0.0"
@@ -2144,10 +2144,10 @@
   dependencies:
     "@sentry/node" "^7.81.1"
 
-"@snapshot-labs/snapshot.js@^0.12.11":
-  version "0.12.12"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.12.tgz#09783990d2d8482237d2841e78d34eea9d9918dd"
-  integrity sha512-MNLMbO5YeEFfZ+bFE3cSnpOVvifgF0wy8OkRz3Yv6hpvhRbgaCDHdogxRlBY9ybEOsDKDGGI544uB/1VqdKpcQ==
+"@snapshot-labs/snapshot.js@^0.12.13":
+  version "0.12.13"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.13.tgz#40b6cbf20ec4f1222bb231d1b3e26e5f702bf912"
+  integrity sha512-e9pXdQA45tO5+af42PkOYI01WAPPR7IrQDejjUdhz3y98e7m/Na9Foqlbj6nIksnTJ4GubcmOZV7iQzcrNw/kw==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -2169,7 +2169,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#53452dfc508d1c315d8490ab1530c3da955de5ef"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#d80d8cd5a852f595b5f28c2ea696261ad8ec6db7"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2182,7 +2182,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.12.11"
+    "@snapshot-labs/snapshot.js" "^0.12.13"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
@@ -2547,9 +2547,9 @@
     hardhat-watcher "^2.1.1"
 
 "@uniswap/v3-sdk@^3.9.0":
-  version "3.13.1"
-  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.13.1.tgz#67421727b18bb9c449bdf3c92cf3d01530ff3f8f"
-  integrity sha512-MCc96HrUZy17DINwrGnMtCvr+yXQlWUJJVaIiRRKe1DQzSuv97/G4lzM+zAaSymrxbR2qnHHWL5vMFjmwzCN9Q==
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.14.0.tgz#05f40ed5cff4760521c6add0512e2c5d87e64231"
+  integrity sha512-/fnHYnCpzp8Ruwn9/Tm2Xv2oSykNajwCRwgfdD0K/2euwdlKaNCMpGqCP1XZsugLbEEemCNjFpc3i6YAk2IdYg==
   dependencies:
     "@ethersproject/abi" "^5.5.0"
     "@ethersproject/solidity" "^5.0.9"
