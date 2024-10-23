@@ -2169,7 +2169,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#e7939f10bf72e82aba146bcd5270484e9d7de3e8"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#bcaa0bd1c2f2607cf2cb47756c80b596278a5ab4"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2493,9 +2493,9 @@
     toformat "^2.0.0"
 
 "@uniswap/sdk-core@^5.8.1":
-  version "5.8.5"
-  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-5.8.5.tgz#b52da2201126b1d544837e12f2dbba5a7cc64c9b"
-  integrity sha512-eLsBnN87VvxjhATp96h6kB4vIdxxOQxTH6bsD9q/flSLpLrqhuJAisAhYCf/sCMzXGpZbxLqlgmGn9wueQIkXg==
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-5.9.0.tgz#8f1edf4d0e94b314f4394fa5abe0bf5fc9c5a79a"
+  integrity sha512-OME7WR6+5QwQs45A2079r+/FS0zU944+JCQwUX9GyIriCxqw2pGu4F9IEqmlwD+zSIMml0+MJnJJ47pFgSyWDw==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     "@ethersproject/bytes" "^5.7.0"
