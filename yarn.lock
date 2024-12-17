@@ -2144,10 +2144,10 @@
   dependencies:
     "@sentry/node" "^7.81.1"
 
-"@snapshot-labs/snapshot.js@^0.12.36":
-  version "0.12.36"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.36.tgz#89ff38be1b2ab2b239ab5caf0b20c5c4e65eed4e"
-  integrity sha512-cCwX8mLattshjMLzb731DWDQ8/D0uHINBjTNyFhdyxwW/7B1Dr4wAIQHR+iXwJDA3aiqDJPIP6llD1HRRllvBQ==
+"@snapshot-labs/snapshot.js@^0.12.37":
+  version "0.12.37"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.37.tgz#13fa2037c9ffb9d6a3262a43bd8970a6128ac240"
+  integrity sha512-tsK6Ef2KDqnInYcZNcnjLV9GBpa8jralutMc4beQexr74SQ34NPshlKah0OeaXxkM6cdtFbQH6bXLUXwz1hBhg==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -2169,7 +2169,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#b173a93c7049efbd91dd370895b560cad4552d84"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#ce75230b3525d8f8bd8943133e1f703bdd5b5047"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2182,7 +2182,7 @@
     "@ethersproject/strings" "^5.6.1"
     "@ethersproject/units" "^5.6.1"
     "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.12.36"
+    "@snapshot-labs/snapshot.js" "^0.12.37"
     "@spruceid/didkit-wasm-node" "^0.2.1"
     "@uniswap/sdk-core" "^3.0.1"
     "@uniswap/v3-sdk" "^3.9.0"
@@ -2493,9 +2493,9 @@
     toformat "^2.0.0"
 
 "@uniswap/sdk-core@^6.0.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-6.1.0.tgz#0c0449fa1045c1429f8f341e162f6b379c0fee46"
-  integrity sha512-pJVv8rJZwemcp9xINFG7hjxM4H+1FNiDqjpxBabwpCBsBFKfJPwe65Wa8pk8p1yT3QOgA0yFEQuavNsmTdtJ7w==
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-6.1.1.tgz#986b40bda23684b6042dff240a5bb73bc3c9fd54"
+  integrity sha512-S9D5NTn7vV+wYwXbKOmYVjJidgmKY6zUsG5KGlQO4fNvcIde1TtVgtMXJl06qv1JeJKbGnzkIAZG4R82lSVZCg==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     "@ethersproject/bytes" "^5.7.0"
@@ -2586,9 +2586,9 @@ abbrev@1:
     yargs "^17.7.2"
 
 "abi-wan-kanabi-v2@npm:abi-wan-kanabi@^2.1.1":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/abi-wan-kanabi/-/abi-wan-kanabi-2.2.3.tgz#d1c410325aac866f31f3d589279a87b341e5641f"
-  integrity sha512-JlqiAl9CPvTm5kKG0QXmVCWNWoC/XyRMOeT77cQlbxXWllgjf6SqUmaNqFon72C2o5OSZids+5FvLdsw6dvWaw==
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/abi-wan-kanabi/-/abi-wan-kanabi-2.2.4.tgz#47ebbafbb7f8df81773efbdcca60cdda8008c821"
+  integrity sha512-0aA81FScmJCPX+8UvkXLki3X1+yPQuWxEkqXBVKltgPAK79J+NB+Lp5DouMXa7L6f+zcRlIA/6XO7BN/q9fnvg==
   dependencies:
     ansicolors "^0.3.2"
     cardinal "^2.1.1"
