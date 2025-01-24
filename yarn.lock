@@ -2169,7 +2169,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#a83f7d7c230d14dc96ea0cb9b5fef80655376b59"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#e4d0c9a9d057704dddb2e109540131c22c04e60f"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -2492,10 +2492,10 @@
     tiny-invariant "^1.1.0"
     toformat "^2.0.0"
 
-"@uniswap/sdk-core@^7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-7.3.0.tgz#deeb83f44eb9bc455ccf4a38c35e09088e6b14b7"
-  integrity sha512-7Z/99PcS9w8TfQiSNh8wkrY7/RHElxmacCACTQOqN7qUFESZZ7+cCCBWzpE4ndbDH9FuSCEYxxmY0xhybdt6Uw==
+"@uniswap/sdk-core@^7.5.0":
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-7.5.0.tgz#54165c9268df0e56a322a581876fed4774e1ea70"
+  integrity sha512-4eMbQTu+pEO6CGFG+G9M4ACFPephhfNPpRH40+GGgceHzs73OwQ+5v6Fw5e2JGxr/DEJrS/KcJ2Xjmg/QQ3D6Q==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     "@ethersproject/bytes" "^5.7.0"
@@ -2547,13 +2547,13 @@
     hardhat-watcher "^2.1.1"
 
 "@uniswap/v3-sdk@^3.9.0":
-  version "3.23.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.23.0.tgz#9a8ce4892106496109786e170e00053b406ae991"
-  integrity sha512-ZOsfo5QTNwJppWFdH38jDTPDoyJ4x7qcoAQQ5sT9ltNjuEG14URkQDXVbpHqJrIZmdbbDAVLq2jHeV0AU5GkSw==
+  version "3.24.0"
+  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.24.0.tgz#5391d049fbc772283820b29ee8dd488b80359271"
+  integrity sha512-RUo+JktfQwDyZX8M19GX7i6kMSCi+8zVMB+P0J+KZngwuY6eOBhvwIQWOkAFm553qXypSmrfzKu3177qLL3oTw==
   dependencies:
     "@ethersproject/abi" "^5.5.0"
     "@ethersproject/solidity" "^5.0.9"
-    "@uniswap/sdk-core" "^7.3.0"
+    "@uniswap/sdk-core" "^7.5.0"
     "@uniswap/swap-router-contracts" "^1.3.0"
     "@uniswap/v3-periphery" "^1.1.1"
     "@uniswap/v3-staker" "1.0.0"
