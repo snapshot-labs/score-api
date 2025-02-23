@@ -2,7 +2,7 @@ import snapshot from '@snapshot-labs/strategies';
 import { clone } from '../utils';
 
 let validationsCache;
-const hiddenValidations = ['passport-weighted'];
+const hiddenValidations = ['passport-weighted', 'arbitrum'];
 
 export default function getValidations() {
   if (validationsCache) {
