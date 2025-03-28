@@ -2173,9 +2173,9 @@
     "@sentry/node" "^7.81.1"
 
 "@snapshot-labs/snapshot.js@^0.12.55":
-  version "0.12.55"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.55.tgz#760a1fd901db96af166585c4b0e4c76b9b1c424c"
-  integrity sha512-iFAKniHOak2MfZqaIUgPi6BN1qPFU5Fbzjtirq1O2uM6sR+NsmlQajPWwzFp4Dj4KJliRgLWQN8Hw+ovOcIqGw==
+  version "0.12.56"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.56.tgz#5cdea89df8a19ff22d39e4aae03f04d4d0899cea"
+  integrity sha512-Tpn3WtdwVgocOwnXvLIoPM/a5THWBaoU2xRipYy/NEOp1m5rxH2HvalAyxxPEhJdW42Dj4NGi7AKHBtMBZh9bA==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -2197,7 +2197,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#d5a5f3d9b99468cc32fe07c5200ad3310e8ebd74"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#e1bbaac82725641886aeeb2584b53b0bd609ad81"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
