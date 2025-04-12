@@ -2197,7 +2197,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#a9f7285aeeba1940ff666d3a6cd7c09c5dd4b2d6"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#91fc93b6c03be425f99b007a343a8c0f19baaaf9"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
