@@ -2148,9 +2148,9 @@
     "@sentry/node" "^7.81.1"
 
 "@snapshot-labs/snapshot.js@^0.12.61":
-  version "0.12.61"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.61.tgz#3a27a06b443f85ab30fed5ac27ec45c8fbe8439f"
-  integrity sha512-ihaq69DVzUoVGmEz31dvfVM8HeRqD1gRZUhvDto3MpcNq8Eu8ZY9t3bOMo1QlL6A7h3C2KwSXDMVtJqxswsD1g==
+  version "0.12.62"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/snapshot.js/-/snapshot.js-0.12.62.tgz#e03e01dca134f91b639c0a5cb65fece0886ca588"
+  integrity sha512-GVe9poYyX/FRmVPYJmSNfa0x0JmWcgsdB7bqhyk9YkW9m9KEsI2sSiLuv1lhLFkDBsXoqM5Zfk9ekwA+fi2S8A==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     "@ethersproject/abi" "^5.6.4"
@@ -2172,7 +2172,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#b428048879cc454cb7f2ad62ac9d2ad3466bfce5"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#1158fabc33d2b2bceaac968ae1fbe9bb96ecc00e"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -5496,9 +5496,9 @@ log-update@^5.0.1:
     wrap-ansi "^8.0.1"
 
 lossless-json@^4.0.1:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/lossless-json/-/lossless-json-4.0.2.tgz#f00c52815805d1421930a87e2670e27350958a3f"
-  integrity sha512-+z0EaLi2UcWi8MZRxA5iTb6m4Ys4E80uftGY+yG5KNFJb5EceQXOhdW/pWJZ8m97s26u7yZZAYMcKWNztSZssA==
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/lossless-json/-/lossless-json-4.1.0.tgz#95511e31c636ec699d683c56569a96e52eb1b8a2"
+  integrity sha512-DgoRs42jH/yNubp8iinRqvG0xn5awHKXVY+7lGYjBaByoHGZt/Dz5Jkaf5znP2XHbTnAA+bbkhK3lMIaf3+92A==
 
 lru-cache@^5.1.1:
   version "5.1.1"
