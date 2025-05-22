@@ -9,6 +9,7 @@ import {
   clone,
   formatStrategies,
   getCurrentBlockNum,
+  getFormattedAddress,
   getIp,
   rpcError,
   rpcSuccess,
@@ -294,5 +295,32 @@ describe('rpcSuccess function', () => {
       id,
       cache
     });
+  });
+});
+
+describe('getFormattedAddress', () => {
+  it('should return a checksum EVM address', () => {
+    const address = '0x72d8a00c533350905393a8f2e677a522459f8b20';
+    const formattedAddress = getFormattedAddress(address);
+    expect(formattedAddress).toBe('0x72D8a00C533350905393A8F2e677A522459F8b20');
+  });
+
+  it('should return a padded starknet address', () => {
+    const address =
+      '0x2a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0';
+    const formattedAddress = getFormattedAddress(address);
+    expect(formattedAddress).toBe(
+      '0x02a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0'
+    );
+  });
+
+  it('should throw an error for empty string', () => {
+    const address = '';
+    expect(() => getFormattedAddress(address)).toThrow('Invalid empty address');
+  });
+
+  it('should throw an error for invalid address', () => {
+    const address = 'invalidAddress';
+    expect(() => getFormattedAddress(address)).toThrow('Invalid address');
   });
 });

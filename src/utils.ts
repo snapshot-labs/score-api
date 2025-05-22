@@ -1,5 +1,7 @@
 import { createHash } from 'crypto';
+import { getAddress, isAddress } from '@ethersproject/address';
 import snapshot from '@snapshot-labs/strategies';
+import { validateAndParseAddress } from 'starknet';
 import { MAX_STRATEGIES } from './constants';
 import getStrategies from './helpers/strategies';
 
@@ -97,4 +99,18 @@ export function getIp(req) {
   ).split(',');
 
   return ips[0].trim();
+}
+
+export function getFormattedAddress(address: string): string {
+  if (!address) {
+    throw new Error('Invalid empty address');
+  }
+
+  if (isAddress(address)) return getAddress(address);
+
+  try {
+    return validateAndParseAddress(address);
+  } catch {
+    throw new Error(`Invalid address: ${address}`);
+  }
 }
