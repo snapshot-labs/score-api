@@ -103,7 +103,7 @@ export function getIp(req) {
 
 export function getFormattedAddress(address: string): string {
   if (!address) {
-    throw new Error('Invalid empty address');
+    throw new Error('Invalid address');
   }
 
   if (isAddress(address)) return getAddress(address);
