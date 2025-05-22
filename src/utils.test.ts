@@ -316,11 +316,11 @@ describe('getFormattedAddress', () => {
 
   it('should throw an error for empty string', () => {
     const address = '';
-    expect(() => getFormattedAddress(address)).toThrow('Invalid empty address');
+    expect(() => getFormattedAddress(address)).toThrow('invalid address');
   });
 
   it('should throw an error for invalid address', () => {
     const address = 'invalidAddress';
-    expect(() => getFormattedAddress(address)).toThrow('Invalid address');
+    expect(() => getFormattedAddress(address)).toThrow('invalid address');
   });
 });

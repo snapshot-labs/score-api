@@ -103,7 +103,7 @@ export function getIp(req) {
 
 export function getFormattedAddress(address: string): string {
   if (!address) {
-    throw new Error('Invalid address');
+    throw new Error('invalid address');
   }
 
   if (isAddress(address)) return getAddress(address);
@@ -111,6 +111,6 @@ export function getFormattedAddress(address: string): string {
   try {
     return validateAndParseAddress(address);
   } catch {
-    throw new Error(`Invalid address: ${address}`);
+    throw new Error(`invalid address: ${address}`);
   }
 }
