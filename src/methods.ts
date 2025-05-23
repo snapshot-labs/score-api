@@ -1,7 +1,13 @@
 import snapshot from '@snapshot-labs/strategies';
+import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
 import disabled from './disabled.json';
 import redis from './redis';
-import { getCurrentBlockNum, sha256 } from './utils';
+import {
+  checkInvalidStrategies,
+  getCurrentBlockNum,
+  getFormattedAddress,
+  sha256
+} from './utils';
 
 interface GetVpRequestParams {
   address: string;
@@ -25,6 +31,30 @@ const disableCachingForSpaces = [
   'magicappstore.eth',
   'moonbeam-foundation.eth'
 ];
+
+function validateAddress(address: string) {
+  if (!address || address === EMPTY_ADDRESS) {
+    throw new Error('invalid address');
+  }
+  getFormattedAddress(address);
+}
+
+export function verifyGetVp(params) {
+  validateAddress(params.address);
+
+  if (
+    !params.strategies ||
+    params.strategies.length === 0 ||
+    params.strategies.length > MAX_STRATEGIES
+  ) {
+    throw new Error('invalid strategies length');
+  }
+
+  const invalidStrategies = checkInvalidStrategies(params.strategies);
+  if (invalidStrategies.length > 0) {
+    throw new Error(`invalid strategies: ${invalidStrategies}`);
+  }
+}
 
 export async function getVp(params: GetVpRequestParams) {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
@@ -79,6 +109,10 @@ export async function getVp(params: GetVpRequestParams) {
   }
 
   return { result, cache: false };
+}
+
+export function verifyValidate(params) {
+  validateAddress(params.author);
 }
 
 export async function validate(params: ValidateRequestParams) {
