@@ -127,7 +127,7 @@ router.post('/api/scores', async (req, res) => {
   try {
     addresses.forEach(getFormattedAddress);
   } catch (e: any) {
-    return rpcError(res, 400, 'invalid address', null);
+    return rpcError(res, 400, e, null);
   }
 
   let result;
