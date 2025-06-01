@@ -1,5 +1,5 @@
 import snapshot from '@snapshot-labs/strategies';
-import { MAX_STRATEGIES } from './constants';
+import { INVALID_ADDRESS_MESSAGE, MAX_STRATEGIES } from './constants';
 import disabled from './disabled.json';
 import redis from './redis';
 import {
@@ -34,7 +34,7 @@ const disableCachingForSpaces = [
 
 export function verifyGetVp(params) {
   if (!isAddressValid(params.address)) {
-    throw new Error('invalid address');
+    throw new Error(INVALID_ADDRESS_MESSAGE);
   }
 
   if (
@@ -51,7 +51,10 @@ export function verifyGetVp(params) {
   }
 }
 
-export async function getVp(params: GetVpRequestParams) {
+export async function getVp(params: GetVpRequestParams): Promise<{
+  result: Awaited<ReturnType<typeof snapshot.utils.getVp>>;
+  cache: boolean;
+}> {
   if (typeof params.snapshot !== 'number') params.snapshot = 'latest';
 
   if (params.snapshot !== 'latest') {
@@ -108,12 +111,16 @@ export async function getVp(params: GetVpRequestParams) {
 
 export function verifyValidate(params) {
   if (!isAddressValid(params.author)) {
-    throw new Error('invalid address');
+    throw new Error(INVALID_ADDRESS_MESSAGE);
   }
 }
 
-export async function validate(params: ValidateRequestParams) {
-  if (!params.validation || params.validation === 'any') return true;
+export async function validate(params: ValidateRequestParams): Promise<{
+  result: boolean;
+  cache: boolean;
+}> {
+  if (!params.validation || params.validation === 'any')
+    return { result: true, cache: false };
 
   if (!snapshot.validations[params.validation]) throw 'Validation not found';
 
@@ -125,5 +132,5 @@ export async function validate(params: ValidateRequestParams) {
     params.params
   );
 
-  return validation.validate();
+  return { result: validation.validate(), cache: false };
 }

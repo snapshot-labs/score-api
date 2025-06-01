@@ -1,5 +1,6 @@
 import { capture } from '@snapshot-labs/snapshot-sentry';
 import express from 'express';
+import { INVALID_ADDRESS_MESSAGE } from './constants';
 import disabled from './disabled.json';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
@@ -18,6 +19,17 @@ import { version } from '../package.json';
 
 const router = express.Router();
 
+const METHODS = {
+  get_vp: {
+    verify: verifyGetVp,
+    run: getVp
+  },
+  validate: {
+    verify: verifyValidate,
+    run: validate
+  }
+};
+
 function handlePostError(
   res: express.Response,
   params: any,
@@ -25,6 +37,11 @@ function handlePostError(
   e: any,
   id: string | null
 ) {
+  // return early to avoid logging user errors
+  if (e.message === INVALID_ADDRESS_MESSAGE) {
+    return rpcError(res, 400, e, id);
+  }
+
   capture(e, { params, method });
   let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
@@ -40,42 +57,22 @@ function handlePostError(
 router.post('/', async (req, res) => {
   const { id = null, method, params = {} } = req.body;
 
-  switch (method) {
-    case 'get_vp':
-      if (params.space && disabled.includes(params.space))
-        return rpcError(res, 429, 'too many requests', id);
+  if (params.space && disabled.includes(params.space))
+    return rpcError(res, 429, 'too many requests', id);
 
-      try {
-        verifyGetVp(params);
-      } catch (e: any) {
-        return rpcError(res, 400, e, id);
-      }
+  if (!METHODS[method]) {
+    return rpcError(res, 400, 'wrong method', id);
+  }
 
-      try {
-        const response: any = await serve(JSON.stringify(params), getVp, [
-          params
-        ]);
-        return rpcSuccess(res, response.result, id, response.cache);
-      } catch (e: any) {
-        return handlePostError(res, params, method, e, id);
-      }
+  try {
+    METHODS[method].verify(params);
 
-    case 'validate':
-      try {
-        verifyValidate(params);
-      } catch (e: any) {
-        return rpcError(res, 400, e, id);
-      }
-
-      try {
-        const result = await serve(JSON.stringify(params), validate, [params]);
-        return rpcSuccess(res, result, id);
-      } catch (e: any) {
-        return handlePostError(res, params, method, e, id);
-      }
-
-    default:
-      return rpcError(res, 400, 'wrong method', id);
+    const response = await serve(JSON.stringify(params), METHODS[method].run, [
+      params
+    ]);
+    return rpcSuccess(res, response.result, id, response.cache);
+  } catch (e: any) {
+    return handlePostError(res, params, method, e, id);
   }
 });
 
@@ -125,7 +122,7 @@ router.post('/api/scores', async (req, res) => {
     return rpcError(res, 500, 'something wrong with the strategies', null);
 
   if (!addresses.every(address => isAddressValid(address, true))) {
-    return rpcError(res, 400, 'invalid address', null);
+    return rpcError(res, 400, INVALID_ADDRESS_MESSAGE, null);
   }
 
   let result;

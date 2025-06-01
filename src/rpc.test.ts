@@ -1,5 +1,6 @@
 import express from 'express';
 import request from 'supertest';
+import { INVALID_ADDRESS_MESSAGE } from './constants';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
 import { getVp, validate, verifyGetVp } from './methods';
@@ -64,7 +65,7 @@ describe('API Routes', () => {
 
     it('should return error for invalid address', async () => {
       const mockedRes = expect.anything();
-      const error = new Error('invalid address');
+      const error = new Error(INVALID_ADDRESS_MESSAGE);
       (verifyGetVp as jest.Mock).mockImplementationOnce(() => {
         throw error;
       });

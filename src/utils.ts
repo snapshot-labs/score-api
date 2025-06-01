@@ -2,7 +2,11 @@ import { createHash } from 'crypto';
 import { getAddress, isAddress } from '@ethersproject/address';
 import snapshot from '@snapshot-labs/strategies';
 import { validateAndParseAddress } from 'starknet';
-import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import {
+  EMPTY_ADDRESS,
+  INVALID_ADDRESS_MESSAGE,
+  MAX_STRATEGIES
+} from './constants';
 import getStrategies from './helpers/strategies';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
@@ -105,7 +109,7 @@ export function getIp(req) {
 // throw error if address is invalid
 function getFormattedAddress(address: string): string {
   if (!address) {
-    throw new Error('invalid address');
+    throw new Error(INVALID_ADDRESS_MESSAGE);
   }
 
   if (isAddress(address)) return getAddress(address);
@@ -113,7 +117,7 @@ function getFormattedAddress(address: string): string {
   try {
     return validateAndParseAddress(address);
   } catch {
-    throw new Error('invalid address');
+    throw new Error(INVALID_ADDRESS_MESSAGE);
   }
 }
 

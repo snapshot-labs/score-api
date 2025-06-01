@@ -260,13 +260,13 @@ describe('validate', () => {
     // @ts-expect-error
     const result = await validate(restParams);
 
-    expect(result).toBe(true);
+    expect(result).toEqual({ result: true, cache: false });
   });
 
   it('returns true if params.validation is "any"', async () => {
     const result = await validate({ ...mockedArgs, validation: 'any' });
 
-    expect(result).toBe(true);
+    expect(result).toEqual({ result: true, cache: false });
   });
 
   it('throws an error if params.validation defined but not found in snapshot.validations', async () => {
@@ -278,7 +278,7 @@ describe('validate', () => {
     }
   });
 
-  it('creates a new instance of the validation class if params.validation is defined and found in snapshot.validations and calls validate() on it', async () => {
+  it('returns true when the validation returns true', async () => {
     const mockValidate = jest.fn().mockReturnValue(true);
     const MockValidationClass = jest.fn().mockImplementation(() => {
       return { validate: mockValidate };
@@ -289,6 +289,20 @@ describe('validate', () => {
 
     const result = await validate({ ...mockedArgs, validation: 'isAddress' });
 
-    expect(await validate(result)).toBe(true);
+    expect(result).toEqual({ result: true, cache: false });
+  });
+
+  it('returns false when the validation returns false', async () => {
+    const mockValidate = jest.fn().mockReturnValue(false);
+    const MockValidationClass = jest.fn().mockImplementation(() => {
+      return { validate: mockValidate };
+    });
+    (snapshot.validations as any).isAddress = {
+      validation: MockValidationClass
+    };
+
+    const result = await validate({ ...mockedArgs, validation: 'isAddress' });
+
+    expect(result).toEqual({ result: false, cache: false });
   });
 });
