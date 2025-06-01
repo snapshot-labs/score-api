@@ -102,8 +102,8 @@ export function getIp(req) {
 }
 
 // return a checksum address for evm, and lowercase address for starknet
-// throw error if address is invalid or empty
-export function getFormattedAddress(address: string): string {
+// throw error if address is invalid
+function getFormattedAddress(address: string): string {
   if (!address) {
     throw new Error('invalid address');
   }
@@ -113,16 +113,20 @@ export function getFormattedAddress(address: string): string {
   try {
     return validateAndParseAddress(address);
   } catch {
-    throw new Error(`invalid address: ${address}`);
+    throw new Error('invalid address');
   }
 }
 
-// throw error if address is invalid or empty
-export function validateAddress(address: string): boolean {
-  if (!address || address === EMPTY_ADDRESS) {
-    throw new Error('invalid address');
+export function isAddressValid(address: string, allowEmpty = false): boolean {
+  if (address === EMPTY_ADDRESS) {
+    return allowEmpty;
   }
-  getFormattedAddress(address);
+
+  try {
+    getFormattedAddress(address);
+  } catch (e: any) {
+    return false;
+  }
 
   return true;
 }

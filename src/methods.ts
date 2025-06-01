@@ -5,8 +5,8 @@ import redis from './redis';
 import {
   checkInvalidStrategies,
   getCurrentBlockNum,
-  sha256,
-  validateAddress
+  isAddressValid,
+  sha256
 } from './utils';
 
 interface GetVpRequestParams {
@@ -33,7 +33,9 @@ const disableCachingForSpaces = [
 ];
 
 export function verifyGetVp(params) {
-  validateAddress(params.address);
+  if (!isAddressValid(params.address)) {
+    throw new Error('invalid address');
+  }
 
   if (
     !params.strategies ||
@@ -105,7 +107,9 @@ export async function getVp(params: GetVpRequestParams) {
 }
 
 export function verifyValidate(params) {
-  validateAddress(params.author);
+  if (!isAddressValid(params.author)) {
+    throw new Error('invalid address');
+  }
 }
 
 export async function validate(params: ValidateRequestParams) {

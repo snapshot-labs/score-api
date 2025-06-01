@@ -9,12 +9,11 @@ import {
   clone,
   formatStrategies,
   getCurrentBlockNum,
-  getFormattedAddress,
   getIp,
+  isAddressValid,
   rpcError,
   rpcSuccess,
-  sha256,
-  validateAddress
+  sha256
 } from './utils';
 
 jest.mock('@snapshot-labs/strategies');
@@ -298,75 +297,51 @@ describe('rpcSuccess function', () => {
     });
   });
 });
-
-describe('getFormattedAddress', () => {
-  it('should return a checksum EVM address', () => {
-    const address = '0x72d8a00c533350905393a8f2e677a522459f8b20';
-    const formattedAddress = getFormattedAddress(address);
-    expect(formattedAddress).toBe('0x72D8a00C533350905393A8F2e677A522459F8b20');
-  });
-
-  it('should return a padded starknet address', () => {
-    const address =
-      '0x2a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0';
-    const formattedAddress = getFormattedAddress(address);
-    expect(formattedAddress).toBe(
-      '0x02a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0'
-    );
-  });
-
-  it('should throw an error for empty string', () => {
-    const address = '';
-    expect(() => getFormattedAddress(address)).toThrow('invalid address');
-  });
-
-  it('should throw an error for invalid address', () => {
-    const address = 'invalidAddress';
-    expect(() => getFormattedAddress(address)).toThrow('invalid address');
-  });
-});
-
-describe('validateAddress', () => {
+describe('isAddressValid', () => {
   it('should return true for valid EVM address in lowercase', () => {
     const address = '0x72d8a00c533350905393a8f2e677a522459f8b20';
-    expect(validateAddress(address)).toBe(true);
+    expect(isAddressValid(address)).toBe(true);
   });
 
   it('should return true for valid EVM address in checksum format', () => {
     const address = '0x72D8a00C533350905393A8F2e677A522459F8b20';
-    expect(validateAddress(address)).toBe(true);
+    expect(isAddressValid(address)).toBe(true);
   });
 
   it('should return true for valid Starknet address without padding', () => {
     const address =
       '0x2a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0';
-    expect(validateAddress(address)).toBe(true);
+    expect(isAddressValid(address)).toBe(true);
   });
 
   it('should return true for valid Starknet address with padding', () => {
     const address =
       '0x02a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0';
-    expect(validateAddress(address)).toBe(true);
+    expect(isAddressValid(address)).toBe(true);
   });
 
-  it('should throw an error for empty string', () => {
-    expect(() => validateAddress('')).toThrow('invalid address');
+  it('should return false for empty string', () => {
+    expect(isAddressValid('')).toBe(false);
   });
 
-  it('should throw an error for null/undefined', () => {
-    expect(() => validateAddress(null as any)).toThrow('invalid address');
-    expect(() => validateAddress(undefined as any)).toThrow('invalid address');
+  it('should return false for null/undefined', () => {
+    expect(isAddressValid(null as any)).toBe(false);
+    expect(isAddressValid(undefined as any)).toBe(false);
   });
 
-  it('should throw an error for EMPTY_ADDRESS constant', () => {
-    expect(() => validateAddress(EMPTY_ADDRESS)).toThrow('invalid address');
+  it('should return true for the blank address when allowed', () => {
+    expect(isAddressValid(EMPTY_ADDRESS, true)).toBe(true);
   });
 
-  it('should throw an error for invalid address format', () => {
-    expect(() => validateAddress('invalidAddress')).toThrow('invalid address');
+  it('should return false for the blank address when not allowed', () => {
+    expect(isAddressValid(EMPTY_ADDRESS)).toBe(false);
   });
 
-  it('should throw an error for invalid hex address', () => {
-    expect(() => validateAddress('0xinvalid')).toThrow('invalid address');
+  it('should return false for invalid address format', () => {
+    expect(isAddressValid('invalidAddress')).toBe(false);
+  });
+
+  it('should return false for invalid hex address', () => {
+    expect(isAddressValid('0xinvalid')).toBe(false);
   });
 });

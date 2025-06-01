@@ -10,7 +10,7 @@ import {
   blockNumByNetwork,
   checkInvalidStrategies,
   formatStrategies,
-  getFormattedAddress,
+  isAddressValid,
   rpcError,
   rpcSuccess
 } from './utils';
@@ -124,10 +124,8 @@ router.post('/api/scores', async (req, res) => {
   )
     return rpcError(res, 500, 'something wrong with the strategies', null);
 
-  try {
-    addresses.forEach(getFormattedAddress);
-  } catch (e: any) {
-    return rpcError(res, 400, e, null);
+  if (!addresses.every(address => isAddressValid(address, true))) {
+    return rpcError(res, 400, 'invalid address', null);
   }
 
   let result;
