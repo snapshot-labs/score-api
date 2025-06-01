@@ -37,11 +37,6 @@ function handlePostError(
   e: any,
   id: string | null
 ) {
-  // return early to avoid logging user errors
-  if (e.message === INVALID_ADDRESS_MESSAGE) {
-    return rpcError(res, 400, e, id);
-  }
-
   capture(e, { params, method });
   let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
@@ -66,7 +61,11 @@ router.post('/', async (req, res) => {
 
   try {
     METHODS[method].verify(params);
+  } catch (e: any) {
+    return rpcError(res, 400, e, id);
+  }
 
+  try {
     const response = await serve(JSON.stringify(params), METHODS[method].run, [
       params
     ]);
