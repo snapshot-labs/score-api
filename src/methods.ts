@@ -1,12 +1,12 @@
 import snapshot from '@snapshot-labs/strategies';
-import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import { MAX_STRATEGIES } from './constants';
 import disabled from './disabled.json';
 import redis from './redis';
 import {
   checkInvalidStrategies,
   getCurrentBlockNum,
-  getFormattedAddress,
-  sha256
+  sha256,
+  validateAddress
 } from './utils';
 
 interface GetVpRequestParams {
@@ -31,13 +31,6 @@ const disableCachingForSpaces = [
   'magicappstore.eth',
   'moonbeam-foundation.eth'
 ];
-
-function validateAddress(address: string) {
-  if (!address || address === EMPTY_ADDRESS) {
-    throw new Error('invalid address');
-  }
-  getFormattedAddress(address);
-}
 
 export function verifyGetVp(params) {
   validateAddress(params.address);
