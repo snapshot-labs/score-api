@@ -297,6 +297,7 @@ describe('rpcSuccess function', () => {
     });
   });
 });
+
 describe('isAddressValid', () => {
   it('should return true for valid EVM address in lowercase', () => {
     const address = '0x72d8a00c533350905393a8f2e677a522459f8b20';
