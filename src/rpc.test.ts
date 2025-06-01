@@ -33,8 +33,7 @@ jest.mock('./utils', () => ({
   rpcError: jest.fn((res, code) => {
     res.send(code);
   }),
-  checkInvalidStrategies: jest.fn().mockReturnValue([]),
-  getFormattedAddress: jest.fn().mockReturnValue('')
+  checkInvalidStrategies: jest.fn().mockReturnValue([])
 }));
 console.log = jest.fn();
 console.error = jest.fn();
