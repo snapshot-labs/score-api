@@ -89,6 +89,14 @@ router.post('/', async (req, res) => {
   }
 
   if (method === 'validate') {
+    if (
+      params.params?.strategies &&
+      (params.params.strategies.length === 0 ||
+        params.params.strategies.length > MAX_STRATEGIES)
+    ) {
+      return rpcError(res, 400, 'invalid strategies length', id);
+    }
+
     try {
       const result = await serve(JSON.stringify(params), validate, [params]);
       return rpcSuccess(res, result, id);
