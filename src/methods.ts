@@ -113,6 +113,14 @@ export function verifyValidate(params) {
   if (!isAddressValid(params.author)) {
     throw new Error(INVALID_ADDRESS_MESSAGE);
   }
+
+  if (
+    params?.strategies &&
+    (params.strategies.length === 0 ||
+      params.strategies.length > MAX_STRATEGIES)
+  ) {
+    throw new Error('invalid strategies length');
+  }
 }
 
 export async function validate(params: ValidateRequestParams): Promise<{
