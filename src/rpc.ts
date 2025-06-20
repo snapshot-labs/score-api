@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
   const methodFn = METHODS[method];
 
   if (!methodFn) {
-    return rpcError(res, 400, 'wrong method', id);
+    return rpcError(res, 400, 'missing method', id);
   }
 
   try {
