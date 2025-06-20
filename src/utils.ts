@@ -107,6 +107,7 @@ export function getIp(req) {
 
 // return a checksum address for evm, and lowercase address for starknet
 // throw error if address is invalid
+// TODO: use the snapshot.utils.getFormattedAddress directly
 function getFormattedAddress(address: string): string {
   if (!address) {
     throw new Error(INVALID_ADDRESS_MESSAGE);
