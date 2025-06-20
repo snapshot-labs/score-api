@@ -1,8 +1,9 @@
 import express from 'express';
 import request from 'supertest';
+import { INVALID_ADDRESS_MESSAGE } from './constants';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
-import { getVp, validate } from './methods';
+import { getVp, validate, verifyGetVp } from './methods';
 import serve from './requestDeduplicator';
 import router from './rpc';
 import scores from './scores';
@@ -11,6 +12,8 @@ import * as utils from './utils';
 jest.mock('./methods', () => ({
   getVp: jest.fn().mockResolvedValue({ result: {}, cache: false }),
   validate: jest.fn().mockResolvedValue(true),
+  verifyGetVp: jest.fn(),
+  verifyValidate: jest.fn(),
   disabledNetworks: ['1319']
 }));
 jest.mock('./scores', () =>
@@ -21,9 +24,6 @@ jest.mock('./helpers/validations', () => jest.fn());
 jest.mock('./requestDeduplicator', () =>
   jest.fn().mockImplementation((id, fn, args) => fn(...args))
 );
-jest.mock('@ethersproject/address', () => ({
-  getAddress: jest.fn()
-}));
 jest.mock('./utils', () => ({
   blockNumByNetwork: { 1: 123 },
   formatStrategies: jest.fn(),
@@ -64,18 +64,17 @@ describe('API Routes', () => {
 
     it('should return error for invalid address', async () => {
       const mockedRes = expect.anything();
+      const error = new Error(INVALID_ADDRESS_MESSAGE);
+      (verifyGetVp as jest.Mock).mockImplementationOnce(() => {
+        throw error;
+      });
       const response = await request(app)
         .post('/')
         .send({
           method: 'get_vp',
           params: { address: '0x0000000000000000000000000000000000000000' }
         });
-      expect(utils.rpcError).toBeCalledWith(
-        mockedRes,
-        400,
-        'invalid address',
-        null
-      );
+      expect(utils.rpcError).toBeCalledWith(mockedRes, 400, error, null);
       expect(response.status).toBe(400);
     });
 
@@ -139,7 +138,7 @@ describe('API Routes', () => {
       expect(response.status).toBe(500);
     });
 
-    it('should return error for wrong method', async () => {
+    it('should return error for missing method', async () => {
       const mockedRes = expect.anything();
       const response = await request(app)
         .post('/')
@@ -150,7 +149,7 @@ describe('API Routes', () => {
       expect(utils.rpcError).toBeCalledWith(
         mockedRes,
         400,
-        'wrong method',
+        'missing method',
         null
       );
       expect(response.status).toBe(400);
