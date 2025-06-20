@@ -55,18 +55,20 @@ router.post('/', async (req, res) => {
   if (params.space && disabled.includes(params.space))
     return rpcError(res, 429, 'too many requests', id);
 
-  if (!METHODS[method]) {
+  const methodFn = METHODS[method];
+
+  if (!methodFn) {
     return rpcError(res, 400, 'wrong method', id);
   }
 
   try {
-    METHODS[method].verify(params);
+    methodFn.verify(params);
   } catch (e: any) {
     return rpcError(res, 400, e, id);
   }
 
   try {
-    const response = await serve(JSON.stringify(params), METHODS[method].run, [
+    const response = await serve(JSON.stringify(params), methodFn.run, [
       params
     ]);
     return rpcSuccess(res, response.result, id, response.cache);
