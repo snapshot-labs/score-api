@@ -33,7 +33,7 @@ const disableCachingForSpaces = [
 ];
 
 export function verifyGetVp(params) {
-  if (!isAddressValid(params.address)) {
+  if (!isAddressValid(params.address, true)) {
     throw new Error(INVALID_ADDRESS_MESSAGE);
   }
 
