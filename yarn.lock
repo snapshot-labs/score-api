@@ -2161,7 +2161,7 @@
 
 "@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
   version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#2f5ea45b6c085dc6d9693b57750c021ad74d5390"
+  resolved "https://github.com/snapshot-labs/snapshot-strategies#20dc6db753bad95f2c11ac4a2a9478ab93399fd5"
   dependencies:
     "@ethersproject/abi" "^5.6.4"
     "@ethersproject/address" "^5.6.1"
@@ -5486,9 +5486,9 @@ log-update@^5.0.1:
     wrap-ansi "^8.0.1"
 
 lossless-json@^4.0.1:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/lossless-json/-/lossless-json-4.1.0.tgz#95511e31c636ec699d683c56569a96e52eb1b8a2"
-  integrity sha512-DgoRs42jH/yNubp8iinRqvG0xn5awHKXVY+7lGYjBaByoHGZt/Dz5Jkaf5znP2XHbTnAA+bbkhK3lMIaf3+92A==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lossless-json/-/lossless-json-4.1.1.tgz#b7cbac00c222a68072a9037563dfc4c71cee52f0"
+  integrity sha512-HusN80C0ohtT9kOHQH7EuUaqzRQsnekpa+2ot8OzvW0iC08dq/YtM/7uKwwajldQsCrHyC8q9fz3t3L+TmDltA==
 
 lru-cache@^5.1.1:
   version "5.1.1"
