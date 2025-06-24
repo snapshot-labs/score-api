@@ -166,7 +166,7 @@ describe('POST / - validate method', () => {
           method: 'validate',
           params: {
             validation: 'basic',
-            author: '0x1234567890123456789012345678901234567890',
+            author: '0x91FD2c8d24767db4Ece7069AA27832ffaf8590f3',
             space: 'test.eth',
             network: '1',
             snapshot: 'latest',
@@ -181,7 +181,8 @@ describe('POST / - validate method', () => {
                     ]
                   }
                 }
-              ]
+              ],
+              minScore: 1
             }
           }
         });
@@ -212,7 +213,8 @@ describe('POST / - validate method', () => {
                     ]
                   }
                 }
-              ]
+              ],
+              minScore: 1
             }
           }
         });
