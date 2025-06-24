@@ -58,6 +58,64 @@ describe('POST / - validate method', () => {
     });
   });
 
+  describe('when using different address formats', () => {
+    it('returns success with result true when using EVM address', async () => {
+      const response = await request(process.env.HOST)
+        .post('/')
+        .send({
+          method: 'validate',
+          params: {
+            author: '0x1234567890123456789012345678901234567890',
+            space: 'test.eth',
+            network: '1',
+            snapshot: 'latest',
+            params: {}
+          }
+        });
+
+      expect(response.status).toEqual(200);
+      expect(response.body.result).toBe(true);
+    });
+
+    it('returns success with result true when using padded Starknet address', async () => {
+      const response = await request(process.env.HOST)
+        .post('/')
+        .send({
+          method: 'validate',
+          params: {
+            author:
+              '0x02a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0',
+            space: 'test.eth',
+            network: '1',
+            snapshot: 'latest',
+            params: {}
+          }
+        });
+
+      expect(response.status).toEqual(200);
+      expect(response.body.result).toBe(true);
+    });
+
+    it('returns success with result true when using non-padded Starknet address', async () => {
+      const response = await request(process.env.HOST)
+        .post('/')
+        .send({
+          method: 'validate',
+          params: {
+            author:
+              '0x2a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0',
+            space: 'test.eth',
+            network: '1',
+            snapshot: 'latest',
+            params: {}
+          }
+        });
+
+      expect(response.status).toEqual(200);
+      expect(response.body.result).toBe(true);
+    });
+  });
+
   describe('when validation is "any"', () => {
     it('returns success with result true', async () => {
       const response = await request(process.env.HOST)
