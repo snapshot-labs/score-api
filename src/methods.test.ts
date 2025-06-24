@@ -279,7 +279,7 @@ describe('validate', () => {
   });
 
   it('returns true when the validation returns true', async () => {
-    const mockValidate = jest.fn().mockReturnValue(true);
+    const mockValidate = jest.fn().mockResolvedValue(true);
     const MockValidationClass = jest.fn().mockImplementation(() => {
       return { validate: mockValidate };
     });
@@ -293,7 +293,7 @@ describe('validate', () => {
   });
 
   it('returns false when the validation returns false', async () => {
-    const mockValidate = jest.fn().mockReturnValue(false);
+    const mockValidate = jest.fn().mockResolvedValue(false);
     const MockValidationClass = jest.fn().mockImplementation(() => {
       return { validate: mockValidate };
     });

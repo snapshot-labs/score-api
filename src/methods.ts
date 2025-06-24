@@ -140,5 +140,5 @@ export async function validate(params: ValidateRequestParams): Promise<{
     params.params
   );
 
-  return { result: validation.validate(), cache: false };
+  return { result: await validation.validate(), cache: false };
 }
