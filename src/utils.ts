@@ -1,12 +1,6 @@
 import { createHash } from 'crypto';
-import { getAddress, isAddress } from '@ethersproject/address';
 import snapshot from '@snapshot-labs/strategies';
-import { validateAndParseAddress } from 'starknet';
-import {
-  EMPTY_ADDRESS,
-  INVALID_ADDRESS_MESSAGE,
-  MAX_STRATEGIES
-} from './constants';
+import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
 import getStrategies from './helpers/strategies';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
@@ -104,34 +98,15 @@ export function getIp(req) {
 
   return ips[0].trim();
 }
-
-// return a checksum address for evm, and lowercase address for starknet
-// throw error if address is invalid
-// TODO: use the snapshot.utils.getFormattedAddress directly
-function getFormattedAddress(address: string): string {
-  if (!address) {
-    throw new Error(INVALID_ADDRESS_MESSAGE);
-  }
-
-  if (isAddress(address)) return getAddress(address);
-
-  try {
-    return validateAndParseAddress(address);
-  } catch {
-    throw new Error(INVALID_ADDRESS_MESSAGE);
-  }
-}
-
 export function isAddressValid(address: string, allowEmpty = false): boolean {
   if (address === EMPTY_ADDRESS) {
     return allowEmpty;
   }
 
   try {
-    getFormattedAddress(address);
+    snapshot.utils.getFormattedAddress(address);
+    return true;
   } catch (e: any) {
     return false;
   }
-
-  return true;
 }

@@ -16,7 +16,21 @@ import {
   sha256
 } from './utils';
 
-jest.mock('@snapshot-labs/strategies');
+// Mock only the getProvider function while keeping others
+jest.mock('@snapshot-labs/strategies', () => {
+  const originalModule = jest.requireActual('@snapshot-labs/strategies');
+  return {
+    __esModule: true,
+    default: {
+      ...originalModule.default,
+      utils: {
+        ...originalModule.default.utils,
+        getProvider: jest.fn()
+      }
+    }
+  };
+});
+
 jest.mock('crypto', () => ({
   createHash: jest.fn(() => ({
     update: jest.fn(() => ({
