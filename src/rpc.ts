@@ -1,17 +1,17 @@
-import { getAddress } from '@ethersproject/address';
 import { capture } from '@snapshot-labs/snapshot-sentry';
 import express from 'express';
-import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import { INVALID_ADDRESS_MESSAGE } from './constants';
 import disabled from './disabled.json';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
-import { getVp, validate } from './methods';
+import { getVp, validate, verifyGetVp, verifyValidate } from './methods';
 import serve from './requestDeduplicator';
 import scores from './scores';
 import {
   blockNumByNetwork,
   checkInvalidStrategies,
   formatStrategies,
+  isAddressValid,
   rpcError,
   rpcSuccess
 } from './utils';
@@ -19,105 +19,62 @@ import { version } from '../package.json';
 
 const router = express.Router();
 
+const METHODS = {
+  get_vp: {
+    verify: verifyGetVp,
+    run: getVp
+  },
+  validate: {
+    verify: verifyValidate,
+    run: validate
+  }
+};
+
+function handlePostError(
+  res: express.Response,
+  params: any,
+  method: string,
+  e: any,
+  id: string | null
+) {
+  capture(e, { params, method });
+  let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
+
+  // Detect provider error
+  if (e?.reason && e?.error?.reason && e?.error?.url) {
+    error = `[provider issue] ${e.error.url}, reason: ${e.reason}, ${e.error.reason}`;
+  }
+
+  console.log(`[rpc] ${method} failed`, JSON.stringify(params), error);
+  return rpcError(res, 500, e, id);
+}
+
 router.post('/', async (req, res) => {
   const { id = null, method, params = {} } = req.body;
 
-  if (!method) return rpcError(res, 400, 'missing method', id);
+  if (params.space && disabled.includes(params.space))
+    return rpcError(res, 429, 'too many requests', id);
+
+  const methodFn = METHODS[method];
+
+  if (!methodFn) {
+    return rpcError(res, 400, 'wrong method', id);
+  }
 
   try {
-    if (
-      (method === 'get_vp' && !params.address) ||
-      (method === 'validate' && !params.author) ||
-      params.address === EMPTY_ADDRESS ||
-      params.author === EMPTY_ADDRESS
-    ) {
-      throw new Error('invalid address');
-    }
-    getAddress(params.address || params.author);
+    methodFn.verify(params);
   } catch (e: any) {
-    return rpcError(res, 400, 'invalid address', id);
+    return rpcError(res, 400, e, id);
   }
 
-  if (method === 'get_vp') {
-    if (params.space && disabled.includes(params.space))
-      return rpcError(res, 429, 'too many requests', id);
-    if (
-      !params.strategies ||
-      params.strategies.length === 0 ||
-      params.strategies.length > MAX_STRATEGIES
-    ) {
-      return rpcError(res, 400, 'invalid strategies length', id);
-    }
-
-    const invalidStrategies = checkInvalidStrategies(params.strategies);
-    if (invalidStrategies.length > 0) {
-      return rpcError(
-        res,
-        400,
-        `invalid strategies: ${invalidStrategies}`,
-        null
-      );
-    }
-
-    try {
-      const response: any = await serve(JSON.stringify(params), getVp, [
-        params
-      ]);
-      return rpcSuccess(res, response.result, id, response.cache);
-    } catch (e: any) {
-      capture(e, { params, method });
-      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(
-        0,
-        1000
-      );
-
-      // Detect provider error
-      if (e?.reason && e?.error?.reason && e?.error?.url) {
-        error = `[provider issue] ${e.error.url}, reason: ${e.reason}, ${e.error.reason}`;
-      }
-
-      console.log(
-        '[rpc] get_vp failed',
-        params.space,
-        params.address,
-        params.network,
-        params.snapshot,
-        error
-      );
-      return rpcError(res, 500, e, id);
-    }
+  try {
+    const response = await serve(JSON.stringify(params), methodFn.run, [
+      params
+    ]);
+    return rpcSuccess(res, response.result, id, response.cache);
+  } catch (e: any) {
+    return handlePostError(res, params, method, e, id);
   }
-
-  if (method === 'validate') {
-    if (
-      params.params?.strategies &&
-      (params.params.strategies.length === 0 ||
-        params.params.strategies.length > MAX_STRATEGIES)
-    ) {
-      return rpcError(res, 400, 'invalid strategies length', id);
-    }
-
-    try {
-      const result = await serve(JSON.stringify(params), validate, [params]);
-      return rpcSuccess(res, result, id);
-    } catch (e: any) {
-      capture(e, { params, method });
-      let error = JSON.stringify(e?.message || e || 'Unknown error').slice(
-        0,
-        1000
-      );
-
-      // Detect provider error
-      if (e?.reason && e?.error?.reason && e?.error?.url) {
-        error = `[provider issue] ${e.error.url}, reason: ${e.reason}, ${e.error.reason}`;
-      }
-
-      console.log('[rpc] validate failed', JSON.stringify(params), error);
-      return rpcError(res, 500, e, id);
-    }
-  }
-
-  return rpcError(res, 400, 'wrong method', id);
 });
 
 router.get('/', (req, res) => {
@@ -165,10 +122,8 @@ router.post('/api/scores', async (req, res) => {
   )
     return rpcError(res, 500, 'something wrong with the strategies', null);
 
-  try {
-    addresses.forEach(getAddress);
-  } catch (e: any) {
-    return rpcError(res, 400, 'invalid address', null);
+  if (!addresses.every(address => isAddressValid(address, true))) {
+    return rpcError(res, 400, INVALID_ADDRESS_MESSAGE, null);
   }
 
   let result;

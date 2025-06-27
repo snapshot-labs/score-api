@@ -1,6 +1,6 @@
 import { createHash } from 'crypto';
 import snapshot from '@snapshot-labs/strategies';
-import { MAX_STRATEGIES } from './constants';
+import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
 import getStrategies from './helpers/strategies';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
@@ -97,4 +97,16 @@ export function getIp(req) {
   ).split(',');
 
   return ips[0].trim();
+}
+export function isAddressValid(address: string, allowEmpty = false): boolean {
+  if (address === EMPTY_ADDRESS) {
+    return allowEmpty;
+  }
+
+  try {
+    snapshot.utils.getFormattedAddress(address);
+    return true;
+  } catch (e: any) {
+    return false;
+  }
 }

@@ -3,19 +3,34 @@ process.env.BROVIDER_URL = 'test.brovider.url';
 
 import { createHash } from 'crypto';
 import snapshot from '@snapshot-labs/strategies';
-import { MAX_STRATEGIES } from './constants';
+import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
 import {
   blockNumByNetwork,
   clone,
   formatStrategies,
   getCurrentBlockNum,
   getIp,
+  isAddressValid,
   rpcError,
   rpcSuccess,
   sha256
 } from './utils';
 
-jest.mock('@snapshot-labs/strategies');
+// Mock only the getProvider function while keeping others
+jest.mock('@snapshot-labs/strategies', () => {
+  const originalModule = jest.requireActual('@snapshot-labs/strategies');
+  return {
+    __esModule: true,
+    default: {
+      ...originalModule.default,
+      utils: {
+        ...originalModule.default.utils,
+        getProvider: jest.fn()
+      }
+    }
+  };
+});
+
 jest.mock('crypto', () => ({
   createHash: jest.fn(() => ({
     update: jest.fn(() => ({
@@ -294,5 +309,54 @@ describe('rpcSuccess function', () => {
       id,
       cache
     });
+  });
+});
+
+describe('isAddressValid', () => {
+  it('should return true for valid EVM address in lowercase', () => {
+    const address = '0x72d8a00c533350905393a8f2e677a522459f8b20';
+    expect(isAddressValid(address)).toBe(true);
+  });
+
+  it('should return true for valid EVM address in checksum format', () => {
+    const address = '0x72D8a00C533350905393A8F2e677A522459F8b20';
+    expect(isAddressValid(address)).toBe(true);
+  });
+
+  it('should return true for valid Starknet address without padding', () => {
+    const address =
+      '0x2a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0';
+    expect(isAddressValid(address)).toBe(true);
+  });
+
+  it('should return true for valid Starknet address with padding', () => {
+    const address =
+      '0x02a0a8f3b6097e7a6bd7649deb30715323072a159c0e6b71b689bd245c146cc0';
+    expect(isAddressValid(address)).toBe(true);
+  });
+
+  it('should return false for empty string', () => {
+    expect(isAddressValid('')).toBe(false);
+  });
+
+  it('should return false for null/undefined', () => {
+    expect(isAddressValid(null as any)).toBe(false);
+    expect(isAddressValid(undefined as any)).toBe(false);
+  });
+
+  it('should return true for the blank address when allowed', () => {
+    expect(isAddressValid(EMPTY_ADDRESS, true)).toBe(true);
+  });
+
+  it('should return false for the blank address when not allowed', () => {
+    expect(isAddressValid(EMPTY_ADDRESS)).toBe(false);
+  });
+
+  it('should return false for invalid address format', () => {
+    expect(isAddressValid('invalidAddress')).toBe(false);
+  });
+
+  it('should return false for invalid hex address', () => {
+    expect(isAddressValid('0xinvalid')).toBe(false);
   });
 });
