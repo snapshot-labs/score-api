@@ -49,14 +49,14 @@ describe('API Routes', () => {
   });
 
   describe('POST /', () => {
-    it('should return error for missing method', async () => {
+    it('should return error for wrong method', async () => {
       const mockedRes = expect.anything();
       const response = await request(app).post('/').send({});
 
       expect(utils.rpcError).toBeCalledWith(
         mockedRes,
         400,
-        'missing method',
+        'wrong method',
         null
       );
       expect(response.status).toBe(400);
@@ -138,7 +138,7 @@ describe('API Routes', () => {
       expect(response.status).toBe(500);
     });
 
-    it('should return error for missing method', async () => {
+    it('should return error for wrong method', async () => {
       const mockedRes = expect.anything();
       const response = await request(app)
         .post('/')
@@ -149,7 +149,7 @@ describe('API Routes', () => {
       expect(utils.rpcError).toBeCalledWith(
         mockedRes,
         400,
-        'missing method',
+        'wrong method',
         null
       );
       expect(response.status).toBe(400);
