@@ -1,4 +1,4 @@
-import utils from '../../src/utils';
+import utils from '../../../src/strategies/utils';
 
 const space = 'yam.eth';
 const network = '1';

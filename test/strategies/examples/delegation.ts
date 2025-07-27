@@ -1,4 +1,4 @@
-import snapshot from '../../src';
+import snapshot from '../../../src/strategies';
 
 const space = 'cvx.eth';
 const network = '1';
