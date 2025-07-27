@@ -1,7 +1,7 @@
-import snapshot from '@snapshot-labs/strategies';
 import { INVALID_ADDRESS_MESSAGE, MAX_STRATEGIES } from './constants';
 import disabled from './disabled.json';
 import redis from './redis';
+import snapshot from './strategies';
 import {
   checkInvalidStrategies,
   getCurrentBlockNum,

@@ -1,7 +1,7 @@
 import getStrategies from './strategies';
 import { clone } from '../utils';
 
-jest.mock('@snapshot-labs/strategies', () => ({
+jest.mock('../strategies', () => ({
   strategies: {
     gno: {
       author: 'nginnever',
