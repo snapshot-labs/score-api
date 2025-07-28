@@ -1,8 +1,8 @@
-# Snapshot Strategies & Validations
+# Snapshot strategies & validations
 
 This directory contains voting strategies and validation strategies used by the Snapshot Score API.
 
-## Adding a New Strategy
+## Adding a new strategy
 
 ### 1. Create the strategy folder
 
@@ -30,7 +30,7 @@ Add your strategy to `src/strategies/strategies/index.ts`:
 yarn test:strategy --strategy=my-new-strategy
 ```
 
-## Adding a New Validation
+## Adding a new validation
 
 Same as above but create a new folder under `src/strategies/validations/` with your validation name.
 
@@ -54,7 +54,7 @@ yarn test:validation --validation=my-new-validation
 
 ## Checklist for new strategies
 
-Here is a simple checklist to look at when reviewing a PR for a new strategy:
+Here is a simple checklist to use when reviewing a PR for a new strategy:
 
 ### Overview
 
@@ -73,17 +73,17 @@ Here is a simple checklist to look at when reviewing a PR for a new strategy:
 
 ### Example
 
-- Example must include at least 1 address with a positive score.
-- Example must use a snapshot block number in the past.
-- Addresses in example should be minimum 3 and maximum 20.
+- The example must include at least one address with a positive score.
+- The example must use a snapshot block number in the past.
+- The number of addresses in the example should be a minimum of 3 and a maximum of 20.
 
 ### Test
 
-- The strategy should take less than 10sec to resolve.
-- The strategy should work with 500 addresses. [Here is a list of addresses](https://github.com/labs/score/blob/master/test/strategies/unit/addresses.json).
+- The strategy should take less than 10 seconds to resolve.
+- The strategy should work with 500 addresses. [Here is a list of addresses.](https://github.com/labs/score/blob/master/test/strategies/unit/addresses.json)
 
 ### Recommended
 
 - Add a README.md file that describes the strategy and provides an example of parameters.
-- Use string ABI instead of object.
-- Add proper TypeScript types for better development experience.
+- Use string ABI instead of object ABI.
+- Add proper TypeScript types for a better development experience.

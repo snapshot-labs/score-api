@@ -1,7 +1,7 @@
 # Snapshot Score API
 The Score API is a simple RESTful API that calculates scores for various strategies based on the Snapshot protocol. This README outlines the functionality provided by the API and how to use it without any specific code examples.
 
-## 🚀 For Strategy & Validation Development
+## 🚀 For strategy & validation development
 
 If you're looking to add new voting strategies or validation strategies, please see the [**STRATEGIES.md**](STRATEGIES.md) guide which contains detailed instructions for developers.
 
