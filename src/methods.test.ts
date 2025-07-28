@@ -1,9 +1,9 @@
-import snapshot from '@snapshot-labs/strategies';
 import { getVp, validate } from './methods';
 import * as redisModule from './redis';
+import snapshot from './strategies';
 import { getCurrentBlockNum, sha256 } from './utils';
 
-jest.mock('@snapshot-labs/strategies');
+jest.mock('./strategies');
 jest.mock('./utils');
 jest.mock('./redis', () => ({
   __esModule: true,
