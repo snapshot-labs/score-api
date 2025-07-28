@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Default configuration",
+    "strategy": {
+      "name": "sonic-staked-balance",
+      "params": {}
+    },
+    "network": "146",
+    "addresses": [
+      "0x0C4290C3018172dD838631c94Ee6906C0eA65f5e",
+      "0x5c171fd91c10f27e5da347822e2c2586a96f9f8e",
+      "0xe5da20f15420ad15de0fa650600afc998bbe3955"
+    ],
+    "snapshot": 40635783
+  }
+]
