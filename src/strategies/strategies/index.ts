@@ -481,6 +481,7 @@ import * as lizcoinStrategy2024 from './lizcoin-strategy-2024';
 import * as realt from './realt';
 import * as superfluidVesting from './superfluid-vesting';
 import * as spookyLpSonic from './spooky-lp-sonic';
+import * as sonicStakedBalance from './sonic-staked-balance';
 import * as synapse from './synapse';
 import * as dappcomposerGetVotingUnits from './dappcomposer-getvotingunits';
 import * as erc20BalanceOfSaevo from './erc20-balance-of-saevo';
@@ -501,6 +502,7 @@ const strategies = {
   'erc20-balance-of-saevo': erc20BalanceOfSaevo,
   livepeer,
   'spooky-lp-sonic': spookyLpSonic,
+  'sonic-staked-balance': sonicStakedBalance,
   'xaqua-vaults-treasury': xaqua,
   'delegatexyz-erc721-balance-of': delegatexyzErc721BalanceOf,
   'giveth-balances-supply-weighted': givethBalancesSupplyWeighted,
