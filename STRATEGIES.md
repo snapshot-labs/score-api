@@ -80,7 +80,7 @@ Here is a simple checklist to use when reviewing a PR for a new strategy:
 ### Test
 
 - The strategy should take less than 10 seconds to resolve.
-- The strategy should work with 500 addresses. [Here is a list of addresses.](https://github.com/labs/score/blob/master/test/strategies/unit/addresses.json)
+- The strategy should work with 500 addresses.
 
 ### Recommended
 
