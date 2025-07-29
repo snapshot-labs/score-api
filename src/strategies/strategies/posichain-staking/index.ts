@@ -16,7 +16,7 @@ export async function strategy(
   provider: StaticJsonRpcProvider,
   // adding a 0 value for addresses not in the result is not needed
   // since they are dropped anyway in utils.ts
-  // https://github.com/snapshot-labs/snapshot-strategies/blob/02439eb120ed7c4cc0c493924b78d92d22006b40/src/utils.ts#L26
+  // https://github.com/snapshot-labs/score-api/blob/8186c5b68caa3ef3a5b3040b078c30f008b030cb/src/strategies/utils.ts#L41-L43
   _addresses: Array<string>,
   options: Params,
   snapshot: number | string

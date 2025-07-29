@@ -1,6 +1,6 @@
 # delegation-with-overrides
 
-This strategy is based on the [delegation strategy](https://github.com/snapshot-labs/snapshot-strategies/tree/master/src/strategies/delegation), but with an optional `overrides` parameter: an address to address mapping, where the delegated voting power of each key will be forwarded to the corresponding value.
+This strategy is based on the [delegation strategy](https://github.com/snapshot-labs/score-api/tree/master/src/strategies/strategies/delegation), but with an optional `overrides` parameter: an address to address mapping, where the delegated voting power of each key will be forwarded to the corresponding value.
 
 For example:
 
