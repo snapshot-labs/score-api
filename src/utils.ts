@@ -1,7 +1,7 @@
 import { createHash } from 'crypto';
-import snapshot from '@snapshot-labs/strategies';
 import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
 import getStrategies from './helpers/strategies';
+import snapshot from './strategies';
 
 const broviderUrl = process.env.BROVIDER_URL || 'https://rpc.snapshot.org';
 

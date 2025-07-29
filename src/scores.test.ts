@@ -1,11 +1,11 @@
-import snapshot from '@snapshot-labs/strategies';
 import { get, set } from './aws';
 import scores from './scores';
+import snapshot from './strategies';
 import { getCurrentBlockNum, sha256 } from './utils';
 
 jest.mock('./utils');
 jest.mock('./aws');
-jest.mock('@snapshot-labs/strategies');
+jest.mock('./strategies');
 
 describe('scores function', () => {
   const mockArgs = {

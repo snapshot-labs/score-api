@@ -2,8 +2,8 @@ const originalBroviderUrl = process.env.BROVIDER_URL;
 process.env.BROVIDER_URL = 'test.brovider.url';
 
 import { createHash } from 'crypto';
-import snapshot from '@snapshot-labs/strategies';
 import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import snapshot from './strategies';
 import {
   blockNumByNetwork,
   clone,
@@ -17,8 +17,8 @@ import {
 } from './utils';
 
 // Mock only the getProvider function while keeping others
-jest.mock('@snapshot-labs/strategies', () => {
-  const originalModule = jest.requireActual('@snapshot-labs/strategies');
+jest.mock('./strategies', () => {
+  const originalModule = jest.requireActual('./strategies');
   return {
     __esModule: true,
     default: {

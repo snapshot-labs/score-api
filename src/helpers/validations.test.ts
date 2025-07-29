@@ -1,7 +1,7 @@
 import getValidations from './validations';
 import { clone } from '../utils';
 
-jest.mock('@snapshot-labs/strategies', () => ({
+jest.mock('../strategies', () => ({
   validations: {
     basic: {
       examples: [],

@@ -1,4 +1,4 @@
-import snapshot from '@snapshot-labs/strategies';
+import snapshot from '../strategies';
 import { clone } from '../utils';
 
 let validationsCache;

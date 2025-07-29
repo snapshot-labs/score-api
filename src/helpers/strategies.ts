@@ -1,5 +1,5 @@
-import snapshot from '@snapshot-labs/strategies';
 import { DISABLED_STRATEGIES } from '../constants';
+import snapshot from '../strategies';
 import { clone } from '../utils';
 
 let strategiesCache;

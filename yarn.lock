@@ -1318,7 +1318,7 @@
   dependencies:
     "@ethersproject/logger" "^5.8.0"
 
-"@ethersproject/constants@^5.7.0", "@ethersproject/constants@^5.8.0":
+"@ethersproject/constants@^5.6.1", "@ethersproject/constants@^5.7.0", "@ethersproject/constants@^5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/constants/-/constants-5.8.0.tgz#12f31c2f4317b113a4c19de94e50933648c90704"
   integrity sha512-wigX4lrf5Vu+axVTIvNsuL6YrV4O5AXl5ubcURKMEME5TnWBouUh0CDTWxZ2GpnRn1kcCgE7l8O5+VbV9QTTcg==
@@ -1401,7 +1401,7 @@
     "@ethersproject/bytes" "^5.7.0"
     js-sha3 "0.8.0"
 
-"@ethersproject/keccak256@^5.8.0":
+"@ethersproject/keccak256@^5.6.1", "@ethersproject/keccak256@^5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/keccak256/-/keccak256-5.8.0.tgz#d2123a379567faf2d75d2aaea074ffd4df349e6a"
   integrity sha512-A1pkKLZSz8pDaQ1ftutZoaN46I6+jvuqugx5KYNeQOPqq+JZ0Txm7dlWesCHB5cndJSu5vP2VKptKf7cksERng==
@@ -1574,7 +1574,7 @@
     "@ethersproject/transactions" "^5.8.0"
     "@ethersproject/wordlists" "^5.8.0"
 
-"@ethersproject/web@^5.8.0":
+"@ethersproject/web@^5.6.1", "@ethersproject/web@^5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/web/-/web-5.8.0.tgz#3e54badc0013b7a801463a7008a87988efce8a37"
   integrity sha512-j7+Ksi/9KfGviws6Qtf9Q7KCqRhpwrYKQPs+JBA/rKVFF/yaWLHJEH3zfVP2plVu+eys0d2DlFmhoQJayFewcw==
@@ -2200,33 +2200,6 @@
     json-to-graphql-query "^2.2.4"
     lodash.set "^4.3.2"
     starknet "^6.11.0"
-
-"@snapshot-labs/strategies@https://github.com/snapshot-labs/snapshot-strategies#master":
-  version "0.1.0"
-  resolved "https://github.com/snapshot-labs/snapshot-strategies#6bc4c261efa7655e9833f50c0beb453621cfdb8a"
-  dependencies:
-    "@ethersproject/abi" "^5.6.4"
-    "@ethersproject/address" "^5.6.1"
-    "@ethersproject/bignumber" "^5.6.2"
-    "@ethersproject/bytes" "^5.6.1"
-    "@ethersproject/contracts" "^5.6.2"
-    "@ethersproject/hash" "^5.6.1"
-    "@ethersproject/providers" "^5.6.8"
-    "@ethersproject/solidity" "^5.6.1"
-    "@ethersproject/strings" "^5.6.1"
-    "@ethersproject/units" "^5.6.1"
-    "@ethersproject/wallet" "^5.6.2"
-    "@snapshot-labs/snapshot.js" "^0.14.5"
-    "@spruceid/didkit-wasm-node" "^0.2.1"
-    "@uniswap/sdk-core" "^3.0.1"
-    "@uniswap/v3-sdk" "^3.9.0"
-    blakejs "^1.2.1"
-    copyfiles "^2.4.1"
-    cross-fetch "^3.1.6"
-    dotenv "^16.0.3"
-    eth-ens-namehash "^2.0.8"
-    json-to-graphql-query "^2.2.4"
-    tulons "^0.0.7"
 
 "@spruceid/didkit-wasm-node@^0.2.1":
   version "0.2.1"
