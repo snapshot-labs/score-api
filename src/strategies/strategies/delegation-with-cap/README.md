@@ -1,6 +1,6 @@
 # delegation-with-cap
 
-This strategy is based on the [delegation](https://github.com/snapshot-labs/snapshot-strategies/tree/master/src/strategies/delegation) strategy, with an additional `capPercentage` parameter that caps the voting power of any address to a percentage of the total supply, along with `address` and `decimals` parameters to get the total supply that the voting power should be capped against.
+This strategy is based on the [delegation](https://github.com/snapshot-labs/score-api/tree/master/src/strategies/strategies/delegation) strategy, with an additional `capPercentage` parameter that caps the voting power of any address to a percentage of the total supply, along with `address` and `decimals` parameters to get the total supply that the voting power should be capped against.
 
 | Param Name                 | Description                                                                             |
 |----------------------------|-----------------------------------------------------------------------------------------|

@@ -28,7 +28,7 @@ The on-chain voting power with these delegations (using the standard [OpenZeppel
 | ------------- | ------------- | ------------- |
 | 0 | 100 | 500 |
 
-With the regular [erc20-votes strategy](https://github.com/snapshot-labs/snapshot-strategies/tree/master/src/strategies/erc20-votes), each account would only have access to its own on-chain delegated voting power, and delegators without voting power will not be able to vote on Snapshot proposals. In the scenario above, account A would not be able to vote at all. And account B would still be able to vote even though it is delegating to C, but it would only have access to the 100 voting power from A.
+With the regular [erc20-votes strategy](https://github.com/snapshot-labs/score-api/tree/master/src/strategies/strategies/erc20-votes), each account would only have access to its own on-chain delegated voting power, and delegators without voting power will not be able to vote on Snapshot proposals. In the scenario above, account A would not be able to vote at all. And account B would still be able to vote even though it is delegating to C, but it would only have access to the 100 voting power from A.
 
 With this **erc20-votes-with-override** strategy, now individual delegators will be able to vote on Snapshot proposals and access their own token balance as voting power, without needing to perform any additional on-chain transactions.
 
