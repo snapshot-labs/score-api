@@ -1,7 +1,8 @@
 import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
-import { BigNumber } from '@ethersproject/bignumber';
-import { ethers } from 'ethers';
+import { Interface } from '@ethersproject/abi';
+import { Contract } from '@ethersproject/contracts';
+import { JsonRpcProvider } from '@ethersproject/providers';
 
 const POSITION_MANAGER_ABI = [
   'function balanceOf(address owner) view returns (uint256)',
@@ -14,10 +15,10 @@ const POOL_ABI = [
 ];
 
 function getAmount1ForLiquidity(
-  sqrtLower: any,
-  sqrtUpper: any,
-  sqrtPriceCurrent: any,
-  liquidity: any
+  sqrtLower: number,
+  sqrtUpper: number,
+  sqrtPriceCurrent: bigint,
+  liquidity: bigint
 ): bigint {
   const lower = BigInt(sqrtLower);
   const upper = BigInt(sqrtUpper);
@@ -31,6 +32,28 @@ function getAmount1ForLiquidity(
   return (liq * (upper - lower)) / (2n ** 96n);
 }
 
+async function multicall(
+  provider: JsonRpcProvider,
+  abi: string[],
+  calls: [string, string, any[]][]
+): Promise<any[]> {
+  const iface = new Interface(abi);
+  const results: any[] = [];
+
+  for (const [address, method, params] of calls) {
+    const contract = new Contract(address, abi, provider);
+    try {
+      const result = await contract[method](...params);
+      results.push([[...(Array.isArray(result) ? result : [result])]]);
+    } catch (err: any) {
+      console.warn(`Multicall failed for ${method} on ${address}:`, err?.message);
+      results.push([[undefined]]);
+    }
+  }
+
+  return results;
+}
+
 export const strategy = async (
   _space: string,
   _network: string,
@@ -40,38 +63,66 @@ export const strategy = async (
   snapshot: number | 'latest'
 ) => {
   const results: Record<string, number> = {};
-  const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
-  const poolContract = new ethers.Contract(options.poolAddress, POOL_ABI, _provider);
-  const pmContract = new ethers.Contract(options.positionManager, POSITION_MANAGER_ABI, _provider);
+const provider = new JsonRpcProvider(
+  'https://developer-access-mainnet.base.org',
+  {
+    name: 'base',
+    chainId: 8453
+  }
+);
 
-  const slot0 = await poolContract.slot0({ blockTag });
-  const sqrtPriceX96 = BigInt(slot0[0]);
+
+  const [[slot0Result]] = await multicall(provider, POOL_ABI, [
+    [options.poolAddress, 'slot0', []]
+  ]);
+
+  if (!slot0Result || !slot0Result[0]) {
+    throw new Error('❌ Failed to fetch slot0() from the pool contract.');
+  }
+
+  const sqrtPriceX96 = BigInt(slot0Result[0]);
 
   for (const address of addresses) {
-    const balance = await pmContract.balanceOf(address, { blockTag });
+    const [[balanceResult]] = await multicall(provider, POSITION_MANAGER_ABI, [
+      [options.positionManager, 'balanceOf', [address]]
+    ]);
+
+    const balance = Number(balanceResult);
+    if (!balance) {
+      results[getAddress(address)] = 0;
+      continue;
+    }
+
+    const tokenIdsCall: [string, string, any[]][] = [];
+    for (let i = 0; i < balance; i++) {
+      tokenIdsCall.push([options.positionManager, 'tokenOfOwnerByIndex', [address, i]]);
+    }
+
+    const tokenIdsRaw = await multicall(provider, POSITION_MANAGER_ABI, tokenIdsCall);
+    const tokenIds = tokenIdsRaw.map(([[id]]) => id);
+
+    const positionsCall = tokenIds.map(
+      (tokenId) => [options.positionManager, 'positions', [tokenId]] as [string, string, any[]]
+    );
+    const positions = await multicall(provider, POSITION_MANAGER_ABI, positionsCall);
+
     let total = 0n;
 
-    for (let i = 0; i < balance; i++) {
-      const tokenId = await pmContract.tokenOfOwnerByIndex(address, i, { blockTag });
-      const pos = await pmContract.positions(tokenId, { blockTag });
+    for (const [[, , , token1, fee, tickLower, tickUpper, liquidity, , , , tokensOwed1]] of positions) {
+      if (
+        token1.toLowerCase() !== options.tokenAddress.toLowerCase() ||
+        Number(fee) !== options.feeTier
+      ) {
+        continue;
+      }
 
-      const token1 = pos.token1.toLowerCase();
-      const fee = Number(pos.fee);
-
-      if (token1 !== options.tokenAddress.toLowerCase() || fee !== options.feeTier) continue;
-
-      const liquidity = pos.liquidity;
-      const owed = BigInt(pos.tokensOwed1);
-
-      const tickLower = Number(pos.tickLower);
-      const tickUpper = Number(pos.tickUpper);
-
-      const sqrtLower = Math.floor(Math.sqrt(1.0001 ** tickLower) * 2 ** 96);
-      const sqrtUpper = Math.floor(Math.sqrt(1.0001 ** tickUpper) * 2 ** 96);
+      const sqrtLower = Math.floor(Math.sqrt(1.0001 ** Number(tickLower)) * 2 ** 96);
+      const sqrtUpper = Math.floor(Math.sqrt(1.0001 ** Number(tickUpper)) * 2 ** 96);
 
       const amount1 = getAmount1ForLiquidity(sqrtLower, sqrtUpper, sqrtPriceX96, liquidity);
-      const votingPower = amount1 + owed;
+      const votingPower = amount1 + BigInt(tokensOwed1);
+
       total += votingPower;
     }
 

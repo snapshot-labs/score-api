@@ -852,7 +852,6 @@ const strategies = {
   'otterspace-badges': otterspaceBadges,
   'synthetic-nouns-with-claimer': syntheticNounsClaimerOwner,
   'echelon-wallet-prime-and-cached-key': echelonWalletPrimeAndCachedKey,
-  'nation3-votes-with-delegations': nation3VotesWIthDelegations,
   'nation3-passport-coop-with-delegations': nation3CoopPassportWithDelegations,
   'erc20-tokens-per-uni': erc20TokensPerUni,
   'bancor-standard-rewards-underlying-balance':
