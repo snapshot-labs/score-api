@@ -1,5 +1,4 @@
 import * as natoUniswapV3 from './nato-uniswap-v3';
-import * as nation3VotesWIthDelegations from './nation3-votes-with-delegations';
 import { readFileSync } from 'fs';
 import path from 'path';
 
@@ -340,7 +339,6 @@ import * as safeVested from './safe-vested';
 import * as otterspaceBadges from './otterspace-badges';
 import * as syntheticNounsClaimerOwner from './synthetic-nouns-with-claimer';
 import * as echelonWalletPrimeAndCachedKey from './echelon-wallet-prime-and-cached-key';
-import * as nation3VotesWithDelegations from './nation3-votes-with-delegations';
 import * as nation3CoopPassportWithDelegations from './nation3-passport-coop-with-delegations';
 import * as posichainStaking from './posichain-staking';
 import * as posichainTotalBalance from './posichain-total-balance';
