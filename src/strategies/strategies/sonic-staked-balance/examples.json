@@ -7,10 +7,13 @@
     },
     "network": "146",
     "addresses": [
-      "0x0C4290C3018172dD838631c94Ee6906C0eA65f5e",
-      "0x5c171fd91c10f27e5da347822e2c2586a96f9f8e",
-      "0xe5da20f15420ad15de0fa650600afc998bbe3955"
+      "0x15e4b289a07c034c9b0a0900d4c6a3111629a37b",
+      "0x3fde6fecc9044335f1193429c7c74efd7a8094c1",
+      "0xe5da20f15420ad15de0fa650600afc998bbe3955",
+      "0x0303523ad2ec276d1ce480b59a6585b97d5deabf",
+      "0x1c238ec275d94c9819b93a44ce866f1efb8247a5",
+      "0x3ebfbe0e523d8deb26d6f93cee987d2e974dd4ae"
     ],
-    "snapshot": 40635783
+    "snapshot": 551526
   }
 ]
