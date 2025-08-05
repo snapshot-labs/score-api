@@ -18,8 +18,14 @@ export async function strategy(
 ): Promise<Record<string, number>> {
   const formattedAddresses = addresses.map(getAddress);
 
+  // Initialize scores
+  const scores: Record<string, number> = {};
+  formattedAddresses.forEach(address => {
+    scores[address] = 0;
+  });
+
   // Fetch deactivated validators using validators query with status_not: "0"
-  let allDeactivatedValidators: any[] = [];
+  const deactivatedValidatorIds = new Set<string>();
   let skip = 0;
   const pageSize = 1000;
 
@@ -33,10 +39,7 @@ export async function strategy(
             status_not: '0'
           }
         },
-        id: true,
-        address: true,
-        totalDelegationReceived: true,
-        status: true
+        id: true
       }
     };
 
@@ -51,9 +54,9 @@ export async function strategy(
     );
 
     if (deactivatedData.validators && deactivatedData.validators.length > 0) {
-      allDeactivatedValidators = allDeactivatedValidators.concat(
-        deactivatedData.validators
-      );
+      deactivatedData.validators.forEach(validator => {
+        deactivatedValidatorIds.add(validator.id);
+      });
 
       if (deactivatedData.validators.length < pageSize) {
         break;
@@ -65,7 +68,8 @@ export async function strategy(
   }
 
   // Fetch validators only for input addresses with address-based batching
-  let allValidators: any[] = [];
+  const validatorAddressMap: Record<string, string> = {};
+  const validatorAddressSet = new Set<string>();
   const batchSize = 1000;
 
   for (let i = 0; i < formattedAddresses.length; i += batchSize) {
@@ -96,39 +100,16 @@ export async function strategy(
     const validatorData = await subgraphRequest(SUBGRAPH_URL, validatorParams);
 
     if (validatorData.validators && validatorData.validators.length > 0) {
-      allValidators = allValidators.concat(validatorData.validators);
+      validatorData.validators.forEach(validator => {
+        const address = getAddress(validator.address);
+        validatorAddressMap[validator.id] = address;
+        validatorAddressSet.add(address);
+        if (!deactivatedValidatorIds.has(validator.id)) {
+          scores[address] = parseFloat(validator.totalDelegationReceived);
+        }
+      });
     }
   }
-
-  // Get all deactivated validator IDs
-  const deactivatedValidatorIds = new Set<string>();
-  allDeactivatedValidators.forEach(validator => {
-    deactivatedValidatorIds.add(validator.id);
-  });
-
-  // Initialize scores
-  const scores: Record<string, number> = {};
-  formattedAddresses.forEach(address => {
-    scores[address] = 0;
-  });
-
-  const validatorAddressMap: Record<string, string> = {};
-  allValidators.forEach(validator => {
-    validatorAddressMap[validator.id] = getAddress(validator.address);
-  });
-
-  // Process validators (assign totalDelegationReceived as voting power if not deactivated)
-  allValidators.forEach(validator => {
-    if (!deactivatedValidatorIds.has(validator.id)) {
-      const address = getAddress(validator.address);
-      scores[address] = parseFloat(validator.totalDelegationReceived);
-    }
-  });
-
-  // Create validator address set for quick lookup
-  const validatorAddressSet = new Set(
-    allValidators.map(v => getAddress(v.address))
-  );
 
   // Filter out validator addresses to get only staker addresses
   const stakerAddresses = formattedAddresses.filter(
@@ -136,7 +117,7 @@ export async function strategy(
   );
 
   // Fetch stakes only for staker addresses (not validators) with address-based batching
-  let allStakes: any[] = [];
+  const stakesMap: Record<string, any> = {};
   const stakeBatchSize = 1000;
 
   for (let i = 0; i < stakerAddresses.length; i += stakeBatchSize) {
@@ -165,28 +146,22 @@ export async function strategy(
     const stakesData = await subgraphRequest(SUBGRAPH_URL, stakesParams);
 
     if (stakesData.stakes && stakesData.stakes.length > 0) {
-      allStakes = allStakes.concat(stakesData.stakes);
+      stakesData.stakes.forEach(stake => {
+        stakesMap[stake.id.toLowerCase()] = stake;
+      });
     }
   }
 
-  // Create a map of stakes for quick lookup
-  const stakesMap: Record<string, any> = {};
-  allStakes.forEach(stake => {
-    stakesMap[stake.id.toLowerCase()] = stake;
-  });
-
   // Process stakes for all formatted addresses (both validators and stakers)
-  formattedAddresses.forEach(address => {
+  stakerAddresses.forEach(address => {
     const stake = stakesMap[address.toLowerCase()];
     if (stake) {
-      let totalStake = 0;
-
       stake.stakedTo.forEach(stakeEntry => {
         const [validatorId, amount] = stakeEntry.split(':');
 
         // Only count if validator is not deactivated
         if (!deactivatedValidatorIds.has(validatorId)) {
-          totalStake += parseFloat(amount);
+          scores[address] += parseFloat(amount);
         }
 
         // If this stake is to a validator in our address list, subtract from validator's score
@@ -195,11 +170,6 @@ export async function strategy(
           scores[validatorAddress] -= parseFloat(amount);
         }
       });
-
-      // Only add stake score for non-validator addresses
-      if (!validatorAddressSet.has(address)) {
-        scores[address] = totalStake;
-      }
     }
   });
 
