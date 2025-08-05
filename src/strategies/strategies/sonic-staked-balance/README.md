@@ -1,17 +1,20 @@
-# sonic-staked-balance
 
-This strategy calculates voting power based on staked balance across all validators in the Sonic network.
+# Sonic Staked Balance
 
-## Description
+## How is Voting Power Calculated?
 
-The strategy works by:
+- **If you are a validator:**
+  - Your voting power is the total amount of SONIC tokens delegated to you by others (including your own stake), **unless you are deactivated**.
+  - If you are deactivated, your voting power is **zero**.
 
-1. Calling `lastValidatorID()` to get the total number of validators
-2. For each address, calling `getStake(address, validatorId)` for all validator IDs (1 to lastValidatorID)
-3. Summing up all stakes across all validators for each address as their voting power
+- **If you are a staker (not a validator):**
+  - Your voting power is the total amount of SONIC tokens you have staked (delegated) to active validators.
+  - Stakes to deactivated validators do **not** count.
 
-The strategy uses the default Sonic staking contract address `0xFC00FACE00000000000000000000000000000000` and 18 decimals.
+## Example Table
 
-## Parameters
-
-- `symbol`: Token symbol for display purposes (optional)
+| Who are you?           | What counts for your voting power?                |
+|------------------------|--------------------------------------------------|
+| Active Validator       | All SONIC tokens delegated to you                |
+| Deactivated Validator  | 0 (no voting power)                              |
+| Staker                 | All your SONIC tokens staked to active validators|

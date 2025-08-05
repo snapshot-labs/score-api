@@ -6,7 +6,7 @@ export const version = '0.2.0';
 export const dependOnOtherAddress = true;
 
 const SUBGRAPH_URL =
-  'https://api.studio.thegraph.com/query/24302/sonic-test-chaitu/v0.0.13';
+  'https://subgrapher.snapshot.org/subgraph/arbitrum/ERTXqMeMv8DLan3CEKb177qwj2AuNUWbAmxoXn8Z1Zqd';
 
 export async function strategy(
   space,
@@ -18,40 +18,68 @@ export async function strategy(
 ): Promise<Record<string, number>> {
   const formattedAddresses = addresses.map(getAddress);
 
-  // Fetch deactivated validators (single request, no pagination needed)
-  const deactivatedParams = {
-    deactivatedValidators_collection: {
-      __args: {
-        first: 1000
-      },
-      id: true,
-      validatorIds: true
-    }
-  };
-
-  if (snapshot !== 'latest') {
-    // @ts-ignore
-    deactivatedParams.deactivatedValidators_collection.__args.block = {
-      number: snapshot
-    };
-  }
-
-  const deactivatedData = await subgraphRequest(
-    SUBGRAPH_URL,
-    deactivatedParams
-  );
-
-  // Fetch all validators with pagination
-  let allValidators: any[] = [];
+  // Fetch deactivated validators using validators query with status_not: "0"
+  let allDeactivatedValidators: any[] = [];
   let skip = 0;
   const pageSize = 1000;
 
   while (true) {
-    const validatorParams = {
+    const deactivatedParams = {
       validators: {
         __args: {
           first: pageSize,
-          skip
+          skip,
+          where: {
+            status_not: '0'
+          }
+        },
+        id: true,
+        address: true,
+        totalDelegationReceived: true,
+        status: true
+      }
+    };
+
+    if (snapshot !== 'latest') {
+      // @ts-ignore
+      deactivatedParams.validators.__args.block = { number: snapshot };
+    }
+
+    const deactivatedData = await subgraphRequest(
+      SUBGRAPH_URL,
+      deactivatedParams
+    );
+
+    if (deactivatedData.validators && deactivatedData.validators.length > 0) {
+      allDeactivatedValidators = allDeactivatedValidators.concat(
+        deactivatedData.validators
+      );
+
+      if (deactivatedData.validators.length < pageSize) {
+        break;
+      }
+      skip += pageSize;
+    } else {
+      break;
+    }
+  }
+
+  // Fetch validators only for input addresses with address-based batching
+  let allValidators: any[] = [];
+  const batchSize = 1000;
+
+  for (let i = 0; i < formattedAddresses.length; i += batchSize) {
+    const addressBatch = formattedAddresses
+      .slice(i, i + batchSize)
+      .map(addr => addr.toLowerCase());
+
+    const validatorParams = {
+      validators: {
+        __args: {
+          first: 1000,
+          where: {
+            address_in: addressBatch
+          }
         },
         id: true,
         address: true,
@@ -69,23 +97,14 @@ export async function strategy(
 
     if (validatorData.validators && validatorData.validators.length > 0) {
       allValidators = allValidators.concat(validatorData.validators);
-
-      if (validatorData.validators.length < pageSize) {
-        break;
-      }
-      skip += pageSize;
-    } else {
-      break;
     }
   }
 
   // Get all deactivated validator IDs
   const deactivatedValidatorIds = new Set<string>();
-  if (deactivatedData.deactivatedValidators_collection) {
-    deactivatedData.deactivatedValidators_collection.forEach(item => {
-      item.validatorIds.forEach(id => deactivatedValidatorIds.add(id));
-    });
-  }
+  allDeactivatedValidators.forEach(validator => {
+    deactivatedValidatorIds.add(validator.id);
+  });
 
   // Initialize scores
   const scores: Record<string, number> = {};
@@ -102,62 +121,64 @@ export async function strategy(
   allValidators.forEach(validator => {
     if (!deactivatedValidatorIds.has(validator.id)) {
       const address = getAddress(validator.address);
-      if (formattedAddresses.includes(address)) {
-        scores[address] = parseFloat(validator.totalDelegationReceived);
-      }
+      scores[address] = parseFloat(validator.totalDelegationReceived);
     }
   });
 
-  // Get remaining addresses that are not validators
+  // Create validator address set for quick lookup
   const validatorAddressSet = new Set(
     allValidators.map(v => getAddress(v.address))
   );
+
+  // Filter out validator addresses to get only staker addresses
   const stakerAddresses = formattedAddresses.filter(
-    addr => !validatorAddressSet.has(addr)
+    address => !validatorAddressSet.has(address)
   );
 
-  if (stakerAddresses.length > 0) {
-    // Fetch all stakes for remaining addresses with pagination
-    let allStakes: any[] = [];
-    skip = 0;
+  // Fetch stakes only for staker addresses (not validators) with address-based batching
+  let allStakes: any[] = [];
+  const stakeBatchSize = 1000;
 
-    while (true) {
-      const stakesParams = {
-        stakes: {
-          __args: {
-            first: pageSize,
-            skip,
-            where: {
-              id_in: stakerAddresses.map(addr => addr.toLowerCase())
-            }
-          },
-          id: true,
-          stakedTo: true
-        }
-      };
+  for (let i = 0; i < stakerAddresses.length; i += stakeBatchSize) {
+    const addressBatch = stakerAddresses
+      .slice(i, i + stakeBatchSize)
+      .map(addr => addr.toLowerCase());
 
-      if (snapshot !== 'latest') {
-        // @ts-ignore
-        stakesParams.stakes.__args.block = { number: snapshot };
+    const stakesParams = {
+      stakes: {
+        __args: {
+          first: 1000,
+          where: {
+            id_in: addressBatch
+          }
+        },
+        id: true,
+        stakedTo: true
       }
+    };
 
-      const stakesData = await subgraphRequest(SUBGRAPH_URL, stakesParams);
-
-      if (stakesData.stakes && stakesData.stakes.length > 0) {
-        allStakes = allStakes.concat(stakesData.stakes);
-
-        if (stakesData.stakes.length < pageSize) {
-          break;
-        }
-        skip += pageSize;
-      } else {
-        break;
-      }
+    if (snapshot !== 'latest') {
+      // @ts-ignore
+      stakesParams.stakes.__args.block = { number: snapshot };
     }
 
-    // Process stakes for non-validator addresses
-    allStakes.forEach(stake => {
-      const address = getAddress(stake.id);
+    const stakesData = await subgraphRequest(SUBGRAPH_URL, stakesParams);
+
+    if (stakesData.stakes && stakesData.stakes.length > 0) {
+      allStakes = allStakes.concat(stakesData.stakes);
+    }
+  }
+
+  // Create a map of stakes for quick lookup
+  const stakesMap: Record<string, any> = {};
+  allStakes.forEach(stake => {
+    stakesMap[stake.id.toLowerCase()] = stake;
+  });
+
+  // Process stakes for all formatted addresses (both validators and stakers)
+  formattedAddresses.forEach(address => {
+    const stake = stakesMap[address.toLowerCase()];
+    if (stake) {
       let totalStake = 0;
 
       stake.stakedTo.forEach(stakeEntry => {
@@ -168,15 +189,19 @@ export async function strategy(
           totalStake += parseFloat(amount);
         }
 
+        // If this stake is to a validator in our address list, subtract from validator's score
         if (validatorAddressMap[validatorId]) {
           const validatorAddress = validatorAddressMap[validatorId];
           scores[validatorAddress] -= parseFloat(amount);
         }
       });
 
-      scores[address] = totalStake;
-    });
-  }
+      // Only add stake score for non-validator addresses
+      if (!validatorAddressSet.has(address)) {
+        scores[address] = totalStake;
+      }
+    }
+  });
 
   return scores;
 }
