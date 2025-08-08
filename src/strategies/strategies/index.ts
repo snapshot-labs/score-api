@@ -456,6 +456,7 @@ import * as a51VaultBalance from './a51-vault-balance';
 import * as quickswapv3 from './quickswap-v3';
 import * as balanceOfWithBazaarBatchAuctionLinearVestingPower from './balance-of-with-bazaar-batch-auction-linear-vesting-power';
 import * as stakingBalanceOfV1 from './staking-balance-of-v1';
+import * as welfStakingBalanceOfV1 from './welf-staking-balance-of-v1';
 import * as gardenStakes from './garden-stakes';
 import * as csv from './csv';
 import * as swarmStaking from './swarm-staking';
@@ -967,6 +968,7 @@ const strategies = {
   'balance-of-with-bazaar-batch-auction-linear-vesting-power':
     balanceOfWithBazaarBatchAuctionLinearVestingPower,
   'staking-balance-of-v1': stakingBalanceOfV1,
+  'welf-staking-balance-of-v1': welfStakingBalanceOfV1,
   'staking-balance-of-v2': stakingBalanceOfV2,
   'garden-stakes': gardenStakes,
   csv,
