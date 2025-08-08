@@ -91,6 +91,7 @@ import * as delegation from './delegation';
 import * as delegationWithCap from './delegation-with-cap';
 import * as delegationWithOverrides from './delegation-with-overrides';
 import * as withDelegation from './with-delegation';
+import * as sparkWithDelegation from './spark-with-delegation';
 import * as ticket from './ticket';
 import * as work from './work';
 import * as ticketValidity from './ticket-validity';
@@ -618,6 +619,7 @@ const strategies = {
   'delegation-with-cap': delegationWithCap,
   'delegation-with-overrides': delegationWithOverrides,
   'with-delegation': withDelegation,
+  'spark-with-delegation': sparkWithDelegation,
   ticket,
   work,
   'ticket-validity': ticketValidity,
