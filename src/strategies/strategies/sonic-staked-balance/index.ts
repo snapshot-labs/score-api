@@ -24,66 +24,26 @@ export async function strategy(
     scores[address] = 0;
   });
 
-  // Fetch deactivated validators using validators query with status_not: "0"
   const deactivatedValidatorIds = new Set<string>();
-  let skip = 0;
-  const pageSize = 1000;
-
-  while (true) {
-    const deactivatedParams = {
-      validators: {
-        __args: {
-          first: pageSize,
-          skip,
-          where: {
-            status_not: '0'
-          }
-        },
-        id: true
-      }
-    };
-
-    if (snapshot !== 'latest') {
-      // @ts-ignore
-      deactivatedParams.validators.__args.block = { number: snapshot };
-    }
-
-    const deactivatedData = await subgraphRequest(
-      SUBGRAPH_URL,
-      deactivatedParams
-    );
-
-    if (deactivatedData.validators && deactivatedData.validators.length > 0) {
-      deactivatedData.validators.forEach(validator => {
-        deactivatedValidatorIds.add(validator.id);
-      });
-
-      if (deactivatedData.validators.length < pageSize) {
-        break;
-      }
-      skip += pageSize;
-    } else {
-      break;
-    }
-  }
-
-  // Fetch validators only for input addresses with address-based batching
   const validatorAddressMap: Record<string, string> = {};
   const validatorAddressSet = new Set<string>();
-  const batchSize = 1000;
 
-  for (let i = 0; i < formattedAddresses.length; i += batchSize) {
-    const addressBatch = formattedAddresses
-      .slice(i, i + batchSize)
-      .map(addr => addr.toLowerCase());
+  let skip = 0;
+  const pageSize = 1000;
+  const maxSkip = 5000;
+
+  while (true) {
+    if (skip > maxSkip) {
+      throw new Error('Query pagination limit exceeded (skip > 5000)');
+    }
 
     const validatorParams = {
       validators: {
         __args: {
-          first: 1000,
-          where: {
-            address_in: addressBatch
-          }
+          first: pageSize,
+          skip,
+          orderBy: 'id',
+          orderDirection: 'asc'
         },
         id: true,
         address: true,
@@ -101,13 +61,30 @@ export async function strategy(
 
     if (validatorData.validators && validatorData.validators.length > 0) {
       validatorData.validators.forEach(validator => {
+        // Track deactivated validators
+        if (validator.status !== '0') {
+          deactivatedValidatorIds.add(validator.id);
+        }
+
+        // Process validators that match our input addresses
         const address = getAddress(validator.address);
-        validatorAddressMap[validator.id] = address;
-        validatorAddressSet.add(address);
-        if (!deactivatedValidatorIds.has(validator.id)) {
-          scores[address] = parseFloat(validator.totalDelegationReceived);
+        if (formattedAddresses.includes(address)) {
+          validatorAddressMap[validator.id] = address;
+          validatorAddressSet.add(address);
+
+          // Only add score if validator is active (status === '0')
+          if (validator.status === '0') {
+            scores[address] = parseFloat(validator.totalDelegationReceived);
+          }
         }
       });
+
+      if (validatorData.validators.length < pageSize) {
+        break;
+      }
+      skip += pageSize;
+    } else {
+      break;
     }
   }
 
