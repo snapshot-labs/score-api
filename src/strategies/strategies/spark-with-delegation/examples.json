@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Example query with whitelisted delegates",
+    "strategy": {
+      "name": "spark-with-delegation",
+      "params": {
+        "symbol": "SPARK",
+        "whitelistedDelegates": [
+          "0x3c13f2B56AF614aC6381265EcB3B619bA26CC641",
+          "0xda44bc1cd00c8916e7d791ed3c36aea52e1eef44"
+        ]
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0xBE8E3e3618f7474F8cB1d074A26afFef007E98FB",
+      "0x6FE588FDCC6A34207485cc6e47673F59cCEDF92B",
+      "0x3300f198988e4C9C63F75dF86De36421f06af8c4",
+      "0xc6132FAF04627c8d05d6E759FAbB331Ef2D8F8fD",
+      "0x400fEaa2119F40c540920451b3992027Df0b7E29",
+      "0xda44bc1cd00c8916e7d791ed3c36aea52e1eef44",
+      "0xeeeeee8dd0c8c2d639ce9427cf6ddf08fa6818ea"
+    ],
+    "snapshot": 23098340
+  },
+  {
+    "name": "Example query without whitelisted delegates",
+    "strategy": {
+      "name": "spark-with-delegation",
+      "params": {
+        "symbol": "SPARK"
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0xBE8E3e3618f7474F8cB1d074A26afFef007E98FB",
+      "0x6FE588FDCC6A34207485cc6e47673F59cCEDF92B",
+      "0x3300f198988e4C9C63F75dF86De36421f06af8c4",
+      "0xc6132FAF04627c8d05d6E759FAbB331Ef2D8F8fD",
+      "0x400fEaa2119F40c540920451b3992027Df0b7E29",
+      "0xda44bc1cd00c8916e7d791ed3c36aea52e1eef44",
+      "0xeeeeee8dd0c8c2d639ce9427cf6ddf08fa6818ea"
+    ],
+    "snapshot": 23098340
+  }
+]
