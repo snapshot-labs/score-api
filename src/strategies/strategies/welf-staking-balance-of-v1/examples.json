@@ -1,0 +1,48 @@
+[
+  {
+    "name": "WelfStaking with time-weighted voting power",
+    "strategy": {
+      "name": "welf-staking-balance-of-v1",
+      "params": {
+        "staking_contract": "0xC1397AAe5Fdcaf254F19289387B5d8eE78a7bCb7",
+        "pool_id": "0",
+        "decimals": 18,
+        "weightByStakeTime": true
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0x04f6bc693D47Bb7851a538e5D047363d39CC5bf6",
+      "0xDA94d7A385D7187110cb361C1E5db73f1fc90ce1",
+      "0x13f214ebFc49A23973848766088ef2705dEa968E",
+      "0x1E5d4Cd4a878b4077cC5e07D79601AbD67503b9f",
+      "0x26d479a8abe60F68BCaBa9DA2657fD8c0972787d",
+      "0x98fE7AAD45263FbE56bbC7592e90a7cF7F5De5de",
+      "0x2AD548f42333bd663b15F69FD44aE8363529f338"
+    ],
+    "snapshot": 23058742
+  },
+  {
+    "name": "WelfStaking simple balance-based voting",
+    "strategy": {
+      "name": "welf-staking-balance-of-v1",
+      "params": {
+        "staking_contract": "0xC1397AAe5Fdcaf254F19289387B5d8eE78a7bCb7",
+        "pool_id": "0",
+        "decimals": 18,
+        "weightByStakeTime": false
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0x04f6bc693D47Bb7851a538e5D047363d39CC5bf6",
+      "0xDA94d7A385D7187110cb361C1E5db73f1fc90ce1",
+      "0x13f214ebFc49A23973848766088ef2705dEa968E",
+      "0x1E5d4Cd4a878b4077cC5e07D79601AbD67503b9f",
+      "0x26d479a8abe60F68BCaBa9DA2657fD8c0972787d",
+      "0x98fE7AAD45263FbE56bbC7592e90a7cF7F5De5de",
+      "0x2AD548f42333bd663b15F69FD44aE8363529f338"
+    ],
+    "snapshot": 23058742
+  }
+]

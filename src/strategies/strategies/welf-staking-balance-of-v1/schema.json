@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Strategy",
+  "definitions": {
+    "Strategy": {
+      "title": "Strategy",
+      "type": "object",
+      "properties": {
+        "decimals": {
+          "type": "number",
+          "title": "Decimals of the staking token",
+          "examples": ["e.g. 18"],
+          "minimum": 0,
+          "maximum": 18
+        },
+        "staking_contract": {
+          "type": "string",
+          "title": "WelfStaking contract address",
+          "examples": ["e.g. 0xC1397AAe5Fdcaf254F19289387B5d8eE78a7bCb7"],
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "minLength": 42,
+          "maxLength": 42
+        },
+        "pool_id": {
+          "type": "string",
+          "title": "Main pool ID on WelfStaking contract",
+          "examples": ["0"],
+          "pattern": "^[0-9]+$",
+          "default": "0",
+          "minLength": 1,
+          "maxLength": 10
+        },
+        "weightByStakeTime": {
+          "type": "boolean",
+          "title": "Whether to weight voting power by stake duration",
+          "description": "If true, longer stakes get higher voting power",
+          "examples": [true, false],
+          "default": false
+        }
+      },
+      "required": [
+        "staking_contract",
+        "decimals",
+        "pool_id",
+        "weightByStakeTime"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
