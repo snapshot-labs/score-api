@@ -1,4 +1,3 @@
-import * as natoUniswapV3 from './nato-uniswap-v3';
 import { readFileSync } from 'fs';
 import path from 'path';
 
@@ -92,6 +91,7 @@ import * as delegation from './delegation';
 import * as delegationWithCap from './delegation-with-cap';
 import * as delegationWithOverrides from './delegation-with-overrides';
 import * as withDelegation from './with-delegation';
+import * as sparkWithDelegation from './spark-with-delegation';
 import * as ticket from './ticket';
 import * as work from './work';
 import * as ticketValidity from './ticket-validity';
@@ -339,6 +339,7 @@ import * as safeVested from './safe-vested';
 import * as otterspaceBadges from './otterspace-badges';
 import * as syntheticNounsClaimerOwner from './synthetic-nouns-with-claimer';
 import * as echelonWalletPrimeAndCachedKey from './echelon-wallet-prime-and-cached-key';
+import * as nation3VotesWIthDelegations from './nation3-votes-with-delegations';
 import * as nation3CoopPassportWithDelegations from './nation3-passport-coop-with-delegations';
 import * as posichainStaking from './posichain-staking';
 import * as posichainTotalBalance from './posichain-total-balance';
@@ -455,6 +456,7 @@ import * as a51VaultBalance from './a51-vault-balance';
 import * as quickswapv3 from './quickswap-v3';
 import * as balanceOfWithBazaarBatchAuctionLinearVestingPower from './balance-of-with-bazaar-batch-auction-linear-vesting-power';
 import * as stakingBalanceOfV1 from './staking-balance-of-v1';
+import * as welfStakingBalanceOfV1 from './welf-staking-balance-of-v1';
 import * as gardenStakes from './garden-stakes';
 import * as csv from './csv';
 import * as swarmStaking from './swarm-staking';
@@ -497,7 +499,6 @@ import * as orderlyStakedOrder from './orderly-staked-order';
 import { DEFAULT_SUPPORTED_PROTOCOLS } from '../constants';
 
 const strategies = {
-    
   'shroomy-voting-power': shroomyVotingPower,
   'apecoin-staking': apecoinStaking,
   'erc20-balance-of-saevo': erc20BalanceOfSaevo,
@@ -540,7 +541,6 @@ const strategies = {
   'ens-10k-club': ens10kClub,
   'ens-all-club-digits': ensAllClubDigits,
   'governor-delegator': governorDelegator,
-  'nato-uniswap-v3': natoUniswapV3,
   'erc20-balance-of': erc20BalanceOf,
   'erc20-balance-of-at': erc20BalanceOfAt,
   'erc20-votes': erc20Votes,
@@ -619,6 +619,7 @@ const strategies = {
   'delegation-with-cap': delegationWithCap,
   'delegation-with-overrides': delegationWithOverrides,
   'with-delegation': withDelegation,
+  'spark-with-delegation': sparkWithDelegation,
   ticket,
   work,
   'ticket-validity': ticketValidity,
@@ -852,6 +853,7 @@ const strategies = {
   'otterspace-badges': otterspaceBadges,
   'synthetic-nouns-with-claimer': syntheticNounsClaimerOwner,
   'echelon-wallet-prime-and-cached-key': echelonWalletPrimeAndCachedKey,
+  'nation3-votes-with-delegations': nation3VotesWIthDelegations,
   'nation3-passport-coop-with-delegations': nation3CoopPassportWithDelegations,
   'erc20-tokens-per-uni': erc20TokensPerUni,
   'bancor-standard-rewards-underlying-balance':
@@ -966,6 +968,7 @@ const strategies = {
   'balance-of-with-bazaar-batch-auction-linear-vesting-power':
     balanceOfWithBazaarBatchAuctionLinearVestingPower,
   'staking-balance-of-v1': stakingBalanceOfV1,
+  'welf-staking-balance-of-v1': welfStakingBalanceOfV1,
   'staking-balance-of-v2': stakingBalanceOfV2,
   'garden-stakes': gardenStakes,
   csv,
@@ -1038,6 +1041,4 @@ Object.keys(strategies).forEach(function (strategyName) {
   strategies[strategyName].supportedProtocols ||= DEFAULT_SUPPORTED_PROTOCOLS;
 });
 
-
 export default strategies;
-
