@@ -1,8 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
-import { Interface } from '@ethersproject/abi';
-import { Contract } from '@ethersproject/contracts';
-import { JsonRpcProvider } from '@ethersproject/providers';
+import { Multicaller } from '../../utils';
 
 const POSITION_MANAGER_ABI = [
   'function balanceOf(address owner) view returns (uint256)',
@@ -27,31 +25,9 @@ function getAmount1ForLiquidity(
 
   if (current <= lower) return 0n;
   if (current < upper) {
-    return (liq * (current - lower)) / (2n ** 96n);
+    return (liq * (current - lower)) / 2n ** 96n;
   }
-  return (liq * (upper - lower)) / (2n ** 96n);
-}
-
-async function multicall(
-  provider: JsonRpcProvider,
-  abi: string[],
-  calls: [string, string, any[]][]
-): Promise<any[]> {
-  const iface = new Interface(abi);
-  const results: any[] = [];
-
-  for (const [address, method, params] of calls) {
-    const contract = new Contract(address, abi, provider);
-    try {
-      const result = await contract[method](...params);
-      results.push([[...(Array.isArray(result) ? result : [result])]]);
-    } catch (err: any) {
-      console.warn(`Multicall failed for ${method} on ${address}:`, err?.message);
-      results.push([[undefined]]);
-    }
-  }
-
-  return results;
+  return (liq * (upper - lower)) / 2n ** 96n;
 }
 
 export const strategy = async (
@@ -63,70 +39,150 @@ export const strategy = async (
   snapshot: number | 'latest'
 ) => {
   const results: Record<string, number> = {};
+  const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
-const provider = new JsonRpcProvider(
-  'https://developer-access-mainnet.base.org',
-  {
-    name: 'base',
-    chainId: 8453
-  }
-);
+  // 1) slot0 call
+  const poolCaller = new Multicaller(_network, _provider, POOL_ABI, {
+    blockTag
+  });
+  poolCaller.call('slot0', options.poolAddress, 'slot0', []);
+  const poolRes = await poolCaller.execute();
+  const slot0Arr = poolRes.slot0 as any[];
+  if (!slot0Arr || !slot0Arr[0])
+    throw new Error('❌ Failed to fetch slot0() from pool');
+  const sqrtPriceX96 = BigInt(slot0Arr[0]);
 
+  // 2) balanceOf batch
+  const balancesCaller = new Multicaller(
+    _network,
+    _provider,
+    POSITION_MANAGER_ABI,
+    { blockTag }
+  );
+  addresses.forEach(addr => {
+    balancesCaller.call(
+      `${getAddress(addr)}.balance`,
+      options.positionManager,
+      'balanceOf',
+      [addr]
+    );
+  });
+  const balancesRes = (await balancesCaller.execute()) as Record<
+    string,
+    { balance: any }
+  >;
 
-  const [[slot0Result]] = await multicall(provider, POOL_ABI, [
-    [options.poolAddress, 'slot0', []]
-  ]);
+  // 3) tokenOfOwnerByIndex batch
+  const tokensCaller = new Multicaller(
+    _network,
+    _provider,
+    POSITION_MANAGER_ABI,
+    { blockTag }
+  );
+  Object.entries(balancesRes).forEach(([addr, { balance }]) => {
+    const count = Number(balance || 0);
+    for (let i = 0; i < count; i++) {
+      tokensCaller.call(
+        `${addr}.tokenIds.${i}`,
+        options.positionManager,
+        'tokenOfOwnerByIndex',
+        [addr, i]
+      );
+    }
+  });
+  const tokensRes = (await tokensCaller.execute()) as Record<
+    string,
+    { tokenIds: Record<string, any> }
+  >;
 
-  if (!slot0Result || !slot0Result[0]) {
-    throw new Error('❌ Failed to fetch slot0() from the pool contract.');
-  }
+  // 4) positions batch
+  const positionsCaller = new Multicaller(
+    _network,
+    _provider,
+    POSITION_MANAGER_ABI,
+    { blockTag }
+  );
+  Object.values(tokensRes).forEach((entry: any) => {
+    if (!entry?.tokenIds) return;
+    Object.values(entry.tokenIds).forEach((tokenId: any) => {
+      if (tokenId !== undefined) {
+        positionsCaller.call(
+          `pos.${tokenId}`,
+          options.positionManager,
+          'positions',
+          [tokenId.toString()]
+        );
+      }
+    });
+  });
+  const positionsRes = (await positionsCaller.execute()) as Record<
+    string,
+    any[]
+  >;
 
-  const sqrtPriceX96 = BigInt(slot0Result[0]);
-
-  for (const address of addresses) {
-    const [[balanceResult]] = await multicall(provider, POSITION_MANAGER_ABI, [
-      [options.positionManager, 'balanceOf', [address]]
-    ]);
-
-    const balance = Number(balanceResult);
-    if (!balance) {
-      results[getAddress(address)] = 0;
+  // 5) Aggregate results
+  for (const addrRaw of addresses) {
+    const addr = getAddress(addrRaw);
+    const bal = balancesRes[addr]?.balance
+      ? Number(balancesRes[addr].balance)
+      : 0;
+    if (!bal) {
+      results[addr] = 0;
       continue;
     }
 
-    const tokenIdsCall: [string, string, any[]][] = [];
-    for (let i = 0; i < balance; i++) {
-      tokenIdsCall.push([options.positionManager, 'tokenOfOwnerByIndex', [address, i]]);
-    }
-
-    const tokenIdsRaw = await multicall(provider, POSITION_MANAGER_ABI, tokenIdsCall);
-    const tokenIds = tokenIdsRaw.map(([[id]]) => id);
-
-    const positionsCall = tokenIds.map(
-      (tokenId) => [options.positionManager, 'positions', [tokenId]] as [string, string, any[]]
-    );
-    const positions = await multicall(provider, POSITION_MANAGER_ABI, positionsCall);
+    const tokenIdsObj = (tokensRes[addr]?.tokenIds || {}) as Record<
+      string,
+      any
+    >;
+    const tokenIds = Object.values(tokenIdsObj)
+      .map((v: any) => v?.toString())
+      .filter(Boolean);
 
     let total = 0n;
+    for (const tokenId of tokenIds) {
+      const pos = positionsRes[`pos.${tokenId}`];
+      if (!pos) continue;
 
-    for (const [[, , , token1, fee, tickLower, tickUpper, liquidity, , , , tokensOwed1]] of positions) {
+      const [
+        ,
+        ,
+        ,
+        token1,
+        fee,
+        tickLower,
+        tickUpper,
+        liquidity,
+        ,
+        ,
+        ,
+        tokensOwed1
+      ] = pos;
+
       if (
-        token1.toLowerCase() !== options.tokenAddress.toLowerCase() ||
-        Number(fee) !== options.feeTier
-      ) {
+        String(token1).toLowerCase() !==
+          String(options.tokenAddress).toLowerCase() ||
+        Number(fee) !== Number(options.feeTier)
+      )
         continue;
-      }
 
-      const sqrtLower = Math.floor(Math.sqrt(1.0001 ** Number(tickLower)) * 2 ** 96);
-      const sqrtUpper = Math.floor(Math.sqrt(1.0001 ** Number(tickUpper)) * 2 ** 96);
+      const sqrtLower = Math.floor(
+        Math.sqrt(Math.pow(1.0001, Number(tickLower))) * 2 ** 96
+      );
+      const sqrtUpper = Math.floor(
+        Math.sqrt(Math.pow(1.0001, Number(tickUpper))) * 2 ** 96
+      );
 
-      const amount1 = getAmount1ForLiquidity(sqrtLower, sqrtUpper, sqrtPriceX96, liquidity);
-      const votingPower = amount1 + BigInt(tokensOwed1);
-
-      total += votingPower;
+      const amount1 = getAmount1ForLiquidity(
+        sqrtLower,
+        sqrtUpper,
+        sqrtPriceX96,
+        BigInt(liquidity)
+      );
+      total += amount1 + BigInt(tokensOwed1);
     }
 
-    results[getAddress(address)] = parseFloat(formatUnits(total.toString(), 18));
+    results[addr] = parseFloat(formatUnits(total.toString(), 18));
   }
 
   return results;
