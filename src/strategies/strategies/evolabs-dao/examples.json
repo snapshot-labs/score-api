@@ -1,0 +1,42 @@
+[
+  {
+    "name": "EvoLabs DAO with Snapshot Delegation",
+    "strategy": {
+      "name": "evolabs-dao",
+      "params": {
+        "sbtAddress": "0xea8176c28417a6fd2f2e40f871ea04dffe1cacd8",
+        "additionalBlacklist": [
+          "0x0000000000000000000000000000000000000001"
+        ],
+        "delegationSpace": "evolabsdaotest.eth"
+      }
+    },
+    "network": "11155111",
+    "addresses": [
+      "0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11",
+      "0xeF8305E140ac520225DAf050e2f71d5fBcC543e7",
+      "0x1E1A51E25f2816335cA436D65e9Af7694BE232ad",
+      "0x1F717Ce8ff07597ee7c408b5623dF40AaAf1787C",
+      "0x1c7a9275F2BD5a260A9c31069F77d53473b8ae2e"
+    ],
+    "snapshot": 8967681
+  },
+  {
+    "name": "EvoLabs DAO Basic SBT Only",
+    "strategy": {
+      "name": "evolabs-dao",
+      "params": {
+        "sbtAddress": "0xea8176c28417a6fd2f2e40f871ea04dffe1cacd8"
+      }
+    },
+    "network": "11155111",
+    "addresses": [
+      "0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11",
+      "0xeF8305E140ac520225DAf050e2f71d5fBcC543e7",
+      "0x1E1A51E25f2816335cA436D65e9Af7694BE232ad",
+      "0x1F717Ce8ff07597ee7c408b5623dF40AaAf1787C",
+      "0x1c7a9275F2BD5a260A9c31069F77d53473b8ae2e"
+    ],
+    "snapshot": 8967681
+  }
+]
