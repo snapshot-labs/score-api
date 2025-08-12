@@ -35,7 +35,7 @@ Each SBT holder gets exactly 1 vote, regardless of how many SBTs they own. This 
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `sbtAddress` | `string` | ✅ | Contract address of the Soulbound Token (handles contract blacklist automatically) |
+| `address` | `string` | ✅ | Contract address of the Soulbound Token (handles contract blacklist automatically) |
 | `blacklist` | `string[]` | ❌ | Additional addresses to exclude from voting (Snapshot-level blacklist) |
 | `delegationSpace` | `string` | ❌ | Snapshot space for delegation (defaults to current space) |
 | `useOnChainDelegation` | `boolean` | ❌ | Enable on-chain delegation support |
@@ -45,8 +45,8 @@ Each SBT holder gets exactly 1 vote, regardless of how many SBTs they own. This 
 
 ```json
 {
-  "sbtAddress": "0x1234567890123456789012345678901234567890",
-  "blacklist": [
+  "address": "0x1234567890123456789012345678901234567890",
+  "additionalBlacklist": [
     "0xbadactor1234567890123456789012345678901234",
     "0xbadactor2345678901234567890123456789012345"
   ],
@@ -59,8 +59,8 @@ Each SBT holder gets exactly 1 vote, regardless of how many SBTs they own. This 
 
 ```json
 {
-  "sbtAddress": "0x1234567890123456789012345678901234567890",
-  "blacklist": [],
+  "address": "0x1234567890123456789012345678901234567890",
+  "additionalBlacklist": [],
   "useOnChainDelegation": true,
   "delegationContract": "0x5678901234567890123456789012345678901234"
 }

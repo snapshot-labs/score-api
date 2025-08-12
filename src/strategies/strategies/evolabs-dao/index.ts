@@ -20,25 +20,29 @@ const delegationAbi = [
 ];
 
 export async function strategy(
-  space,
-  network,
-  provider,
-  addresses,
-  options,
-  snapshot
+  space: string,
+  network: string,
+  provider: any,
+  addresses: string[],
+  options: {
+    address: string;
+    additionalBlacklist?: string[];
+    delegationSpace?: string;
+    useOnChainDelegation?: boolean;
+    delegationContract?: string;
+  },
+  snapshot: string | number
 ): Promise<Record<string, number>> {
-  const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
-
-  // Validate required parameters
-  if (!options.sbtAddress) {
-    throw new Error('sbtAddress parameter is required');
+  // Validate required parameter
+  if (!options.address) {
+    throw new Error('address parameter is required');
   }
 
   // Normalize addresses
   const normalizedAddresses = addresses.map(address => getAddress(address));
 
   // Filter out Snapshot-configured blacklisted addresses (additional layer)
-  const blacklist = (options.blacklist || []).map((addr: string) =>
+  const blacklist = (options.additionalBlacklist || []).map((addr: string) =>
     addr.toLowerCase()
   );
   const eligibleAddresses = normalizedAddresses.filter(
@@ -51,9 +55,12 @@ export async function strategy(
 
   // Check SBT ownership for eligible addresses
   // Note: SBT contract also burns tokens from contract-blacklisted users automatically
+  const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
+
+  // Get SBT balances for all eligible addresses
   const sbtMulti = new Multicaller(network, provider, sbtAbi, { blockTag });
   eligibleAddresses.forEach(address =>
-    sbtMulti.call(address, options.sbtAddress, 'balanceOf', [address])
+    sbtMulti.call(address, options.address, 'balanceOf', [address])
   );
   const sbtBalances: Record<string, BigNumberish> = await sbtMulti.execute();
 
@@ -78,7 +85,7 @@ export async function strategy(
       blockTag
     });
     sbtHolders.forEach(address =>
-      delegationMulti.call(address, options.delegationContract, 'delegates', [
+      delegationMulti.call(address, options.delegationContract!, 'delegates', [
         address
       ])
     );
@@ -108,7 +115,7 @@ export async function strategy(
       delegationSpace,
       network,
       addresses,
-      snapshot
+      snapshot as any
     );
 
     // Convert Snapshot delegations to our format

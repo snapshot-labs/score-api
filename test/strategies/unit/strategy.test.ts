@@ -49,7 +49,7 @@ describe.each(examples)(
     let scores: any = null;
     let getScoresTime: number | null = null;
 
-    it.only('Strategy name should be lowercase and should not contain any special char expect hyphen', () => {
+    it('Strategy name should be lowercase and should not contain any special char expect hyphen', () => {
       expect(strategy).toMatch(/^[a-z0-9\-]+$/);
     });
 
@@ -67,7 +67,6 @@ describe.each(examples)(
 
       const provider = snapshot.utils.getProvider(example.network);
       const blockNumber = await snapshot.utils.getBlockNumber(provider);
-
       expect(example.snapshot).toBeLessThanOrEqual(blockNumber);
     });
 
@@ -80,10 +79,7 @@ describe.each(examples)(
       console.log(`Resolved in ${(getScoresTime / 1e3).toFixed(2)} sec.`);
     }, 2e4);
 
-    it.only('Should return an array of object with addresses', () => {
-      console.log('Scores:', scores);
-      console.log('Example addresses:', example.addresses);
-
+    it('Should return an array of object with addresses', () => {
       expect(scores).toBeTruthy();
       // Check array
       expect(Array.isArray(scores)).toBe(true);

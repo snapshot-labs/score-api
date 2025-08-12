@@ -12,7 +12,7 @@
           "examples": ["e.g. SBT"],
           "maxLength": 16
         },
-        "sbtAddress": {
+        "address": {
           "type": "string",
           "title": "Soulbound Token Contract Address",
           "description": "The address of the SBT contract that determines voting eligibility. Contract automatically burns tokens from contract-blacklisted users.",
@@ -21,7 +21,7 @@
           "minLength": 42,
           "maxLength": 42
         },
-        "blacklist": {
+        "additionalBlacklist": {
           "type": "array",
           "title": "Additional Blacklisted Addresses",
           "description": "Array of addresses to exclude from voting (in addition to SBT contract blacklist)",
@@ -55,7 +55,7 @@
           "maxLength": 42
         }
       },
-      "required": ["sbtAddress"],
+      "required": ["address"],
       "additionalProperties": false
     }
   }

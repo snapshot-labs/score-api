@@ -26,13 +26,13 @@ describe('evolabs-dao strategy', () => {
     mockGetDelegations.mockResolvedValue({});
   });
 
-  it('should require sbtAddress parameter', async () => {
+  it('should require address parameter', async () => {
     const addresses = ['0x1234567890123456789012345678901234567890'];
-    const options = {};
+    const options = {} as any;
 
     await expect(
       strategy('test-space', '1', mockProvider, addresses, options, 'latest')
-    ).rejects.toThrow('sbtAddress parameter is required');
+    ).rejects.toThrow('address parameter is required');
   });
 
   it('should return zeros for addresses with no SBT', async () => {
@@ -42,7 +42,7 @@ describe('evolabs-dao strategy', () => {
 
     const addresses = ['0x1234567890123456789012345678901234567890'];
     const options = {
-      sbtAddress: '0xSBTContract'
+      address: '0xSBTContract'
     };
 
     const result = await strategy(
@@ -70,7 +70,7 @@ describe('evolabs-dao strategy', () => {
       '0x2345678901234567890123456789012345678901'
     ];
     const options = {
-      sbtAddress: '0xSBTContract'
+      address: '0xSBTContract'
     };
 
     const result = await strategy(
@@ -99,7 +99,7 @@ describe('evolabs-dao strategy', () => {
       '0x2345678901234567890123456789012345678901'
     ];
     const options = {
-      sbtAddress: '0xSBTContract',
+      address: '0xSBTContract',
       additionalBlacklist: ['0x1234567890123456789012345678901234567890']
     };
 
@@ -137,7 +137,7 @@ describe('evolabs-dao strategy', () => {
       '0x2345678901234567890123456789012345678901' // delegate
     ];
     const options = {
-      sbtAddress: '0xSBTContract',
+      address: '0xSBTContract',
       delegationSpace: 'test-space'
     };
 
@@ -174,7 +174,7 @@ describe('evolabs-dao strategy', () => {
       '0x2345678901234567890123456789012345678901' // delegate
     ];
     const options = {
-      sbtAddress: '0xSBTContract',
+      address: '0xSBTContract',
       useOnChainDelegation: true,
       delegationContract: '0xDelegationContract'
     };
