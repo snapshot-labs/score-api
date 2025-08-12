@@ -2,8 +2,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall, Multicaller } from '../../utils';
 
-export const dependOnOtherAddress = false;
-
 const abi = [
   'function userInfo(address) view returns (uint256 shares, uint256 lastDepositedTime, uint256 fuzzAtLastUserAction, uint256 lastUserActionTime)',
   'function getPricePerFullShare() view returns (uint256)'

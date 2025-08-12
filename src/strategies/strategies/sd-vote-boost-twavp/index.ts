@@ -1,7 +1,5 @@
 import { multicall } from '../../utils';
 
-export const dependOnOtherAddress = false;
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function working_supply() external view returns (uint256)',

@@ -4,8 +4,6 @@ import { formatUnits, parseUnits } from '@ethersproject/units';
 import { strategy as erc721BalanceOfStrategy } from '../erc721';
 import { Multicaller, subgraphRequest } from '../../utils';
 
-export const dependOnOtherAddress = false;
-
 const lpStakingABI = [
   'function stakedTokenBalance(address account) view returns (uint256)'
 ];

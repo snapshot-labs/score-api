@@ -1010,6 +1010,7 @@ Object.keys(strategies).forEach(function (strategyName) {
   let examples = null;
   let schema = null;
   let about = '';
+  let manifest: any = null;
 
   try {
     examples = JSON.parse(
@@ -1035,10 +1036,26 @@ Object.keys(strategies).forEach(function (strategyName) {
   } catch (error) {
     about = '';
   }
+
+  try {
+    manifest = JSON.parse(
+      readFileSync(path.join(__dirname, strategyName, 'manifest.json'), 'utf8')
+    );
+  } catch (error) {
+    manifest = null;
+  }
+
   strategies[strategyName].examples = examples;
   strategies[strategyName].schema = schema;
   strategies[strategyName].about = about;
   strategies[strategyName].supportedProtocols ||= DEFAULT_SUPPORTED_PROTOCOLS;
+
+  if (manifest) {
+    if (manifest.author) strategies[strategyName].author = manifest.author;
+    if (manifest.version) strategies[strategyName].version = manifest.version;
+    if (manifest.overriding)
+      strategies[strategyName].dependOnOtherAddress = manifest.overriding;
+  }
 });
 
 export default strategies;

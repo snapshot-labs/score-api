@@ -1,7 +1,5 @@
 import { customFetch } from '../../utils';
 
-export const dependOnOtherAddress = false;
-
 function csvToJson(csv) {
   const lines = csv.split('\n');
   const keys = lines[0].split(',').map(key => key.trim());
