@@ -2,9 +2,6 @@ import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'd10r';
-export const version = '0.1.0';
-
 // signatures of the methods we need
 const abi = [
   // LockerFactory

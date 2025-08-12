@@ -1,8 +1,5 @@
 import { subgraphRequest, customFetch } from '../../utils';
 
-export const author = 'alberthaotan';
-export const version = '0.1.0';
-
 const Endpoint: {
   name: string;
   graphql: string;

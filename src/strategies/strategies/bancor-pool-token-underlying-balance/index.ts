@@ -2,9 +2,6 @@ import { call } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = 'TudorSante';
-export const version = '1.0.0';
-
 const erc20ABI = [
   'function poolToken(address pool) external view returns (address)',
   'function poolTokenToUnderlying(address pool, uint256 poolTokenAmount) external view returns (uint256)'

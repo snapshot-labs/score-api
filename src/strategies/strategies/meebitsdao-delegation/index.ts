@@ -4,9 +4,6 @@ import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { strategy as erc721Strategy } from '../erc721';
 import { subgraphRequest, getProvider, getSnapshots } from '../../utils';
 
-export const author = 'maikir';
-export const version = '0.2.0';
-
 const MEEBITSDAO_DELEGATION_SUBGRAPH_URL =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/6ZRqJohQ1nJ9a3mESbFudJSmnuCmo3n1LCz4BbRqzNRt';
 

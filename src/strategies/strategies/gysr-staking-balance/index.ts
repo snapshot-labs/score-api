@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'devinaconley';
-export const version = '0.0.1';
-
 const abi = [
   'function stakingBalances(address user) external view returns (uint256[])'
 ];

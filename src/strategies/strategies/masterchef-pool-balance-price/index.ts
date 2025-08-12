@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 import { multicall, customFetch } from '../../utils';
 
-export const author = 'joaomajesus';
-export const version = '0.2.0';
-
 /*
  * Generic masterchef pool balance or price strategy. Accepted options:
  * - chefAddress: Masterchef contract address

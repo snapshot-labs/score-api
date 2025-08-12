@@ -4,9 +4,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { WeiPerEther } from '@ethersproject/constants';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'SID-Marcus';
-export const version = '0.0.1';
-
 const pancakeV3Subgraph =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/78EUqzJmEVJsAKvWghn7qotf9LVGqcTQxJhT5z84ZmgJ';
 

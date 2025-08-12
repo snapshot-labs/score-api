@@ -6,9 +6,6 @@ import {
 } from '../../utils';
 import { getDelegations } from '../../utils/delegation';
 
-export const author = 'trizin';
-export const version = '0.2.0';
-
 const abi = [
   'function isVerifiedUser(address _user) external view returns (bool)'
 ];

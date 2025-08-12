@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'my-swarm';
-export const version = '0.1.0';
-
 /*
  * Generic masterchef pool balance strategy. Accepted options:
  * - chefAddress: masterchef contract address

@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { multicall } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'snapshot-labs';
-export const version = '0.1.0';
-
 const apeCoinStakingAbi = [
   'function stakedTotal(uint256[] baycTokenIds, uint256[] maycTokenIds, uint256[] bakcTokenIds) external view returns (uint256)'
 ];

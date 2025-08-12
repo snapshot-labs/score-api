@@ -4,9 +4,6 @@ import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 import creatorToProxyMap from './creator-to-proxy-map';
 
-export const author = 'SwarmMarkets';
-export const version = '1.0.0';
-
 // 137 - Polygon network number
 const SUBGRAPH_URL = {
   137: 'https://gateway-arbitrum.network.thegraph.com/api/2e2730968289f9eb3287cd3f1991a957/deployments/id/QmbcvkW34SqmJLCaUB1GHkx61bFV7bSy2BHhzb3xuNTJhN'

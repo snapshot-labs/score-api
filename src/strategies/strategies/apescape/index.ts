@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { call, multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'apescape';
-export const version = '0.1.0';
-
 const chefAbi = [
   {
     inputs: [

@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'oscarsernarosero';
-export const version = '0.1.0';
-
 type batch = [stakeAmount: BigNumber, timeStamp: BigNumber];
 const stakeAmount = 0; // index of the stake amount in the batch tuple
 const timeStamp = 1; // index of the timestamp in the batch tuple

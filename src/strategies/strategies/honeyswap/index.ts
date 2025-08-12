@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'Kittyslasher';
-export const version = '0.2.0';
-
 const HONEYSWAP_SUBGRAPH_URL = {
   '100': {
     exchange:

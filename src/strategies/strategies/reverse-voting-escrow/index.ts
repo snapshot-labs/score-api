@@ -3,9 +3,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { Multicaller, customFetch } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'nascentxyz';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOf(address owner) external view returns (uint256)',
   'function getClaimableAmount(bytes32 cohortId, uint256 index, address account, uint256 fullAmount) external view returns (uint256)',

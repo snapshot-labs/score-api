@@ -7,9 +7,6 @@ const UNISWAP_V3_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
 };
 
-export const author = 'ribbon-finance';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

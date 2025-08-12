@@ -4,9 +4,6 @@ import { multicall } from '../../utils';
 
 const BIG18 = BigNumber.from('1000000000000000000');
 
-export const author = 'FraxFinance';
-export const version = '0.0.2';
-
 // 0.0.1: FXS Plus FXS in LPs
 // 0.0.2: Adds veFXS and removes outdated SushiSwap LPs
 

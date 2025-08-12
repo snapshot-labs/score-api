@@ -3,9 +3,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'flaflafla';
-export const version = '0.1.1';
-
 // contracts available on Ethereum mainnet and Goerli testnet
 const kidsAddressByNetwork = {
   1: '0xa5ae87B40076745895BB7387011ca8DE5fde37E0',

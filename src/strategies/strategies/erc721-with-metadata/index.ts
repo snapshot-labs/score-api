@@ -2,9 +2,6 @@ import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import snapshots from '@snapshot-labs/snapshot.js';
 
-export const author = 'allmysmarts';
-export const version = '0.1.1';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256)'

@@ -10,9 +10,6 @@ const SUSHISWAP_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/6NUtT5mGjZ1tSshKLf5Q3uEEJtjBZJo1TpL5MXsUBqrT'
 };
 
-export const author = '0xKiwi';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

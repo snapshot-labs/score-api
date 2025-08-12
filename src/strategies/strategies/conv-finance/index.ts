@@ -2,9 +2,6 @@ import { multicall } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'eric-convergence';
-export const version = '0.1.0';
-
 interface STRATEGY_OPTIONS {
   address: string;
   symbol: string;

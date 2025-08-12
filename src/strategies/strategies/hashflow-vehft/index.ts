@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'gxmxni-hashflow';
-export const version = '0.1.0';
-
 const BALANCE_OF_ABI =
   'function balanceOf(address owner) external view returns (uint256 balance)';
 const STAKE_POWER_ABI =

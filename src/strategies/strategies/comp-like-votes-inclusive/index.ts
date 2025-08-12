@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { call } from '../../utils';
 
-export const author = 'd1ll0nk';
-export const version = '0.1.0';
-
 const abi = [
   'function getMultipleVotesInclusive(address token, address[] accounts) external view returns (uint256[] scores)'
 ];

@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { Multicaller, subgraphRequest } from '../../utils';
 
-export const author = 'rafaqat11';
-export const version = '0.1.0';
-
 const A51_VAULT_SUBGRAPH_URL = {
   '137':
     'https://subgrapher.snapshot.org/subgraph/arbitrum/GXc2d1wMCbyKq2F2qRo8zcCad6tXsmXubEA5F8jGKBTG'

@@ -3,9 +3,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { subgraphRequest, call } from '../../utils';
 import { calculateEmission } from './utils';
 
-export const author = 'maxaleks';
-export const version = '0.1.0';
-
 const EASY_STAKING_SUBGRAPH_URL =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/3jhMxbXh6Ua3WXfa7BuFHdh4nUDZaVgLVrvoouhUNPfT';
 

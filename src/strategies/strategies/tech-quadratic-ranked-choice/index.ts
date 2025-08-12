@@ -16,9 +16,6 @@ function sqrt(value: BigNumber) {
   return BigNumber.from(y);
 }
 
-export const author = 'pkretzschmar';
-export const version = '0.0.1';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)'
 ];
