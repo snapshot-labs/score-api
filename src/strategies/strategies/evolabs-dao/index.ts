@@ -3,7 +3,7 @@ import { getAddress } from '@ethersproject/address';
 import { Multicaller } from '../../utils';
 import { getDelegations } from '../../utils/delegation';
 
-export const author = 'bonustrack';
+export const author = 'specter';
 export const version = '1.0.0';
 
 // ABI for Soulbound Token (ERC-721 standard)
@@ -45,6 +45,7 @@ export async function strategy(
   const blacklist = (options.additionalBlacklist || []).map((addr: string) =>
     addr.toLowerCase()
   );
+
   const eligibleAddresses = normalizedAddresses.filter(
     address => !blacklist.includes(address.toLowerCase())
   );
@@ -62,10 +63,10 @@ export async function strategy(
   eligibleAddresses.forEach(address =>
     sbtMulti.call(address, options.address, 'balanceOf', [address])
   );
+
   const sbtBalances: Record<string, BigNumberish> = await sbtMulti.execute();
 
   // Filter addresses that have at least 1 SBT
-  // (Both Snapshot blacklist and SBT contract blacklist are now handled)
   const sbtHolders = eligibleAddresses.filter(address => {
     const balance = sbtBalances[address];
     return balance && balance.toString() !== '0';
