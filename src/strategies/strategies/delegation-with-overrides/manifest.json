@@ -1,4 +1,5 @@
 {
+  "name": "Delegation With Overrides",
   "author": "0xbutterfield",
   "version": "0.1.0",
   "overriding": true
