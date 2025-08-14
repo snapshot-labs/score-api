@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'bxmmm1';
-export const version = '0.1.0';
-
 const abi = [
   'function getPastVotes(address account, uint256 timepoint) view returns (uint256)'
 ];

@@ -2,9 +2,6 @@ import { getProvider, getSnapshots } from '../../utils';
 import strategies from '..';
 import { Contract } from '@ethersproject/contracts';
 
-export const author = 'barrasso';
-export const version = '1.0.0';
-
 const CONTRACT_ADDRESSES = {
   '1': {
     accountProxy: '0x0E429603D3Cb1DFae4E6F52Add5fE82d96d77Dac',

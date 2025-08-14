@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'orange-protocol';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOf(address owner) view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)',

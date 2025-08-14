@@ -2,10 +2,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'PolySwift';
-export const version = '0.1.0';
-
-
 const singleStakingPoolAbi = [
   'function userInfo(address) view returns (uint256 amount, uint256 rewardDebt)'
 ];

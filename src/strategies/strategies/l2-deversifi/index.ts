@@ -1,8 +1,6 @@
 import examplesFile from './examples.json';
 import { customFetch } from '../../utils';
 
-export const author = 'deversifi';
-export const version = '0.1.0';
 export const examples = examplesFile;
 
 export async function strategy(

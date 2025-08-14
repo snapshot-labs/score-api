@@ -7,9 +7,6 @@ import openStakingAbi from './ABI/openStakingABI.json';
 import standardStakingAbi from './ABI/standardStakingABI.json';
 import { ABI } from './types';
 
-export const author = 'taha-abbasi';
-export const version = '1.3.0';
-
 export async function strategy(
   space,
   network,

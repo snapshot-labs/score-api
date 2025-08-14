@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'etedwardelric';
-export const version = '0.0.1';
-
 const abi = [
   'function balanceOf(address _owner) view returns (uint256 balance)',
   'function userInfo(uint256, address) view returns (uint256 amount, uint256 rewardDebt)',

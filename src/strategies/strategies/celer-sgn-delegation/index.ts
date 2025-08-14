@@ -4,9 +4,6 @@ import { formatUnits } from '@ethersproject/units';
 
 import { multicall } from '../../utils';
 
-export const author = 'dominator008';
-export const version = '0.2.0';
-
 const v1StakingABI = [
   'function getValidatorNum() view returns (uint256)',
   'function validatorSet(uint256) view returns (address)',

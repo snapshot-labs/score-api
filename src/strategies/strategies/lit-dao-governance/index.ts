@@ -3,9 +3,6 @@ import { getAddress } from '@ethersproject/address';
 import { multicall } from '../../utils';
 import { strategy as masterchefStrategy } from '../masterchef-pool-balance';
 
-export const author = 'wizardlabsxyz';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)'
 ];

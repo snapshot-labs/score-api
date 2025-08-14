@@ -6,9 +6,6 @@ const SUBGRAPH_URL = {
   '111188': 'https://graph.tetu.io/subgraphs/name/sacra-real'
 };
 
-export const author = 'alexandersazonof';
-export const version = '0.0.2';
-
 export async function strategy(
   _space,
   network,

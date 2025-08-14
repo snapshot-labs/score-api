@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'JayWelsh';
-export const version = '0.1.0';
-
 /**
  * xSEEN token ABI
  */

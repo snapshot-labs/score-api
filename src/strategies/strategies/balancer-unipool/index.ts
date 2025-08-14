@@ -2,9 +2,6 @@ import { multicall } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'tempofeng';
-export const version = '0.1.0';
-
 // Merged ABIs from below contracts:
 // * BPool from Balancer-labs: https://github.com/balancer-labs/balancer-core/blob/master/contracts/BPool.sol
 // * Unipool contract from @k06a: https://github.com/k06a/Unipool/blob/master/contracts/Unipool.sol

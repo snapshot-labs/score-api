@@ -2,9 +2,6 @@ import { call } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'divine-comedian';
-export const version = '1.1.1';
-
 export async function strategy(
   space,
   network,

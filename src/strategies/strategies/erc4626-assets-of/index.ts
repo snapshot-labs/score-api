@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 
 import { Multicaller } from '../../utils';
 
-export const author = '0x-logic';
-export const version = '0.0.1';
-
 const abi: string[] = [
   'function balanceOf(address account) external view returns (uint256)',
   'function convertToAssets(uint256 shares) public view returns (uint256 assets)'

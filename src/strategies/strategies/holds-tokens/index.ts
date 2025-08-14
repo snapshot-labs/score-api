@@ -1,8 +1,5 @@
 import { strategy as multichainStrategy } from '../multichain';
 
-export const author = 'lightninglu10';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,

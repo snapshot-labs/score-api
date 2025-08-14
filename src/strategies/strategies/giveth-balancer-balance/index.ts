@@ -3,9 +3,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { getAddress } from '@ethersproject/address';
 import { parseUnits, formatUnits } from '@ethersproject/units';
 
-export const author = 'pkretzschmar';
-export const version = '0.1.0';
-
 const GIVETH_SUBGRAPH_API =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/D1nWhEyZsWmsuqUJTzZZXfpxDXht5WKte7nDdDV6Ah7Y';
 

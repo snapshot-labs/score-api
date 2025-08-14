@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'maticnetwork';
-export const version = '0.1.0';
-
 const stakeManagerABI = [
   'function getValidatorContract(uint256) view returns (address)',
   'function validators(uint256) view returns (uint256 amount, uint256 reward, uint256 activationEpoch, uint256 deactivationEpoch, uint256 jailTime, address signer, address contractAddress, uint8 status, uint256 commissionRate, uint256 lastCommissionUpdate, uint256 delegatorsReward, uint256 delegatedAmount, uint256 initialRewardPerStake)',

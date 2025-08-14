@@ -15,9 +15,6 @@ const NAMES_10K_CLUB = [...Array(10000).keys()]
   .map(i => -1 + i + 1)
   .map(x => x.toString().padStart(4, '0'));
 
-export const author = 'paste';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,

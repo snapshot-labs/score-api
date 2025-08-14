@@ -3,9 +3,6 @@ import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { Strategy } from '@snapshot-labs/snapshot.js/dist/src/voting/types';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'gnosisguild';
-export const version = '1.0.0';
-
 const DEFAULT_BACKEND_URL = 'https://delegate-api.gnosisguild.org';
 
 type Params = {

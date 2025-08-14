@@ -5,9 +5,6 @@ const FLASHSTAKE_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/4RQRar5ZKWVVZABSaCugWBCJC1GW9Nx3eFUtQ5vyYc9F'
 };
 
-export const author = 'anassohail99';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

@@ -5,9 +5,6 @@ import { StaticJsonRpcProvider } from '@ethersproject/providers';
 
 import { getBlockNumber, getProvider, Multicaller } from '../../utils';
 
-export const author = 'carlosfebres';
-export const version = '1.0.0';
-
 const contracts = {
   eco: '0x8dBF9A4c99580fC7Fd4024ee08f3994420035727',
   ecox: '0xcccD1Ba9f7acD6117834E0D28F25645dECb1736a',

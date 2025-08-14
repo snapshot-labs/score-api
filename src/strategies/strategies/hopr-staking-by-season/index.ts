@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'QYuQianchen';
-export const version = '0.1.0';
-
 const XDAI_BLOCK_SUBGRAPH_URL =
   'https://api.thegraph.com/subgraphs/name/1hive/xdai-blocks';
 const HOPR_STAKING_SUBGRAPH_ROOT =

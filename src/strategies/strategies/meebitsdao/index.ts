@@ -1,8 +1,5 @@
 import { multicall, customFetch } from '../../utils';
 
-export const author = 'peters-josh';
-export const version = '0.1.0';
-
 const abi = [
   'function ownerOf(uint256 tokenId) public view returns (address owner)',
   'function tokenURI(uint256 tokenId) public view returns (string uri)'

@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'scottrepreneur';
-export const version = '0.1.0';
-
 const abi = [
   'function memberAddressByDelegateKey(address) view returns (address)',
   'function members(address) view returns (address delegateKey, uint256 shares, uint256 loot, bool exists, uint256 highestIndexYesVote, uint256 jailed)'

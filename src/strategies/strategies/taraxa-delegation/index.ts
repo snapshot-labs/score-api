@@ -4,9 +4,6 @@ import { getAddress } from '@ethersproject/address';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 import { Multicaller } from '../../utils';
 
-export const author = 'Taraxa-project';
-export const version = '0.1.0';
-
 const abi = [
   'function getTotalDelegation(address delegator) external view returns (uint256 total_delegation)',
   'function getEthBalance(address account) public view returns (uint256 balance)'

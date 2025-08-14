@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'oyyblin';
-export const version = '0.1.0';
-
 const abi = [
   'function getStakeAmount(address) external view returns (uint256)'
 ];

@@ -3,9 +3,6 @@ import { multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { BigNumberish } from '@ethersproject/bignumber';
 
-export const author = 'asim07';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function getUserCurrentActiveShares(address) external view returns (uint256)',

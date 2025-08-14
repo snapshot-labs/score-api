@@ -14,9 +14,6 @@ const SUBGRAPH_URL = {
     'https://subgrapher.snapshot.org/subgraph/arbitrum/DK2gHCprwVaytwzwb5fUrkFS9xy7wh66NX6AFcDzMyF9' // avalanche
 };
 
-export const author = 'sablier-labs';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

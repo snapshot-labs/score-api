@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'coreycaplan3';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOfVotes(address account) external view returns (uint256)'
 ];

@@ -1,8 +1,5 @@
 import { customFetch } from '../../utils';
 
-export const author = '0xsarvesh';
-export const version = '0.0.2';
-
 const MOXIE_ENDPOINT = 'https://api.moxie.xyz/protocol/address-votes';
 const MOXIE_API_KEY = process.env.MOXIE_API_KEY || '';
 

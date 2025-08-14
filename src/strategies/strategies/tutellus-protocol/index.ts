@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits, parseEther } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'victormer';
-export const version = '0.0.1';
-
 const tokenABI = [
   'function balanceOf(address account) external view returns (uint256)'
 ];

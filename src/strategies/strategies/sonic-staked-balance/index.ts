@@ -1,10 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'snapshot-labs';
-export const version = '0.2.0';
-export const dependOnOtherAddress = true;
-
 const SUBGRAPH_URL =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/ERTXqMeMv8DLan3CEKb177qwj2AuNUWbAmxoXn8Z1Zqd';
 

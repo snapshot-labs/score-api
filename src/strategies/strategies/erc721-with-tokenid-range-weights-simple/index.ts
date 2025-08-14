@@ -2,9 +2,6 @@ import { strategy as erc721WithMultiplier } from '../erc721-with-multiplier';
 import { multicall } from '../../utils';
 import { WeightRange } from './types';
 
-export const author = 'FeSens';
-export const version = '0.2.0';
-
 const abi = [
   'function ownerOf(uint256 tokenId) public view returns (address owner)'
 ];

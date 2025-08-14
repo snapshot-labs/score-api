@@ -48,8 +48,6 @@ interface SumHousesPoints {
 }
 
 // Major constants
-export const author = 'Microflow-xyz';
-export const version = '0.1.0';
 // Constants
 const IRYS_NETWORK_GRAPHQL_URL = {
   MAINNET: 'https://node1.irys.xyz/graphql',

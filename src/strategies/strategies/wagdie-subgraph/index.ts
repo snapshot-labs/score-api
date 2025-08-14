@@ -5,9 +5,6 @@ const SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/CiuchCqNbcNs88KkbQqs7PwuaD2DrPqHqxuDVKrJ5ESM'
 };
 
-export const author = 'IcculusHerEmissary';
-export const version = '0.2.0';
-
 export async function strategy(
   _space,
   network,

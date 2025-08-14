@@ -1,8 +1,5 @@
 import strategies from '..';
 
-export const author = 'snapshot-labs';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,

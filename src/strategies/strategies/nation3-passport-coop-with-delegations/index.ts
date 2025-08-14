@@ -3,9 +3,6 @@ import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'nation3';
-export const version = '0.3.0';
-
 type Query = { [key: string]: any };
 
 const DECIMALS = 18;

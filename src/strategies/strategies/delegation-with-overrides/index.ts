@@ -2,10 +2,6 @@ import { getDelegations } from '../../utils/delegation';
 import { getScoresDirect } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = '0xbutterfield';
-export const version = '0.1.0';
-export const dependOnOtherAddress = true;
-
 export async function strategy(
   space,
   network,

@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'MantisClone';
-export const version = '0.1.0';
-
 const SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/Djs1i3j3XpSqkieuQAULxTp2cA2j4V8wxWo6XUqgJte7'
 };

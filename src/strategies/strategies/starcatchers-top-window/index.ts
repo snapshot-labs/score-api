@@ -1,8 +1,5 @@
 import { subgraphRequest } from '../../utils';
 
-export const author = 'sunshinekitty';
-export const version = '0.0.1';
-
 const SC_GRAPH_URL =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/AdLbReMZHHHhoKH1s2EcBQ4QrHPTaKqYyriKFJxSxwKm';
 

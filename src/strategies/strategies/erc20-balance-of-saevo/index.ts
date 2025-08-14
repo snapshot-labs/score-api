@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
 import fetch from 'cross-fetch';
 
-export const author = 'timongll';
-export const version = '0.1.0';
-
 interface EpochStakeAmount {
   stakedAmount: string;
   unstakedAmount: string;

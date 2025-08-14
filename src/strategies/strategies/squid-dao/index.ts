@@ -2,9 +2,6 @@ import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller, call } from '../../utils';
 
-export const author = 'zencephalon';
-export const version = '0.0.0';
-
 const vewsSquidContractAddress = '0x58807e624b9953c2279e0efae5edcf9c7da08c7b';
 const nftContractAddress = '0x7136ca86129e178399b703932464df8872f9a57a';
 const sSquidContractAdress = '0x9d49bfc921f36448234b0efa67b5f91b3c691515';

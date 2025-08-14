@@ -12,9 +12,6 @@ import {
 } from './utils';
 import { farmingAbi, bep20Abi } from './utils';
 
-export const author = 'theo6890';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,

@@ -1,9 +1,6 @@
 import { formatUnits, parseUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'BenjaminLu';
-export const version = '0.1.0';
-
 const abi = [
   {
     constant: true,

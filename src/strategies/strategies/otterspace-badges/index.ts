@@ -1,9 +1,6 @@
 import { error } from 'console';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'otterspace-xyz';
-export const version = '1.0.1';
-
 const OTTERSPACE_SUBGRAPH_API_URLS_BY_CHAIN_ID = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/6ihhxkTaxozNgrvyKbyTc7BDvwA9mByhDXXTJzW3E6gw',
   '10': 'https://subgrapher.snapshot.org/subgraph/arbitrum/DvWYwk9KfxGRE8AH9bNgtSxwGvjgTYXYnHyajQpNWLQB',

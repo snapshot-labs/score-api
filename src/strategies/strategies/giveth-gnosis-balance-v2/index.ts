@@ -2,9 +2,6 @@ import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'mateodaza';
-export const version = '0.1.0';
-
 const GIVETH_SUBGRAPH_API =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/7UFA1vv3cXNKzzaSVWt6Fe4EhU8B71G97XwWWkN4kxAW';
 const XDAI_BLOCKS_API =

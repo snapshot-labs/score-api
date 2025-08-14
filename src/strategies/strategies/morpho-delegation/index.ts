@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'morpho-labs';
-export const version = '0.1.0';
-
 const abi = [
   'function delegatedVotingPower(address account) external view returns (uint256)',
   'function delegatee(address delegatee) public view returns (uint256)',

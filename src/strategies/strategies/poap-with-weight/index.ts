@@ -2,8 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 import examplesFile from './examples.json';
 
-export const author = 'gawainb';
-export const version = '1.1.0';
 export const examples = examplesFile;
 
 const POAP_API_ENDPOINT_URL = {

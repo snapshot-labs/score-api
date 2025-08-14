@@ -2,9 +2,6 @@ import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'chuddster';
-export const version = '0.1.0';
-
 const BALANCER_VAULT = '0xBA12222222228d8Ba445958a75a0704d566BF2C8';
 
 const abi = [

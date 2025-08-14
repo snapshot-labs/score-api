@@ -1,9 +1,6 @@
 import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'RedDuck-Software';
-export const version = '0.0.1';
-
 async function getTopHoldersBalance(
   url,
   options,

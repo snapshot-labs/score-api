@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'theyashgupta';
-export const version = '0.1.0';
-
 const abi = [
   'function getUserStakes(uint256 poolId, address user) view returns (tuple(uint256 amount, uint256 startTime, uint256 lastClaimTime)[])',
   'function getPoolInfo(uint256 poolId) view returns (tuple(string name, address stakingToken, address rewardToken, uint256 cooldownPeriod, uint256 currentTierVersion, bool isPaused, uint256 minStake, uint8 rewardStrategy, address rewardAddress, bool restricted, bool allowPartialUnstake) config, tuple(uint256 version, uint256 effectiveTime, uint256[] durations, uint256[] apys) activeTier)'

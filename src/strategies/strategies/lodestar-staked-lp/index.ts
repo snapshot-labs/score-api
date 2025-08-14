@@ -3,10 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller, multicall } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = '0xAppo';
-export const version = '0.1.0';
-
-
 const abi = [
   'function userInfo(address) view returns (uint256 amount, uint256 rewardDebt)',
   'function balanceOf(address account) external view returns (uint256)',

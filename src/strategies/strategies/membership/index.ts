@@ -1,8 +1,5 @@
 import _strategies from '..';
 
-export const author = 'blakewest';
-export const version = '1.0.0';
-
 /*
 Membership Based Voting Strategy
 

@@ -1,8 +1,5 @@
 import { subgraphRequest, customFetch } from '../../utils';
 
-export const author = 'akshaysoam8';
-export const version = '0.0.1';
-
 type VotingResponse = {
   verificationHash: string;
   block: number;

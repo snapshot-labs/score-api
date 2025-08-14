@@ -2,9 +2,6 @@ import { multicall } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'paraswap';
-export const version = '0.1.0';
-
 const abi = [
   'function stakeCount(address stakerAddr) view returns (uint256)',
   'function stakeLists(address stakerAddr, uint256 stakeid) view returns (uint128,uint128,uint40,uint16,uint16,uint16)'

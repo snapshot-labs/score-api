@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'programmablewealth';
-export const version = '0.0.1';
-
 const tokenAbi = [
   'function balanceOf(address account) view returns (uint256)',
   'function totalSupply() view returns (uint256)'

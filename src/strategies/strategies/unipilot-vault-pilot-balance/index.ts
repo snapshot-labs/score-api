@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 
 import { subgraphRequest, call, multicall } from '../../utils';
 
-export const author = 'daniyalmanzoor';
-export const version = '0.1.0';
-
 function bn(num: any): BigNumber {
   return BigNumber.from(num.toString());
 }

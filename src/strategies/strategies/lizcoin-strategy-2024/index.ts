@@ -3,9 +3,6 @@ import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'ethlizards';
-export const version = '0.1.0';
-
 const abi = [
   'function decimals() external view returns (uint8)',
   'function totalSupply() external view returns (uint256)',

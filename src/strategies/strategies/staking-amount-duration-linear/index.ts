@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'JanBajecDev';
-export const version = '0.1.0';
-
 const abi = [
   'function getUserStakes(address user) view returns (tuple(uint256 amount, uint256 claimed, uint48 stakeTime, uint8 planId, bool unstaked)[])'
 ];

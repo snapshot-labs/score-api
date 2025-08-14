@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'drgorillamd';
-export const version = '0.2.0';
-
 const JBTokenStore = {
   1: '0xee2eBCcB7CDb34a8A822b589F9E8427C24351bfc',
   2: '0xCBB8e16d998161AdB20465830107ca298995f371',

@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { getAddress, isAddress } from '@ethersproject/address';
 import { multicall } from '../../utils';
 
-export const author = 'snapshot-labs';
-export const version = '0.1.0';
-
 const abi = [
   'function delegates(address account) view returns (address)',
   'function balanceOf(address account) view returns (uint256)'

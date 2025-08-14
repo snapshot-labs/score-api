@@ -4,9 +4,6 @@ interface ApiReturn {
   voteWeight: string[];
 }
 
-export const author = 'iotex';
-export const version = '0.0.2';
-
 const testNetUrl = 'https://analyser-api.testnet.iotex.io';
 const mainNetUrl = 'https://analyser-api.iotex.io';
 

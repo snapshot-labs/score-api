@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'mocaverse';
-export const version = '0.1.0';
-
 const abi = [
   'function getUser(address user) view returns (tuple(uint256 amount, uint256 cumulativeWeight, uint256 lastUpdateTimestamp))'
 ];

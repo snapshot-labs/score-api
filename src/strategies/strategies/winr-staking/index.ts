@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'flushjb';
-export const version = '0.1.0';
-
 const abi = [
   'function getActiveIndexes(address staker) external view returns (uint256[])',
   'function vestingStakedAmount(address _account, uint256[] _indexes) external view returns (uint256 _totalStaked)',

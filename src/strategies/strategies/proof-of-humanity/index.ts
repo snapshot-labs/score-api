@@ -1,8 +1,5 @@
 import { Multicaller } from '../../utils';
 
-export const author = 'jaybuidl';
-export const version = '0.1.0';
-
 const abi = [
   'function isRegistered(address _submissionID) external view returns (bool)'
 ];

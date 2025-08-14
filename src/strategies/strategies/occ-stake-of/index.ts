@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'OccamFi';
-export const version = '0.1.0';
-
 const abi = [
   'function getStake(address user) public view returns (uint stake)'
 ];

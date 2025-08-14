@@ -2,9 +2,6 @@ import { multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'pierremarsotlyon1';
-export const version = '0.0.1';
-
 // Used ABI
 const abi = [
   'function balanceOf(address account) external view returns (uint256)'

@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 import { customFetch } from '../../utils';
 
-export const author = 'mccallofthewild';
-export const version = '0.1.0';
-
 export async function strategy(
   ...args: [
     string,

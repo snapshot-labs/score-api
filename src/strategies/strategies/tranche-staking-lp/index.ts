@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'ayush-jibrel';
-export const version = '0.1.0';
-
 const UNISWAP_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/EYCKATKGBKLWvSfwvBjzfCBmGwYNdVkduYXVivCsLRFu'
 };

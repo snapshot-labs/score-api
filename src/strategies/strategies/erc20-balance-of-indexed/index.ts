@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = '0xAurelius';
-export const version = '0.0.1';
-
 const abi = ['function index() public view returns (uint256)'];
 
 export async function strategy(

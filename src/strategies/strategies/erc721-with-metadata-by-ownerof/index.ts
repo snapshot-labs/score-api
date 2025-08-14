@@ -1,9 +1,6 @@
 import { multicall } from '../../utils';
 import snapshots from '@snapshot-labs/snapshot.js';
 
-export const author = 'victor-kyriazakos';
-export const version = '0.1.0';
-
 const abi = [
   'function ownerOf(uint256 tokenId) public view returns (address owner)'
 ];

@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { multicall } from '../../utils';
 
-export const author = 'skyrocktech';
-export const version = '0.0.2';
-
 const hasRegisteredAbi = [
   'function hasRegistered(address _userAddress) view returns (bool)'
 ];

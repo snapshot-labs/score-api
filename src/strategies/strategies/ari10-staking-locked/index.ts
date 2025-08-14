@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'oritwoen';
-export const version = '0.1.0';
-
 const abi = [
   'function userInfo(uint256, address) external view returns (uint256 amount, uint256 lockedAmount)'
 ];

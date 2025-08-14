@@ -2,9 +2,6 @@ import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'rocket-pool';
-export const version = '0.1.3';
-
 const rocketNetworkPricesAddress = '0xd3f500F550F46e504A4D2153127B47e007e11166';
 const rocketNetworkPricesContractAbi = [
   'function getRPLPrice() external view returns (uint256)'

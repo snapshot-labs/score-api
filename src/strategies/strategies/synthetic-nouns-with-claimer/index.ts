@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { Multicaller, customFetch } from '../../utils';
 
-export const author = 'stephancill';
-export const version = '0.1.0';
-
 const abi = ['function ownerOf(uint256 index) external view returns (address)'];
 
 export async function strategy(

@@ -1,9 +1,6 @@
 import { customFetch } from '../../utils';
 import { strategy as erc721BalanceOfStrategy } from '../erc721';
 
-export const author = 'rawrjustin';
-export const version = '0.1.0';
-
 const calculateVotingPower = (inputAddresses, addressScores, walletMap) => {
   const userVotingPower = {};
   inputAddresses.forEach(input => {

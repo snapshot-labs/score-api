@@ -1,9 +1,6 @@
 import { subgraphRequest } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = 'onigiri-x';
-export const version = '0.1.0';
-
 const QUICKSWAP_SUBGRAPH = 'https://api.fura.org/subgraphs/name/quickswap';
 
 export async function strategy(

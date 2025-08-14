@@ -8,9 +8,6 @@ const ENS_SUBGRAPH_URL = {
   '5': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli'
 };
 
-export const author = 'makoto';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

@@ -2,9 +2,6 @@ import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 import { formatEther } from '@ethersproject/units';
 
-export const author = 'ZombieDAODev';
-export const version = '0.1.0';
-
 const stakingAbi = [
   'function depositsOf(address account) public view returns (uint256[] memory)',
   'function calculateRewards(address account, uint256[] tokenIds) public view returns (uint256[] memory)'

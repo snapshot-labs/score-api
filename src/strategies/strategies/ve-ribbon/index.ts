@@ -2,9 +2,6 @@ import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'chuddster';
-export const version = '0.1.1';
-
 const VOTING_ESCROW = '0x19854C9A5fFa8116f48f984bDF946fB9CEa9B5f7';
 
 const abi = [

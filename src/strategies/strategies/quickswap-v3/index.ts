@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { multicall, subgraphRequest } from '../../utils';
 import { getAllReserves } from './helper';
 
-export const author = 'rafaqat11';
-export const version = '0.1.0';
-
 const liquidity = {
   inputs: [],
   name: 'liquidity',

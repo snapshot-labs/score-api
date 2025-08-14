@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'printerfinancial';
-export const version = '0.1.1';
-
 const abi = [
   'function balanceOf(address) view returns (uint256 amount)',
   'function userInfo(uint256, address) view returns (uint256 amount, uint256 rewardDebt)',

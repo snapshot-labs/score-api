@@ -4,9 +4,6 @@ import { AbiCoder } from '@ethersproject/abi';
 import { Multicaller } from '../../utils';
 import { BlockTag, StaticJsonRpcProvider } from '@ethersproject/providers';
 
-export const author = '0xdapper';
-export const version = '0.1.0';
-
 const abi = [
   'function debts(address borrower) external view returns (uint256, uint256)',
   // (poolType, owner, expiry, colToken, protocolFee, lendToken, ltv, pauseTime, lendRatio, feeRatesAndType)

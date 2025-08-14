@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller, multicall, subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'payvint';
-export const version = '2.0.0';
-
 const abi = [
   'function getAndUpdateDelegatedAmount(address wallet) external returns (uint)',
   'function getEscrowAddress(address beneficiary) external view returns (address)'

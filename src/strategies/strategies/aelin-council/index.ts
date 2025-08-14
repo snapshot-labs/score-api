@@ -3,9 +3,6 @@ import { Contract } from '@ethersproject/contracts';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { subgraphRequest, customFetch } from '../../utils';
 
-export const author = '0xcdb';
-export const version = '1.0.0';
-
 const GRAPH_API_URL = {
   uniswap: {
     mainnet:

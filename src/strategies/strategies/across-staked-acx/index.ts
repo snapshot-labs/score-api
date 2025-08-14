@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits, parseUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'nicholaspai';
-export const version = '0.1.0';
-
 /**
  * @notice This strategy returns the voting power of an address that has staked ACX-LP tokens in the
  * AcceleratingDistributor contract. The voting power is calculated as the amount of staked ACX-LP

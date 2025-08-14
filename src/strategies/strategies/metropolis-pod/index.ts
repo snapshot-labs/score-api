@@ -1,8 +1,5 @@
 import { strategy as erc1155BalanceOfIdsWeightedStrategy } from '../erc1155-balance-of-ids-weighted';
 
-export const author = 'itsdanwu';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,

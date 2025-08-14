@@ -1,9 +1,6 @@
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { strategy as dssVestUnpaidStrategy } from '../dss-vest-unpaid';
 
-export const author = 'espendk';
-export const version = '1.0.0';
-
 export async function strategy(
   space,
   network,

@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'JD0x2e';
-export const version = '0.1.2';
-
 const mfdAbi = [
   'function getUserLocks(address) view returns (tuple(uint256 amount, uint256 unlockTime, uint256 multiplier, uint256 duration, uint256 lockCreationTime)[])'
 ];

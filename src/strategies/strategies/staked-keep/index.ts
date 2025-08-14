@@ -5,9 +5,6 @@ const KEEP_SUBGRAPH_URL = {
   '1': 'https://api.thegraph.com/subgraphs/name/miracle2k/all-the-keeps'
 };
 
-export const author = 'corollari';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

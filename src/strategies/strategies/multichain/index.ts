@@ -1,9 +1,6 @@
 import { getProvider, getSnapshots } from '../../utils';
 import strategies from '..';
 
-export const author = 'kesar';
-export const version = '1.1.0';
-
 export async function strategy(
   space,
   network,

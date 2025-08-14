@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { call, customFetch } from '../../utils';
 
-export const author = 'colony';
-export const version = '0.1';
-
 const colonyAbi = [
   'function getDomain(uint256 domainId) external view returns (uint256, uint256)',
   'function getToken() external view returns (address)'

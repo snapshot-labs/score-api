@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'bonustrack';
-export const version = '0.1.0';
-
 const abi = [
   {
     inputs: [{ internalType: 'address', name: '_address', type: 'address' }],

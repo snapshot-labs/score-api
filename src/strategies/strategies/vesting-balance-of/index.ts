@@ -2,9 +2,6 @@ import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'propchain-development';
-export const version = '0.1.0';
-
 const vestingABI = [
   'function userPropertiesList(address wallet) view returns (tuple(bool isActive, uint256 spentAmount, uint256 vestingId, bool tgeClaimed) userProperties)',
   'function vestingPropertiesList() view returns (tuple(uint256 amountForUser, uint256 tgeAmountForUser, uint256 startTime, uint256 tickCount, uint256 tickDuration, uint256 unallocatedAmount, bool active)[] vestingList)'

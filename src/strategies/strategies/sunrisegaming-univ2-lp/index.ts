@@ -2,9 +2,6 @@ import { multicall } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'sunrisedao';
-export const version = '0.1.0';
-
 const erc20Abi = [
   'function totalSupply() view returns (uint256)',
   'function balanceOf(address account) view returns (uint256)'

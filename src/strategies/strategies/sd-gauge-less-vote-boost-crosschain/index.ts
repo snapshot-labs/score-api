@@ -3,9 +3,6 @@ import { getProvider, multicall, subgraphRequest } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'pierremarsotlyon1';
-export const version = '0.0.1';
-
 const VE_SDT = '0x0C30476f66034E11782938DF8e4384970B6c9e8a';
 const VE_PROXY_BOOST_SDT = '0xD67bdBefF01Fc492f1864E61756E5FBB3f173506';
 const TOKENLESS_PRODUCTION = 40;

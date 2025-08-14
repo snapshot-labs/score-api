@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { Multicaller, subgraphRequest } from '../../utils';
 
-export const author = 'rafaqat11';
-export const version = '0.1.0';
-
 const A51_STAKING_SUBGRAPH_URL = {
   '137':
     'https://subgrapher.snapshot.org/subgraph/arbitrum/mr29ZjZSuNs6iNhD8YmNnEg3JB17muNbGp1PCYxusr7'

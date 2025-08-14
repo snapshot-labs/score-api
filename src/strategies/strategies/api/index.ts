@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 import { customFetch } from '../../utils';
 
-export const author = 'ganzai-san';
-export const version = '0.1.2';
-
 const isIPFS = apiURL => {
   return (
     apiURL.startsWith('https://gateway.pinata.cloud/ipfs/') ||

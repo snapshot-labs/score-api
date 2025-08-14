@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller, getBlockNumber } from '../../utils';
 
-export const author = 'chuddster';
-export const version = '0.1.0';
-
 const abi = [
   'function getPriorVotes(address account, uint256 block) external view returns (uint256)'
 ];

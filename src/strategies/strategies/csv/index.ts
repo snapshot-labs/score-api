@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'bonustrack';
-export const version = '0.1.0';
-
 interface Items {
   [address: string]: string;
 }

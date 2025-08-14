@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'davekaj';
-export const version = '0.1.0';
-
 const abi = [
   {
     constant: true,

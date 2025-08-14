@@ -2,9 +2,6 @@ import fetch from 'cross-fetch';
 import { getAddress } from '@ethersproject/address';
 import { getScoresDirect, Multicaller } from '../../utils';
 
-export const author = 'rocket-pool';
-export const version = '0.1.7';
-
 const signerRegistryContractAddress =
   '0xc1062617d10Ae99E09D941b60746182A87eAB38F';
 const signerRegistryAbi = [

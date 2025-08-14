@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Contract } from '@ethersproject/contracts';
 import { Multicaller } from '../../utils';
 
-export const author = 'espendk';
-export const version = '1.0.1';
-
 // To avoid future memory issues, we limit the number of members supported by the strategy
 export const MAX_MEMBERS = 500;
 

@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'nexonfidev';
-export const version = '0.1.0';
-
 const LIMIT = 1000;
 
 export const SUBGRAPH_URL = {

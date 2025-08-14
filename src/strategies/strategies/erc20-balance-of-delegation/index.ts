@@ -1,10 +1,6 @@
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { getDelegations } from '../../utils/delegation';
 
-export const author = 'bonustrack';
-export const version = '0.1.0';
-export const dependOnOtherAddress = true;
-
 export async function strategy(
   space,
   network,

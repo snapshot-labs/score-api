@@ -5,9 +5,6 @@ import { defaultAbiCoder } from '@ethersproject/abi';
 import { strategy as fetchERC20Balances } from '../erc20-balance-of';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'paraswap';
-export const version = '0.1.0';
-
 const BalancerVaultAbi = [
   'function getPoolTokens(bytes32 poolId) external view returns (address[] tokens, uint256[] balances, uint256 lastChangeBlock)'
 ];

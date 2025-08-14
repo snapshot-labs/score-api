@@ -1,9 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { Multicaller, call } from '../../utils';
 
-export const author = 'pepperstepper';
-export const version = '0.0.4';
-
 const minoContractAddress = '0x3A1138075bd97a33F23A87824b811146FA44288E';
 const sMinoContractAddress = '0xB46fe6791A30d51970EA3B840C9fa5F1F107b86F';
 const wsMinoContractAddress = '0x1066c6753FFaf8540F691643A6D683e23599c4ab';

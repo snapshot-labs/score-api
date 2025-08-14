@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'kevin-fruitful';
-export const version = '0.1.0';
-
 const ENTITY_CONSTANT =
   '0x454e544954590000000000004d2ced07e3029ea0f98cff05d1444649e7860b81';
 

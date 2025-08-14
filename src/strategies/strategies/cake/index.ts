@@ -12,9 +12,6 @@ const chunk = (arr, size) =>
 
 const PAGE_SIZE = 1000;
 
-export const author = 'pancake-swap';
-export const version = '0.0.1';
-
 const CAKE_ADDRESS = '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82';
 const CAKE_VAULT_ADDRESS = '0xa80240Eb5d7E05d3F250cF000eEc0891d00b51CC';
 const IFO_POOL_START_BLOCK = 13463954;

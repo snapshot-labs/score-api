@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'andreibadea20';
-export const version = '0.3.1';
-
 const DPS_SUBGRAPH_URL_MOONBEAM = {
   '1284':
     'https://subgrapher.snapshot.org/subgraph/arbitrum/G2ysJgNidntuiBVzHtbdcyxeRX1Q6EB5vxVAG1x5Rs2C'

@@ -1,9 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 
-export const author = 'aorfevre';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256)',

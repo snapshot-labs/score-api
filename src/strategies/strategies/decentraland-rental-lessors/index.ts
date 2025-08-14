@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 import { MarketplaceEstate, RentalsLandOrEstate, Scores } from './types';
 
-export const author = 'fzavalia';
-export const version = '0.1.0';
-
 const SUBGRAPH_QUERY_IN_FILTER_MAX_LENGTH = 500;
 const REQUEST_DELAY_MS = 1000 / 10; // 10 requests per second
 

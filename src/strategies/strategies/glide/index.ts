@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'racollette';
-export const version = '0.1.0';
-
 const MASTERCHEF = '0x7F5489f77Bb8515DE4e0582B60Eb63A7D9959821';
 const LP1_TOKEN = '0xbeeAAb15628329C2C89Bc9F403d34b31fbCb3085'; // GLIDE-ELA
 const LP2_TOKEN = '0x26aCE9c9da938fb2Db91B0d0E7703861c249bf08'; // GLIDE-USDC

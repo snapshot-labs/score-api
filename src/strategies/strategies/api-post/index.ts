@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 import { customFetch } from '../../utils';
 
-export const author = 'miertschink';
-export const version = '0.1.1';
-
 export async function strategy(
   space,
   network,

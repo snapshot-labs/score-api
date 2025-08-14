@@ -5,9 +5,6 @@ import { Provider } from '@ethersproject/providers';
 import { subgraphRequest, ipfsGet } from '../../utils';
 import { DebtCacheABI, SNXHoldersResult, SynthetixStateABI } from './helper';
 
-export const author = 'andytcf';
-export const version = '1.0.0';
-
 const SynthetixStateContractAddress =
   '0x4b9Ca5607f1fF8019c1C6A3c2f0CC8de622D5B82';
 const DebtCacheContractAddress = '0x9bB05EF2cA7DBAafFC3da1939D1492e6b00F39b8';

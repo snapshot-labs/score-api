@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { getBlockNumber } from '../../utils';
 import { Multicaller } from '../../utils';
 
-export const author = 'marcelomorgado';
-export const version = '1.0.0';
-
 export async function strategy(
   space,
   network,

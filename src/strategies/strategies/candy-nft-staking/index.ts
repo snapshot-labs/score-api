@@ -1,8 +1,5 @@
 import { Multicaller } from '../../utils';
 
-export const author = 'dramacrypto';
-export const version = '0.1.0';
-
 const stakingAbi = [
   'function stakedNfts(address _account, uint256 _offset, uint256 _count) external view returns (uint256[])'
 ];

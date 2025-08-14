@@ -4,10 +4,6 @@ import { formatUnits, parseUnits } from '@ethersproject/units';
 import { strategy as erc721BalanceOfStrategy } from '../erc721';
 import { Multicaller, subgraphRequest } from '../../utils';
 
-export const author = 'longfin';
-export const version = '1.1.0';
-export const dependOnOtherAddress = false;
-
 const lpStakingABI = [
   'function stakedTokenBalance(address account) view returns (uint256)'
 ];

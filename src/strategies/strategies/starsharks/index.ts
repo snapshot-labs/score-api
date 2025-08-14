@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 const { getAddress } = require('@ethersproject/address');
 import { customFetch } from '../../utils';
 
-export const author = 'starsharks';
-export const version = '0.1.0';
-
 const API_URLS = {
   56: 'https://www.starsharks.com/go/api/stake/vote-weight',
   97: 'https://develop.sharkshake.net/go/api/stake/vote-weight'

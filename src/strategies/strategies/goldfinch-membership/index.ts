@@ -1,9 +1,6 @@
 import { multicall } from '../../utils';
 import { strategy as erc1155AllBalancesOf } from '../erc1155-all-balances-of';
 
-export const author = 'sanjayprabhu';
-export const version = '0.1.0';
-
 const goListAbi = ['function goList(address) view returns (bool)'];
 
 const LEGACY_GOLDFINCH_CONFIG = '0x4eb844Ff521B4A964011ac8ecd42d500725C95CC';

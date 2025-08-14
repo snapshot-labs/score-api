@@ -16,9 +16,6 @@ import {
 } from './queries';
 import type { IOptions } from './configuration';
 
-export const author = 'razgraf';
-export const version = '0.0.1';
-
 function validate(network: string, addresses: string[], options: IOptions) {
   if (!Object.hasOwn(deployments, network)) {
     throw new Error(

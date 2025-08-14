@@ -3,9 +3,6 @@ import { getAddress } from '@ethersproject/address';
 import { multicall } from '../../utils';
 import { subgraphRequest } from '../../utils';
 
-export const author = '0xleez';
-export const version = '0.1.1';
-
 const SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/9CyfknHXr1cJrxraayn37zEmu1v4BS69i9NjLQW9XJT4'
 };

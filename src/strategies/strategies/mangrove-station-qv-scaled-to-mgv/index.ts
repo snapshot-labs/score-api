@@ -5,9 +5,6 @@ import {
 } from '../station-score-if-badge';
 import { getAllVestings } from '../dss-vest-unpaid';
 
-export const author = 'espendk';
-export const version = '1.0.1';
-
 export async function strategy(
   space,
   network,

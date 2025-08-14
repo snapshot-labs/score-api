@@ -3,8 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'nation3';
-export const version = '0.2.0';
 const DECIMALS = 18;
 
 const balanceAbi = [

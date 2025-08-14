@@ -4,9 +4,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 const vesailTokenAddress = '0x26fE2f89a1FEf1bC90b8a89D8AD18a1891166ff5';
 const decimals = 18;
 
-export const author = 'cryptotrades20';
-export const version = '0.1.0';
-
 //read vesail balance
 const vesailBalanceOfABI = [
   'function balanceOf(address account) view returns (uint256)'

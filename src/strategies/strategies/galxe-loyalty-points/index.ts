@@ -1,9 +1,6 @@
 import { error } from 'console';
 import { customFetch } from '../../utils';
 
-export const author = 'HaynarCool';
-export const version = '0.1.0';
-
 const graphqlUrl = 'https://graphigo.prd.galaxy.eco/query';
 
 export async function strategy(

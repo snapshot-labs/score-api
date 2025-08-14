@@ -1,9 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 
-export const author = 'MantisClone';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function balanceOf(address account, uint256 id) external view returns (uint256)'

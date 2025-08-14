@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'frosti-eth';
-export const version = '0.1.0';
-
 const bananaContract = '0xe2311ae37502105b442bbef831e9b53c5d2e9b3b';
 
 // addresses are blacklisted across all registries instead of just one, but that should be ok

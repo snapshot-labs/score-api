@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller, customFetch } from '../../utils';
 
-export const author = 'timanrebel';
-export const version = '0.1.1';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function rewardsQuote(address stakerAddress) external view returns (uint256 rewards)',

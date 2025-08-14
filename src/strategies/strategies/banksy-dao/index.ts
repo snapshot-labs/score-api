@@ -1,9 +1,6 @@
 import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'BanksyFarm';
-export const version = '0.0.1';
-
 const factoryNftABI = [
   'function balanceOf(address account) external view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256)',

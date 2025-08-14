@@ -3,9 +3,6 @@ import { pack } from '@ethersproject/solidity';
 import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'gardenfi';
-export const version = '0.0.1';
-
 const abi = [
   'function delegateNonce(address) external view returns (uint256)',
   'function stakes(bytes32) external view returns (address owner, uint256 stake, uint256 units, uint256 votes, address filler, uint256 expiry)'

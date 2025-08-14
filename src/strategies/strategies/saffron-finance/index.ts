@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
 
-export const author = 'saffron.finance';
-export const version = '0.1.0';
-
 const BIG18 = BigNumber.from('1000000000000000000');
 const VOTE_BOOST_DIV_1000 = BigNumber.from(1000);
 const DECIMALS = 18;

@@ -2,9 +2,6 @@ import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { multicall, Multicaller } from '../../utils';
 
-export const author = 'dramacrypto';
-export const version = '0.1.0';
-
 const vaultAbi = [
   'function getPricePerFullShare() external view returns (uint256)',
   'function calculatePerformanceFee(address _user) public view returns (uint256)',

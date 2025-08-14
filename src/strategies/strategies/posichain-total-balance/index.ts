@@ -4,9 +4,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 
-export const author = 'dannyposi';
-export const version = '0.0.1';
-
 const abi = [
   'function getEthBalance(address addr) public view returns (uint256 balance)'
 ];

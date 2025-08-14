@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'bonustrack';
-export const version = '0.2.0';
-
 const BALANCER_SUBGRAPHS = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/93yusydMYauh7cfe9jEfoGABmwnX4GffHd7in8KJi1XB',
   '1-v2':

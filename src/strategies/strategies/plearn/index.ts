@@ -4,9 +4,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = 'plearnclub';
-export const version = '0.0.1';
-
 const lockedPoolabi = [
   'function userInfo(address) view returns (uint256 amount)'
 ];

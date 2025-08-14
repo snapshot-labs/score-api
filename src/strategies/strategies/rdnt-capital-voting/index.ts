@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller, multicall, call } from '../../utils';
 
-export const author = 'JD0x2e';
-export const version = '0.1.0';
-
 const erc20Abi = [
   'function balanceOf(address owner) external returns (uint256)'
 ];

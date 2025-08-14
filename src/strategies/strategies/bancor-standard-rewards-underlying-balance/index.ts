@@ -3,9 +3,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { call } from '../../utils';
 import { Multicaller } from '../../utils';
 
-export const author = 'tiagofilipenunes';
-export const version = '0.1.0';
-
 const bancorNetworkInfoABI = [
   'function poolTokenToUnderlying(address pool, uint256 poolTokenAmount) external view returns (uint256)'
 ];

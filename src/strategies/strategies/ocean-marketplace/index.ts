@@ -4,9 +4,6 @@ import { formatUnits, parseUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 import { verifyResultsLength, verifyResults } from './oceanUtils';
 
-export const author = 'w1kke';
-export const version = '0.1.0';
-
 const OCEAN_ERC20_DECIMALS = 18;
 const OCEAN_SUBGRAPH_URL = {
   '1': 'https://subgraph.mainnet.oceanprotocol.com/subgraphs/name/oceanprotocol/ocean-subgraph',

@@ -1,8 +1,5 @@
 import { subgraphRequest } from '../../utils';
 
-export const author = 'alephao';
-export const version = '0.1.0';
-
 const LIMIT = 500;
 
 function makeQuery(snapshot, addressSet) {

@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'gamiumworld';
-export const version = '0.1.0';
-
 const tokenAbi = [
   'function balanceOf(address _owner) view returns (uint256 balance)'
 ];

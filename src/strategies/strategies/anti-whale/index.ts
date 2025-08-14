@@ -1,8 +1,5 @@
 import strategies from '..';
 
-export const author = 'joaomajesus';
-export const version = '1.0.0';
-
 let log: string[] = [];
 let _options;
 
