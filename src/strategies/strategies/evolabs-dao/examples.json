@@ -1,11 +1,12 @@
 [
   {
-    "name": "EvoLabs DAO Basic SBT Only",
+    "name": "EvoLabs DAO with Additional Blacklist",
     "strategy": {
       "name": "evolabs-dao",
       "params": {
         "address": "0xEA8176c28417A6FD2F2e40F871EA04dfFE1CAcd8",
-        "symbol": "EVO"
+        "symbol": "EVO",
+        "additionalBlacklist": []
       }
     },
     "network": "11155111",

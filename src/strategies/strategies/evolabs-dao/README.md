@@ -36,10 +36,12 @@ Each SBT holder gets exactly 1 vote, regardless of how many SBTs they own. This 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `address` | `string` | ✅ | Contract address of the Soulbound Token (handles contract blacklist automatically) |
-| `blacklist` | `string[]` | ❌ | Additional addresses to exclude from voting (Snapshot-level blacklist) |
+| `additionalBlacklist` | `string[]` | ❌ | Additional addresses to exclude from voting (Snapshot-level blacklist) |
 | `delegationSpace` | `string` | ❌ | Snapshot space for delegation (defaults to current space) |
 | `useOnChainDelegation` | `boolean` | ❌ | Enable on-chain delegation support |
 | `delegationContract` | `string` | ❌ | Contract address for on-chain delegation (required if useOnChainDelegation is true) |
+
+**Note**: `additionalBlacklist` is supported in the strategy code but not defined in the UI schema due to array type limitations. No schema.json file is provided to avoid validation conflicts.
 
 ## Example Configuration
 
@@ -95,7 +97,7 @@ Alternative approaches for 80% threshold:
 - DAO governance requiring identity verification
 - Community voting with sybil resistance
 - Delegated voting systems with equal representation
-- Governance with blacklist protection against malicious actors
+- Governance with dual-layer blacklist protection against malicious actors
 
 ## Technical Notes
 
@@ -104,3 +106,4 @@ Alternative approaches for 80% threshold:
 - Efficient multicall implementation for gas optimization
 - Compatible with all EVM-compatible networks
 - Follows Snapshot strategy best practices
+- No schema.json provided to avoid array type validation conflicts with UI
