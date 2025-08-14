@@ -12,7 +12,6 @@ export async function strategy(
 ) {
   addresses = addresses.map(getAddress);
 
-  const delegationSpace = 'sparkfi.eth';
   const sparkStrategies = [
     {
       name: 'erc20-balance-of',
@@ -53,7 +52,7 @@ export async function strategy(
   );
 
   const delegationsData = await getDelegationsData(
-    delegationSpace,
+    space,
     '1',
     addresses,
     snapshot
