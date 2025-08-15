@@ -37,30 +37,18 @@ export async function strategy(
   }
 
   // 2. Get amounts for addresses that have not claimed from an external API.
-  // The API should return a JSON object with addresses as keys and amounts as values.
-  // e.g. { "0x123...": "1000000000000000000", "0x456...": "2000000000000000000" }
   if (!options.apiUrl) {
     throw new Error('apiUrl is not defined in options');
   }
 
-  const amounts: Record<string, BigNumber> = {};
-  await Promise.all(
-    notClaimedAddresses.map(async address => {
-      const url = options.apiUrl + '?address=' + address;
-      const apiResponse = await customFetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      const rs = await apiResponse.json();
-      amounts[address] = rs.amount
-        ? BigNumber.from(rs.amount).mul(
-            BigNumber.from(10).pow(options.decimals)
-          )
-        : BigNumber.from(0);
-    })
-  );
+  const url = options.apiUrl + '?address=' + notClaimedAddresses.join(',');
+  const apiResponse = await customFetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const amounts: Record<string, number> = await apiResponse.json();
 
   // 3. For addresses that have not claimed, get their claimable balance.
   const claimableMulti = new Multicaller(network, provider, abi, { blockTag });
@@ -69,7 +57,7 @@ export async function strategy(
     if (amount) {
       claimableMulti.call(address, options.address, 'claimableBalance', [
         tranche,
-        amount
+        BigNumber.from(amount).mul(BigNumber.from(10).pow(options.decimals))
       ]);
     }
   });
