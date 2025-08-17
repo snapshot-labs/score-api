@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Strategy",
+  "definitions": {
+    "Strategy": {
+      "title": "VeTree Vested Program Strategy",
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "title": "Symbol",
+          "examples": ["e.g. VTREE"],
+          "maxLength": 16
+        },
+        "address": {
+          "type": "string",
+          "title": "Contract address",
+          "examples": ["e.g. 0xdD8A6C6D3667133e783E8bd2a3B33b551B97482f"],
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "minLength": 42,
+          "maxLength": 42
+        },
+        "decimals": {
+          "type": "number",
+          "title": "Decimals",
+          "examples": ["e.g. 18"],
+          "minimum": 0
+        },
+        "apiUrl": {
+          "type": "string",
+          "title": "API URL",
+          "examples": ["e.g. https://api.example.com/allocations"]
+        },
+        "tranche": {
+          "type": "number",
+          "title": "Tranche ID",
+          "examples": ["e.g. 2"],
+          "minimum": 0
+        }
+      },
+      "required": ["address", "decimals", "apiUrl"],
+      "additionalProperties": false
+    }
+  }
+}
