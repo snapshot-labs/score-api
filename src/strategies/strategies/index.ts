@@ -497,6 +497,7 @@ import * as forteStaking from './forte-staking';
 import * as overtime from './overtime';
 import * as orderlyStakedOrder from './orderly-staked-order';
 import * as veTree from './vetree-prevault';
+import * as veTreeVestedProgram from './vetree-vestedprogram';
 
 import { DEFAULT_SUPPORTED_PROTOCOLS } from '../constants';
 
@@ -1007,7 +1008,8 @@ const strategies = {
   'forte-staking': forteStaking,
   overtime,
   'orderly-staked-order': orderlyStakedOrder,
-  'vetree-prevault': veTree
+  'vetree-prevault': veTree,
+  'vetree-vestedprogram': veTreeVestedProgram
 };
 
 Object.keys(strategies).forEach(function (strategyName) {
