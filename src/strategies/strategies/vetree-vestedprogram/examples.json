@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Example query",
+    "strategy": {
+      "name": "vetree-vestedprogram",
+      "params": {
+        "address": "0xdD8A6C6D3667133e783E8bd2a3B33b551B97482f",
+        "symbol": "VETREE",
+        "decimals": 18,
+        "apiUrl": "https://api.treehouse.finance/governance/tranche-2",
+        "tranche": 2
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0xeD522953CA860EE0f09dDAf72481525bc86FE9d5",
+      "0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11",
+      "0xeF8305E140ac520225DAf050e2f71d5fBcC543e7"
+    ],
+    "snapshot": 23130295
+  }
+]
