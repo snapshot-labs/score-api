@@ -1,0 +1,20 @@
+[
+  {
+    "name": "EvoLabs DAO with Additional Blacklist",
+    "strategy": {
+      "name": "evolabs-dao",
+      "params": {
+        "address": "0xEA8176c28417A6FD2F2e40F871EA04dfFE1CAcd8",
+        "symbol": "EVO",
+        "additionalBlacklist": []
+      }
+    },
+    "network": "11155111",
+    "addresses": [
+      "0x4aaD7aFf7ca92276c0f077Ca87608061613A61A8",
+      "0x752b55a84a28a6D97863F954bF36CeCd21917Af0",
+      "0xF9F2037812541D7aD8F02Bff7BB09192597aD195"
+    ],
+    "snapshot": 8968275
+  }
+]
