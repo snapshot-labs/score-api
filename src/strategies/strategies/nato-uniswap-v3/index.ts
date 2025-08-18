@@ -21,13 +21,13 @@ function getAmount1ForLiquidity(
   const lower = BigInt(sqrtLower);
   const upper = BigInt(sqrtUpper);
   const current = BigInt(sqrtPriceCurrent);
-  const liq = BigInt(liquidity);
+  const L = BigInt(liquidity);
 
   if (current <= lower) return 0n;
   if (current < upper) {
-    return (liq * (current - lower)) / 2n ** 96n;
+    return (L * (current - lower)) / 2n ** 96n;
   }
-  return (liq * (upper - lower)) / 2n ** 96n;
+  return (L * (upper - lower)) / 2n ** 96n;
 }
 
 export const strategy = async (
@@ -41,7 +41,7 @@ export const strategy = async (
   const results: Record<string, number> = {};
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
-  // 1) slot0 call
+  // slot0
   const poolCaller = new Multicaller(_network, _provider, POOL_ABI, {
     blockTag
   });
@@ -52,7 +52,7 @@ export const strategy = async (
     throw new Error('❌ Failed to fetch slot0() from pool');
   const sqrtPriceX96 = BigInt(slot0Arr[0]);
 
-  // 2) balanceOf batch
+  // balanceOf
   const balancesCaller = new Multicaller(
     _network,
     _provider,
@@ -60,11 +60,12 @@ export const strategy = async (
     { blockTag }
   );
   addresses.forEach(addr => {
+    const addrChecksum = getAddress(addr);
     balancesCaller.call(
-      `${getAddress(addr)}.balance`,
+      `${addrChecksum}.balance`,
       options.positionManager,
       'balanceOf',
-      [addr]
+      [addrChecksum]
     );
   });
   const balancesRes = (await balancesCaller.execute()) as Record<
@@ -72,21 +73,21 @@ export const strategy = async (
     { balance: any }
   >;
 
-  // 3) tokenOfOwnerByIndex batch
+  // tokenOfOwnerByIndex
   const tokensCaller = new Multicaller(
     _network,
     _provider,
     POSITION_MANAGER_ABI,
     { blockTag }
   );
-  Object.entries(balancesRes).forEach(([addr, { balance }]) => {
-    const count = Number(balance || 0);
+  Object.entries(balancesRes).forEach(([addrChecksum, { balance }]) => {
+    const count = balance ? parseInt(balance.toString()) : 0;
     for (let i = 0; i < count; i++) {
       tokensCaller.call(
-        `${addr}.tokenIds.${i}`,
+        `${addrChecksum}.tokenIds.${i}`,
         options.positionManager,
         'tokenOfOwnerByIndex',
-        [addr, i]
+        [addrChecksum, i]
       );
     }
   });
@@ -95,7 +96,7 @@ export const strategy = async (
     { tokenIds: Record<string, any> }
   >;
 
-  // 4) positions batch
+  // positions
   const positionsCaller = new Multicaller(
     _network,
     _provider,
@@ -107,7 +108,7 @@ export const strategy = async (
     Object.values(entry.tokenIds).forEach((tokenId: any) => {
       if (tokenId !== undefined) {
         positionsCaller.call(
-          `pos.${tokenId}`,
+          `${tokenId}`,
           options.positionManager,
           'positions',
           [tokenId.toString()]
@@ -120,18 +121,17 @@ export const strategy = async (
     any[]
   >;
 
-  // 5) Aggregate results
+  // aggregate
   for (const addrRaw of addresses) {
-    const addr = getAddress(addrRaw);
-    const bal = balancesRes[addr]?.balance
-      ? Number(balancesRes[addr].balance)
-      : 0;
+    const addrChecksum = getAddress(addrRaw);
+    const balBN = balancesRes[addrChecksum]?.balance;
+    const bal = balBN ? parseInt(balBN.toString()) : 0;
     if (!bal) {
-      results[addr] = 0;
+      results[addrChecksum] = 0;
       continue;
     }
 
-    const tokenIdsObj = (tokensRes[addr]?.tokenIds || {}) as Record<
+    const tokenIdsObj = (tokensRes[addrChecksum]?.tokenIds || {}) as Record<
       string,
       any
     >;
@@ -141,7 +141,7 @@ export const strategy = async (
 
     let total = 0n;
     for (const tokenId of tokenIds) {
-      const pos = positionsRes[`pos.${tokenId}`];
+      const pos = positionsRes[tokenId];
       if (!pos) continue;
 
       const [
@@ -182,7 +182,7 @@ export const strategy = async (
       total += amount1 + BigInt(tokensOwed1);
     }
 
-    results[addr] = parseFloat(formatUnits(total.toString(), 18));
+    results[addrChecksum] = parseFloat(formatUnits(total.toString(), 18));
   }
 
   return results;

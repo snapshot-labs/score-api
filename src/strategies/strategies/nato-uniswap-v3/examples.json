@@ -10,11 +10,7 @@
         "network": "base"
       }
     },
-    "addresses": [
-      "0x07a1f6fc89223c5ebd4e4ddae89ac97629856a0f",
-      "0x38C0039247A31F3939baE65e953612125cB88268",
-      "0x9B8e8dD9151260c21CB6D7cc59067cd8DF306D58"
-    ],
-    "snapshot": 12222222
+    "addresses": ["0xdA1dbA3c1B1cdEAf1419a85bA5B454547bdA5662"],
+    "snapshot": "latest"
   }
 ]
