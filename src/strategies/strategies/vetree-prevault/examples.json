@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Example query",
+    "strategy": {
+      "name": "vetree-prevault",
+      "params": {
+        "address": "0x636b40febf37fd9f059b68f5bae3a26285314551",
+        "symbol": "veTREE",
+        "decimals": 18
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0x73a417Ec261e76a38010fCb3F4d2c7f781E96d19",
+      "0x22Eca76e0db4FB0a7B73c4dfa554c450abD9e2b8",
+      "0x0719d4c9126444cad11B3473820bD1FbeEA842A5",
+      "0xB8c9c9f2ced710C685C1c2543E59688f9c6612c6",
+      "0x2ec3F80BeDA63Ede96BA20375032CDD3aAfb3030",
+      "0x4AcBcA6BE2f8D2540bBF4CA77E45dA0A4a095Fa2",
+      "0x4F3D348a6D09837Ae7961B1E0cEe2cc118cec777",
+      "0x6D7f23A509E212Ba7773EC1b2505d1A134f54fbe"
+    ],
+    "snapshot": 23130295
+  }
+]
