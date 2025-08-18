@@ -8,6 +8,7 @@ import * as delegatexyzErc721BalanceOf from './delegatexyz-erc721-balance-of';
 import * as urbitGalaxies from './urbit-galaxies/index';
 import * as ecoVotingPower from './eco-voting-power';
 import * as ecoMultichainVotingPower from './eco-multichain-voting-power';
+import * as evolabsDao from './evolabs-dao';
 import * as dpsNFTStrategy from './dps-nft-strategy';
 import * as dpsNFTStrategyNova from './dps-nft-strategy-nova';
 import * as nounsPower from './nouns-rfp-power';
@@ -517,6 +518,7 @@ const strategies = {
   'izumi-veizi': izumiVeiZi,
   'eco-voting-power': ecoVotingPower,
   'eco-multichain-voting-power': ecoMultichainVotingPower,
+  'evolabs-dao': evolabsDao,
   'forta-shares': fortaShares,
   'across-staked-acx': acrossStakedAcx,
   'ethermon-erc721': ethermon721,
