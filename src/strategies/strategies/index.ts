@@ -134,6 +134,7 @@ import * as api from './api';
 import * as xaqua from './xaqua-vaults-treasury';
 import * as apiPost from './api-post';
 import * as apiV2 from './api-v2';
+import * as apiV2Override from './api-v2-override';
 import * as xseen from './xseen';
 import * as molochAll from './moloch-all';
 import * as molochLoot from './moloch-loot';
@@ -663,7 +664,7 @@ const strategies = {
   api,
   'api-post': apiPost,
   'api-v2': apiV2,
-  'api-v2-override': { ...apiV2 },
+  'api-v2-override': apiV2Override,
   xseen,
   'moloch-all': molochAll,
   'moloch-loot': molochLoot,
