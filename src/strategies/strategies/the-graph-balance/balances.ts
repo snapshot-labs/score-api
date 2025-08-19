@@ -6,7 +6,7 @@ import {
   GRAPH_NETWORK_SUBGRAPH_URL,
   GraphAccountScores,
   GraphStrategyOptions
-} from '../the-graph/graphUtils';
+} from './utils/graphUtils';
 
 const GNS_ADDRESS = '0xadca0dd4729c8ba3acf3e99f3a9f471ef37b6825';
 

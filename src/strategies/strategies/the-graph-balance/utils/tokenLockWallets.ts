@@ -1,5 +1,5 @@
 import { Provider } from '@ethersproject/providers';
-import { subgraphRequest } from '../../utils';
+import { subgraphRequest } from '../../../utils';
 import { verifyResults } from './graphUtils';
 
 export const TOKEN_DISTRIBUTION_SUBGRAPH_URL = {

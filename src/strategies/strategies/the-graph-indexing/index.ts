@@ -1,4 +1,4 @@
-import { baseStrategy } from '../the-graph/baseStrategy';
+import { baseStrategy } from '../the-graph-balance/utils/baseStrategy';
 import { indexersStrategy } from './indexers';
 
 export async function strategy(
