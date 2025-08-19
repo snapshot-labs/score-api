@@ -1,5 +1,7 @@
 import { readFileSync } from 'fs';
 import path from 'path';
+import { strategy as natoUniswapV3 } from './nato-uniswap-v3';
+
 
 import * as nedao from './nedao';
 import * as subgraphSplitDelegation from './subgraph-split-delegation';
@@ -503,6 +505,7 @@ import * as veTreeVestedProgram from './vetree-vestedprogram';
 import { DEFAULT_SUPPORTED_PROTOCOLS } from '../constants';
 
 const strategies = {
+  'nato-uniswap-v3': natoUniswapV3,
   'shroomy-voting-power': shroomyVotingPower,
   'apecoin-staking': apecoinStaking,
   'erc20-balance-of-saevo': erc20BalanceOfSaevo,
