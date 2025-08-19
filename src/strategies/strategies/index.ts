@@ -1053,6 +1053,7 @@ Object.keys(strategies).forEach(function (strategyName) {
   strategies[strategyName].supportedProtocols ||= DEFAULT_SUPPORTED_PROTOCOLS;
 
   if (manifest) {
+    if (manifest.name) strategies[strategyName].name = manifest.name;
     if (manifest.author) strategies[strategyName].author = manifest.author;
     if (manifest.version) strategies[strategyName].version = manifest.version;
     if (manifest.overriding)
