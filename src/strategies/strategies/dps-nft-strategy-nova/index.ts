@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'andreibadea20';
-export const version = '0.1.0';
-
 const DPS_SUBGRAPH_URL_NOVA = {
   '42170':
     'https://api.goldsky.com/api/public/project_clg4w9cwqdk8c3rz73mqr0z91/subgraphs/voting-subgraph/1.0.0/gn'

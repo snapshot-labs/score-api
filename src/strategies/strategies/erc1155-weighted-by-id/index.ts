@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'isaac-martin';
-export const version = '1.0.0';
-
 const abi = [
   'function balanceOfBatch(address[], uint256[]) external view returns (uint256[])'
 ];

@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 
-export const author = 'bonustrack';
-export const version = '0.1.0';
-
 const abi = [
   'function getEthBalance(address addr) public view returns (uint256 balance)'
 ];

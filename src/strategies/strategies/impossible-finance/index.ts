@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { Multicaller } from '../../utils';
 
-export const author = 'impossible-finance';
-export const version = '0.0.1';
-
 const abi = [
   {
     inputs: [

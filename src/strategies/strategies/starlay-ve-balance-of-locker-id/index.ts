@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'wolfwarrier14';
-export const version = '0.1.0';
-
 const abi = [
   'function ownerToId(address) view returns (uint256)',
   'function balanceOfLockerId(uint256 _lockerId) view returns (uint256)'

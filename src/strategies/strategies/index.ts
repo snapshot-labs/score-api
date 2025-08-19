@@ -134,6 +134,7 @@ import * as api from './api';
 import * as xaqua from './xaqua-vaults-treasury';
 import * as apiPost from './api-post';
 import * as apiV2 from './api-v2';
+import * as apiV2Override from './api-v2-override';
 import * as xseen from './xseen';
 import * as molochAll from './moloch-all';
 import * as molochLoot from './moloch-loot';
@@ -663,7 +664,7 @@ const strategies = {
   api,
   'api-post': apiPost,
   'api-v2': apiV2,
-  'api-v2-override': { ...apiV2 },
+  'api-v2-override': apiV2Override,
   xseen,
   'moloch-all': molochAll,
   'moloch-loot': molochLoot,
@@ -1018,6 +1019,7 @@ Object.keys(strategies).forEach(function (strategyName) {
   let examples = null;
   let schema = null;
   let about = '';
+  let manifest: any = null;
 
   try {
     examples = JSON.parse(
@@ -1043,10 +1045,27 @@ Object.keys(strategies).forEach(function (strategyName) {
   } catch (error) {
     about = '';
   }
+
+  try {
+    manifest = JSON.parse(
+      readFileSync(path.join(__dirname, strategyName, 'manifest.json'), 'utf8')
+    );
+  } catch (error) {
+    manifest = null;
+  }
+
   strategies[strategyName].examples = examples;
   strategies[strategyName].schema = schema;
   strategies[strategyName].about = about;
   strategies[strategyName].supportedProtocols ||= DEFAULT_SUPPORTED_PROTOCOLS;
+
+  if (manifest) {
+    if (manifest.name) strategies[strategyName].name = manifest.name;
+    if (manifest.author) strategies[strategyName].author = manifest.author;
+    if (manifest.version) strategies[strategyName].version = manifest.version;
+    if (manifest.overriding)
+      strategies[strategyName].dependOnOtherAddress = manifest.overriding;
+  }
 });
 
 export default strategies;

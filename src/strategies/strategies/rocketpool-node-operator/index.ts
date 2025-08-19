@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'rocket-pool';
-export const version = '0.1.1';
-
 const rocketNodeStakingAddress = '0x3019227b2b8493e45Bf5d25302139c9a2713BF15';
 const rocketNodeStakingContractAbi = [
   'function getNodeEffectiveRPLStake(address _nodeAddress) external view returns (uint256)'

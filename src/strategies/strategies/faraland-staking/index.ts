@@ -6,9 +6,6 @@ const FLASHSTAKE_SUBGRAPH_URL = {
   '56': 'https://queries-graphnode-x.faraland.io/subgraphs/name/edwardevans094/staking-v1'
 };
 
-export const author = 'toniqhz';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

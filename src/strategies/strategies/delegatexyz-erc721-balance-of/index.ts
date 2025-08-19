@@ -11,9 +11,6 @@ import {
   AddressScore
 } from './types';
 
-export const author = 'apesplus';
-export const version = '0.1.1';
-
 export async function strategy(
   space,
   network,

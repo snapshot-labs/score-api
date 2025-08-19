@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'deversifi';
-export const version = '0.1.0';
-
 const vestedABI = ['function delegateForVoting() view returns (address)'];
 
 const xDVFABI = ['function balanceOf(address account) view returns (uint256)'];

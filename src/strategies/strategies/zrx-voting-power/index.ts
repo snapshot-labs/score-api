@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { multicall, customFetch } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = 'benlyaunzon';
-export const version = '0.1.0';
-
 const ZRX_STAKING_POOLS = {
   '1': 'https://api.0x.org/staking/pools',
   '42': 'https://staging.api.0x.org/staking/pools'

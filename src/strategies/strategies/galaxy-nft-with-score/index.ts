@@ -1,8 +1,5 @@
 import { subgraphRequest, customFetch } from '../../utils';
 
-export const author = 'alberthaotan';
-export const version = '0.3.2';
-
 const Networks: {
   [network: string]: {
     name: string;

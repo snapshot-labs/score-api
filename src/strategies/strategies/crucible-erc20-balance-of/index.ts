@@ -3,9 +3,6 @@ import { hexZeroPad } from '@ethersproject/bytes';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'thegostep';
-export const version = '0.1.1';
-
 const abi = [
   'function balanceOf(address owner) external view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256)'

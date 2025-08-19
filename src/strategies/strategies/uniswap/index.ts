@@ -5,9 +5,6 @@ const UNISWAP_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/FEtpnfQ1aqF8um2YktEkfzFD11ZKrfurvBLPeQzv9JB1'
 };
 
-export const author = 'snapshot-labs';
-export const version = '0.1.0';
-
 async function subgraphRequestWithPagination(subgraphURL, addresses, snapshot) {
   const chunkSize = 1000;
   const chunks: string[][] = [];

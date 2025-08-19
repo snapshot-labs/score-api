@@ -3,9 +3,6 @@ import { subgraphRequest, getScoresDirect } from '../../utils';
 import { Strategy } from '@snapshot-labs/snapshot.js/dist/src/voting/types';
 import { Snapshot } from '../../types';
 
-export const author = 'aragon';
-export const version = '0.1.0';
-
 const DEFAULT_BACKEND_URL =
   'https://api.studio.thegraph.com/query/87073/split-delegation/version/latest';
 

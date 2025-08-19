@@ -1,9 +1,6 @@
 import { Multicaller, subgraphRequest } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'penandlim';
-export const version = '1.0.0';
-
 const abi = [
   'function subscriptions(address user) external view returns (uint256)',
   'function endTime() external view returns (uint256)',

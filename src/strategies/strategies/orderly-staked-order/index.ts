@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'Tarnadas';
-export const version = '0.1.0';
-
 const ORDERLY_OMNIVAULT_ADDRESS = '0x7819704B69a38fD63Cc768134b8410dc08B987D0';
 const ORDERLY_DECIMALS = 18;
 

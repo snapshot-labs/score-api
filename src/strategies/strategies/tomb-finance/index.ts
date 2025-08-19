@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'thecryptoundertaker';
-export const version = '0.1.0';
-
 const MASONRY_ADDRESS = '0x8764DE60236C5843D9faEB1B638fbCE962773B67';
 const TSHARE_TOKEN_ADDRESS = '0x4cdF39285D7Ca8eB3f090fDA0C069ba5F4145B37';
 const TSHARE_LP_TOKEN_ADDRESS = '0x4733bc45eF91cF7CcEcaeeDb794727075fB209F2';

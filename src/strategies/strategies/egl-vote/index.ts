@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = 'shanevc';
-export const version = '0.1';
-
 const lockedTokenBalance = [
   'function voters(address) view returns (uint8,uint16,uint256,uint256,uint256)'
 ];

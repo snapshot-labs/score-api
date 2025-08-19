@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'dextf';
-export const version = '1.0.0';
-
 function chunk(array, chunkSize) {
   const tempArray: any[] = [];
   for (let i = 0, len = array.length; i < len; i += chunkSize)
