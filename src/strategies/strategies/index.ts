@@ -8,6 +8,7 @@ import * as delegatexyzErc721BalanceOf from './delegatexyz-erc721-balance-of';
 import * as urbitGalaxies from './urbit-galaxies/index';
 import * as ecoVotingPower from './eco-voting-power';
 import * as ecoMultichainVotingPower from './eco-multichain-voting-power';
+import * as evolabsDao from './evolabs-dao';
 import * as dpsNFTStrategy from './dps-nft-strategy';
 import * as dpsNFTStrategyNova from './dps-nft-strategy-nova';
 import * as nounsPower from './nouns-rfp-power';
@@ -17,6 +18,7 @@ import * as erc20VotesUndelegatedBalance from './erc20-votes-undelegated-balance
 import * as antiWhale from './anti-whale';
 import * as balancer from './balancer';
 import * as balancerSmartPool from './balancer-smart-pool';
+import * as beaconChain from './beacon-chain';
 import * as contractCall from './contract-call';
 import * as dfynFarms from './dfyn-staked-in-farms';
 import * as dfynVaults from './dfyn-staked-in-vaults';
@@ -496,6 +498,7 @@ import * as forteStaking from './forte-staking';
 import * as overtime from './overtime';
 import * as orderlyStakedOrder from './orderly-staked-order';
 import * as veTree from './vetree-prevault';
+import * as veTreeVestedProgram from './vetree-vestedprogram';
 
 import { DEFAULT_SUPPORTED_PROTOCOLS } from '../constants';
 
@@ -516,6 +519,7 @@ const strategies = {
   'izumi-veizi': izumiVeiZi,
   'eco-voting-power': ecoVotingPower,
   'eco-multichain-voting-power': ecoMultichainVotingPower,
+  'evolabs-dao': evolabsDao,
   'forta-shares': fortaShares,
   'across-staked-acx': acrossStakedAcx,
   'ethermon-erc721': ethermon721,
@@ -528,6 +532,7 @@ const strategies = {
   'anti-whale': antiWhale,
   balancer,
   'balancer-smart-pool': balancerSmartPool,
+  'beacon-chain': beaconChain,
   'lit-dao-governance': litDaoGovernance,
   'balance-in-vdfyn-vault': vDfynVault,
   'erc20-received': erc20Received,
@@ -1005,7 +1010,8 @@ const strategies = {
   'forte-staking': forteStaking,
   overtime,
   'orderly-staked-order': orderlyStakedOrder,
-  'vetree-prevault': veTree
+  'vetree-prevault': veTree,
+  'vetree-vestedprogram': veTreeVestedProgram
 };
 
 Object.keys(strategies).forEach(function (strategyName) {
