@@ -2,40 +2,22 @@ import { formatUnits } from '@ethersproject/units';
 import { customFetch } from '../../utils';
 
 export const author = 'gnosis';
-export const version = '0.0.1';
+export const version = '0.0.2';
 
 interface BeaconChainValidator {
-  index: string;
   balance: string;
-  status: string;
-  validator: {
-    pubkey: string;
-    withdrawal_credentials: string;
-    effective_balance: string;
-    slashed: boolean;
-    activation_eligibility_epoch: string;
-    activation_epoch: string;
-    exit_epoch: string;
-    withdrawable_epoch: string;
-  };
+  validator: { withdrawal_credentials: string };
 }
-
 interface BeaconChainResponse {
-  execution_optimistic: boolean;
-  finalized: boolean;
   data: BeaconChainValidator[];
 }
 
 export async function strategy(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _space,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _network,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _provider,
-  addresses,
+  addresses: string[],
   options,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _snapshot
 ): Promise<Record<string, number>> {
   const {
@@ -44,62 +26,51 @@ export async function strategy(
     decimals = 9
   } = options;
 
-  const endpoint = `${clEndpoint}/eth/v1/beacon/states/head/validators?status=active`;
+  const endpoint = `${clEndpoint}/eth/v1/beacon/states/finalized/validators?status=active`;
 
   try {
-    // Fetch all active validators from Beacon Chain
-    const response = await customFetch(endpoint, {}, 30000);
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status} - ${response.statusText}`);
-    }
+    const response = await customFetch(
+      endpoint,
+      { headers: { accept: 'application/json', 'accept-encoding': 'gzip, br' } },
+      80000
+    );
+    if (!response.ok) throw new Error(`HTTP ${response.status} - ${response.statusText}`);
 
     const json: BeaconChainResponse = await response.json();
-    const validators = json.data;
+    const validators = json.data ?? [];
     const multiplier = BigInt(clMultiplier);
 
-    // Create a map to store voting power for each address
-    const votingPower: Record<string, bigint> = {};
+    const norm = (addr: string) => addr.toLowerCase().replace(/^0x/, '');
+    const addressSuffixes = addresses.map(norm);
+    const suffixSet = new Set(addressSuffixes);
 
-    // Process each address
-    for (const address of addresses) {
-      // Normalize the address: remove 0x prefix and lowercase
-      const addrHex = address.toLowerCase().replace(/^0x/, '');
+    const sumBySuffix = new Map<string, bigint>();
+    for (const v of validators) {
+      const wc = v.validator.withdrawal_credentials?.toLowerCase() ?? '';
+      if (!(wc.startsWith('0x01') || wc.startsWith('0x02'))) continue;
 
-      // Filter validators by withdrawal credentials
-      const userValidators = validators.filter(validator => {
-        const creds = validator.validator.withdrawal_credentials;
-        // Check for ETH1 (0x01) or ETH2 (0x02) withdrawal credentials that end with the address
-        return (
-          (creds.startsWith('0x01') || creds.startsWith('0x02')) &&
-          creds.endsWith(addrHex)
-        );
-      });
+      const suffix = wc.replace(/^0x/, '').slice(-40);
+      if (!suffixSet.has(suffix)) continue;
 
-      // Calculate total balance for this address
-      let totalBalance = BigInt(0);
-      for (const validator of userValidators) {
-        const balance = BigInt(validator.balance);
-
-        // Apply multiplier (e.g., to scale down from gwei to GNO)
-        totalBalance += balance / multiplier;
-      }
-
-      if (totalBalance > 0) {
-        votingPower[address] = totalBalance;
-      }
+      const bal = BigInt(v.balance);
+      sumBySuffix.set(suffix, (sumBySuffix.get(suffix) ?? 0n) + bal);
     }
 
-    // Convert to final format with proper decimals
-    return Object.fromEntries(
-      Object.entries(votingPower).map(([address, balance]) => [
-        address,
-        parseFloat(formatUnits(balance.toString(), decimals))
-      ])
-    );
+    const result: Record<string, number> = {};
+    for (let i = 0; i < addresses.length; i++) {
+      const original = addresses[i];
+      const suffix = addressSuffixes[i];
+      const totalGwei = sumBySuffix.get(suffix) ?? 0n;
+
+      const scaled = totalGwei === 0n ? 0n : totalGwei / multiplier;
+      result[original] = scaled === 0n
+        ? 0
+        : parseFloat(formatUnits(scaled.toString(), decimals));
+    }
+
+    return result;
   } catch (error) {
     console.error('Error fetching beacon chain data:', error);
-    // Return empty scores on error rather than throwing
     return Object.fromEntries(addresses.map(address => [address, 0]));
   }
 }
