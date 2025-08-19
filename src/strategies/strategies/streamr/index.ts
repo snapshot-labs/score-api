@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { formatEther } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'streamr-dev';
-export const version = '0.1.1';
-
 const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
 
 const abi = [

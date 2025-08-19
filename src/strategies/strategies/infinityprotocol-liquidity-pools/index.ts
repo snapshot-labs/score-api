@@ -5,9 +5,6 @@ const INFINITYPROTOCOL_SUBGRAPH_URL = {
   '56': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5bvBvmThMNxZiioc5qkfE3s43YWMVsvLCgFstr1nDfiH'
 };
 
-export const author = 'vfatouros';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

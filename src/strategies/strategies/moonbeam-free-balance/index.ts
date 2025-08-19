@@ -4,9 +4,6 @@ import { JsonRpcProvider } from '@ethersproject/providers';
 import { blake2bHex } from 'blakejs';
 import { formatFixed } from '@ethersproject/bignumber';
 
-export const author = 'crystalin';
-export const version = '0.1.0';
-
 export function readLittleEndianBigInt(hex: string) {
   return BigInt(`0x${hex.match(/../g)?.reverse().join('')}`);
 }

@@ -23,9 +23,6 @@ import {
  *   - Gnosis chain. Safe's HOPR token balance, read from subgraph (xHOPR balance and wxHOPR balance) and multicall (mainnet HOPR balance)
  *   - Gnosis chain. Safe's HOPR token staked into the production HoprChannels, read from subgraph.
  */
-export const author = 'QYuQianchen';
-export const version = '0.2.0';
-
 /*
  ******************************************
  *************** PARAMETERS ***************

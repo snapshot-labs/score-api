@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'gadcl';
-export const version = '0.1.2';
-
 const abi = [
   'function getDelegatedStake(address addr) external view returns (uint256)',
   'function getDelegationInfo(address addr) external view returns (address delegation, uint256 delegatorStake)'

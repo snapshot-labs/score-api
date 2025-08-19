@@ -2,9 +2,6 @@ import { EnumType } from 'json-to-graphql-query';
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = '2fd';
-export const version = '0.1.0';
-
 const SUBGRAPH_QUERY_ADDRESSES_LIMIT = 2000;
 const REQUEST_DELAY_MS = 1000 / 10; // 10 requests per second
 const DECENTRALAND_COLLECTIONS_SUBGRAPH_URL = {

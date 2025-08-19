@@ -1,9 +1,6 @@
 import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
-export const author = 'razor-network';
-export const version = '0.1.0';
-
 const PAGE_SIZE = 1000;
 const RAZOR_NETWORK_SUBGRAPH_URL =
   'https://graph-indexer.razorscan.io/subgraphs/name/razor/razor';

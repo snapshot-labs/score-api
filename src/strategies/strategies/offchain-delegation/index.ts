@@ -1,10 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { getScoresDirect, customFetch } from '../../utils';
 
-export const author = 'bonustrack';
-export const version = '0.1.0';
-export const dependOnOtherAddress = true;
-
 const DEFAULT_SPREADSHEET_ID =
   '2PACX-1vQsn8e6KQOwqfHoA4rWDke63jTwfcshHxcZwOzVharOoAARWy6aX0TvN-uzzgtmAn3F5vDbuDKnk5Jw';
 const DEFAULT_GID = '506976679';

@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'AngelDAO';
-export const version = '0.1.0';
-
 const abi = [
   'function rocks(uint256) view returns (address owner, bool currentlyForSale, uint256 price, uint256 timesSold)'
 ];

@@ -1,9 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 
-export const author = 'Eh-Marine';
-export const version = '0.1.0';
-
 const stakingAbi = [
   'function depositsOf(address account) external view  returns (uint256[] memory)'
 ];

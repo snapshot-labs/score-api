@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { customFetch } from '../../utils';
 
-export const author = 'gnosis';
-export const version = '0.0.1';
-
 interface BeaconChainValidator {
   index: string;
   balance: string;

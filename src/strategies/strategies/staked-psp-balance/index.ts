@@ -2,9 +2,6 @@ import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'paraswap';
-export const version = '0.1.0';
-
 const abi = [
   'function PSPBalance(address _account) view returns (uint256 pspAmount_)'
 ];

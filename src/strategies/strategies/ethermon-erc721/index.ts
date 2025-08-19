@@ -1,9 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Multicaller, customFetch } from '../../utils';
 
-export const author = 'syedMohib44';
-export const version = '0.0.2';
-
 const abi1 = [
   'function getMonsterObj(uint64 _objId) external view returns(uint64 objId, uint32 classId, address trainer, uint32 exp, uint32 createIndex, uint32 lastClaimIndex, uint createTime)',
   'function balanceOf(address owner) external view returns (uint256 balance)',

@@ -2,9 +2,6 @@ import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'prepo-io';
-export const version = '1.0.0';
-
 const abi = [
   'function getAmountAllocated(address _recipient) external view returns (uint256)',
   'function getClaimableAmount(address _recipient) external view returns (uint256)',

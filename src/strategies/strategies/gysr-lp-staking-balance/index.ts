@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'mitesh-mutha';
-export const version = '0.0.1';
-
 const tokenABI = [
   'function balanceOf(address account) view returns (uint256)',
   'function totalSupply() view returns (uint256)'

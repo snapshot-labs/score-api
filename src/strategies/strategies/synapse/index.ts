@@ -3,9 +3,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { getAddress } from '@ethersproject/address';
 import { Multicaller } from '../../utils';
 
-export const author = 'defi-moses';
-export const version = '0.2.0';
-
 const SUPPORTED_CHAINS = {
   '1': {
     tokenAddress: '0x0f2D719407FdBeFF09D87557AbB7232601FD9F29',

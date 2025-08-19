@@ -3,9 +3,6 @@ import { isAddress } from '@ethersproject/address';
 import { multicall } from '../../utils';
 import { getDelegations } from '../../utils/delegation';
 
-export const author = 'serenae-fansubs';
-export const version = '0.1.0';
-
 const getVotesName = 'getVotes';
 const getVotesABI = [
   'function getVotes(address account) view returns (uint256)'

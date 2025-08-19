@@ -1,8 +1,5 @@
 import { Multicaller } from '../../utils';
 import { subgraphRequest } from '../../utils';
-export const author = 'candoizo';
-export const version = '0.2.5';
-
 interface Prices {
   [id: string]: 0 | 5 | 10 | 20 | 50 | 100 | 300 | 2000 | 3000 | 10000;
 }

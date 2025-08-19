@@ -5,9 +5,6 @@ const bn = num => {
   return bignumber_1.BigNumber.from(num.toString());
 };
 
-export const author = 'onigiri-x';
-export const version = '0.1.0';
-
 const abiStaking = [
   'function getStakedLPBalance(address _user) external view returns (uint256)',
   'function stakedLPTotalForPool() public view returns (uint256)'

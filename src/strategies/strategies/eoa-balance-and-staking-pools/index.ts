@@ -2,9 +2,6 @@ import { formatEther } from '@ethersproject/units';
 import { multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'DEFI-Foundation';
-export const version = '0.1.1';
-
 const tokenAbi = [
   'function balanceOf(address account) external view returns (uint256)'
 ];

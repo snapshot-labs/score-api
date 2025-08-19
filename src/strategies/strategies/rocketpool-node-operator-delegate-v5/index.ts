@@ -1,9 +1,6 @@
 import fetch from 'cross-fetch';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'rocket-pool';
-export const version = '0.1.4';
-
 export async function strategy(
   space,
   network,

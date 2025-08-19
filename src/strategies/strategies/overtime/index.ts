@@ -1,9 +1,6 @@
 import { customFetch } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = 'thales-markets';
-export const version = '1.0.1';
-
 export async function strategy(
   space,
   network,

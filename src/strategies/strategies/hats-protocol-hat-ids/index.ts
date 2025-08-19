@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { getAddress } from '@ethersproject/address';
 import { Multicaller } from '../../utils';
 
-export const author = 'hotmanics';
-export const version = '1.0.0';
-
 const abi = [
   'function isWearerOfHat(address _user, uint256 _hatId) external view returns (bool isWearer)'
 ];

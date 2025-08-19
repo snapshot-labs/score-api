@@ -1,7 +1,4 @@
 import { subgraphRequest } from '../../utils';
-export const author = 'karamorf';
-export const version = '0.1.1';
-
 const LIMIT = 1000;
 
 function makeQuery(

@@ -5,9 +5,6 @@ interface ApiReturn {
   balance: string[];
 }
 
-export const author = 'iotexproject';
-export const version = '0.0.2';
-
 const testNetUrl = 'https://analyser-api.testnet.iotex.io';
 const mainNetUrl = 'https://analyser-api.iotex.io';
 

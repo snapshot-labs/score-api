@@ -1,0 +1,6 @@
+{
+  "name": "Rocketpool Node Operator Delegate V8",
+  "author": "rocket-pool",
+  "version": "0.1.8",
+  "overriding": true
+}

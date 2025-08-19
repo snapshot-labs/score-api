@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 import { multicall, subgraphRequest } from '../../utils';
 
-export const author = 'dogsunchained';
-export const version = '0.1.1';
-
 const abi721or20 = [
   'function balanceOf(address account) external view returns (uint256)',
   'function totalSupply() external view returns (uint256)'

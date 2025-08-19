@@ -4,9 +4,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'eth-jashan';
-export const version = '1.0.0';
-
 const REP3_SUBGRAPH_API_URLS_BY_CHAIN_ID = {
   '80001': 'https://api.thegraph.com/subgraphs/name/eth-jashan/rep3-mumbai',
   '137':

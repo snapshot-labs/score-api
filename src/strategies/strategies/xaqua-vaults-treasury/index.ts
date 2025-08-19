@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
-export const author = 'pepperati224';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,
