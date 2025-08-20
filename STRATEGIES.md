@@ -23,7 +23,7 @@ src/strategies/strategies/my-new-strategy/
 - Update manifest.json with your strategy metadata
 - Update examples in examples.json and schema.json if needed:
 
-### 4. Test your strategy
+### 3. Test your strategy
 
 ```bash
 yarn test:strategy --strategy=my-new-strategy
