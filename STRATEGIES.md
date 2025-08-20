@@ -27,7 +27,9 @@ Add your strategy to `src/strategies/strategies/index.ts`:
 ### 4. Test your strategy
 
 ```bash
-yarn test:strategy --strategy=my-new-strategy
+yarn test:strategy my-new-strategy
+# To test with 500 addresses
+yarn test:strategy my-new-strategy 500
 ```
 
 ## Adding a new validation
@@ -49,7 +51,7 @@ Add your validation to `src/strategies/validations/index.ts`:
 ### Test your validation
 
 ```bash
-yarn test:validation --validation=my-new-validation
+yarn test:validation my-new-validation
 ```
 
 ## Checklist for new strategies
