@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Example query",
+    "strategy": {
+      "name": "rbnt-balance",
+      "params": {
+        "symbol": "RBNT"
+      }
+    },
+    "network": "151",
+    "addresses": [
+      "0x798d7AA3BEFCE57A67D55A1fd00759Ac7d0D44d0",
+      "0xdd7416444CA6A7f7fEf7e6849E68fa4700a87fb0",
+      "0xCDA740746eCc6F4146A6cf871f496df2905FeeF7"
+    ],
+    "snapshot": 2501985
+  }
+]
