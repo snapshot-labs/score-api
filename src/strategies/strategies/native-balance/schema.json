@@ -9,7 +9,7 @@
         "symbol": {
           "type": "string",
           "title": "Symbol",
-          "examples": ["e.g. RBNT"],
+          "examples": ["e.g. ETH"],
           "maxLength": 16
         }
       },
