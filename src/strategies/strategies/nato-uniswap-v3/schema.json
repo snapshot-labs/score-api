@@ -1,7 +1,34 @@
 {
-  "tokenAddress": "NATO token",
-  "poolAddress": "Uniswap V3 pool (NATO/WETH)",
-  "feeTier": 10000,
-  "positionManager": "Uniswap V3 NFT Position Manager",
-  "network": "base"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NATO Uniswap V3 Strategy",
+  "type": "object",
+  "properties": {
+    "tokenAddress": {
+      "type": "string",
+      "title": "NATO Token Address"
+    },
+    "poolAddress": {
+      "type": "string",
+      "title": "Uniswap V3 Pool Address"
+    },
+    "feeTier": {
+      "type": "number",
+      "title": "Fee Tier (Uniswap V3)"
+    },
+    "positionManager": {
+      "type": "string",
+      "title": "Uniswap V3 Position Manager Address"
+    },
+    "network": {
+      "type": "string",
+      "title": "Network"
+    }
+  },
+  "required": [
+    "tokenAddress",
+    "poolAddress",
+    "feeTier",
+    "positionManager",
+    "network"
+  ]
 }
