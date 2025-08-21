@@ -26,7 +26,9 @@ src/strategies/strategies/my-new-strategy/
 ### 3. Test your strategy
 
 ```bash
-yarn test:strategy --strategy=my-new-strategy
+yarn test:strategy my-new-strategy
+# To test with 500 addresses
+yarn test:strategy my-new-strategy 500
 ```
 
 ## Adding a new validation
