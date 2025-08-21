@@ -12,19 +12,18 @@ Create a new folder under `src/strategies/strategies/` with your strategy name (
 src/strategies/strategies/my-new-strategy/
 ├── index.ts
 ├── examples.json
+├── manifest.json
 ├── schema.json (optional)
 └── README.md (recommended)
 ```
 
 ### 2. Implement the strategy
 
-Update code in index.ts with your strategy implementation, and examples in examples.json and schema.json if needed:
+- Update code in index.ts with your strategy implementation
+- Update manifest.json with your strategy metadata
+- Update examples in examples.json and schema.json if needed:
 
-### 3. Add to index
-
-Add your strategy to `src/strategies/strategies/index.ts`:
-
-### 4. Test your strategy
+### 3. Test your strategy
 
 ```bash
 yarn test:strategy my-new-strategy
