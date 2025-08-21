@@ -51,7 +51,7 @@ Add your validation to `src/strategies/validations/index.ts`:
 ### Test your validation
 
 ```bash
-yarn test:validation my-new-validation
+yarn test:validation --validation=my-new-validation
 ```
 
 ## Checklist for new strategies
