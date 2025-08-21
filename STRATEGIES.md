@@ -43,10 +43,6 @@ src/strategies/validations/my-new-validation/
 └── README.md (recommended)
 ```
 
-### Add to index
-
-Add your validation to `src/strategies/validations/index.ts`:
-
 ### Test your validation
 
 ```bash
