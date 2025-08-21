@@ -8,21 +8,23 @@ import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 
 jest.useFakeTimers({ advanceTimers: true, doNotFake: ['performance'] });
 
-const strategyArg =
-  process.env['npm_config_strategy'] ||
-  (
-    process.argv.find(arg => arg.includes('--strategy=')) ||
-    '--strategy=erc20-balance-of'
-  )
-    .split('--strategy=')
-    .pop();
+// Get strategy name from command line arguments
+// Usage: yarn test:strategy <strategy-name> [address-count]
+const args = process.argv
+  .slice(2)
+  .filter(
+    arg =>
+      !arg.startsWith('-') &&
+      !arg.includes('=') &&
+      !arg.includes('.ts') &&
+      !arg.includes('.js') &&
+      !arg.includes('/') &&
+      arg !== 'test' &&
+      arg !== 'jest'
+  );
 
-const moreArg: string | undefined =
-  process.env['npm_config_more'] ||
-  process.argv
-    .find(arg => arg.includes('--more='))
-    ?.split('--more=')
-    ?.pop();
+const strategyArg = args[0] || 'erc20-balance-of';
+const moreArg = args[1];
 
 const strategy = Object.keys(snapshot.strategies).find(s => strategyArg == s);
 if (!strategy) throw 'Strategy not found';

@@ -23,5 +23,5 @@ jobs:
         yarn install --frozen-lockfile
         STRATEGY=$(echo $PR_TITLE | sed -e 's/.*\[\(.*\)\].*/\1/')
         if [ -n "$STRATEGY" ]; then
-          yarn test:strategy --strategy=$STRATEGY --more=500
+          yarn test:strategy $STRATEGY 500
         fi
