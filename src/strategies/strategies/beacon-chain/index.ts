@@ -14,9 +14,12 @@ export async function strategy(
   _network,
   _provider,
   addresses: string[],
-  options,
-  _snapshot
+  options
+  // snapshot
 ): Promise<Record<string, number>> {
+  throw new Error(
+    'strategy is disabled because it is not using snapshot block'
+  );
   const {
     clEndpoint = 'https://rpc-gbc.gnosischain.com',
     clMultiplier = '32',
@@ -28,10 +31,13 @@ export async function strategy(
   try {
     const response = await customFetch(
       endpoint,
-      { headers: { accept: 'application/json', 'accept-encoding': 'gzip, br' } },
+      {
+        headers: { accept: 'application/json', 'accept-encoding': 'gzip, br' }
+      },
       80000
     );
-    if (!response.ok) throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+    if (!response.ok)
+      throw new Error(`HTTP ${response.status} - ${response.statusText}`);
 
     const json: BeaconChainResponse = await response.json();
     const validators = json.data ?? [];
@@ -60,9 +66,10 @@ export async function strategy(
       const totalGwei = sumBySuffix.get(suffix) ?? 0n;
 
       const scaled = totalGwei === 0n ? 0n : totalGwei / multiplier;
-      result[original] = scaled === 0n
-        ? 0
-        : parseFloat(formatUnits(scaled.toString(), decimals));
+      result[original] =
+        scaled === 0n
+          ? 0
+          : parseFloat(formatUnits(scaled.toString(), decimals));
     }
 
     return result;
