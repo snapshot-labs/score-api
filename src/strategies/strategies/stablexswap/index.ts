@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'stablexswap';
-export const version = '0.0.1';
-
 const abi = [
   {
     inputs: [

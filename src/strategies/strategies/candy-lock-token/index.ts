@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'dramacrypto';
-export const version = '0.1.0';
-
 const v1Abi = [
   'function lockCount(address account_) external view returns (uint256)',
   'function viewLocks(address account_, uint256 offset_, uint256 count_) external view returns (tuple(uint256 lid, uint256 amount, uint256 lockAt, uint256 duration, uint256 lastRewardAt, bool unlocked, uint256[] nfts)[])'

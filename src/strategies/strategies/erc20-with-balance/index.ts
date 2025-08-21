@@ -1,8 +1,5 @@
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = 'BenjaminLu';
-export const version = '0.1.1';
-
 export async function strategy(
   space,
   network,

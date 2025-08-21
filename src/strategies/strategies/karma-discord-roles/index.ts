@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { customFetch } from '../../utils';
 
-export const author = 'show-karma';
-export const version = '1.0.1';
-
 const KARMA_API = 'https://api.karmahq.xyz/api/dao/discord-users';
 
 async function getBlockTimestamp(provider, snapshot) {

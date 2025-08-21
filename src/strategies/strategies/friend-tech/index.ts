@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'bonustrack';
-export const version = '0.1.0';
-
 const abi = ['function sharesBalance(address,address) view returns (uint256)'];
 
 export async function strategy(

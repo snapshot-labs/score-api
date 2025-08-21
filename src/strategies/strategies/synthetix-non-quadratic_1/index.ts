@@ -12,9 +12,6 @@ import {
   SynthetixStateABI
 } from '../synthetix/helper';
 
-export const author = 'andytcf';
-export const version = '1.0.0';
-
 const MED_PRECISE_UNIT = 1e18;
 
 // @TODO: check if most-up-to-date version (using https://contracts.synthetix.io/SynthetixState)

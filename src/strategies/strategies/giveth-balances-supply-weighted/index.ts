@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'divine-comedian';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)'
 ];

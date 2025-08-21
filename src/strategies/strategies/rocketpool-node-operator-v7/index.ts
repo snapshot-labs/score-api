@@ -2,9 +2,6 @@ import { Multicaller } from '../../utils';
 import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'rocket-pool';
-export const version = '0.1.7';
-
 const rocketNetworkVoting = '0xA9d27E1952f742d659143a544d3e535fFf3Eebe1';
 const rocketNetworkVotingAbi = [
   'function getVotingPower(address _nodeAddress, uint32 _block) external view returns (uint256)'

@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'crypto_pumpkin';
-export const version = '0.1.0';
-
 /**
  * Any standard xToken with `balanceOf` and `getShareValue` can use this strategy.
  */

@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { call, multicall } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-export const author = 'EncryptedBunny';
-export const version = '0.1.0';
-
 /// Voting power For mUMAMI holders
 /// Includes mUMAMI in autocompounder and stake farm (cmUMAMI, staked cmUMAMI)
 const abi = [

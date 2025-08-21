@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'MantisClone';
-export const version = '0.1.0';
-
 const abi = [
   'function token0() external view returns (address)',
   'function token1() external view returns (address)',

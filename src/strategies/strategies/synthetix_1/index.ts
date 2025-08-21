@@ -5,9 +5,6 @@ import { Provider } from '@ethersproject/providers';
 import { getProvider, Multicaller } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'andytcf';
-export const version = '1.0.0';
-
 const SDSABI = [
   'function balanceOf(address account) external view returns (uint256)',
   'function totalSupply() view returns (uint256)'

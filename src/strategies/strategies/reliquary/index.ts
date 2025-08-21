@@ -3,8 +3,7 @@ import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller, call } from '../../utils';
 
-export const author = '0xSkly'; // coAuthor = 'franzns'
-export const version = '0.1.0';
+// coAuthor = 'franzns'
 
 const abi = [
   'function relicPositionsOfOwner(address owner) view returns (uint256[] relicIds, tuple(uint256 amount, uint256 rewardDebt, uint256 rewardCredit, uint256 entry, uint256 poolId, uint256 level)[] positionInfos)',

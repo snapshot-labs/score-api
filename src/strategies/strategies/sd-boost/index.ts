@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'clement-ux';
-export const version = '0.0.3';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function totalSupply() external view returns (uint256)',

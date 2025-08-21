@@ -1,8 +1,5 @@
 import { multicall } from '../../utils';
 
-export const author = 'vfatouros';
-export const version = '0.1.0';
-
 const tokenAbi = [
   {
     constant: true,

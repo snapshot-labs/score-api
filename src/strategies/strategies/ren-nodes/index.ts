@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'noiach';
-export const version = '0.1.0';
-
 /*
  * A strategy based on the number of RenVM nodes an address has, and how long
  * each node has been registered for.

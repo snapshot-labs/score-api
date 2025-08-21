@@ -2,9 +2,6 @@ import { Contract } from '@ethersproject/contracts';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'BrassLion';
-export const version = '0.1.1';
-
 const vestingFactoryAbi = [
   'function escrows_length() public view returns (uint256)',
   'function escrows(uint256 index) public view returns (address)'

@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'vatsalgupta13';
-export const version = '0.1.0';
-
 const DFYN_SUBGRAPH_URL =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/FuxKHMLaziLFcQi5c4y3p1JY1ZGLA81rFqBfZfbQZDpo';
 

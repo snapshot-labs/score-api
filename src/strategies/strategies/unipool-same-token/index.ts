@@ -2,9 +2,6 @@ import { multicall } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'dapplion';
-export const version = '0.1.0';
-
 // Merged ABIs from below contracts:
 // * Unipool contract from @k06a: https://github.com/k06a/Unipool/blob/master/contracts/Unipool.sol
 const contractAbi = [

@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { subgraphRequest, customFetch } from '../../utils';
 
-export const author = 'maxaleks';
-export const version = '0.1.0';
-
 const SUBGRAPH_URL =
   'https://api.thegraph.com/subgraphs/name/maxaleks/xdai-stakers';
 

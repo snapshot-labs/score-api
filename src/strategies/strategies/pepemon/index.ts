@@ -1,9 +1,6 @@
 import { multicall } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'pepemon';
-export const version = '0.1.0';
-
 const tokenAbi = [
   {
     constant: true,

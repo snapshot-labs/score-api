@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { call, multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'drop-out-dev';
-export const version = '0.1.0';
-
 const FARM_ADDRESS = '0x15dEd15fE32EBac0b6cFb08cdAB112cca8380423';
 const MCN_ADDRESS = '0xD91E9a0fEf7C0fa4EBdAF4d0aCF55888949A2a9b';
 const MCN_LP_ADDRESS = '0x2Ef2cb6af83de4171A69EE2f7C677079fFD9BcD0';

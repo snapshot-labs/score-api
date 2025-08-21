@@ -3,9 +3,6 @@ import { Strategy } from '@snapshot-labs/snapshot.js/dist/src/voting/types';
 import { getAddress } from '@ethersproject/address';
 import { getScoresDirect, customFetch } from '../../utils';
 
-export const author = 'gnosis';
-export const version = '0.0.2';
-
 const DEFAULT_BACKEND_URL = 'https://delegate-registry-backend.vercel.app';
 
 type Params = {

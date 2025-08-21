@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 
-export const author = 'propchain-development';
-export const version = '0.1.0';
-
 const vestingABI = [
   'function getUserInfo(uint256 _pid, address _account) view returns (uint256 amount)',
   'function getPoolInfo(uint256 _pid) view returns (uint256 startTime, address rewardsToken, address penaltyWallet, uint256 apyPercent, uint256 totalStaked, bool active, uint256 claimTimeLimit, uint256 minStakeAmount, uint256 penaltyFee, uint256 penaltyTimeLimit, bool isVIPPool)'

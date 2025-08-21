@@ -2,9 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'izumiFinance';
-export const version = '0.1.0';
-
 const abi = [
   'function balanceOf(address owner) external view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256)',
