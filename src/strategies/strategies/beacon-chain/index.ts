@@ -15,11 +15,7 @@ export async function strategy(
   _provider,
   addresses: string[],
   options
-  // snapshot
 ): Promise<Record<string, number>> {
-  throw new Error(
-    'strategy is disabled because it is not using snapshot block'
-  );
   const {
     clEndpoint = 'https://rpc-gbc.gnosischain.com',
     clMultiplier = '32',
