@@ -12,17 +12,36 @@ interface BeaconChainResponse {
 export async function strategy(
   _space,
   _network,
-  _provider,
+  provider,
   addresses: string[],
-  options
+  options,
+  snapshot
 ): Promise<Record<string, number>> {
   const {
     clEndpoint = 'https://rpc-gbc.gnosischain.com',
     clMultiplier = '32',
-    decimals = 9
+    decimals = 9,
+    secondsPerSlot = 5,
+    genesisTime = 1638968400
   } = options;
 
-  const endpoint = `${clEndpoint}/eth/v1/beacon/states/finalized/validators?status=active`;
+  const isLatest = snapshot === 'latest' || snapshot == null;
+  let stateId: string;
+
+  if (isLatest) {
+    stateId = 'finalized';
+  } else {
+    const block = await provider.getBlock(snapshot);
+    const ts = block.timestamp;
+    if (ts <= genesisTime) {
+      stateId = 'genesis';
+    } else {
+      const slot = Math.floor((ts - genesisTime) / secondsPerSlot);
+      stateId = String(slot);
+    }
+  }
+
+  const endpoint = `${clEndpoint}/eth/v1/beacon/states/${stateId}/validators?status=active`;
 
   try {
     const response = await customFetch(
