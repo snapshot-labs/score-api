@@ -1,53 +1,80 @@
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync, readdirSync, existsSync } from 'fs';
 import path from 'path';
 import { DEFAULT_SUPPORTED_PROTOCOLS } from '../constants';
 
-const strategies: Record<string, any> = {};
+// Auto-import all strategies dynamically
+const strategies: any = {};
 const strategiesDir = __dirname;
 
-// اجلب كل المجلدات داخل strategies/ (كل مجلد = استراتيجية)
+// Get all directories in the strategies folder
 const dirs = readdirSync(strategiesDir, { withFileTypes: true })
   .filter(dirent => dirent.isDirectory())
   .map(dirent => dirent.name);
 
-// حمّل كل استراتيجية ديناميكيًا
+// Dynamically import each strategy
 for (const dirName of dirs) {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    strategies[dirName] = require(`./${dirName}`);
-  } catch {
-    // تجاهل أي مجلد ما فيه index صالح
+    const strategyPath = path.join(strategiesDir, dirName);
+    const indexPath = path.join(strategyPath, 'index');
+
+    // Check if index file exists (either .ts or .js after compilation)
+    if (existsSync(indexPath + '.ts') || existsSync(indexPath + '.js')) {
+      // Use require to dynamically load the module
+      strategies[dirName] = require(`./${dirName}`);
+    }
+  } catch (error) {
+    console.warn(`Failed to load strategy ${dirName}:`, error);
   }
 }
 
-// حمّل الميتاداتا (examples / schema / README / manifest) لكل استراتيجية
-Object.keys(strategies).forEach(strategyName => {
-  let examples: any = null;
-  let schema: any = null;
+// Load metadata for each strategy
+Object.keys(strategies).forEach(function (strategyName) {
+  let examples = null;
+  let schema = null;
   let about = '';
   let manifest: any = null;
 
-  const base = path.join(strategiesDir, strategyName);
-
   try {
     examples = JSON.parse(
-      readFileSync(path.join(base, 'examples.json'), 'utf8')
+      readFileSync(
+        path.join(strategiesDir, strategyName, 'examples.json'),
+        'utf8'
+      )
     );
-  } catch {}
+  } catch (error) {
+    examples = null;
+  }
 
   try {
-    schema = JSON.parse(readFileSync(path.join(base, 'schema.json'), 'utf8'));
-  } catch {}
+    schema = JSON.parse(
+      readFileSync(
+        path.join(strategiesDir, strategyName, 'schema.json'),
+        'utf8'
+      )
+    );
+  } catch (error) {
+    schema = null;
+  }
 
   try {
-    about = readFileSync(path.join(base, 'README.md'), 'utf8');
-  } catch {}
+    about = readFileSync(
+      path.join(strategiesDir, strategyName, 'README.md'),
+      'utf8'
+    );
+  } catch (error) {
+    about = '';
+  }
 
   try {
     manifest = JSON.parse(
-      readFileSync(path.join(base, 'manifest.json'), 'utf8')
+      readFileSync(
+        path.join(strategiesDir, strategyName, 'manifest.json'),
+        'utf8'
+      )
     );
-  } catch {}
+  } catch (error) {
+    manifest = null;
+  }
 
   strategies[strategyName].examples = examples;
   strategies[strategyName].schema = schema;
