@@ -25,6 +25,22 @@
           "examples": ["e.g. 18"],
           "minimum": 0,
           "default": 9
+        },
+        "secondsPerSlot": {
+          "type": "number",
+          "title": "Seconds Per Slot",
+          "examples": ["e.g. 5", "12"],
+          "minimum": 1,
+          "default": 5,
+          "description": "Seconds per slot in the beacon chain (5 for Gnosis Chain, 12 for Ethereum)"
+        },
+        "genesisTime": {
+          "type": "number",
+          "title": "Genesis Time",
+          "examples": ["e.g. 1638968400"],
+          "minimum": 0,
+          "default": 1638968400,
+          "description": "Unix timestamp of the beacon chain genesis"
         }
       },
       "required": ["clEndpoint", "clMultiplier", "decimals"],

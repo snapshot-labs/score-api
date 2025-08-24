@@ -52,7 +52,9 @@ export async function strategy(
       80000
     );
     if (!response.ok)
-      throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+      throw new Error(
+        `HTTP ${response.status} - ${response.statusText} - ${endpoint}`
+      );
 
     const json: BeaconChainResponse = await response.json();
     const validators = json.data ?? [];
