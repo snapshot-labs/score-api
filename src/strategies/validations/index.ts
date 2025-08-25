@@ -1,16 +1,26 @@
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync, existsSync } from 'fs';
 import path from 'path';
-import basic from './basic';
-import passportGated from './passport-gated';
-import arbitrum from './arbitrum';
-import karmaEasAttestation from './karma-eas-attestation';
 
-const validationClasses = {
-  basic,
-  'passport-gated': passportGated,
-  arbitrum: arbitrum,
-  'karma-eas-attestation': karmaEasAttestation
-};
+const validationClasses: any = {};
+const validationsDir = __dirname;
+
+const dirs = readdirSync(validationsDir, { withFileTypes: true })
+  .filter(dirent => dirent.isDirectory())
+  .map(dirent => dirent.name);
+
+for (const dirName of dirs) {
+  try {
+    const validationPath = path.join(validationsDir, dirName);
+    const indexPath = path.join(validationPath, 'index');
+
+    if (existsSync(indexPath + '.ts') || existsSync(indexPath + '.js')) {
+      const module = require(`./${dirName}`);
+      validationClasses[dirName] = module.default || module;
+    }
+  } catch (error) {
+    console.warn(`Failed to load validation ${dirName}:`, error);
+  }
+}
 
 const validations = {};
 Object.keys(validationClasses).forEach(function (validationName) {
