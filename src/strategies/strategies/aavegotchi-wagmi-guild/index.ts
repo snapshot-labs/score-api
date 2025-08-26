@@ -2,7 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { subgraphRequest } from '../../utils';
 
 const AAVEGOTCHI_SUBGRAPH_URL = {
-  137: 'https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/aavegotchi-core-matic/api',
   8453: 'https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/aavegotchi-core-base/api'
 };
 

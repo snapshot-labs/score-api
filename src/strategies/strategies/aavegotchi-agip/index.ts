@@ -5,7 +5,6 @@ interface Prices {
 }
 
 const AAVEGOTCHI_SUBGRAPH_URL = {
-  137: 'https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/aavegotchi-core-matic/api',
   8453: 'https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/aavegotchi-core-base/api'
 };
 
@@ -469,7 +468,7 @@ export async function strategy(
   }
 
   const subgraphRaw = await subgraphRequest(
-    AAVEGOTCHI_SUBGRAPH_URL[network],
+    AAVEGOTCHI_SUBGRAPH_URL[8453],
     query
   );
 
