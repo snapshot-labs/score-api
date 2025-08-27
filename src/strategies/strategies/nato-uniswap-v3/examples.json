@@ -1,6 +1,6 @@
 [
   {
-    "name": "Example query",
+    "name": "Nato example",
     "strategy": {
       "name": "nato-uniswap-v3",
       "params": {
@@ -12,8 +12,10 @@
     },
     "network": "base",
     "addresses": [
-      "0xAdA1dbA3c1B1cdEAf1419a85bA5B454547bdA5662"
+      "0x4019FC024a385c6Eb2bA17a43B286615f11C4EF4",
+      "0x07a1f6fc89223c5ebD4e4ddaE89Ac97629856A0f",
+      "0x38C0039247A31F3939baE65e953612125cB88268"
     ],
-    "snapshot": "latest"
+    "snapshot": 12222222
   }
 ]
