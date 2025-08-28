@@ -31,9 +31,9 @@ const METHODS = {
   }
 };
 
-function processRequestParams(requestParams: any): any {
+function normalizeParams(rawParams: any): any {
   // To generate consistent cache keys, we sort the request parameters
-  const params = sortObjectByParam(requestParams);
+  const params = sortObjectByParam(rawParams);
   if (params.strategies) {
     params.strategies = formatStrategies(params.network, params.strategies);
   }
@@ -64,9 +64,9 @@ function handlePostError(
 }
 
 router.post('/', async (req, res) => {
-  const { id = null, method, params: requestParams = {} } = req.body;
+  const { id = null, method, params: rawParams = {} } = req.body;
 
-  const params = processRequestParams(requestParams);
+  const params = normalizeParams(rawParams);
 
   if (params.space && disabled.includes(params.space))
     return rpcError(res, 429, 'too many requests', id);
@@ -114,7 +114,6 @@ router.get('/api/validations', (req, res) => {
 
 router.post('/api/scores', async (req, res) => {
   const { params = {} } = req.body || {};
-
   const requestId = req.headers['x-request-id'];
   const {
     space = '',
