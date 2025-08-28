@@ -1,20 +1,18 @@
 [
   {
-    "name": "Nato example",
     "strategy": {
       "name": "nato-uniswap-v3",
       "params": {
         "tokenAddress": "0xd968196fa6977c4e58f2af5ac01c655ea8332d22",
         "poolAddress": "0x02623e0e65A1D8537f6235512839E2f7b76C7A12",
         "feeTier": 10000,
-        "positionManager": "0x03a520b32c04bf3beef7beb72e919cf822ed34f1"
+        "network": "base"
       }
     },
-    "network": "base",
     "addresses": [
-      "0x4019FC024a385c6Eb2bA17a43B286615f11C4EF4",
-      "0x07a1f6fc89223c5ebD4e4ddaE89Ac97629856A0f",
-      "0x38C0039247A31F3939baE65e953612125cB88268"
+      "0x1234567890abcdef1234567890abcdef12345678",
+      "0xaabbccddeeff00112233445566778899aabbccdd",
+      "0x07a1f6fc89223c5ebd4e4ddae89ac97629856a0f"
     ],
     "snapshot": 12222222
   }
