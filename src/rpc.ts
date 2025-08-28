@@ -13,7 +13,8 @@ import {
   formatStrategies,
   isAddressValid,
   rpcError,
-  rpcSuccess
+  rpcSuccess,
+  sortObjectByParam
 } from './utils';
 import { version } from '../package.json';
 
@@ -50,8 +51,9 @@ function handlePostError(
 }
 
 router.post('/', async (req, res) => {
-  const { id = null, method, params = {} } = req.body;
-
+  const { id = null, method, params: requestParams = {} } = req.body;
+  // To generate consistent cache keys, we sort the request parameters
+  const params = sortObjectByParam(requestParams);
   // The 'delegation' parameter is deprecated; requests should be treated identically whether or not it is present
   delete params.delegation;
 
@@ -100,7 +102,10 @@ router.get('/api/validations', (req, res) => {
 });
 
 router.post('/api/scores', async (req, res) => {
-  const { params = {} } = req.body || {};
+  const { params: requestParams = {} } = req.body || {};
+  // To generate consistent cache keys, we sort the request parameters
+  const params = sortObjectByParam(requestParams);
+
   const requestId = req.headers['x-request-id'];
   const {
     space = '',

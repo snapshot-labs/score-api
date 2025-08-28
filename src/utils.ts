@@ -17,9 +17,9 @@ export function sha256(str) {
   return createHash('sha256').update(str).digest('hex');
 }
 
-function sortObjectByParam(obj) {
+export function sortObjectByParam(obj: Record<string, any>) {
   // sort object by param name
-  const sortedObj = {};
+  const sortedObj: Record<string, any> = {};
   Object.keys(obj)
     .sort()
     .forEach(function (key) {
