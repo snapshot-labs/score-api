@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
   const { id = null, method, params = {} } = req.body;
 
   // The 'delegation' parameter is deprecated; requests should be treated identically whether or not it is present
-  if ('delegation' in params) delete params.delegation;
+  delete params.delegation;
 
   if (params.space && disabled.includes(params.space))
     return rpcError(res, 429, 'too many requests', id);
