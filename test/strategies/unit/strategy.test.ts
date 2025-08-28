@@ -105,7 +105,7 @@ describe.each(examples)(
     it('Should take less than 10 sec. to resolve', () => {
       // guard: avoid null timing assertion in CI
       if (getScoresTime == null || Number.isNaN(getScoresTime)) {
-        throw new Error('getScoresTime is null/NaN – strategy did not return a timing value');
+        throw new Error('getScoresTime is null/NaN - strategy did not return a timing value');
       }
       if (typeof getScoresTime !== 'number') {
         throw new Error(`getScoresTime is not a number (got ${typeof getScoresTime})`);
@@ -182,8 +182,11 @@ describe.each(examples)(
 
     it('Should return an array of object with addresses', () => {
       expect(scores).toBeTruthy();
+      // Check array
       expect(Array.isArray(scores)).toBe(true);
+      // Check array contains a object
       expect(typeof scores[0]).toBe('object');
+      // Check object contains at least one address from example.json
       expect(Object.keys(scores[0]).length).toBeGreaterThanOrEqual(1);
       expect(
         Object.keys(scores[0]).some(address =>
@@ -192,6 +195,8 @@ describe.each(examples)(
             .includes(address.toLowerCase())
         )
       ).toBe(true);
+
+      // Check if all scores are numbers
       expect(
         Object.values(scores[0]).every(val => typeof val === 'number')
       ).toBe(true);
@@ -216,13 +221,14 @@ describe.each(examples)(
       getScoresTimeMore = getScoresEnd - getScoresStart;
       console.log(`Scores with ${moreArg || 500} addresses`, scoresMore);
       console.log(`Resolved in ${(getScoresTimeMore / 1e3).toFixed(2)} sec.`);
+      // wait for all logs to be printed (bug: printed after results)
       await new Promise(r => setTimeout(r, 500));
     });
 
     it(`Should take less than 20 sec. to resolve with ${moreArg || 500} addresses`, () => {
       // guard: avoid null timing assertion in CI
       if (getScoresTimeMore == null || Number.isNaN(getScoresTimeMore)) {
-        throw new Error('getScoresTimeMore is null/NaN – strategy did not return a timing value');
+        throw new Error('getScoresTimeMore is null/NaN - strategy did not return a timing value');
       }
       if (typeof getScoresTimeMore !== 'number') {
         throw new Error(`getScoresTimeMore is not a number (got ${typeof getScoresTimeMore})`);
@@ -232,17 +238,68 @@ describe.each(examples)(
   }
 );
 
+describe.each(examples)(
+  `\nOther tests with example index $index`,
+  // @ts-ignore
+  ({ example }) => {
+    let schema;
+    try {
+      schema = require(
+        `../../../src/strategies/strategies/${strategy}/schema.json`
+      );
+    } catch (error) {
+      schema = null;
+    }
+    (schema ? it : it.skip)(
+      'Check schema (if available) is valid with examples.json',
+      async () => {
+        expect(typeof schema).toBe('object');
+        expect(
+          snapshotjs.utils.validateSchema(schema, example.strategy.params)
+        ).toBe(true);
+      }
+    );
+    (schema ? it : it.skip)(
+      'Check schema (if available) all arrays in all levels should contain `items` property',
+      async () => {
+        const strategyParamsSchema = schema.definitions.Strategy.properties;
+        function checkArrayItems(schema: any) {
+          Object.keys(schema).forEach(key => {
+            if (typeof schema[key] === 'object') {
+              checkArrayItems(schema[key]);
+            } else if (schema.type === 'array') {
+              expect(schema.items).toBeTruthy();
+            }
+          });
+        }
+
+        checkArrayItems(strategyParamsSchema);
+      }
+    );
+    (schema ? it : it.skip)(
+      'Strategy should work even when strategy symbol is null',
+      async () => {
+        delete example.strategy.params.symbol;
+        expect(
+          snapshotjs.utils.validateSchema(schema, example.strategy.params)
+        ).toBe(true);
+      }
+    );
+  }
+);
+
 describe(`\nOthers:`, () => {
   it('Author in strategy should be a valid github username', async () => {
     const author = snapshot.strategies[strategy].author;
     expect(typeof author).toBe('string');
-    const githubUserData = await fetch(`https://api.github.com/users/${author}`);
+    const githubUserData = await fetch(
+      `https://api.github.com/users/${author}`
+    );
     const githubUser = await githubUserData.json();
     expect(githubUser.message).not.toEqual('Not Found');
   });
-
   it('Version in strategy should be a valid string', async () => {
-    const version = snapshot.strategies[strategy].version; // <-- تأكدنا هنا أنها version
+    const version = snapshot.strategies[strategy].version;
     expect(typeof version).toBe('string');
   });
 });
