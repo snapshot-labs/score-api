@@ -1,6 +1,6 @@
 import { capture } from '@snapshot-labs/snapshot-sentry';
 import express from 'express';
-import { INVALID_ADDRESS_MESSAGE } from './constants';
+import { INVALID_ADDRESS_MESSAGE, MAX_STRATEGIES } from './constants';
 import disabled from './disabled.json';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
@@ -31,6 +31,19 @@ const METHODS = {
   }
 };
 
+function processRequestParams(requestParams: any): any {
+  // To generate consistent cache keys, we sort the request parameters
+  const params = sortObjectByParam(requestParams);
+  if (params.strategies) {
+    params.strategies = formatStrategies(params.network, params.strategies);
+  }
+
+  // The 'delegation' parameter is deprecated; requests should be treated identically whether or not it is present
+  delete params.delegation;
+
+  return params;
+}
+
 function handlePostError(
   res: express.Response,
   params: any,
@@ -52,10 +65,8 @@ function handlePostError(
 
 router.post('/', async (req, res) => {
   const { id = null, method, params: requestParams = {} } = req.body;
-  // To generate consistent cache keys, we sort the request parameters
-  const params = sortObjectByParam(requestParams);
-  // The 'delegation' parameter is deprecated; requests should be treated identically whether or not it is present
-  delete params.delegation;
+
+  const params = processRequestParams(requestParams);
 
   if (params.space && disabled.includes(params.space))
     return rpcError(res, 429, 'too many requests', id);
@@ -102,9 +113,7 @@ router.get('/api/validations', (req, res) => {
 });
 
 router.post('/api/scores', async (req, res) => {
-  const { params: requestParams = {} } = req.body || {};
-  // To generate consistent cache keys, we sort the request parameters
-  const params = sortObjectByParam(requestParams);
+  const { params = {} } = req.body || {};
 
   const requestId = req.headers['x-request-id'];
   const {
@@ -116,6 +125,10 @@ router.post('/api/scores', async (req, res) => {
   } = params;
   let { strategies = [] } = params;
   strategies = formatStrategies(network, strategies);
+  if (strategies.length > MAX_STRATEGIES) {
+    return rpcError(res, 400, `invalid strategies length`, null);
+  }
+
   const invalidStrategies = checkInvalidStrategies(strategies);
   if (invalidStrategies.length > 0) {
     return rpcError(res, 400, `invalid strategies: ${invalidStrategies}`, null);

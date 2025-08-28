@@ -26,7 +26,7 @@ jest.mock('./requestDeduplicator', () =>
 );
 jest.mock('./utils', () => ({
   blockNumByNetwork: { 1: 123 },
-  formatStrategies: jest.fn(),
+  formatStrategies: jest.fn((network, strategies) => strategies),
   rpcSuccess: jest.fn(res => {
     res.send();
   }),
