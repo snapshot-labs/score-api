@@ -2,7 +2,7 @@ const originalBroviderUrl = process.env.BROVIDER_URL;
 process.env.BROVIDER_URL = 'test.brovider.url';
 
 import { createHash } from 'crypto';
-import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import { EMPTY_ADDRESS } from './constants';
 import snapshot from './strategies';
 import {
   blockNumByNetwork,
@@ -272,18 +272,6 @@ describe('formatStrategies function', () => {
     expect(formattedStrategies[0].network).toBe(network);
     expect(formattedStrategies[1].network).toBe('customNetwork');
     expect(formattedStrategies).toHaveLength(2);
-  });
-
-  it(`should limit strategies to ${MAX_STRATEGIES}`, () => {
-    const strategies = new Array(MAX_STRATEGIES + 1).fill({
-      name: 'strategy',
-      param: 'a'
-    });
-    const network = 'defaultNetwork';
-
-    const formattedStrategies = formatStrategies(network, strategies);
-
-    expect(formattedStrategies).toHaveLength(MAX_STRATEGIES);
   });
 });
 

@@ -1,6 +1,6 @@
 import { capture } from '@snapshot-labs/snapshot-sentry';
 import express from 'express';
-import { INVALID_ADDRESS_MESSAGE } from './constants';
+import { INVALID_ADDRESS_MESSAGE, MAX_STRATEGIES } from './constants';
 import disabled from './disabled.json';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
@@ -13,7 +13,8 @@ import {
   formatStrategies,
   isAddressValid,
   rpcError,
-  rpcSuccess
+  rpcSuccess,
+  sortObjectByParam
 } from './utils';
 import { version } from '../package.json';
 
@@ -29,6 +30,19 @@ const METHODS = {
     run: validate
   }
 };
+
+function normalizeParams(rawParams: any): any {
+  // To generate consistent cache keys, we sort the request parameters
+  const params = sortObjectByParam(rawParams);
+  if (params.strategies) {
+    params.strategies = formatStrategies(params.network, params.strategies);
+  }
+
+  // The 'delegation' parameter is deprecated; requests should be treated identically whether or not it is present
+  delete params.delegation;
+
+  return params;
+}
 
 function handlePostError(
   res: express.Response,
@@ -50,10 +64,9 @@ function handlePostError(
 }
 
 router.post('/', async (req, res) => {
-  const { id = null, method, params = {} } = req.body;
+  const { id = null, method, params: rawParams = {} } = req.body;
 
-  // The 'delegation' parameter is deprecated; requests should be treated identically whether or not it is present
-  delete params.delegation;
+  const params = normalizeParams(rawParams);
 
   if (params.space && disabled.includes(params.space))
     return rpcError(res, 429, 'too many requests', id);
@@ -111,6 +124,10 @@ router.post('/api/scores', async (req, res) => {
   } = params;
   let { strategies = [] } = params;
   strategies = formatStrategies(network, strategies);
+  if (strategies.length > MAX_STRATEGIES) {
+    return rpcError(res, 400, `invalid strategies length`, null);
+  }
+
   const invalidStrategies = checkInvalidStrategies(strategies);
   if (invalidStrategies.length > 0) {
     return rpcError(res, 400, `invalid strategies: ${invalidStrategies}`, null);
