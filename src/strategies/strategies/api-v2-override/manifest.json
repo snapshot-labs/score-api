@@ -1,5 +1,6 @@
 {
   "name": "API V2 Override",
   "author": "snapshot",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "overriding": true
 }

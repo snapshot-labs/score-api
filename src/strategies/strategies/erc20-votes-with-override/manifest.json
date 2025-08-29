@@ -1,5 +1,6 @@
 {
   "name": "ERC-20 Votes With Override",
   "author": "serenae-fansubs",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "overriding": true
 }
