@@ -11,7 +11,7 @@ async function parseCSV(
   fieldSeparator = ','
 ): Promise<Items> {
   if (url.startsWith('ipfs://')) {
-    url = url.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
+    url = url.replace('ipfs://', 'https://ipfs.snapshot.box/ipfs/');
   }
 
   const response = await fetch(url);
