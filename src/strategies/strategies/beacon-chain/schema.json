@@ -6,12 +6,6 @@
       "title": "Strategy",
       "type": "object",
       "properties": {
-        "clEndpoint": {
-          "type": "string",
-          "title": "Consensus Layer Endpoint",
-          "examples": ["e.g. https://rpc-gbc.gnosischain.com"],
-          "default": "https://rpc-gbc.gnosischain.com"
-        },
         "clMultiplier": {
           "type": "string",
           "title": "Consensus Layer Multiplier",
@@ -43,7 +37,7 @@
           "description": "Unix timestamp of the beacon chain genesis"
         }
       },
-      "required": ["clEndpoint", "clMultiplier", "decimals"],
+      "required": ["clMultiplier", "decimals"],
       "additionalProperties": false
     }
   }

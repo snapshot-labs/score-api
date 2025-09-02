@@ -17,8 +17,10 @@ export async function strategy(
   options,
   snapshot
 ): Promise<Record<string, number>> {
+  const BEACON_CHAIN_STRATEGY_ENDPOINT =
+    process.env.BEACON_CHAIN_STRATEGY_ENDPOINT ||
+    'https://rpc-gbc.gnosischain.com';
   const {
-    clEndpoint = 'https://rpc-gbc.gnosischain.com',
     clMultiplier = '32',
     decimals = 9,
     secondsPerSlot = 5,
@@ -41,7 +43,7 @@ export async function strategy(
     }
   }
 
-  const endpoint = `${clEndpoint}/eth/v1/beacon/states/${stateId}/validators?status=active`;
+  const endpoint = `${BEACON_CHAIN_STRATEGY_ENDPOINT}/eth/v1/beacon/states/${stateId}/validators?status=active`;
 
   try {
     const response = await customFetch(

@@ -4,7 +4,6 @@
     "strategy": {
       "name": "beacon-chain",
       "params": {
-        "clEndpoint": "https://rpc-gbc.gnosischain.com",
         "clMultiplier": "32",
         "decimals": 9,
         "secondsPerSlot": 5,
