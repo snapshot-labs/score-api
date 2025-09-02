@@ -14,8 +14,10 @@ This strategy calculates voting power based on Gnosis Beacon Chain validators ow
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `clEndpoint` | string | `https://rpc-gbc.gnosischain.com` | Consensus Layer API endpoint |
-| `clMultiplier` | string | `1` | Divisor to convert validator balance (e.g., `32` to convert gwei to GNO) |
+| `clMultiplier` | string | `32` | Divisor to convert validator balance (e.g., `32` to convert gwei to GNO) |
 | `decimals` | number | `9` | Number of decimals for the final result |
+| `secondsPerSlot` | number | `5` | Seconds per slot in the beacon chain (5 for Gnosis Chain, 12 for Ethereum) |
+| `genesisTime` | number | `1638968400` | Unix timestamp of the beacon chain genesis (Gnosis Chain genesis time) |
 
 ## Example
 
@@ -23,7 +25,9 @@ This strategy calculates voting power based on Gnosis Beacon Chain validators ow
 {
   "clEndpoint": "https://rpc-gbc.gnosischain.com", 
   "clMultiplier": "32",
-  "decimals": 9
+  "decimals": 9,
+  "secondsPerSlot": 5,
+  "genesisTime": 1638968400
 }
 ```
 
