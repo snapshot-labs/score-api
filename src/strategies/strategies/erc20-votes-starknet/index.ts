@@ -5,7 +5,7 @@ import { Multicaller } from '../../utils';
 export const supportedProtocols = ['starknet'];
 const abi = [
   {
-    name: 'getVotes',
+    name: 'get_votes',
     type: 'function',
     inputs: [
       {
