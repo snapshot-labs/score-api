@@ -34,7 +34,7 @@ export async function strategy(
 
   const multi = new Multicaller(network, provider, abi, { blockTag });
   addresses.forEach(voterAddress =>
-    multi.call(voterAddress, options.address, 'balanceOf', [voterAddress])
+    multi.call(voterAddress, options.address, 'get_votes', [voterAddress])
   );
   const result: Record<string, BigNumberish> = await multi.execute();
 
