@@ -9,7 +9,7 @@ export async function strategy(
   snapshot
 ) {
   const {
-    apiBase = 'http://localhost:8080',
+    apiBase = 'https://gbc-snapshot.gnosischain.com',
     secondsPerSlot = 5,
     genesisTime = 1638993340
   } = options;
