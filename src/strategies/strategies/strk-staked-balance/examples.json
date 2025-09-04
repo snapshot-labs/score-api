@@ -1,0 +1,20 @@
+[
+  {
+    "name": "STRK staked balances",
+    "strategy": {
+      "name": "strk-staked-balance",
+      "params": {
+        "symbol": "STRK"
+      }
+    },
+    "network": "0x534e5f4d41494e",
+    "addresses": [
+      "0x01c6a9f1f3f97a0a3b176fac97b69c3cd21ba31a522fca111b0e49e46975a048",
+      "0x06427a04f1dd6d758013e3c236974fc522592d559f571f97ead8c9d55b115d6a",
+      "0x056f71331dab1e0d790c364fc365118f479648e963e89101725ccbb24083e787",
+      "0x0475a1ba31db59f0eda3b3b260ad3abb30a2a67983cd51d753fdb4adad92a524",
+      "0x013477227a72EDC53A237231EC9f4C7180c93386664B1E3A1B5d181C354E5f39"
+    ],
+    "snapshot": 1985424
+  }
+]
