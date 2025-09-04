@@ -4,9 +4,10 @@
     "strategy": {
       "name": "beacon-chain",
       "params": {
-        "clEndpoint": "https://rpc-gbc.gnosischain.com",
         "clMultiplier": "32",
-        "decimals": 9
+        "decimals": 9,
+        "secondsPerSlot": 5,
+        "genesisTime": 1638968400
       }
     },
     "network": "100",
@@ -16,6 +17,6 @@
       "0x0000000000000000000000000000000000000001",
       "0x0000000000000000000000000000000000000002"
     ],
-    "snapshot": 41536371
+    "snapshot": 41762018
   }
 ]
