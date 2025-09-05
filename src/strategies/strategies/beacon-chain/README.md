@@ -20,7 +20,7 @@ This strategy calculates voting power based on Gnosis Beacon Chain validators ow
 
 ```json
 {
-  "clEndpoint": "https://gbc-snapshot.gnosischain.com", 
+  "apiBase": "https://gbc-snapshot.gnosischain.com", 
   "secondsPerSlot": 5,
   "genesisTime": 1638993340
 }
