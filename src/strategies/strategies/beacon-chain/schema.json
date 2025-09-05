@@ -6,19 +6,11 @@
       "title": "Strategy",
       "type": "object",
       "properties": {
-        "clMultiplier": {
+        "apiBase": {
           "type": "string",
-          "title": "Consensus Layer Multiplier",
-          "examples": ["e.g. 32", "1"],
-          "default": "1",
-          "description": "Multiplier to convert validator balance (usually divide by this value)"
-        },
-        "decimals": {
-          "type": "number",
-          "title": "Decimals",
-          "examples": ["e.g. 18"],
-          "minimum": 0,
-          "default": 9
+          "title": "API Base",
+          "examples": ["e.g. https://gbc-snapshot.gnosischain.com"],
+          "default": "https://gbc-snapshot.gnosischain.com"
         },
         "secondsPerSlot": {
           "type": "number",
@@ -31,13 +23,13 @@
         "genesisTime": {
           "type": "number",
           "title": "Genesis Time",
-          "examples": ["e.g. 1638968400"],
+          "examples": ["e.g. 1638993340"],
           "minimum": 0,
-          "default": 1638968400,
+          "default": 1638993340,
           "description": "Unix timestamp of the beacon chain genesis"
         }
       },
-      "required": ["clMultiplier", "decimals"],
+      "required": ["apiBase"],
       "additionalProperties": false
     }
   }
