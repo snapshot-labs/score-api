@@ -12,7 +12,7 @@ This strategy calculates voting power based on Gnosis Beacon Chain validators ow
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `clEndpoint` | string | `https://gbc-snapshot.gnosischain.com` | Consensus Layer Voting Power API endpoint |
+| `apiBase` | string | `https://gbc-snapshot.gnosischain.com` | Consensus Layer Voting Power API endpoint |
 | `secondsPerSlot` | number | `5` | Seconds per slot in the beacon chain (5 for Gnosis Chain, 12 for Ethereum) |
 | `genesisTime` | number | `1638993340` | Unix timestamp of the beacon chain genesis (Gnosis Chain genesis time) |
 
