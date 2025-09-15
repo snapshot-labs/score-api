@@ -16,44 +16,37 @@ export async function strategy(
   snapshot
 ) {
   options.ghstAddress =
-    options.ghstAddress || '0x385Eeac5cB85A38A9a07A70c73e0a3271CfB54A7';
+    options.ghstAddress || '0xcD2F22236DD9Dfe2356D7C543161D4d260FD9BcB';
 
   options.gltrStakingAddress =
-    options.gltrStakingAddress || '0x1fE64677Ab1397e20A1211AFae2758570fEa1B8c';
-
-  options.amGhstAddress =
-    options.amGhstAddress || '0x080b5BF8f360F624628E0fb961F4e67c9e3c7CF1';
-
-  options.wapGhstAddress =
-    options.wapGhstAddress || '0x73958d46B7aA2bc94926d8a215Fa560A5CdCA3eA';
-  options.wapGhstPoolId = options.wapGhstPoolId || 0;
+    options.gltrStakingAddress || '0xaB449DcA14413a6ae0bcea9Ea210B57aCe280d2c';
 
   options.ghstFudAddress =
-    options.ghstFudAddress || '0xfec232cc6f0f3aeb2f81b2787a9bc9f6fc72ea5c';
+    options.ghstFudAddress || '0xeae2fB93e291C2eB69195851813DE24f97f1ce71';
   options.ghstFudPoolId = options.ghstFudPoolId || 1;
 
   options.ghstFomoAddress =
-    options.ghstFomoAddress || '0x641ca8d96b01db1e14a5fba16bc1e5e508a45f2b';
+    options.ghstFomoAddress || '0x62ab7d558A011237F8a57ac0F97601A764e85b88';
   options.ghstFomoPoolId = options.ghstFomoPoolId || 2;
 
   options.ghstAlphaAddress =
-    options.ghstAlphaAddress || '0xc765eca0ad3fd27779d36d18e32552bd7e26fd7b';
+    options.ghstAlphaAddress || '0x0Ba2A49aedf9A409DBB0272db7CDF98aEb1E1837';
   options.ghstAlphaPoolId = options.ghstAlphaPoolId || 3;
 
   options.ghstKekAddress =
-    options.ghstKekAddress || '0xbfad162775ebfb9988db3f24ef28ca6bc2fb92f0';
+    options.ghstKekAddress || '0x699B4eb36b95cDF62c74f6322AaA140E7958Dc9f';
   options.ghstKekPoolId = options.ghstKekPoolId || 4;
-
+  // TODO: Update ghstUsdc
   options.ghstUsdcAddress =
     options.ghstUsdcAddress || '0x096c5ccb33cfc5732bcd1f3195c13dbefc4c82f4';
   options.ghstUsdcPoolId = options.ghstUsdcPoolId || 5;
 
-  options.ghstWmaticAddress =
-    options.ghstWmaticAddress || '0xf69e93771F11AECd8E554aA165C3Fe7fd811530c';
-  options.ghstWmaticPoolId = options.ghstWmaticPoolId || 6;
+  options.ghstWethAddress =
+    options.ghstWethAddress || '0x0DFb9Cb66A18468850d6216fCc691aa20ad1e091';
+  options.ghstWethPoolId = options.ghstWethPoolId || 6;
 
   options.ghstGltrAddress =
-    options.ghstGltrAddress || '0xb0E35478a389dD20050D66a67FB761678af99678';
+    options.ghstGltrAddress || '0xa83b31D701633b8EdCfba55B93dDBC202D8A4621';
   options.ghstGltrPoolId = options.ghstGltrPoolId || 7;
 
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
@@ -90,8 +83,8 @@ export async function strategy(
       [options.ghstAddress, 'balanceOf', [options.ghstGltrAddress]],
       [options.ghstUsdcAddress, 'totalSupply', []],
       [options.ghstAddress, 'balanceOf', [options.ghstUsdcAddress]],
-      [options.ghstWmaticAddress, 'totalSupply', []],
-      [options.ghstAddress, 'balanceOf', [options.ghstWmaticAddress]],
+      [options.ghstWethAddress, 'totalSupply', []],
+      [options.ghstAddress, 'balanceOf', [options.ghstWethAddress]],
       ...slicedStakedQueries[0]
     ],
     { blockTag }
@@ -139,7 +132,7 @@ export async function strategy(
       res[lpTokensStartIndex + 11],
       res[lpTokensStartIndex + 10]
     ),
-    ghstWmaticLp: tokensPerUni(
+    ghstWethLp: tokensPerUni(
       res[lpTokensStartIndex + 13],
       res[lpTokensStartIndex + 12]
     )
@@ -168,10 +161,9 @@ export async function strategy(
         ghstUsdcLp:
           Number(res[i]._info[options.ghstUsdcPoolId].userBalance.toString()) /
           1e18,
-        ghstWmaticLp:
-          Number(
-            res[i]._info[options.ghstWmaticPoolId].userBalance.toString()
-          ) / 1e18
+        ghstWethLp:
+          Number(res[i]._info[options.ghstWethPoolId].userBalance.toString()) /
+          1e18
       }
     };
 
@@ -183,7 +175,7 @@ export async function strategy(
         ghstKekLp: tokens.staked.ghstKekLp * lpTokensPerUni.ghstKekLp,
         ghstGltrLp: tokens.staked.ghstGltrLp * lpTokensPerUni.ghstGltrLp,
         ghstUsdcLp: tokens.staked.ghstUsdcLp * lpTokensPerUni.ghstUsdcLp,
-        ghstWmaticLp: tokens.staked.ghstWmaticLp * lpTokensPerUni.ghstWmaticLp
+        ghstWethLp: tokens.staked.ghstWethLp * lpTokensPerUni.ghstWethLp
       }
     };
 
