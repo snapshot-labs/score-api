@@ -390,7 +390,10 @@ const prices: Prices = {
   '414': GotchiRarityPrices.Legendary,
   '415': GotchiRarityPrices.Legendary,
   '416': GotchiRarityPrices.Mythical,
-  '417': GotchiRarityPrices.Mythical
+  '417': GotchiRarityPrices.Mythical,
+  '418': GotchiRarityPrices.Common,
+  '419': GotchiRarityPrices.Rare,
+  '420': GotchiRarityPrices.Legendary
 };
 
 const tokenAbi = [
