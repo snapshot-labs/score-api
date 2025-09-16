@@ -147,9 +147,7 @@ type IAccountMap = Map<
 interface IStreamsByAssetResult {
   streams: {
     id: string;
-    contract: {
-      id: string;
-    };
+    contract: string;
     canceled: boolean;
     proxied: boolean;
     proxender: string;
@@ -177,14 +175,12 @@ const RecipientStreamsByAsset = ({
       orderDirection: 'desc',
       skip,
       where: {
-        asset,
+        asset_: { address: asset },
         recipient_in: accounts
       }
     },
     id: true,
-    contract: {
-      id: true
-    },
+    contract: true,
     canceled: true,
     recipient: true,
     sender: true,
@@ -212,18 +208,16 @@ const SenderStreamsByAsset = ({
       where: {
         or: [
           {
-            and: [{ asset: asset }, { sender_in: accounts }]
+            and: [{ asset_: { address: asset } }, { sender_in: accounts }]
           },
           {
-            and: [{ asset: asset }, { proxender_in: accounts }]
+            and: [{ asset_: { address: asset } }, { proxender_in: accounts }]
           }
         ]
       }
     },
     id: true,
-    contract: {
-      id: true
-    },
+    contract: true,
     canceled: true,
     proxied: true,
     proxender: true,

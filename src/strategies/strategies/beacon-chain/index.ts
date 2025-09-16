@@ -12,21 +12,38 @@ interface BeaconChainResponse {
 export async function strategy(
   _space,
   _network,
-  _provider,
+  provider,
   addresses: string[],
-  options
-  // snapshot
+  options,
+  snapshot
 ): Promise<Record<string, number>> {
-  throw new Error(
-    'strategy is disabled because it is not using snapshot block'
-  );
+  const BEACON_CHAIN_STRATEGY_ENDPOINT =
+    process.env.BEACON_CHAIN_STRATEGY_ENDPOINT ||
+    'https://rpc-gbc.gnosischain.com';
   const {
-    clEndpoint = 'https://rpc-gbc.gnosischain.com',
     clMultiplier = '32',
-    decimals = 9
+    decimals = 9,
+    secondsPerSlot = 5,
+    genesisTime = 1638968400
   } = options;
 
-  const endpoint = `${clEndpoint}/eth/v1/beacon/states/finalized/validators?status=active`;
+  const isLatest = snapshot === 'latest' || snapshot == null;
+  let stateId: string;
+
+  if (isLatest) {
+    stateId = 'finalized';
+  } else {
+    const block = await provider.getBlock(snapshot);
+    const ts = block.timestamp;
+    if (ts <= genesisTime) {
+      stateId = 'genesis';
+    } else {
+      const slot = Math.floor((ts - genesisTime) / secondsPerSlot);
+      stateId = String(slot);
+    }
+  }
+
+  const endpoint = `${BEACON_CHAIN_STRATEGY_ENDPOINT}/eth/v1/beacon/states/${stateId}/validators?status=active`;
 
   try {
     const response = await customFetch(
@@ -37,7 +54,9 @@ export async function strategy(
       80000
     );
     if (!response.ok)
-      throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+      throw new Error(
+        `HTTP ${response.status} - ${response.statusText} - ${endpoint}`
+      );
 
     const json: BeaconChainResponse = await response.json();
     const validators = json.data ?? [];
