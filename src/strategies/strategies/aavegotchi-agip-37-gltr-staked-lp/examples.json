@@ -4,35 +4,31 @@
     "strategy": {
       "name": "aavegotchi-agip-37-gltr-staked-lp",
       "params": {
-        "ghstAddress": "0x385Eeac5cB85A38A9a07A70c73e0a3271CfB54A7",
-        "gltrStakingAddress": "0x1fE64677Ab1397e20A1211AFae2758570fEa1B8c",
-        "amGhstAddress": "0x080b5BF8f360F624628E0fb961F4e67c9e3c7CF1",
-        "wapGhstAddress": "0x73958d46B7aA2bc94926d8a215Fa560A5CdCA3eA",
-        "wapGhstPoolId": 0,
-        "ghstFudAddress": "0xfec232cc6f0f3aeb2f81b2787a9bc9f6fc72ea5c",
-        "ghstFudPoolId": 1,
-        "ghstFomoAddress": "0x641ca8d96b01db1e14a5fba16bc1e5e508a45f2b",
-        "ghstFomoPoolId": 2,
-        "ghstAlphaAddress": "0xc765eca0ad3fd27779d36d18e32552bd7e26fd7b",
-        "ghstAlphaPoolId": 3,
-        "ghstKekAddress": "0xbfad162775ebfb9988db3f24ef28ca6bc2fb92f0",
-        "ghstKekPoolId": 4,
-        "ghstUsdcAddress": "0x096c5ccb33cfc5732bcd1f3195c13dbefc4c82f4",
-        "ghstUsdcPoolId": 5,
-        "ghstWmaticAddress": "0xf69e93771F11AECd8E554aA165C3Fe7fd811530c",
-        "ghstWmaticPoolId": 6,
-        "ghstGltrAddress": "0xb0E35478a389dD20050D66a67FB761678af99678",
-        "ghstGltrPoolId": 7,
+        "ghstAddress": "0xcD2F22236DD9Dfe2356D7C543161D4d260FD9BcB",
+        "gltrStakingAddress": "0xaB449DcA14413a6ae0bcea9Ea210B57aCe280d2c",
+        "ghstFudAddress": "0xeae2fB93e291C2eB69195851813DE24f97f1ce71",
+        "ghstFudPoolId": 0,
+        "ghstFomoAddress": "0x62ab7d558A011237F8a57ac0F97601A764e85b88",
+        "ghstFomoPoolId": 1,
+        "ghstAlphaAddress": "0x0Ba2A49aedf9A409DBB0272db7CDF98aEb1E1837",
+        "ghstAlphaPoolId": 2,
+        "ghstKekAddress": "0x699B4eb36b95cDF62c74f6322AaA140E7958Dc9f",
+        "ghstKekPoolId": 3,
+        "ghstWethAddress": "0x0DFb9Cb66A18468850d6216fCc691aa20ad1e091",
+        "ghstWethPoolId": 4,
+        "ghstGltrAddress": "0xa83b31D701633b8EdCfba55B93dDBC202D8A4621",
+        "ghstGltrPoolId": 5,
         "symbol": "GHST",
         "decimals": 18
       }
     },
-    "network": "137",
+    "network": "8453",
     "addresses": [
-      "0x26cf02F892B04aF4Cf350539CE2C77FCF79Ec172",
-      "0x027Ffd3c119567e85998f4E6B9c3d83D5702660c",
-      "0xc4cb6cb969e8b4e309ab98e4da51b77887afad96"
+      "0xC3c2e1Cf099Bc6e1fA94ce358562BCbD5cc59FE5",
+      "0xAd0CEb6Dc055477b8a737B630D6210EFa76a2265",
+      "0x3714885d322EC50e4750094AAC3f5F7e3fB8F32f",
+      "0x4dAE5b5bf3dC068BDFEC47b8B402AFf28fe6707F"
     ],
-    "snapshot": 33423178
+    "snapshot": 35628695
   }
 ]

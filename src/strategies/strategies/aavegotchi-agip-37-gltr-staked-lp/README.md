@@ -10,7 +10,7 @@ This snapshot strategy enables voting power for the following assets staked in G
 - GHST-KEK LP
 - GHST-GLTR LP
 - GHST-USDC LP
-- GHST-WMATIC LP
+- GHST-WETH LP
 
 Please note this excludes voting power from:
 
