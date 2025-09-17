@@ -41,7 +41,7 @@ export async function strategy(
     );
     return out;
   } catch (e) {
-    console.error('VP API error at slot:', slot, e);
+    console.error(`${apiBase}/v1/vp`, 'VP API error at slot:', slot, e);
     return Object.fromEntries(addresses.map(a => [a, 0]));
   }
 }
