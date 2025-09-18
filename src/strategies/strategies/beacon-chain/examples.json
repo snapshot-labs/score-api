@@ -4,10 +4,9 @@
     "strategy": {
       "name": "beacon-chain",
       "params": {
-        "clMultiplier": "32",
-        "decimals": 9,
+        "apiBase": "https://gbc-snapshot.gnosischain.com",
         "secondsPerSlot": 5,
-        "genesisTime": 1638968400
+        "genesisTime": 1638993340
       }
     },
     "network": "100",
@@ -17,6 +16,6 @@
       "0x0000000000000000000000000000000000000001",
       "0x0000000000000000000000000000000000000002"
     ],
-    "snapshot": 41762018
+    "snapshot": 42151189
   }
 ]
