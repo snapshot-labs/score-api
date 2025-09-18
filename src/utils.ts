@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import { EMPTY_ADDRESS, MAX_STRATEGIES } from './constants';
+import { EMPTY_ADDRESS } from './constants';
 import getStrategies from './helpers/strategies';
 import snapshot from './strategies';
 
@@ -17,9 +17,9 @@ export function sha256(str) {
   return createHash('sha256').update(str).digest('hex');
 }
 
-function sortObjectByParam(obj) {
+export function sortObjectByParam(obj: Record<string, any>) {
   // sort object by param name
-  const sortedObj = {};
+  const sortedObj: Record<string, any> = {};
   Object.keys(obj)
     .sort()
     .forEach(function (key) {
@@ -30,14 +30,13 @@ function sortObjectByParam(obj) {
 
 export function formatStrategies(network, strategies: Array<any> = []) {
   strategies = Array.isArray(strategies) ? strategies : [];
-  // update strategy network, strategy parameters should be same order to maintain consistent key hashes and limit to max strategies
+  // update strategy network, strategy parameters should be same order to maintain consistent key hashes
   return strategies
     .map(strategy => ({
       ...strategy,
       network: strategy?.network || network
     }))
-    .map(sortObjectByParam)
-    .slice(0, MAX_STRATEGIES);
+    .map(sortObjectByParam);
 }
 
 export function checkInvalidStrategies(strategies): Array<string> {

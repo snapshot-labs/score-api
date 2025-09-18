@@ -7,23 +7,22 @@ This strategy calculates voting power based on Gnosis Beacon Chain validators ow
 1. **Fetches active validators** from the Gnosis Beacon Chain API
 2. **Filters by withdrawal credentials** - validators with withdrawal credentials ending with the user's address
 3. **Sums validator balances** for each address to calculate voting power
-4. **Applies multiplier** to convert from gwei to the desired unit (e.g., GNO)
 
 ## Parameters
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `clEndpoint` | string | `https://rpc-gbc.gnosischain.com` | Consensus Layer API endpoint |
-| `clMultiplier` | string | `1` | Divisor to convert validator balance (e.g., `32` to convert gwei to GNO) |
-| `decimals` | number | `9` | Number of decimals for the final result |
+| `apiBase` | string | `https://gbc-snapshot.gnosischain.com` | Consensus Layer Voting Power API endpoint |
+| `secondsPerSlot` | number | `5` | Seconds per slot in the beacon chain (5 for Gnosis Chain, 12 for Ethereum) |
+| `genesisTime` | number | `1638993340` | Unix timestamp of the beacon chain genesis (Gnosis Chain genesis time) |
 
 ## Example
 
 ```json
 {
-  "clEndpoint": "https://rpc-gbc.gnosischain.com", 
-  "clMultiplier": "32",
-  "decimals": 9
+  "apiBase": "https://gbc-snapshot.gnosischain.com", 
+  "secondsPerSlot": 5,
+  "genesisTime": 1638993340
 }
 ```
 
