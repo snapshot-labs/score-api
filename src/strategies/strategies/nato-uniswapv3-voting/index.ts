@@ -100,57 +100,46 @@ export async function strategy(
     params.positions.__args.block = { number: snapshot };
   }
 
-  try {
-    const rawData = await subgraphRequest(
-      options.subgraph || UNISWAP_V3_SUBGRAPH_URL[network],
-      params
-    );
+  const rawData = await subgraphRequest(
+    options.subgraph || UNISWAP_V3_SUBGRAPH_URL[network],
+    params
+  );
 
-    const usersUniswap = addresses.map(() => ({
-      positions: []
-    }));
+  const usersUniswap = addresses.map(() => ({
+    positions: []
+  }));
 
-    rawData?.positions?.map(position => {
-      // Only include positions with the required fee tier (1% = 10000)
-      if (position?.pool?.feeTier === requiredFeeTier.toString()) {
-        const ownerIndex = _addresses.indexOf(position?.owner);
-        if (ownerIndex !== -1) {
-          usersUniswap[ownerIndex].positions.push(position);
-        }
+  rawData?.positions?.map(position => {
+    // Only include positions with the required fee tier (1% = 10000)
+    if (position?.pool?.feeTier === requiredFeeTier.toString()) {
+      const ownerIndex = _addresses.indexOf(position?.owner);
+      if (ownerIndex !== -1) {
+        usersUniswap[ownerIndex].positions.push(position);
+      }
+    }
+  });
+
+  const score = {};
+
+  usersUniswap?.forEach((user: any, idx) => {
+    let tokenReserveAdd = 0;
+
+    user.positions.forEach((position: any) => {
+      // Calculate total token amounts using custom function
+      const tokenAmounts = calculateTotalTokenAmounts(position);
+      
+      // Add the token amount based on tokenReserve parameter
+      if (tokenReserve === 'token0Reserve') {
+        tokenReserveAdd += tokenAmounts.token0Amount;
+      } else {
+        tokenReserveAdd += tokenAmounts.token1Amount;
       }
     });
 
-    const score = {};
+    score[addresses[idx]] = tokenReserveAdd;
+  });
 
-    usersUniswap?.forEach((user: any, idx) => {
-      let tokenReserveAdd = 0;
-
-      user.positions.forEach((position: any) => {
-        // Calculate total token amounts using custom function
-        const tokenAmounts = calculateTotalTokenAmounts(position);
-        
-        // Add the token amount based on tokenReserve parameter
-        if (tokenReserve === 'token0Reserve') {
-          tokenReserveAdd += tokenAmounts.token0Amount;
-        } else {
-          tokenReserveAdd += tokenAmounts.token1Amount;
-        }
-      });
-
-      score[addresses[idx]] = tokenReserveAdd;
-    });
-
-    // Return the actual scores from the subgraph
-    // If no positions found, return zero scores
-
-    return score || {};
-  } catch (error) {
-    console.error('Error fetching Uniswap V3 positions:', error);
-    // Return empty scores if subgraph fails
-    const emptyScore = {};
-    addresses.forEach((address) => {
-      emptyScore[address] = 0;
-    });
-    return emptyScore;
-  }
+  // Return the actual scores from the subgraph
+  // If no positions found, return zero scores
+  return score || {};
 }
