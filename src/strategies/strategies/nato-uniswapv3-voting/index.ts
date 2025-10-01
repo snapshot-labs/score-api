@@ -1,11 +1,11 @@
 import { subgraphRequest } from '../../utils';
-import { getAllReserves } from '../uniswap-v3/helper';
 import { FeeAmount, Pool, Position } from '@uniswap/v3-sdk';
 import { Token } from '@uniswap/sdk-core';
 
 const UNISWAP_V3_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV',
-  '8453': 'https://subgrapher.snapshot.org/subgraph/arbitrum/43Hwfi3dJSoGpyas9VwNoDAv55yjgGrPpNSmbQZArzMG'
+  '8453':
+    'https://subgrapher.snapshot.org/subgraph/arbitrum/43Hwfi3dJSoGpyas9VwNoDAv55yjgGrPpNSmbQZArzMG'
 };
 
 export const author = 'vitalii';
@@ -22,12 +22,31 @@ function calculateTotalTokenAmounts(position: any) {
     token1
   } = position;
 
-  const baseToken = new Token(1, token0.id, Number(token0.decimals), token0.symbol);
-  const quoteToken = new Token(1, token1.id, Number(token1.decimals), token1.symbol);
-  
-  const fee = Object.values(FeeAmount).includes(parseFloat(feeTier)) ? parseFloat(feeTier) : 0;
-  const pool = new Pool(baseToken, quoteToken, fee, sqrtPrice, liquidity, Number(tick));
-  
+  const baseToken = new Token(
+    1,
+    token0.id,
+    Number(token0.decimals),
+    token0.symbol
+  );
+  const quoteToken = new Token(
+    1,
+    token1.id,
+    Number(token1.decimals),
+    token1.symbol
+  );
+
+  const fee = Object.values(FeeAmount).includes(parseFloat(feeTier))
+    ? parseFloat(feeTier)
+    : 0;
+  const pool = new Pool(
+    baseToken,
+    quoteToken,
+    fee,
+    sqrtPrice,
+    liquidity,
+    Number(tick)
+  );
+
   const position_obj = new Position({
     pool,
     liquidity,
@@ -42,7 +61,9 @@ function calculateTotalTokenAmounts(position: any) {
   return {
     token0Amount: parseFloat(amount0.toSignificant(18)),
     token1Amount: parseFloat(amount1.toSignificant(18)),
-    inRange: parseInt(tick) >= parseInt(tickLower.tickIdx) && parseInt(tick) <= parseInt(tickUpper.tickIdx)
+    inRange:
+      parseInt(tick) >= parseInt(tickLower.tickIdx) &&
+      parseInt(tick) <= parseInt(tickUpper.tickIdx)
   };
 }
 
@@ -54,7 +75,8 @@ export async function strategy(
   options,
   snapshot
 ): Promise<Record<string, number>> {
-  const tokenReserve = options.tokenReserve === 0 ? 'token0Reserve' : 'token1Reserve';
+  const tokenReserve =
+    options.tokenReserve === 0 ? 'token0Reserve' : 'token1Reserve';
   const requiredFeeTier = options.feeTier || 10000; // Default to 1% fee tier (10000 = 1%)
 
   const _addresses = addresses.map(address => address.toLowerCase());
@@ -100,16 +122,28 @@ export async function strategy(
     params.positions.__args.block = { number: snapshot };
   }
 
-  const rawData = await subgraphRequest(
-    options.subgraph || UNISWAP_V3_SUBGRAPH_URL[network],
-    params
-  );
+  let rawData;
+  try {
+    rawData = await subgraphRequest(
+      options.subgraph || UNISWAP_V3_SUBGRAPH_URL[network],
+      params
+    );
+  } catch (error) {
+    console.error('Subgraph request failed:', error);
+    // Return zero scores for all addresses if subgraph fails
+    return Object.fromEntries(addresses.map(address => [address, 0]));
+  }
+
+  if (!rawData || !rawData.positions) {
+    // Return zero scores if no data returned
+    return Object.fromEntries(addresses.map(address => [address, 0]));
+  }
 
   const usersUniswap = addresses.map(() => ({
     positions: []
   }));
 
-  rawData?.positions?.map(position => {
+  rawData.positions.map(position => {
     // Only include positions with the required fee tier (1% = 10000)
     if (position?.pool?.feeTier === requiredFeeTier.toString()) {
       const ownerIndex = _addresses.indexOf(position?.owner);
@@ -127,7 +161,7 @@ export async function strategy(
     user.positions.forEach((position: any) => {
       // Calculate total token amounts using custom function
       const tokenAmounts = calculateTotalTokenAmounts(position);
-      
+
       // Add the token amount based on tokenReserve parameter
       if (tokenReserve === 'token0Reserve') {
         tokenReserveAdd += tokenAmounts.token0Amount;
