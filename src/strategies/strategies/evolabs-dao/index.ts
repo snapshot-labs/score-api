@@ -110,22 +110,28 @@ export async function strategy(
       }
     });
   } else {
-    // Use Snapshot delegation system
-    const delegationSpace = options.delegationSpace || space;
-    const snapshotDelegations = await getDelegations(
-      delegationSpace,
-      network,
-      addresses,
-      snapshot as any
-    );
+    // Use Snapshot delegation system with error handling
+    try {
+      const delegationSpace = options.delegationSpace || space;
+      const snapshotDelegations = await getDelegations(
+        delegationSpace,
+        network,
+        addresses,
+        snapshot as any
+      );
 
-    // Convert Snapshot delegations to our format
-    Object.entries(snapshotDelegations).forEach(([delegate, delegators]) => {
-      delegations[delegate] = delegators as string[];
-      (delegators as string[]).forEach(delegator => {
-        delegationMappings[delegator] = delegate;
+      // Convert Snapshot delegations to our format
+      Object.entries(snapshotDelegations).forEach(([delegate, delegators]) => {
+        delegations[delegate] = delegators as string[];
+        (delegators as string[]).forEach(delegator => {
+          delegationMappings[delegator] = delegate;
+        });
       });
-    });
+    } catch (error) {
+      // If delegation subgraph is not available for this network, continue without delegation
+      console.warn(`Delegation not available for network ${network}: ${error}`);
+      // delegations and delegationMappings remain empty, so everyone votes for themselves
+    }
   }
 
   // Calculate voting power

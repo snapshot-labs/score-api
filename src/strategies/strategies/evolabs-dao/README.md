@@ -101,9 +101,16 @@ Alternative approaches for 80% threshold:
 
 ## Technical Notes
 
-- Uses Snapshot's delegation system by default
+- Uses Snapshot's delegation system by default (when available)
+- Gracefully handles networks where delegation subgraph is unavailable
 - Supports both ERC-721 and ERC-1155 SBT contracts
 - Efficient multicall implementation for gas optimization
 - Compatible with all EVM-compatible networks
 - Follows Snapshot strategy best practices
 - No schema.json provided to avoid array type validation conflicts with UI
+
+## Network Support
+
+- **Delegation**: Available on networks with Snapshot delegation subgraph support
+- **Fallback**: If delegation is unavailable, all SBT holders vote for themselves
+- **On-chain Delegation**: Available on all networks when delegation contract is provided

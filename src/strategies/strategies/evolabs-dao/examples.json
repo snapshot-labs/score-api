@@ -1,20 +1,20 @@
 [
   {
-    "name": "EvoLabs DAO with Additional Blacklist",
+    "name": "EvoLabs DAO OP Sepolia",
     "strategy": {
       "name": "evolabs-dao",
       "params": {
-        "address": "0xEA8176c28417A6FD2F2e40F871EA04dfFE1CAcd8",
+        "address": "0x7488CA45B1Bbb60e3a85947c1DD5F638c565B2e0",
         "symbol": "EVO",
         "additionalBlacklist": []
       }
     },
-    "network": "11155111",
+    "network": "11155420",
     "addresses": [
+      "0xAA3873B2a7697cfFAf5645074c1E033b841008e6",
       "0x4aaD7aFf7ca92276c0f077Ca87608061613A61A8",
-      "0x752b55a84a28a6D97863F954bF36CeCd21917Af0",
-      "0xF9F2037812541D7aD8F02Bff7BB09192597aD195"
+      "0x752b55a84a28a6D97863F954bF36CeCd21917Af0"
     ],
-    "snapshot": 8968275
+    "snapshot": 33800594
   }
 ]
