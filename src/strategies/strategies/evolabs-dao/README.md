@@ -43,25 +43,30 @@ Each SBT holder gets exactly 1 vote, regardless of how many SBTs they own. This 
 
 **Note**: `additionalBlacklist` is supported in the strategy code but not defined in the UI schema due to array type limitations. No schema.json file is provided to avoid validation conflicts.
 
-## Example Configuration
+## Configuration Examples
 
+### Basic Usage (No Delegation)
+Works on all networks including OP Sepolia:
 ```json
 {
-  "address": "0x1234567890123456789012345678901234567890",
-  "additionalBlacklist": [
-    "0xbadactor1234567890123456789012345678901234",
-    "0xbadactor2345678901234567890123456789012345"
-  ],
-  "delegationSpace": "evolabsdaotest.eth",
-  "useOnChainDelegation": false
+  "address": "0x7488CA45B1Bbb60e3a85947c1DD5F638c565B2e0",
+  "additionalBlacklist": []
 }
 ```
 
-## Example with On-Chain Delegation
-
+### With Snapshot Delegation (Supported Networks Only)
 ```json
 {
   "address": "0x1234567890123456789012345678901234567890",
+  "additionalBlacklist": [],
+  "delegationSpace": "evolabsdaotest.eth"
+}
+```
+
+### With On-Chain Delegation (All Networks)
+```json
+{
+  "address": "0x7488CA45B1Bbb60e3a85947c1DD5F638c565B2e0",
   "additionalBlacklist": [],
   "useOnChainDelegation": true,
   "delegationContract": "0x5678901234567890123456789012345678901234"
@@ -111,6 +116,24 @@ Alternative approaches for 80% threshold:
 
 ## Network Support
 
-- **Delegation**: Available on networks with Snapshot delegation subgraph support
-- **Fallback**: If delegation is unavailable, all SBT holders vote for themselves
-- **On-chain Delegation**: Available on all networks when delegation contract is provided
+### Snapshot Delegation Support
+Supported networks: `1` (Ethereum), `5` (Goerli), `10` (Optimism), `56` (BSC), `100` (Gnosis), `137` (Polygon), `250` (Fantom), `42161` (Arbitrum), `43114` (Avalanche), `11155111` (Sepolia)
+
+### Unsupported Networks
+For networks without Snapshot delegation subgraph support (like OP Sepolia `11155420`):
+- **❌ Snapshot Delegation**: Throws error when `delegationSpace` is specified
+- **✅ On-chain Delegation**: Available when `useOnChainDelegation: true` and delegation contract provided
+- **✅ No Delegation**: Works perfectly when no delegation parameters are specified
+
+### Logic Flow
+The strategy behavior depends on the parameters provided:
+
+1. **If `useOnChainDelegation: true`**: Uses on-chain delegation (works on all networks)
+2. **If `delegationSpace` is specified**: Uses Snapshot delegation (throws error on unsupported networks)
+3. **If no delegation parameters**: Skip delegation entirely (works on all networks)
+
+### Error Handling
+The strategy implements strict error handling to ensure consistent voting results:
+- **Unsupported Networks**: Only throws error when Snapshot delegation is explicitly requested
+- **Prevents Silent Failures**: No fallback behavior that could lead to unexpected results
+- **Clear Error Messages**: Provides actionable guidance for resolution

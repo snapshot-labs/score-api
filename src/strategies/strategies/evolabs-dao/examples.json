@@ -1,6 +1,6 @@
 [
   {
-    "name": "EvoLabs DAO OP Sepolia",
+    "name": "EvoLabs DAO Basic SBT",
     "strategy": {
       "name": "evolabs-dao",
       "params": {
