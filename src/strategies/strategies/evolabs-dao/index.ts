@@ -3,6 +3,9 @@ import { getAddress } from '@ethersproject/address';
 import { Multicaller } from '../../utils';
 import { getDelegations } from '../../utils/delegation';
 
+export const author = 'specter';
+export const version = '1.0.0';
+
 // ABI for Soulbound Token (ERC-721 standard)
 const sbtAbi = [
   'function balanceOf(address owner) external view returns (uint256)',
@@ -77,6 +80,20 @@ export async function strategy(
   const delegations: Record<string, string[]> = {};
   const delegationMappings: Record<string, string> = {}; // delegator -> delegate
 
+  // Networks with known delegation subgraph support
+  const supportedDelegationNetworks = [
+    '1', // Ethereum Mainnet
+    '5', // Goerli
+    '10', // Optimism
+    '56', // BSC
+    '100', // Gnosis
+    '137', // Polygon
+    '250', // Fantom
+    '42161', // Arbitrum
+    '43114', // Avalanche
+    '11155111' // Sepolia
+  ];
+
   if (options.useOnChainDelegation && options.delegationContract) {
     // Use on-chain delegation
     const delegationMulti = new Multicaller(network, provider, delegationAbi, {
@@ -106,7 +123,17 @@ export async function strategy(
         delegations[normalizedDelegate].push(delegator);
       }
     });
-  } else {
+  } else if (options.delegationSpace) {
+    // Only check delegation support if delegation space is explicitly specified
+    // Check if Snapshot delegation is supported on this network
+    if (!supportedDelegationNetworks.includes(network)) {
+      throw new Error(
+        `Delegation subgraph not available for network ${network}. ` +
+          `Use on-chain delegation (useOnChainDelegation: true) or ` +
+          `use a supported network: ${supportedDelegationNetworks.join(', ')}`
+      );
+    }
+
     // Use Snapshot delegation system
     const delegationSpace = options.delegationSpace || space;
     const snapshotDelegations = await getDelegations(
@@ -124,6 +151,7 @@ export async function strategy(
       });
     });
   }
+  // If no delegation options are specified, skip delegation entirely
 
   // Calculate voting power
   const votingPower: Record<string, number> = {};

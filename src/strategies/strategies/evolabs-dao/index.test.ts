@@ -193,4 +193,52 @@ describe('evolabs-dao strategy', () => {
       '0x2345678901234567890123456789012345678901': 2 // own vote + delegated vote
     });
   });
+
+  it('should work on unsupported networks when no delegation is used', async () => {
+    mockMulticaller.execute.mockResolvedValue({
+      '0x1234567890123456789012345678901234567890': '1'
+    });
+
+    const addresses = ['0x1234567890123456789012345678901234567890'];
+    const options = {
+      address: '0xSBTContract'
+      // No delegation options specified
+    };
+
+    const result = await strategy(
+      'test-space',
+      '11155420', // OP Sepolia - unsupported network but should work without delegation
+      mockProvider,
+      addresses,
+      options,
+      'latest'
+    );
+
+    expect(result).toEqual({
+      '0x1234567890123456789012345678901234567890': 1 // Gets 1 vote, no delegation
+    });
+  });
+
+  it('should throw error when delegation is requested on unsupported networks', async () => {
+    mockMulticaller.execute.mockResolvedValue({
+      '0x1234567890123456789012345678901234567890': '1'
+    });
+
+    const addresses = ['0x1234567890123456789012345678901234567890'];
+    const options = {
+      address: '0xSBTContract',
+      delegationSpace: 'test-space' // Explicitly requesting delegation
+    };
+
+    await expect(
+      strategy(
+        'test-space',
+        '11155420', // OP Sepolia - unsupported network
+        mockProvider,
+        addresses,
+        options,
+        'latest'
+      )
+    ).rejects.toThrow('Delegation subgraph not available for network 11155420');
+  });
 });
