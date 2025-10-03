@@ -2,10 +2,6 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'thinhthf';
-export const version = '0.0.1';
-export const dependOnOtherAddress = false;
-
 const abi = [
   'function userDeposit(uint8 vaultId, address user) view returns (uint128)'
 ];

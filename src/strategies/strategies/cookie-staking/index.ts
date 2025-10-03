@@ -2,9 +2,6 @@ import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 
-export const author = 'spaceh3ad';
-export const version = '0.1.0';
-
 const abi = [
   'function users(uint256,address) view returns (uint256 shares, uint256 lastDepositedTime, uint256 totalInvested, uint256 totalClaimed)'
 ];

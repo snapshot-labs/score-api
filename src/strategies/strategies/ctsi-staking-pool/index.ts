@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'cartesi';
-export const version = '0.1.0';
-
 const SUBGRAPH_URL_ROOT =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/8BCdnuKC96Gzv2XyEfy4MQyLEjL5E47bmBtFDnBtM3KD';
 

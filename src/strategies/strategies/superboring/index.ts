@@ -4,9 +4,6 @@ import { Multicaller } from '../../utils';
 
 /// See https://app.superboring.xyz
 
-export const author = 'd10r';
-export const version = '0.1.0';
-
 // subset of SuperBoring methods we need
 const superBoringAbi = [
   'function getSleepPod(address staker) external view returns (address)',

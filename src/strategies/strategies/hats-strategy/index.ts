@@ -3,9 +3,6 @@ import { formatUnits, parseUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { strategy as erc4626BalanceOfStrategy } from '../erc4626-assets-of';
 
-export const author = 'hats-finance';
-export const version = '0.1.0';
-
 const abi = [
   'function getVotes(address account) view returns (uint256)',
   'function delegates(address account) view returns (address)',

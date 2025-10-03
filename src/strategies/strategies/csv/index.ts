@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'bonustrack';
-export const version = '0.1.0';
-
 interface Items {
   [address: string]: string;
 }
@@ -14,7 +11,7 @@ async function parseCSV(
   fieldSeparator = ','
 ): Promise<Items> {
   if (url.startsWith('ipfs://')) {
-    url = url.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
+    url = url.replace('ipfs://', 'https://ipfs.snapshot.box/ipfs/');
   }
 
   const response = await fetch(url);

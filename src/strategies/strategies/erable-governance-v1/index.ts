@@ -1,9 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
 
-export const author = 'your-github-username';
-export const version = '0.1.0';
-
 // Contracts for token and staking
 const ERA_TOKEN_CONTRACT = '0xA8bF0B92BE0338794d2e3b180b9643A1f0eB2914';
 const STAKING_CONTRACT = '0xA88729cD1482F4B9A2cF6A9E72E8CD0a26EC3122';

@@ -6,9 +6,6 @@ const FLASHSTAKE_SUBGRAPH_URL = {
   '56': 'https://score-api.wanakafarm.com/land-ingame/graphql'
 };
 
-export const author = 'TranTien139';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

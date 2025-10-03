@@ -1,14 +1,11 @@
 import { Multicaller } from '../../utils';
 import { subgraphRequest } from '../../utils';
-export const author = 'candoizo';
-export const version = '0.2.5';
-
 interface Prices {
   [id: string]: 0 | 5 | 10 | 20 | 50 | 100 | 300 | 2000 | 3000 | 10000;
 }
 
 const AAVEGOTCHI_SUBGRAPH_URL = {
-  137: 'https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/aavegotchi-core-matic/api'
+  8453: 'https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/aavegotchi-core-base/api'
 };
 
 enum GotchiRarityPrices {
@@ -393,7 +390,10 @@ const prices: Prices = {
   '414': GotchiRarityPrices.Legendary,
   '415': GotchiRarityPrices.Legendary,
   '416': GotchiRarityPrices.Mythical,
-  '417': GotchiRarityPrices.Mythical
+  '417': GotchiRarityPrices.Mythical,
+  '418': GotchiRarityPrices.Common,
+  '419': GotchiRarityPrices.Rare,
+  '420': GotchiRarityPrices.Legendary
 };
 
 const tokenAbi = [
@@ -471,7 +471,7 @@ export async function strategy(
   }
 
   const subgraphRaw = await subgraphRequest(
-    AAVEGOTCHI_SUBGRAPH_URL[137],
+    AAVEGOTCHI_SUBGRAPH_URL[8453],
     query
   );
 

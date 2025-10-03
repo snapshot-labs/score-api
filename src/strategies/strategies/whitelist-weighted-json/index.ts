@@ -1,9 +1,6 @@
 import fetch from 'cross-fetch';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'thierbig';
-export const version = '0.1.0';
-
 export async function strategy(space, network, provider, addresses, options) {
   const url = options.url;
 

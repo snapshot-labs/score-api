@@ -2,9 +2,6 @@ import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 import { sha256, customFetch } from '../../utils';
 
-export const author = 'snapshot-labs';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,

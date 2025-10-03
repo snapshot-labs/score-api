@@ -4,9 +4,6 @@ import { getAddress } from '@ethersproject/address';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 import { Multicaller } from '../../utils';
 
-export const author = 'snapshot-labs';
-export const version = '0.1.0';
-
 const abi = [
   'function delegation(address delegator, bytes32 id) view returns (address delegate)',
   'function getDelegators(address delegate, bytes32 id) view returns (address[])',

@@ -2,9 +2,6 @@ import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller, customFetch } from '../../utils';
 
-export const author = 'thinhthf';
-export const version = '0.1.0';
-
 const abi = [
   'function claimed(uint256 tranche, address user) external view returns (bool)',
   'function claimableBalance(uint256 _tranche, uint256 _amount) external view returns (uint256,uint256)'

@@ -2,9 +2,6 @@ import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'nginnever';
-export const version = '0.1.1';
-
 export async function strategy(
   _space,
   network,

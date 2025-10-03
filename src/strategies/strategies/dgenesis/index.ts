@@ -8,9 +8,6 @@ const DGENESIS_SUBGRAPH_URL = {
     'https://subgrapher.snapshot.org/subgraph/arbitrum/5muLDbVvE371id5FfiS4Zn3DjuZvA2n5M1cvskN3ARGV'
 };
 
-export const author = 'callikai';
-export const version = '0.1.0';
-
 export async function strategy(
   _space,
   network,

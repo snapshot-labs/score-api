@@ -3,9 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 
-export const author = 'publu';
-export const version = '0.0.1';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256)',

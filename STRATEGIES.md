@@ -12,22 +12,23 @@ Create a new folder under `src/strategies/strategies/` with your strategy name (
 src/strategies/strategies/my-new-strategy/
 ├── index.ts
 ├── examples.json
+├── manifest.json
 ├── schema.json (optional)
 └── README.md (recommended)
 ```
 
 ### 2. Implement the strategy
 
-Update code in index.ts with your strategy implementation, and examples in examples.json and schema.json if needed:
+- Update code in index.ts with your strategy implementation
+- Update manifest.json with your strategy metadata
+- Update examples in examples.json and schema.json if needed:
 
-### 3. Add to index
-
-Add your strategy to `src/strategies/strategies/index.ts`:
-
-### 4. Test your strategy
+### 3. Test your strategy
 
 ```bash
-yarn test:strategy --strategy=my-new-strategy
+yarn test:strategy my-new-strategy
+# To test with 500 addresses
+yarn test:strategy my-new-strategy 500
 ```
 
 ## Adding a new validation
@@ -42,14 +43,10 @@ src/strategies/validations/my-new-validation/
 └── README.md (recommended)
 ```
 
-### Add to index
-
-Add your validation to `src/strategies/validations/index.ts`:
-
 ### Test your validation
 
 ```bash
-yarn test:validation --validation=my-new-validation
+yarn test:validation my-new-validation
 ```
 
 ## Checklist for new strategies

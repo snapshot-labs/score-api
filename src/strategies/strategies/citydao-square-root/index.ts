@@ -22,9 +22,6 @@ type Params = {
   voiceCredits?: number;
 };
 
-const author = 'citydao';
-const version = '0.0.1';
-
 /**
  * CityDAO Square Root Snapshot Strategy
  * @version 0.0.1
@@ -61,4 +58,4 @@ async function strategy(
   return scores;
 }
 
-export { author, version, strategy };
+export { strategy };

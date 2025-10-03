@@ -57,7 +57,7 @@ async function getRecipientStreams(
         const entry = {
           id: item.tokenId,
           canceled: item.canceled,
-          contract: item.contract.id,
+          contract: item.contract,
           deposited: item.depositAmount,
           withdrawn: item.withdrawnAmount
         };
@@ -128,7 +128,7 @@ async function getSenderStreams(
         const entry = {
           id: item.tokenId,
           canceled: item.canceled,
-          contract: item.contract.id,
+          contract: item.contract,
           deposited: item.depositAmount,
           withdrawn: item.withdrawnAmount
         };
@@ -451,12 +451,9 @@ async function getLatestBlock(
 
     if (snapshot === 'latest') {
       const endpoint = deployments[network].subgraph;
-      const name = endpoint.split('/subgraphs/name/')[1];
-      const url = new URL('https://api.thegraph.com/index-node/graphql');
+      const query = `{ _meta { block { number } } }`;
 
-      const query = `{indexingStatusForCurrentVersion(subgraphName: \"${name}\"){ chains { latestBlock { number }}}}`;
-
-      const response = await customFetch(url, {
+      const response = await customFetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
@@ -464,8 +461,7 @@ async function getLatestBlock(
       });
 
       const { data } = await response.json();
-      const block = data.indexingStatusForCurrentVersion.chains[0].latestBlock;
-      const result = Number(block.number);
+      const result = Number(data._meta.block.number);
 
       console.log('=== SABLIER V2 ===');
       console.log(`Fetched latest subgraph indexed block at {${result}}`);

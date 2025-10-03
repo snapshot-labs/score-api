@@ -2,9 +2,6 @@ import strategies from '..';
 import { strategy as proofOfHumanityStrategy } from '../proof-of-humanity';
 import { strategy as brightIdStrategy } from '../brightid';
 
-export const author = 'samuveth';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,

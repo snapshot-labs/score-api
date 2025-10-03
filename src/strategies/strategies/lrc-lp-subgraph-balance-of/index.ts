@@ -1,9 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'shad-k';
-export const version = '0.1.1';
-
 const LIMIT = 500;
 
 function makeUserQuery(snapshot, addresses, tokenIds) {

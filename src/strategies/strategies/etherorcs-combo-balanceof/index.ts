@@ -1,8 +1,5 @@
 import { customFetch } from '../../utils';
 
-export const author = 'tempest-sol';
-export const version = '0.1.1';
-
 type OrcType = {
   _id: number;
   owner: string;

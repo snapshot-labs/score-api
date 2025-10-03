@@ -1,9 +1,6 @@
 import { call } from '../../utils';
 import namehash from 'eth-ens-namehash';
 
-export const author = 'makoto';
-export const version = '0.1.0';
-
 const abi = [
   {
     inputs: [

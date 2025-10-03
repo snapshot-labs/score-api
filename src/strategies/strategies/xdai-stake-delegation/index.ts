@@ -4,9 +4,6 @@ import { strategy as xdaiPOSDAOStakingStrategy } from '../xdai-posdao-staking';
 import { strategy as xdaiStakeHoldersStrategy } from '../xdai-stake-holders';
 import { getDelegations } from '../../utils/delegation';
 
-export const author = 'maxaleks';
-export const version = '0.1.0';
-
 export async function strategy(
   space,
   network,

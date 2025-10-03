@@ -3,8 +3,6 @@ import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import examplesFile from './examples.json';
 
-export const author = 'MoonbaseMarkets';
-export const version = '0.0.1';
 export const examples = examplesFile;
 
 const abi = [

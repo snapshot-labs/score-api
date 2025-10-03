@@ -1,9 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'ShantyCottageCheese';
-export const version = '0.1.0';
-
 const abi = [
   'function getVotingPower(address _user, address _targetToken) view returns (uint256)'
 ];

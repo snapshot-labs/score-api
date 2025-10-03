@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'alxdca';
-export const version = '0.1.0';
-
 const abi = [
   'function stakers() external view returns (address[])',
   'function getStake(address) public view returns (uint256)',

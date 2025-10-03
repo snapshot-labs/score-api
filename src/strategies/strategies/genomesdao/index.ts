@@ -2,9 +2,6 @@ import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
-export const author = 'Charles-repo';
-export const version = '0.1.2';
-
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
   'function totalSupply() external view returns (uint256)',

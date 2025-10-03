@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Strategy",
+  "definitions": {
+    "Strategy": {
+      "title": "Strategy",
+      "type": "object",
+      "properties": {
+        "apiBase": {
+          "type": "string",
+          "title": "API Base",
+          "examples": ["e.g. https://gbc-snapshot.gnosischain.com"],
+          "default": "https://gbc-snapshot.gnosischain.com"
+        },
+        "secondsPerSlot": {
+          "type": "number",
+          "title": "Seconds Per Slot",
+          "examples": ["e.g. 5", "12"],
+          "minimum": 1,
+          "default": 5,
+          "description": "Seconds per slot in the beacon chain (5 for Gnosis Chain, 12 for Ethereum)"
+        },
+        "genesisTime": {
+          "type": "number",
+          "title": "Genesis Time",
+          "examples": ["e.g. 1638993340"],
+          "minimum": 0,
+          "default": 1638993340,
+          "description": "Unix timestamp of the beacon chain genesis"
+        }
+      },
+      "required": ["apiBase"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -2,9 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Contract } from '@ethersproject/contracts';
 
-export const author = 'unRealGamer28';
-export const version = '0.1.0';
-
 const abi = ['function totalSupply(uint256 t) external view returns (uint256)'];
 
 const maxLockupDuration = 4 * 365 * 24 * 60 * 60; // Maximum lockup duration is 4 years in seconds based on Curve VE contract

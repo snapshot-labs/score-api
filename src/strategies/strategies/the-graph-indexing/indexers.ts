@@ -8,7 +8,7 @@ import {
   bnWEI,
   verifyResults,
   GraphStrategyOptions
-} from '../the-graph/graphUtils';
+} from '../the-graph-balance/utils/graphUtils';
 
 export async function indexersStrategy(
   _space: string,

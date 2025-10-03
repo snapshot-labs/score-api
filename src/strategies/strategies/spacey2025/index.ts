@@ -1,9 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
-export const author = 'chuang39';
-export const version = '0.1.0';
-
 const SPACEY2025_MARKETPLACE_SUBGRAPH_URL = {
   '56': 'https://subgrapher.snapshot.org/subgraph/arbitrum/3zrj6YV8ZAHr1pcn5Vuqz2py2zbBiHFerFQJnH7dvmxJ'
 };
