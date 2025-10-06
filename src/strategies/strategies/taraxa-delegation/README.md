@@ -1,6 +1,6 @@
 # Simple Taraxa Delegation Strategy
 
-Calculates the stakes of voters, based on their DPOS stakes in the previous specified snapshot.
+Calculates the stakes of voters, based on their DPOS stakes in the previous specified snapshot together with their stTARA holdings.
 
 ## Examples
 
