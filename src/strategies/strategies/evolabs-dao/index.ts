@@ -3,7 +3,7 @@ import { getAddress } from '@ethersproject/address';
 import { Multicaller } from '../../utils';
 import { getDelegations } from '../../utils/delegation';
 
-export const author = 'specter';
+export const author = 'sketchminds';
 export const version = '1.0.0';
 
 // ABI for Soulbound Token (ERC-721 standard)
@@ -124,8 +124,6 @@ export async function strategy(
       }
     });
   } else if (options.delegationSpace) {
-    // Only check delegation support if delegation space is explicitly specified
-    // Check if Snapshot delegation is supported on this network
     if (!supportedDelegationNetworks.includes(network)) {
       throw new Error(
         `Delegation subgraph not available for network ${network}. ` +
@@ -135,7 +133,7 @@ export async function strategy(
     }
 
     // Use Snapshot delegation system
-    const delegationSpace = options.delegationSpace || space;
+    const delegationSpace = options.delegationSpace;
     const snapshotDelegations = await getDelegations(
       delegationSpace,
       network,
