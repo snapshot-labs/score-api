@@ -4,7 +4,8 @@
     "strategy": {
       "name": "wagdie-subgraph",
       "params": {
-        "subGraphURL": "https://subgrapher.snapshot.org/subgraph/arbitrum/CiuchCqNbcNs88KkbQqs7PwuaD2DrPqHqxuDVKrJ5ESM",
+        "subGraphURL": "https://gateway.thegraph.com/api/subgraphs/id/CiuchCqNbcNs88KkbQqs7PwuaD2DrPqHqxuDVKrJ5ESM",
+        "apiKey": "EXAMPLE_API_KEY",
         "scoreMultiplier": 1,
         "location": ["all"]
       }
@@ -16,6 +17,6 @@
       "0x4F0EceDCd73dA0315134741d9D3830B08fE32e95",
       "0xa027b41dc6fe7abec1b6ac69335383604766623c"
     ],
-    "snapshot": 16470969
+    "snapshot": 23363853
   }
 ]
