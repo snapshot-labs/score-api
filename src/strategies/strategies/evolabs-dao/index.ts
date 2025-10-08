@@ -3,8 +3,6 @@ import { getAddress } from '@ethersproject/address';
 import { Multicaller } from '../../utils';
 import { getDelegations } from '../../utils/delegation';
 
-export const author = 'sketchminds';
-export const version = '1.0.0';
 
 // ABI for Soulbound Token (ERC-721 standard)
 const sbtAbi = [
