@@ -5,6 +5,7 @@
       "name": "taraxa-delegation",
       "params": {
         "address": "0x00000000000000000000000000000000000000fe",
+        "stTaraAddress": "0x37Df886BE517F9c75b27Cb70dac0D61432C92FBE",
         "symbol": "TARA",
         "decimals": 18
       }
@@ -18,7 +19,8 @@
       "0x931d0b36e648906a27a67bc6057579984765e198",
       "0xfc43217e71ec0a1cc480f3d210cd07cbde7374ec",
       "0x21db400dcb1ef3bc3aee4f3d028ec1939b7fadd6",
-      "0x1daaa59a8d4a5c08080cadb65204d2d275838a99"
+      "0x1daaa59a8d4a5c08080cadb65204d2d275838a99",
+      "0x10f4fD4D9856EFd5700F0Cb70B90Bf519A3cd238"
     ],
     "snapshot": 3112430
   }
