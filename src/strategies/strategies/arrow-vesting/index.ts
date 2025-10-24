@@ -45,7 +45,7 @@ export async function strategy(
   const vestingContracts: Record<number, string> = {};
 
   // Process vesting contracts in parallel batches
-  const batchPromises = [];
+  const batchPromises: Promise<Record<number, string>>[] = [];
   for (let startIdx = 0; startIdx < contractsToProcess; startIdx += batchSize) {
     const endIdx = Math.min(startIdx + batchSize, contractsToProcess);
     const batchPromise = (async () => {
@@ -78,6 +78,10 @@ export async function strategy(
         } catch (error) {
           retries--;
           if (retries === 0) {
+            console.warn(
+              `Failed to fetch vesting contracts batch ${startIdx}-${endIdx} after 3 retries:`,
+              error instanceof Error ? error.message : String(error)
+            );
             // Continue with next batch instead of throwing
             batchResults = {};
           } else {
@@ -101,7 +105,7 @@ export async function strategy(
   const vestingContractAddresses = Object.values(vestingContracts);
   const vestingContractParameters: Record<string, object> = {};
 
-  const parameterBatchPromises = [];
+  const parameterBatchPromises: Promise<Record<string, object>>[] = [];
   for (
     let startIdx = 0;
     startIdx < vestingContractAddresses.length;
@@ -160,7 +164,7 @@ export async function strategy(
           if (retries === 0) {
             console.warn(
               `Failed to fetch vesting parameters batch ${startIdx}-${endIdx} after 3 retries:`,
-              error.message
+              error instanceof Error ? error.message : String(error)
             );
             // Continue with next batch instead of throwing
             batchResults = {};
