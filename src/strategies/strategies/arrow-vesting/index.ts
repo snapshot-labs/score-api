@@ -39,9 +39,8 @@ export async function strategy(
   });
 
   const totalContracts = vestingContractCount.toNumber();
-  const batchSize = 30; // Process contracts in batches of 20 to avoid RPC timeouts
-  const maxContracts = 200; // Limit total contracts to prevent excessive processing time
-  const contractsToProcess = Math.min(totalContracts, maxContracts);
+  const batchSize = 30; // Process contracts in batches of 30 to avoid RPC timeouts
+  const contractsToProcess = totalContracts;
   const vestingContracts: Record<number, string> = {};
 
   // Process vesting contracts in parallel batches
@@ -135,12 +134,6 @@ export async function strategy(
               `${vestingContractAddress}.recipient`,
               vestingContractAddress,
               'recipient',
-              []
-            );
-            vestingContractMulti.call(
-              `${vestingContractAddress}.total_locked`,
-              vestingContractAddress,
-              'total_locked',
               []
             );
             vestingContractMulti.call(
