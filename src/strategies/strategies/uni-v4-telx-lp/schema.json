@@ -29,7 +29,7 @@
           }
         }
       },
-      "required": ["symbol", "registryAddress", "telPrice", "tokens"]
+      "required": ["registryAddress", "telPrice", "tokens"]
     }
   }
 }

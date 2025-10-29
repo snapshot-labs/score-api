@@ -53,7 +53,7 @@ export async function strategy(
       [address]
     )
   );
-  const subscriptionsResult: Record<string, BigNumber[][]> =
+  const subscriptionsResult: Record<string, BigNumber[]> =
     await multiSubscriptions.execute();
 
   // 2. prepare calls to get data for every unique token ID found
@@ -65,9 +65,8 @@ export async function strategy(
   );
   const ownerOfToken: Record<string, string> = {};
   for (const [ownerAddress, tokenIds] of Object.entries(subscriptionsResult)) {
-    // result is an array so tokenIds[0] is nested token id array
-    if (tokenIds[0]) {
-      tokenIds[0].forEach(tokenId => {
+    if (tokenIds) {
+      tokenIds.forEach(tokenId => {
         const tokenIdStr = tokenId.toString();
         multiPositionDetails.call(
           tokenIdStr,
