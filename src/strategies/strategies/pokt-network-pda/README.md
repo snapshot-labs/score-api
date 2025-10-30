@@ -6,7 +6,7 @@ This strategy manages to fetch the latest PDAs' snapshot from Arweave and procee
 - Each builder from the impact house has one vote providing their point is more than 0
 - Stakers are as follows:
 -   Validators and liquidity providers collectively hold 50% of the stake house which will be calculated by summing all of their points and then SQRT of that total
--   Gateways hold 50% of the staker house which will be caclulated using SQRT of their points
+-   Gateways hold 50% of the staker house which will be calculated using SQRT of their points
 
 # Example 
 Here is an example of parameters:
