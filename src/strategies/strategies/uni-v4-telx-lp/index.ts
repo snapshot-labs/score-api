@@ -3,8 +3,6 @@ import { getAddress } from '@ethersproject/address';
 import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
 
-export const author = 'robriks';
-export const version = '0.1.0';
 
 const REGISTRY_ABI = [
   'function getAmountsForLiquidity(bytes32 poolId, uint128 liquidity, int24 tickLower, int24 tickUpper) view returns (uint256 amount0, uint256 amount1, uint160 sqrtPriceX96)',
