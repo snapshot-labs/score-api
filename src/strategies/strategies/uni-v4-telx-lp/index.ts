@@ -18,6 +18,29 @@ interface TokenInfo {
   price: number;
 }
 
+interface PoolKey {
+  currency0: string;
+  currency1: string;
+  fee: BigNumber;
+  tickSpacing: BigNumber;
+  hooks: string;
+}
+
+interface PositionDetails {
+  owner: string;
+  poolId: string; // bytes32
+  tickLower: BigNumber; // int24
+  tickUpper: BigNumber; // int24
+  liquidity: BigNumber; // uint128
+  poolKey: PoolKey;
+}
+
+interface PositionAmounts {
+  amount0: BigNumber;
+  amount1: BigNumber;
+  sqrtPriceX96: BigNumber;
+}
+
 export async function strategy(
   space,
   network,
@@ -32,6 +55,16 @@ export async function strategy(
   if (!telPrice || telPrice === 0) return {};
 
   // use generic token price & decimals lookup map for max maintainability
+  const tokenList = options.tokens as TokenInfo[];
+  const MAX_TOKEN_LIMIT = 100;
+  if (!tokenList || tokenList.length === 0) {
+    throw new Error('options.tokens is missing or empty');
+  }
+  if (tokenList.length > MAX_TOKEN_LIMIT) {
+    throw new Error(
+      `Token list length exceeds limit of ${MAX_TOKEN_LIMIT}. Found: ${tokenList.length}`
+    );
+  }
   const tokenInfoMap = new Map<string, { decimals: number; price: number }>();
   for (const token of options.tokens as TokenInfo[]) {
     // store key checksummed
@@ -78,7 +111,8 @@ export async function strategy(
       });
     }
   }
-  const positionDetailsResult = await multiPositionDetails.execute();
+  const positionDetailsResult: Record<string, PositionDetails> =
+    await multiPositionDetails.execute();
 
   // 3. get all token amounts using `PositionRegistry::getAmountsForLiquidity` in batched call
   const multiAmounts = new Multicaller(network, provider, REGISTRY_ABI, {
@@ -92,7 +126,8 @@ export async function strategy(
       [details.poolId, details.liquidity, details.tickLower, details.tickUpper]
     );
   }
-  const amountsResult = await multiAmounts.execute();
+  const amountsResult: Record<string, PositionAmounts> =
+    await multiAmounts.execute();
 
   // 4. calculate value for each position and aggregate scores
   const scores: Record<string, number> = {};
