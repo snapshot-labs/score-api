@@ -2,7 +2,7 @@ import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
 
-//0.1.0 was authered by mujtaba1747
+//0.1.0 was authored by mujtaba1747
 
 const tokenBNtoNumber = tokenBn => {
   return (
