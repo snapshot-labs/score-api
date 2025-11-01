@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Uni V4 TELx LP Voting (Base)",
+    "strategy": {
+      "name": "uni-v4-telx-lp",
+      "params": {
+        "symbol": "vTEL",
+        "registryAddress": "0x3994e3ae3Cf62bD2a3a83dcE73636E954852BB04",
+        "telPrice": 0.0038,
+        "tokens": [
+          {
+            "address": "0x0000000000000000000000000000000000000000",
+            "decimals": 18,
+            "price": 3685.45
+          },
+          {
+            "address": "0x09bE1692ca16e06f536F0038fF11D1dA8524aDB1",
+            "decimals": 2,
+            "price": 0.0038
+          }
+        ]
+      }
+    },
+    "network": "8453",
+    "addresses": [
+      "0xc1612C97537c2CC62a11FC4516367AB6F62d4B23",
+      "0x329e6cbdd16cad2f51d97d2e8f09612f12d45a6d",
+      "0xd7e88D492Dc992127384215b8555C9305C218299"
+    ],
+    "snapshot": 37492700
+  }
+]
