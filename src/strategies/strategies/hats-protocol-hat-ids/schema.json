@@ -18,8 +18,12 @@
           "type": "array",
           "title": "Hat Ids",
           "examples": ["e.g. [\"68\", \"68.1\", \"68.1.1\", \"68.1.1.1\""],
+          "minItems": 1,
           "items": {
-            "type": "string"
+            "type": "string",
+            "title": "Hat ID",
+            "minLength": 1,
+            "examples": ["e.g. 68"]
           }
         }
       },
