@@ -9,6 +9,7 @@
         "name": {
           "type": "string",
           "title": "DAO Name",
+          "minLength": 1,
           "examples": ["e.g. apecoin, ens, gitcoin"]
         },
         "roles": {
