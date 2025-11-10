@@ -9,13 +9,19 @@
         "name": {
           "type": "string",
           "title": "DAO Name",
+          "minLength": 1,
           "examples": ["e.g. apecoin, ens, gitcoin"]
         },
         "roles": {
           "type": "array",
           "title": "Discord Roles",
           "examples": ["e.g. Assembly, Trader, Moderator"],
-          "items": { "type": "string" }
+          "items": {
+            "type": "string",
+            "title": "Discord role",
+            "minLength": 1,
+            "examples": ["e.g. Trader"]
+          }
         }
       },
       "required": ["name", "roles"],

@@ -15,8 +15,10 @@
         "contracts": {
           "type": "array",
           "title": "Hedgey Contract addresses",
+          "minItems": 1,
           "items": {
             "type": "string",
+            "title": "Hedgey Contract address",
             "examples": ["e.g. 0xCe7Ac66E78aAE01d899eb90b63D1f20bE2E9c4B1"],
             "pattern": "^0x[a-fA-F0-9]{40}$",
             "minLength": 42,
