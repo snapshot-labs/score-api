@@ -2,7 +2,8 @@ import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
 const SUBGRAPH_URL = {
-  '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/CiuchCqNbcNs88KkbQqs7PwuaD2DrPqHqxuDVKrJ5ESM'
+  // Default to the WAGDIE World Subgraph
+  '1': 'https://gateway.thegraph.com/api/subgraphs/id/CiuchCqNbcNs88KkbQqs7PwuaD2DrPqHqxuDVKrJ5ESM'
 };
 
 export async function strategy(
@@ -19,8 +20,8 @@ export async function strategy(
     scores[getAddress(address)] = 0;
   }
 
-  // If graph doesn't exist return
-  if (!SUBGRAPH_URL[network]) {
+  // If no subgraph URL is provided or known for this network, return
+  if (!options?.subGraphURL && !SUBGRAPH_URL[network]) {
     return scores;
   }
 
@@ -56,7 +57,11 @@ export async function strategy(
 
   let hasNext = true;
   while (hasNext) {
-    const result = await subgraphRequest(SUBGRAPH_URL[network], params);
+    const url = options?.subGraphURL || SUBGRAPH_URL[network];
+    const requestOptions = options?.apiKey
+      ? { headers: { Authorization: `Bearer ${options.apiKey}` } }
+      : undefined;
+    const result = await subgraphRequest(url, params, requestOptions);
 
     const characters = result && result.characters ? result.characters : [];
     const latest = characters[characters.length - 1];
