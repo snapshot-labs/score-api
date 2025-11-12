@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Strategy",
+  "definitions": {
+    "Strategy": {
+      "title": "vesoc-nft-power",
+      "description": "Strategy that calculates voting power based on veSOC lock position with optional NFT consensus value multipliers",
+      "type": "object",
+      "properties": {
+        "veSocLockerAddress": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "title": "VeSocLocker Contract Address",
+          "description": "Address of the VeSocLocker contract containing user lock positions"
+        },
+        "nftContractAddress": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "title": "NFT Contract Address",
+          "description": "Address of the NFT contract with userPasses method (required only for vesoc-nft-power strategy)"
+        },
+        "consensusApi": {
+          "type": "string",
+          "format": "uri",
+          "title": "Consensus API Endpoint",
+          "description": "HTTP API endpoint to fetch NFT consensus values (required only for vesoc-nft-power strategy)"
+        },
+        "strategyType": {
+          "type": "string",
+          "default": "vesoc-nft-power",
+          "title": "Strategy Type",
+          "description": "Type of calculation strategy to use"
+        },
+        "multiplier": {
+          "type": "number",
+          "minimum": 0,
+          "default": 4,
+          "title": "Supply Ratio Multiplier",
+          "description": "Multiplier applied to supply ratio score for better readability (used only for vesoc-supply-ratio strategy)"
+        },
+        "decimals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 77,
+          "default": 2,
+          "title": "Token Decimals",
+          "description": "Number of decimal places for veSOC token"
+        }
+      },
+      "required": ["veSocLockerAddress"],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "strategyType": {
+                "const": "vesoc-nft-power"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "veSocLockerAddress",
+              "nftContractAddress",
+              "consensusApi"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "strategyType": {
+                "const": "vesoc-supply-ratio"
+              }
+            }
+          },
+          "then": {
+            "required": ["veSocLockerAddress"]
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}
