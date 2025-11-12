@@ -1,0 +1,41 @@
+[
+  {
+    "name": "vesoc-supply-ratio strategy example",
+    "strategy": {
+      "name": "vesoc-nft-power",
+      "params": {
+        "veSocLockerAddress": "0xF6c2DD09F54AA7bA78aF78fae80A7B4976C38A3c",
+        "strategyType": "vesoc-supply-ratio",
+        "multiplier": 10000,
+        "decimals": 2
+      }
+    },
+    "network": "11155111",
+    "addresses": [
+      "0x890939BB7d7C50779b2b7B65A5482b72CaEBEc75",
+      "0x44AD7e14f3807A3f5999B8e8b8a08d0a54f9aa44",
+      "0xD72494A4664DbB224c1eCb9C9b8b14301203C0e6"
+    ],
+    "snapshot": 9606452
+  },
+  {
+    "name": "vesoc-nft-power strategy example",
+    "strategy": {
+      "name": "vesoc-nft-power",
+      "params": {
+        "veSocLockerAddress": "0xF6c2DD09F54AA7bA78aF78fae80A7B4976C38A3c",
+        "nftContractAddress": "0xF660e7268fe28248a08F3961793fCc52216af44F",
+        "consensusApi": "https://nuszwgjb5e63cjgdunkpltzo2m0lsied.lambda-url.ap-southeast-2.on.aws/?ids=1,2,3",
+        "strategyType": "vesoc-nft-power",
+        "decimals": 18
+      }
+    },
+    "network": "11155111",
+    "addresses": [
+      "0x890939BB7d7C50779b2b7B65A5482b72CaEBEc75",
+      "0x44AD7e14f3807A3f5999B8e8b8a08d0a54f9aa44",
+      "0xD72494A4664DbB224c1eCb9C9b8b14301203C0e6"
+    ],
+    "snapshot": 9606452
+  }
+]
