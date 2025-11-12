@@ -63,6 +63,7 @@
         "sfundStakingAddresses": {
           "type": "array",
           "title": "SFUND staking addresses",
+          "maxItems": 10,
           "items": {
             "type": "string",
             "title": "SFUND staking address",
@@ -75,6 +76,7 @@
         "sfundStakingAddressesLegacy": {
           "type": "array",
           "title": "SFUND staking addresses (legacy)",
+          "maxItems": 10,
           "items": {
             "type": "string",
             "title": "SFUND staking address (legacy)",
