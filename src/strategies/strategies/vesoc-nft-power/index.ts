@@ -1,6 +1,6 @@
 import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller } from '../../utils';
+import { customFetch, Multicaller } from '../../utils';
 
 // ABI for VeSocLocker contract
 const veSocLockerAbi = [
@@ -79,22 +79,20 @@ async function calculateVeSocNftPower(
   const nftConsensusMap: Record<string, number> = {};
 
   if (allNftIds.size > 0) {
-    try {
-      const queryParams = new URLSearchParams();
-      queryParams.append('ids', Array.from(allNftIds).join(','));
+    const queryParams = new URLSearchParams();
+    queryParams.append('ids', Array.from(allNftIds).join(','));
 
-      const response = await fetch(`${options.consensusApi}?${queryParams}`);
+    const response = await customFetch(
+      `${options.consensusApi}?${queryParams}`
+    );
 
-      if (response.ok) {
-        const data: NFTConsensusResponse[] = await response.json();
-        data.forEach(nft => {
-          nftConsensusMap[nft.id] = nft.consensusValue;
-        });
-      } else {
-        console.warn(`Failed to fetch consensus values:`, response.statusText);
-      }
-    } catch (error) {
-      console.warn(`Error fetching consensus values:`, error);
+    if (response.ok) {
+      const data: NFTConsensusResponse[] = await response.json();
+      data.forEach(nft => {
+        nftConsensusMap[nft.id] = nft.consensusValue;
+      });
+    } else {
+      throw Error(response.statusText);
     }
   }
 

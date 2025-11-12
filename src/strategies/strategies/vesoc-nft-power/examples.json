@@ -25,7 +25,7 @@
       "params": {
         "veSocLockerAddress": "0xF6c2DD09F54AA7bA78aF78fae80A7B4976C38A3c",
         "nftContractAddress": "0xF660e7268fe28248a08F3961793fCc52216af44F",
-        "consensusApi": "https://nuszwgjb5e63cjgdunkpltzo2m0lsied.lambda-url.ap-southeast-2.on.aws/?ids=1,2,3",
+        "consensusApi": "https://nuszwgjb5e63cjgdunkpltzo2m0lsied.lambda-url.ap-southeast-2.on.aws",
         "strategyType": "vesoc-nft-power",
         "decimals": 18
       }
