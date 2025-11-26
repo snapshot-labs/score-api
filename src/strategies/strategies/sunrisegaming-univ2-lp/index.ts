@@ -47,7 +47,7 @@ export async function strategy(
 
   res = res.slice(2);
 
-  // Get staked LP in staking constract
+  // Get staked LP in staking contract
   const stakedRes = await multicall(
     network,
     provider,
