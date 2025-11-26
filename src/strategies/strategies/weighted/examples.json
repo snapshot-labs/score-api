@@ -11,7 +11,7 @@
           "params": {
             "address": "0x44e4c3668552033419520be229cd9df0c35c4417",
             "symbol": "MGN",
-            "decimals": 6
+            "decimals": 18
           }
         }
       }
