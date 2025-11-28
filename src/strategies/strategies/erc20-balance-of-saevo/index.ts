@@ -2,21 +2,13 @@ import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
 import fetch from 'cross-fetch';
 
-interface EpochStakeAmount {
-  stakedAmount: string;
-  unstakedAmount: string;
-  unstakedBlock: number;
-  epoch: number;
-}
-
-interface StakedAccount {
-  id: string;
-  totalStakedAmount: string;
-  epochStakeAmounts: EpochStakeAmount[];
+interface IntendedStakeSnapshot {
+  intendedStakedAmount: string;
+  blockNumber: number;
 }
 
 const SUBGRAPH_URI =
-  'https://api.goldsky.com/api/public/project_clch40o0v0d510huoey7g5yaz/subgraphs/aevo-staking/1.0.3/gn';
+  'https://api.goldsky.com/api/public/project_clch40o0v0d510huoey7g5yaz/subgraphs/aevo-staking-v2/snapshot/gn';
 
 export async function strategy(
   space,
@@ -26,24 +18,33 @@ export async function strategy(
   options,
   snapshot
 ): Promise<Record<string, number>> {
-  const accountsToQuery = addresses
-    .map(addr => `"${addr.toLowerCase()}"`)
-    .join(',');
+  // Handle 'latest' snapshot - get current block number
+  let blockNumber = snapshot;
+  if (snapshot === 'latest') {
+    blockNumber = await provider.getBlockNumber();
+  }
 
-  const query = `
-    {
-      stakedAccounts(where: {id_in: [${accountsToQuery}]}) {
-        id,
-        totalStakedAmount,
-        epochStakeAmounts {
-          stakedAmount,
-          unstakedAmount,
-          unstakedBlock,
-          epoch
+  // Build batched query using aliases for each address
+  const queryParts = addresses.map((addr, index) => {
+    const alias = `account${index}`;
+    const addressLower = addr.toLowerCase();
+    return `
+      ${alias}: intendedStakeSnapshots(
+        where: {
+          account: "${addressLower}"
+          blockNumber_lte: ${blockNumber}
         }
+        orderBy: blockNumber
+        orderDirection: desc
+        first: 1
+      ) {
+        intendedStakedAmount
+        blockNumber
       }
-    }
-  `;
+    `;
+  });
+
+  const query = `{${queryParts.join('')}}`;
 
   const response = await fetch(SUBGRAPH_URI, {
     method: 'POST',
@@ -54,7 +55,6 @@ export async function strategy(
   });
 
   const data = await response.json();
-  const stakedAccounts = data.data.stakedAccounts as StakedAccount[];
 
   const result: Record<string, number> = {};
 
@@ -63,23 +63,20 @@ export async function strategy(
     result[getAddress(address)] = 0;
   });
 
-  // Process each staked account
-  stakedAccounts.forEach(account => {
-    let totalStaked = BigInt(0);
+  // Process each account's snapshot
+  addresses.forEach((address, index) => {
+    const alias = `account${index}`;
+    const snapshots = data.data[alias] as IntendedStakeSnapshot[];
 
-    // Sum up all valid staked amounts
-    account.epochStakeAmounts.forEach(epochStake => {
-      // Only count if the unstake block is greater than blockNumber
-      // or if unstake block is undefined (which means the user has not unstaked yet)
-      if (!epochStake.unstakedBlock || epochStake.unstakedBlock > snapshot) {
-        totalStaked += BigInt(epochStake.stakedAmount);
-      }
-    });
+    if (snapshots && snapshots.length > 0) {
+      const stakeSnapshot = snapshots[0]; // Get the first (most recent) snapshot
+      const intendedStakedAmount = BigInt(stakeSnapshot.intendedStakedAmount);
 
-    // Convert to number with proper decimals and store with checksum address
-    result[getAddress(account.id)] = parseFloat(
-      formatUnits(totalStaked.toString(), options.decimals)
-    );
+      // Convert to number with proper decimals and store with checksum address
+      result[getAddress(address)] = parseFloat(
+        formatUnits(intendedStakedAmount.toString(), options.decimals)
+      );
+    }
   });
 
   return result;
