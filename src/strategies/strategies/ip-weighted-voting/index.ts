@@ -27,8 +27,7 @@ export async function strategy(
     throw new Error('Network not supported');
   }
 
-  const blockTag =
-    typeof snapshot === 'number' ? snapshot : await provider.getBlockNumber();
+  const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
   // Get native balances for all addresses
   const nativeBalances = await multicall(
