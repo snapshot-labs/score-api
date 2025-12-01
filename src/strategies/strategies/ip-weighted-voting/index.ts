@@ -1,7 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
-import { StaticJsonRpcProvider } from '@ethersproject/providers';
 
 const abi = [
   'function getEthBalance(address addr) public view returns (uint256 balance)'
@@ -15,42 +14,26 @@ export async function strategy(
   options,
   snapshot
 ) {
-  // Create provider directly
-  let CUSTOM_PROVIDER;
   let API_CHAIN_URL;
   let API_TOTAL_SUPPLY_URL;
   let minimumTotalTokenSupply;
 
   if (network.toString() === '1514') {
-    API_CHAIN_URL = 'http://127.0.0.1:1317';
-    CUSTOM_PROVIDER = new StaticJsonRpcProvider(
-      'http://127.0.0.1:8545', // RPC URL for Story mainnet
-      1514 // chain ID for Story mainnet
-    );
+    API_CHAIN_URL = 'https://internal-archive.storyrpc.io';
     API_TOTAL_SUPPLY_URL =
       'https://mainnet-circulation-supply.storyapis.com/history/total-supply?block=';
     minimumTotalTokenSupply = 1000000000; // 1 billion
-  } else if (network.toString() === '1315') {
-    API_CHAIN_URL = 'http://127.0.0.1:1317';
-    CUSTOM_PROVIDER = new StaticJsonRpcProvider(
-      'http://127.0.0.1:8545', // RPC URL for Aeneid
-      1315 // chain ID for Aeneid
-    );
-    API_TOTAL_SUPPLY_URL =
-      'https://circulation-supply.storyapis.com/history/total-supply?block=';
-    minimumTotalTokenSupply = 950000000; // 950 million
+  } else {
+    throw new Error('Network not supported');
   }
 
   const blockTag =
-    typeof snapshot === 'number'
-      ? snapshot
-      : await CUSTOM_PROVIDER.getBlockNumber();
-  // console.log("blockTag", blockTag);
+    typeof snapshot === 'number' ? snapshot : await provider.getBlockNumber();
 
   // Get native balances for all addresses
   const nativeBalances = await multicall(
     network,
-    CUSTOM_PROVIDER,
+    provider,
     abi,
     addresses.map((address: any) => [
       networks[network].multicall,
