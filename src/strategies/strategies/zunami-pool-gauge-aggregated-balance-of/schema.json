@@ -51,6 +51,8 @@
           ],
           "items": {
             "type": "string",
+            "title": "Address",
+            "examples": ["e.g. 0xBdCA4F610e7101Cc172E2135ba025737B99AbD30"],
             "pattern": "^0x[a-fA-F0-9]{40}$",
             "minLength": 42,
             "maxLength": 42

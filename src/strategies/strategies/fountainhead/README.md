@@ -1,6 +1,6 @@
 # Fountainhead
 
-Calulates the amount of tokens which are locked, staked, unlocked or in transition (stream-unlock).
+Calculates the amount of tokens which are locked, staked, unlocked or in transition (stream-unlock).
 
 A _Locker_ is a contract holding tokens on behalf of users. Each account can have zero or one Locker.
 A _Fontaine_ is a contract stream-unlocking tokens. Each Locker can have zero or more Fontaines.

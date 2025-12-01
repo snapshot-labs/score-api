@@ -77,6 +77,20 @@ export async function strategy(
   const delegations: Record<string, string[]> = {};
   const delegationMappings: Record<string, string> = {}; // delegator -> delegate
 
+  // Networks with known delegation subgraph support
+  const supportedDelegationNetworks = [
+    '1', // Ethereum Mainnet
+    '5', // Goerli
+    '10', // Optimism
+    '56', // BSC
+    '100', // Gnosis
+    '137', // Polygon
+    '250', // Fantom
+    '42161', // Arbitrum
+    '43114', // Avalanche
+    '11155111' // Sepolia
+  ];
+
   if (options.useOnChainDelegation && options.delegationContract) {
     // Use on-chain delegation
     const delegationMulti = new Multicaller(network, provider, delegationAbi, {
@@ -106,9 +120,17 @@ export async function strategy(
         delegations[normalizedDelegate].push(delegator);
       }
     });
-  } else {
+  } else if (options.delegationSpace) {
+    if (!supportedDelegationNetworks.includes(network)) {
+      throw new Error(
+        `Delegation subgraph not available for network ${network}. ` +
+          `Use on-chain delegation (useOnChainDelegation: true) or ` +
+          `use a supported network: ${supportedDelegationNetworks.join(', ')}`
+      );
+    }
+
     // Use Snapshot delegation system
-    const delegationSpace = options.delegationSpace || space;
+    const delegationSpace = options.delegationSpace;
     const snapshotDelegations = await getDelegations(
       delegationSpace,
       network,
@@ -124,6 +146,7 @@ export async function strategy(
       });
     });
   }
+  // If no delegation options are specified, skip delegation entirely
 
   // Calculate voting power
   const votingPower: Record<string, number> = {};

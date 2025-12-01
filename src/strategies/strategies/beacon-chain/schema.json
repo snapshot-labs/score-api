@@ -6,28 +6,30 @@
       "title": "Strategy",
       "type": "object",
       "properties": {
-        "clEndpoint": {
+        "apiBase": {
           "type": "string",
-          "title": "Consensus Layer Endpoint",
-          "examples": ["e.g. https://rpc-gbc.gnosischain.com"],
-          "default": "https://rpc-gbc.gnosischain.com"
+          "title": "API Base",
+          "examples": ["e.g. https://gbc-snapshot.gnosischain.com"],
+          "default": "https://gbc-snapshot.gnosischain.com"
         },
-        "clMultiplier": {
-          "type": "string",
-          "title": "Consensus Layer Multiplier",
-          "examples": ["e.g. 32", "1"],
-          "default": "1",
-          "description": "Multiplier to convert validator balance (usually divide by this value)"
-        },
-        "decimals": {
+        "secondsPerSlot": {
           "type": "number",
-          "title": "Decimals",
-          "examples": ["e.g. 18"],
+          "title": "Seconds Per Slot",
+          "examples": ["e.g. 5", "12"],
+          "minimum": 1,
+          "default": 5,
+          "description": "Seconds per slot in the beacon chain (5 for Gnosis Chain, 12 for Ethereum)"
+        },
+        "genesisTime": {
+          "type": "number",
+          "title": "Genesis Time",
+          "examples": ["e.g. 1638993340"],
           "minimum": 0,
-          "default": 9
+          "default": 1638993340,
+          "description": "Unix timestamp of the beacon chain genesis"
         }
       },
-      "required": ["clEndpoint", "clMultiplier", "decimals"],
+      "required": ["apiBase"],
       "additionalProperties": false
     }
   }

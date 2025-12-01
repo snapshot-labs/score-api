@@ -26,14 +26,15 @@ jest.mock('./requestDeduplicator', () =>
 );
 jest.mock('./utils', () => ({
   blockNumByNetwork: { 1: 123 },
-  formatStrategies: jest.fn(),
+  formatStrategies: jest.fn((network, strategies) => strategies),
   rpcSuccess: jest.fn(res => {
     res.send();
   }),
   rpcError: jest.fn((res, code) => {
     res.send(code);
   }),
-  checkInvalidStrategies: jest.fn().mockReturnValue([])
+  checkInvalidStrategies: jest.fn().mockReturnValue([]),
+  sortObjectByParam: jest.requireActual('./utils').sortObjectByParam
 }));
 console.log = jest.fn();
 console.error = jest.fn();

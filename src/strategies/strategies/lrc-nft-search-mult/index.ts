@@ -1,5 +1,5 @@
 // Original code by Karamorf, upgraded by Raecaug(system32)
-// Allows querys of Loopring L2 accounts & balances by specifying a nft minter, token contract address(and optionally specifying individual ids to white/blacklist)
+// Allows queries of Loopring L2 accounts & balances by specifying a nft minter, token contract address(and optionally specifying individual ids to white/blacklist)
 
 import { subgraphRequest } from '../../utils';
 const LIMIT = 1000;

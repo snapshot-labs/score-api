@@ -9,6 +9,10 @@ const abi = [
   'function getEthBalance(address account) public view returns (uint256 balance)'
 ];
 
+const stTaraABI = [
+  'function balanceOf(address user) external view returns (uint256 balance)'
+];
+
 export async function strategy(
   space,
   network,
@@ -20,6 +24,10 @@ export async function strategy(
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
   const multi = new Multicaller(network, provider, abi, { blockTag });
+
+  const multiStTara = new Multicaller(network, provider, stTaraABI, {
+    blockTag
+  });
   addresses.forEach((address: string) => {
     multi.call(address, options.address, 'getTotalDelegation', [address]);
   });
@@ -32,11 +40,19 @@ export async function strategy(
   });
   const resultBalances: Record<string, BigNumberish> = await multi.execute();
 
+  addresses.forEach((address: string) => {
+    multiStTara.call(address, options.stTaraAddress, 'balanceOf', [address]);
+  });
+  const resultstTaraBalances: Record<string, BigNumberish> =
+    await multi.execute();
+
   const scores = {};
 
   for (const address of addresses) {
     const score = BigNumber.from(resultBalances[address] || 0).add(
-      BigNumber.from(resultDelegations[address] || 0)
+      BigNumber.from(resultDelegations[address] || 0).add(
+        BigNumber.from(resultstTaraBalances[address] || 0)
+      )
     );
 
     scores[getAddress(address)] = parseFloat(

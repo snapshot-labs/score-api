@@ -20,7 +20,7 @@ export async function strategy(
 ) {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
-  // Get staked LP in staking constract
+  // Get staked LP in staking contract
   const stakedRes = await multicall(
     network,
     provider,
