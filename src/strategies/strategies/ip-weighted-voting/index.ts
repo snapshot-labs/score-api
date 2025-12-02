@@ -19,15 +19,25 @@ export async function strategy(
   let minimumTotalTokenSupply;
 
   if (network.toString() === '1514') {
+    // Story Mainnet
     API_CHAIN_URL = 'https://internal-archive.storyrpc.io';
     API_TOTAL_SUPPLY_URL =
       'https://mainnet-circulation-supply.storyapis.com/history/total-supply?block=';
     minimumTotalTokenSupply = 1000000000; // 1 billion
+  } else if (network.toString() === '1315') {
+    // Story testnet
+    API_CHAIN_URL = 'https://internal-archive.aeneid.storyrpc.io/';
+    API_TOTAL_SUPPLY_URL =
+      'https://circulation-supply.storyapis.com/history/total-supply?block=';
+    minimumTotalTokenSupply = 950000000; // 950 million
   } else {
     throw new Error('Network not supported');
   }
-
-  const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
+  // not all apis are updated to the latest block, so we subtract 100 blocks for obtaining an approximation equivalent to 'latest' block
+  const blockTag =
+    typeof snapshot === 'number'
+      ? snapshot
+      : (await provider.getBlockNumber()) - 100;
 
   // Get native balances for all addresses
   const nativeBalances = await multicall(
@@ -49,7 +59,9 @@ export async function strategy(
         `${API_CHAIN_URL}/staking/validators/${address}`,
         {
           headers: {
-            'X-Block-Height': blockTag.toString()
+            'X-Block-Height': blockTag.toString(),
+            'x-snapshot-partner-key':
+              process.env.SNAPSHOT_STORY_PARTNER_KEY || ''
           }
         }
       );
@@ -86,7 +98,8 @@ export async function strategy(
     `${API_CHAIN_URL}/staking/total_staked_token`,
     {
       headers: {
-        'X-Block-Height': blockTag.toString()
+        'X-Block-Height': blockTag.toString(),
+        'x-snapshot-partner-key': process.env.SNAPSHOT_STORY_PARTNER_KEY || ''
       }
     }
   );
