@@ -17,6 +17,7 @@ export async function strategy(
   let API_CHAIN_URL;
   let API_TOTAL_SUPPLY_URL;
   let minimumTotalTokenSupply;
+  let storyPartnerKey;
 
   if (network.toString() === '1514') {
     // Story Mainnet
@@ -24,12 +25,14 @@ export async function strategy(
     API_TOTAL_SUPPLY_URL =
       'https://mainnet-circulation-supply.storyapis.com/history/total-supply?block=';
     minimumTotalTokenSupply = 1000000000; // 1 billion
+    storyPartnerKey = process.env.SNAPSHOT_STORY_PARTNER_KEY_MAINNET;
   } else if (network.toString() === '1315') {
     // Story testnet
     API_CHAIN_URL = 'https://internal-archive.aeneid.storyrpc.io/';
     API_TOTAL_SUPPLY_URL =
       'https://circulation-supply.storyapis.com/history/total-supply?block=';
     minimumTotalTokenSupply = 950000000; // 950 million
+    storyPartnerKey = process.env.SNAPSHOT_STORY_PARTNER_KEY_TESTNET;
   } else {
     throw new Error('Network not supported');
   }
@@ -60,8 +63,7 @@ export async function strategy(
         {
           headers: {
             'X-Block-Height': blockTag.toString(),
-            'x-snapshot-partner-key':
-              process.env.SNAPSHOT_STORY_PARTNER_KEY || ''
+            'x-snapshot-partner-key': storyPartnerKey || ''
           }
         }
       );
@@ -99,7 +101,7 @@ export async function strategy(
     {
       headers: {
         'X-Block-Height': blockTag.toString(),
-        'x-snapshot-partner-key': process.env.SNAPSHOT_STORY_PARTNER_KEY || ''
+        'x-snapshot-partner-key': storyPartnerKey || ''
       }
     }
   );
@@ -111,7 +113,7 @@ export async function strategy(
   const totalVotingPower =
     (totalTokenSupply - totalStakedSupply) * 1 + totalStakedSupply * 1.25;
 
-  //console.log("totalVotingPower", totalVotingPower, "totalTokenSupply", totalTokenSupply, "totalStakedSupply", totalStakedSupply);
+  // console.log("totalVotingPower", totalVotingPower, "totalTokenSupply", totalTokenSupply, "totalStakedSupply", totalStakedSupply);
 
   return Object.fromEntries(
     nativeBalances.map((value, i) => {
