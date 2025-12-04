@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Example query",
+    "strategy": {
+      "name": "ip-weighted-voting",
+      "params": {
+        "symbol": "IP"
+      }
+    },
+    "network": "1514",
+    "addresses": [
+      "0xCB02D800D255b8401d8c7676dD179dc7f668A83a",
+      "0x0CEc190e690F9FeCFD076Ef639e20F96969a4667",
+      "0x78719470fa6076Fbff329784869672D00635C482"
+    ],
+    "snapshot": 11487652
+  }
+]
