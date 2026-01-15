@@ -1,6 +1,6 @@
 [
   {
-    "name": "Example query",
+    "name": "Example on testnet",
     "strategy": {
       "name": "fountainhead",
       "params": {
@@ -19,7 +19,7 @@
     "snapshot": 17304060
   },
   {
-    "name": "Example query with Uniswap V3 positions",
+    "name": "Example on mainnet incl. LP positions",
     "strategy": {
       "name": "fountainhead",
       "params": {

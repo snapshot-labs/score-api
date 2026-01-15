@@ -24,8 +24,10 @@ const MAX_FONTAINES_PER_LOCKER = 100;
 
 const UNISWAP_V3_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV',
-  '8453': 'https://subgrapher.snapshot.org/subgraph/arbitrum/43Hwfi3dJSoGpyas9VwNoDAv55yjgGrPpNSmbQZArzMG',
-  '42161': 'https://subgrapher.snapshot.org/subgraph/arbitrum/FbCGRftH4a3yZugY7TnbYgPJVEv2LvMT6oF1fxPe9aJM',
+  '8453':
+    'https://subgrapher.snapshot.org/subgraph/arbitrum/43Hwfi3dJSoGpyas9VwNoDAv55yjgGrPpNSmbQZArzMG',
+  '42161':
+    'https://subgrapher.snapshot.org/subgraph/arbitrum/FbCGRftH4a3yZugY7TnbYgPJVEv2LvMT6oF1fxPe9aJM'
 };
 
 interface LockerState {
@@ -138,13 +140,17 @@ export async function strategy(
   // 6. GET UNISWAP V3 POSITIONS FOR LOCKERS
   const uniswapV3Balances: Record<string, number> = {};
   if (options.poolAddress && existingLockers.length > 0) {
-    const tokenReserve = options.tokenReserve === 0 ? 'token0Reserve' : 'token1Reserve';
-    const _lockerAddresses = existingLockers.map((addr) => addr.toLowerCase());
+    const tokenReserve =
+      options.tokenReserve === 0 ? 'token0Reserve' : 'token1Reserve';
+    const _lockerAddresses = existingLockers.map(addr => addr.toLowerCase());
 
     const params = {
       positions: {
         __args: {
-          where: { pool: options.poolAddress.toLowerCase(), owner_in: _lockerAddresses }
+          where: {
+            pool: options.poolAddress.toLowerCase(),
+            owner_in: _lockerAddresses
+          }
         },
         id: true,
         owner: true,
@@ -152,8 +158,8 @@ export async function strategy(
         tickLower: { tickIdx: true },
         tickUpper: { tickIdx: true },
         pool: { tick: true, sqrtPrice: true, liquidity: true, feeTier: true },
-        token0: { symbol: true, decimals: true, id: true},
-        token1: { symbol: true, decimals: true, id: true}
+        token0: { symbol: true, decimals: true, id: true },
+        token1: { symbol: true, decimals: true, id: true }
       }
     };
 
