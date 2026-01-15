@@ -1,6 +1,7 @@
 import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
-import { Multicaller } from '../../utils';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { Multicaller, subgraphRequest } from '../../utils';
+import { getAllReserves } from '../uniswap-v3/helper';
 
 // signatures of the methods we need
 const abi = [
@@ -20,6 +21,12 @@ const DECIMALS = 18;
 
 // we must bound the number of fontaines per locker to avoid RPC timeouts
 const MAX_FONTAINES_PER_LOCKER = 100;
+
+const UNISWAP_V3_SUBGRAPH_URL = {
+  '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV',
+  '8453': 'https://subgrapher.snapshot.org/subgraph/arbitrum/43Hwfi3dJSoGpyas9VwNoDAv55yjgGrPpNSmbQZArzMG',
+  '42161': 'https://subgrapher.snapshot.org/subgraph/arbitrum/FbCGRftH4a3yZugY7TnbYgPJVEv2LvMT6oF1fxPe9aJM',
+};
 
 interface LockerState {
   availableBalance: BigNumber;
@@ -128,14 +135,78 @@ export async function strategy(
   // Note: all 5 allowed multicalls are "used".
   // If needed we could "free" one by combining the balance queries of mCall1 and mCall5
 
+  // 6. GET UNISWAP V3 POSITIONS FOR LOCKERS
+  const uniswapV3Balances: Record<string, number> = {};
+  if (options.poolAddress && existingLockers.length > 0) {
+    const tokenReserve = options.tokenReserve === 0 ? 'token0Reserve' : 'token1Reserve';
+    const _lockerAddresses = existingLockers.map((addr) => addr.toLowerCase());
+
+    const params = {
+      positions: {
+        __args: {
+          where: { pool: options.poolAddress.toLowerCase(), owner_in: _lockerAddresses }
+        },
+        id: true,
+        owner: true,
+        liquidity: true,
+        tickLower: { tickIdx: true },
+        tickUpper: { tickIdx: true },
+        pool: { tick: true, sqrtPrice: true, liquidity: true, feeTier: true },
+        token0: { symbol: true, decimals: true, id: true},
+        token1: { symbol: true, decimals: true, id: true}
+      }
+    };
+
+    if (snapshot !== 'latest') {
+      // @ts-ignore
+      params.positions.__args.block = { number: snapshot };
+    }
+
+    const rawData = await subgraphRequest(
+      options.subgraph || UNISWAP_V3_SUBGRAPH_URL[network],
+      params
+    );
+
+    // Map positions to lockers (same structure as uniswap-v3 strategy)
+    const lockerPositions: Record<string, any[]> = {};
+    rawData?.positions?.forEach((position: any) => {
+      const lockerAddr = position.owner.toLowerCase();
+      if (!lockerPositions[lockerAddr]) {
+        lockerPositions[lockerAddr] = [];
+      }
+      lockerPositions[lockerAddr].push(position);
+    });
+
+    // Calculate reserves for each locker
+    Object.entries(lockerPositions).forEach(([lockerAddr, positions]) => {
+      const reserves = getAllReserves(positions);
+      const supAmount = reserves.reduce(
+        (sum: number, pos: any) => sum + (pos[tokenReserve] || 0),
+        0
+      );
+
+      // Find user address for this locker
+      const userAddr = Object.entries(lockerByAddress).find(
+        ([, addr]) => addr.toLowerCase() === lockerAddr
+      )?.[0];
+
+      if (userAddr) {
+        uniswapV3Balances[userAddr] =
+          (uniswapV3Balances[userAddr] || 0) + supAmount;
+      }
+    });
+  }
+
   // SUM UP ALL THE BALANCES
   const balances = Object.fromEntries(
     addresses.map(address => {
       const lockerAddress: string = lockerByAddress[address];
-      const unlockedBalance = BigNumber.from(unlockedBalances[address]);
+      const unlockedBalance = BigNumber.from(unlockedBalances[address] || 0);
 
       // if no locker -> return unlocked balance
-      if (!lockerAddress) return [address, unlockedBalance];
+      if (!lockerAddress) {
+        return [address, unlockedBalance];
+      }
 
       // else add all balances in locker and related fontaines
       const availableBalance = lockerStates[lockerAddress].availableBalance;
@@ -146,10 +217,16 @@ export async function strategy(
         fontaineBalances
       );
 
+      const uniswapV3Balance = parseUnits(
+        (uniswapV3Balances[address] || 0).toFixed(18),
+        DECIMALS
+      );
+
       const totalBalance = unlockedBalance
         .add(availableBalance)
         .add(stakedBalance)
-        .add(fontaineBalanceSum);
+        .add(fontaineBalanceSum)
+        .add(uniswapV3Balance);
 
       return [address, totalBalance];
     })

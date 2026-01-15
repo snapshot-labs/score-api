@@ -17,5 +17,25 @@
       "0x4ee5D45eB79aEa04C02961a2e543bbAf5cec81B3"
     ],
     "snapshot": 17304060
+  },
+  {
+    "name": "Example query with Uniswap V3 positions",
+    "strategy": {
+      "name": "fountainhead",
+      "params": {
+        "tokenAddress": "0xa69f80524381275A7fFdb3AE01c54150644c8792",
+        "lockerFactoryAddress": "0xA6694cAB43713287F7735dADc940b555db9d39D9",
+        "poolAddress": "0xBa154BEAa14172fF9384B82499732c669527d85D",
+        "tokenReserve": 1
+      }
+    },
+    "network": "8453",
+    "addresses": [
+      "0x26d85c9ed5c6cfe6bd13acd25b7aada9193e8caa",
+      "0xbda087645f96b8c64f15b08875332edb8bc19611",
+      "0xee5c044517c364031ef59024307bd15ffc160463",
+      "0x624f7b502da899504590429e5119d5f013d9814a"
+    ],
+    "snapshot": 40805410
   }
 ]
