@@ -46,14 +46,7 @@ export async function strategy(
 ): Promise<Record<string, number>> {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
-  // 1. GET UNLOCKED BALANCES
-  const mCall1 = new Multicaller(network, provider, abi, { blockTag });
-  addresses.forEach(address =>
-    mCall1.call(address, options.tokenAddress, 'balanceOf', [address])
-  );
-  const unlockedBalances: Record<string, BigNumberish> = await mCall1.execute();
-
-  // 2. GET LOCKER ADDRESSES
+  // 1. GET LOCKER ADDRESSES
   const mCall2 = new Multicaller(network, provider, abi, { blockTag });
   // lockerFactory.getUserLocker(). Returns the deterministic address and a bool "exists".
   addresses.forEach(address =>
@@ -69,7 +62,7 @@ export async function strategy(
   );
   const existingLockers = Object.values(lockerByAddress);
 
-  // 3. GET LOCKER STATE (available balance, staked balance, fontaine count)
+  // 2. GET LOCKER STATE (available balance, staked balance, fontaine count)
   const mCall3 = new Multicaller(network, provider, abi, { blockTag });
   existingLockers.forEach(lockerAddress => {
     mCall3.call(
@@ -106,7 +99,7 @@ export async function strategy(
     };
   });
 
-  // 4. GET ALL THE FONTAINES
+  // 3. GET ALL THE FONTAINES
   const mCall4 = new Multicaller(network, provider, abi, { blockTag });
   existingLockers.forEach(lockerAddress => {
     const fontaineCount = lockerStates[lockerAddress].fontaineCount;
@@ -122,22 +115,37 @@ export async function strategy(
   });
   const fontaineAddrs: Record<string, string> = await mCall4.execute();
 
-  // 5. GET THE FONTAINE'S BALANCES
+  // 4. GET UNLOCKED BALANCES AND FONTAINE BALANCES
   const mCall5 = new Multicaller(network, provider, abi, { blockTag });
+  addresses.forEach(address =>
+    mCall5.call(`unlocked-${address}`, options.tokenAddress, 'balanceOf', [
+      address
+    ])
+  );
   existingLockers.forEach(lockerAddress => {
     for (let i = 0; i < lockerStates[lockerAddress].fontaineCount; i++) {
       const fontaineAddress = fontaineAddrs[`${lockerAddress}-${i}`];
-      mCall5.call(`${lockerAddress}-${i}`, options.tokenAddress, 'balanceOf', [
-        fontaineAddress
-      ]);
+      mCall5.call(
+        `fontaine-${lockerAddress}-${i}`,
+        options.tokenAddress,
+        'balanceOf',
+        [fontaineAddress]
+      );
     }
   });
-  const fontaineBalances: Record<string, BigNumberish> = await mCall5.execute();
+  const balanceResults: Record<string, BigNumberish> = await mCall5.execute();
+  // Split results: remove prefixes to match expected key formats
+  const unlockedBalances: Record<string, BigNumberish> = {};
+  const fontaineBalances: Record<string, BigNumberish> = {};
+  Object.entries(balanceResults).forEach(([key, value]) => {
+    if (key.startsWith('unlocked-')) {
+      unlockedBalances[key.replace('unlocked-', '')] = value;
+    } else if (key.startsWith('fontaine-')) {
+      fontaineBalances[key.replace('fontaine-', '')] = value;
+    }
+  });
 
-  // Note: all 5 allowed multicalls are "used".
-  // If needed we could "free" one by combining the balance queries of mCall1 and mCall5
-
-  // 6. GET UNISWAP V3 POSITIONS FOR LOCKERS
+  // 5. GET UNISWAP V3 POSITIONS FOR LOCKERS
   const uniswapV3Balances: Record<string, number> = {};
   if (options.poolAddress && existingLockers.length > 0) {
     const tokenReserve =
@@ -254,8 +262,6 @@ function getFontaineBalancesForLocker(
   balances: Record<string, BigNumberish>
 ): BigNumber {
   return Array.from({ length: fontaineCount })
-    .map((_, i) =>
-      BigNumber.from(balances[`balance-${lockerAddress}-${i}`] || 0)
-    )
+    .map((_, i) => BigNumber.from(balances[`${lockerAddress}-${i}`] || 0))
     .reduce((sum, balance) => sum.add(balance), BigNumber.from(0));
 }
