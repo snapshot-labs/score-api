@@ -167,10 +167,8 @@ async function calculateVeSocNftPower(
     addresses.map(address => [address, multiResults.nfts?.[address] || []])
   );
 
-  const minLockPerActiveVote = BigNumber.from(
-    options.minLockPerActiveVote || 0
-  );
-  const enforceActiveVoteLock = !minLockPerActiveVote.isZero();
+  const minLockPerActiveVote = options.minLockPerActiveVote || 0;
+  const enforceActiveVoteLock = !(minLockPerActiveVote === 0);
   const snapshotGraphqlEndpoint =
     options.snapshotGraphqlEndpoint || DEFAULT_SNAPSHOT_GRAPHQL;
   const activeVotesByAddress = enforceActiveVoteLock
@@ -217,15 +215,18 @@ async function calculateVeSocNftPower(
   // 5. Calculate final scores
   const scores: Record<string, number> = {};
 
+  // @ts-ignore
   for (const address of addresses) {
     const lock = lockResults[address];
     let veSocPower = 0;
 
+    const socAmount = lock
+      ? parseFloat(formatUnits(lock.veSocAmount, options.decimals || 18))
+      : 0;
     // Check if user has an active lock (amount > 0 and lock hasn't expired)
     if (lock && Number(lock.amount) > 0) {
       const endTime = Number(lock.endTime);
       const startTime = Number(lock.startTime);
-
       // Only calculate power if lock hasn't expired
       if (endTime > currentTimestamp) {
         const veSocAmount = parseFloat(
@@ -246,9 +247,8 @@ async function calculateVeSocNftPower(
     if (enforceActiveVoteLock && veSocPower > 0) {
       let activeVotes = activeVotesByAddress[address.toLowerCase()] || 0;
       activeVotes += 1; // Add one for the current vote
-      const requiredLock = minLockPerActiveVote.mul(activeVotes);
-      const lockAmount = lock ? BigNumber.from(lock.amount) : BigNumber.from(0);
-      if (lockAmount.lt(requiredLock)) {
+      const requiredLock = minLockPerActiveVote * activeVotes;
+      if (socAmount < requiredLock) {
         veSocPower = 0;
       }
     }

@@ -47,7 +47,7 @@
           "description": "Number of decimal places for veSOC token"
         },
         "minLockPerActiveVote": {
-          "type": ["string", "number"],
+          "type": "number",
           "title": "Minimum Lock Per Active Vote",
           "description": "Minimum lock amount required per active vote (0 disables the active vote lock check)"
         },
