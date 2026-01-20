@@ -31,6 +31,16 @@ veSocPower = veSocAmount * (remainingTime / lockDuration)
 finalScore = veSocPower * maxConsensusValue
 ```
 
+**Active Vote Lock Requirement (Optional):**
+If `minLockPerActiveVote` is set to a value greater than 0, the strategy checks the
+number of the user's active Snapshot votes in the current space (`n`) and enforces:
+```
+if lock.amount < n * minLockPerActiveVote, then veSocPower = 0
+```
+The Snapshot GraphQL endpoint is configurable via `snapshotGraphqlEndpoint`.
+If you need to override the space used for filtering, set `snapshotSpace`.
+If `minLockPerActiveVote` is 0 or omitted, the strategy behaves exactly as before.
+
 ### 2. vesoc-supply-ratio
 Calculates voting power based on user's veSOC balance as a percentage of total supply:
 
@@ -75,7 +85,10 @@ The consensus API should return an array of objects with the following format (r
     "nftContractAddress": "0x0987654321098765432109876543210987654321",
     "consensusApi": "https://api.project.com/nft/consensus",
     "strategyType": "vesoc-nft-power",
-    "decimals": 18
+    "decimals": 18,
+    "minLockPerActiveVote": "1000000000000000000",
+    "snapshotGraphqlEndpoint": "https://testnet.hub.snapshot.org/graphql",
+    "snapshotSpace": "your-space-id"
   }
 }
 ```

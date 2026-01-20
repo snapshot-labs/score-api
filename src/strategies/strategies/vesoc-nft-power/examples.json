@@ -27,7 +27,10 @@
         "nftContractAddress": "0xF660e7268fe28248a08F3961793fCc52216af44F",
         "consensusApi": "https://nuszwgjb5e63cjgdunkpltzo2m0lsied.lambda-url.ap-southeast-2.on.aws",
         "strategyType": "vesoc-nft-power",
-        "decimals": 18
+        "decimals": 18,
+        "minLockPerActiveVote": "1000000000000000000",
+        "snapshotGraphqlEndpoint": "https://testnet.hub.snapshot.org/graphql",
+        "snapshotSpace": "socsoc.eth"
       }
     },
     "network": "11155111",
