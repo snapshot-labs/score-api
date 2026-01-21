@@ -52,40 +52,37 @@ async function fetchActiveVotesCount(
   );
   const spaces = [spaceId];
   const proposalIds: string[] = [];
-  let proposalSkip = 0;
 
-  while (true) {
-    const proposalPayload = await subgraphRequest(graphqlEndpoint, {
-      proposals: {
-        __args: {
-          first: 1000,
-          skip: proposalSkip,
-          where: {
-            space_in: spaces,
-            start_lte: currentTimestamp,
-            end_gt: currentTimestamp
-          }
-        },
-        id: true
-      }
-    });
-    const proposals = proposalPayload?.proposals || [];
-    proposals.forEach(proposal => {
-      if (proposal?.id) proposalIds.push(proposal.id);
-    });
-
-    if (proposals.length < 1000) {
-      break;
+  // First subgraph: only request once
+  const proposalPayload = await subgraphRequest(graphqlEndpoint, {
+    proposals: {
+      __args: {
+        first: 1000,
+        skip: 0,
+        where: {
+          space_in: spaces,
+          start_lte: currentTimestamp,
+          end_gt: currentTimestamp
+        }
+      },
+      id: true
     }
-
-    proposalSkip += 1000;
-  }
+  });
+  const proposals = proposalPayload?.proposals || [];
+  proposals.forEach(proposal => {
+    if (proposal?.id) proposalIds.push(proposal.id);
+  });
 
   if (proposalIds.length === 0) {
     return counts;
   }
+
+  // Second subgraph: maximum 2 requests
   let skip = 0;
-  while (true) {
+  let requestCount = 0;
+  const maxRequests = 2;
+
+  while (requestCount < maxRequests) {
     const payload = await subgraphRequest(graphqlEndpoint, {
       votes: {
         __args: {
@@ -107,6 +104,8 @@ async function fetchActiveVotesCount(
         counts[voter] += 1;
       }
     });
+
+    requestCount += 1;
 
     if (votes.length < 1000) {
       break;
