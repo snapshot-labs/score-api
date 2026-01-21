@@ -29,6 +29,7 @@
         "strategyType": "vesoc-nft-power",
         "decimals": 18,
         "minLockPerActiveVote": 0,
+        "minRemainingLockTime": 0,
         "snapshotGraphqlEndpoint": "https://testnet.hub.snapshot.org/graphql"
       }
     },

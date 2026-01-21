@@ -169,6 +169,7 @@ async function calculateVeSocNftPower(
 
   const minLockPerActiveVote = options.minLockPerActiveVote || 0;
   const enforceActiveVoteLock = !(minLockPerActiveVote === 0);
+  const minRemainingLockTime = options.minRemainingLockTime || 0;
   const snapshotGraphqlEndpoint =
     options.snapshotGraphqlEndpoint || DEFAULT_SNAPSHOT_GRAPHQL;
   const activeVotesByAddress = enforceActiveVoteLock
@@ -237,7 +238,9 @@ async function calculateVeSocNftPower(
         const lockDuration = endTime - startTime;
         const remainingTime = endTime - currentTimestamp;
 
-        if (lockDuration > 0) {
+        if (minRemainingLockTime > 0 && remainingTime <= minRemainingLockTime) {
+          veSocPower = 0;
+        } else if (lockDuration > 0) {
           // veSocPower = veSocAmount * (remainingTime / lockDuration)
           veSocPower = veSocAmount * (remainingTime / lockDuration);
         }
