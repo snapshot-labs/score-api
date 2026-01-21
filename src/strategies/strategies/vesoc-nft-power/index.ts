@@ -79,10 +79,9 @@ async function fetchActiveVotesCount(
 
   // Second subgraph: maximum 2 requests
   let skip = 0;
-  let requestCount = 0;
   const maxRequests = 2;
 
-  while (requestCount < maxRequests) {
+  for (let i = 0; i < maxRequests; i++) {
     const payload = await subgraphRequest(graphqlEndpoint, {
       votes: {
         __args: {
@@ -105,10 +104,12 @@ async function fetchActiveVotesCount(
       }
     });
 
-    requestCount += 1;
-
     if (votes.length < 1000) {
       break;
+    }
+
+    if (i === maxRequests - 1) {
+      throw new Error('Votes exceed maximum limit of 2000');
     }
 
     skip += 1000;
