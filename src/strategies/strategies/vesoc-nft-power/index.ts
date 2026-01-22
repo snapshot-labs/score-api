@@ -1,6 +1,7 @@
 import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { customFetch, Multicaller } from '../../utils';
+import { customFetch, Multicaller, subgraphRequest } from '../../utils';
+import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 
 // ABI for VeSocLocker contract
 const veSocLockerAbi = [
@@ -12,6 +13,10 @@ const veSocLockerAbi = [
 // ABI for NFT contract to get user's NFT IDs
 const nftContractAbi = [
   'function userPasses(address owner) external view returns (uint256[] memory)'
+];
+
+const multicall3Abi = [
+  'function getCurrentBlockTimestamp() external view returns (uint256 timestamp)'
 ];
 
 // Strategy types enum
@@ -33,36 +38,148 @@ interface NFTConsensusResponse {
   consensusValue: number;
 }
 
+const DEFAULT_SNAPSHOT_GRAPHQL = 'https://testnet.hub.snapshot.org/graphql';
+
+async function fetchActiveVotesCount(
+  addresses: string[],
+  graphqlEndpoint: string,
+  spaceId: string,
+  currentTimestamp: number
+): Promise<Record<string, number>> {
+  const voters = addresses.map(address => address.toLowerCase());
+  const counts: Record<string, number> = Object.fromEntries(
+    voters.map(voter => [voter, 0])
+  );
+  const spaces = [spaceId];
+  const proposalIds: string[] = [];
+
+  // First subgraph: only request once
+  const proposalPayload = await subgraphRequest(graphqlEndpoint, {
+    proposals: {
+      __args: {
+        first: 1000,
+        skip: 0,
+        where: {
+          space_in: spaces,
+          start_lte: currentTimestamp,
+          end_gt: currentTimestamp
+        }
+      },
+      id: true
+    }
+  });
+  const proposals = proposalPayload?.proposals || [];
+  proposals.forEach(proposal => {
+    if (proposal?.id) proposalIds.push(proposal.id);
+  });
+
+  if (proposalIds.length === 0) {
+    return counts;
+  }
+
+  // Second subgraph: maximum 2 requests
+  let skip = 0;
+  const maxRequests = 2;
+
+  for (let i = 0; i < maxRequests; i++) {
+    const payload = await subgraphRequest(graphqlEndpoint, {
+      votes: {
+        __args: {
+          first: 1000,
+          skip,
+          where: {
+            voter_in: voters,
+            proposal_in: proposalIds,
+            created_lt: currentTimestamp
+          }
+        },
+        voter: true
+      }
+    });
+    const votes = payload?.votes || [];
+    votes.forEach(vote => {
+      const voter = vote.voter?.toLowerCase();
+      if (voter && counts[voter] !== undefined) {
+        counts[voter] += 1;
+      }
+    });
+
+    if (votes.length < 1000) {
+      break;
+    }
+
+    if (i === maxRequests - 1) {
+      throw new Error('Votes exceed maximum limit of 2000');
+    }
+
+    skip += 1000;
+  }
+
+  return counts;
+}
+
 /**
  * Strategy 1: vesoc-nft-power - calculates voting power based on veSOC position and NFT consensus values
  */
 async function calculateVeSocNftPower(
+  space: any,
   network: any,
   provider: any,
   addresses: string[],
   options: any,
-  blockTag: any,
-  currentTimestamp: number
+  blockTag: any
 ): Promise<Record<string, number>> {
-  // 1. Get user lock information from VeSocLocker
-  const veSocMulti = new Multicaller(network, provider, veSocLockerAbi, {
-    blockTag
-  });
+  const multicallAddress =
+    options.multicallAddress || networks[network]?.multicall;
+  if (!multicallAddress) {
+    throw new Error('missing multicall address for current timestamp');
+  }
+
+  // 1. Get user lock info, current timestamp, and NFT IDs in one multicall
+  const multi = new Multicaller(
+    network,
+    provider,
+    [...multicall3Abi, ...veSocLockerAbi, ...nftContractAbi],
+    {
+      blockTag
+    }
+  );
+  multi.call(
+    'currentTimestamp',
+    multicallAddress,
+    'getCurrentBlockTimestamp',
+    []
+  );
   addresses.forEach(address =>
-    veSocMulti.call(address, options.veSocLockerAddress, 'getUserLock', [
+    multi.call(address, options.veSocLockerAddress, 'getUserLock', [address])
+  );
+  addresses.forEach(address =>
+    multi.call(`nfts.${address}`, options.nftContractAddress, 'userPasses', [
       address
     ])
   );
-  const lockResults: Record<string, LockPosition> = await veSocMulti.execute();
-
-  // 2. Get user NFT IDs from NFT contract
-  const nftMulti = new Multicaller(network, provider, nftContractAbi, {
-    blockTag
-  });
-  addresses.forEach(address =>
-    nftMulti.call(address, options.nftContractAddress, 'userPasses', [address])
+  const multiResults = await multi.execute();
+  const currentTimestamp = Number(multiResults.currentTimestamp || 0);
+  const lockResults: Record<string, LockPosition> = Object.fromEntries(
+    addresses.map(address => [address, multiResults[address]])
   );
-  const nftResults: Record<string, BigNumberish[]> = await nftMulti.execute();
+  const nftResults: Record<string, BigNumberish[]> = Object.fromEntries(
+    addresses.map(address => [address, multiResults.nfts?.[address] || []])
+  );
+
+  const minLockPerActiveVote = options.minLockPerActiveVote || 0;
+  const enforceActiveVoteLock = !(minLockPerActiveVote === 0);
+  const minRemainingLockTime = options.minRemainingLockTime || 0;
+  const snapshotGraphqlEndpoint =
+    options.snapshotGraphqlEndpoint || DEFAULT_SNAPSHOT_GRAPHQL;
+  const activeVotesByAddress = enforceActiveVoteLock
+    ? await fetchActiveVotesCount(
+        addresses,
+        snapshotGraphqlEndpoint,
+        options.snapshotSpace || space,
+        currentTimestamp
+      )
+    : {};
 
   // 3. Collect all unique NFT IDs across all users to minimize API calls
   const allNftIds = new Set<string>();
@@ -99,15 +216,18 @@ async function calculateVeSocNftPower(
   // 5. Calculate final scores
   const scores: Record<string, number> = {};
 
+  // @ts-ignore
   for (const address of addresses) {
     const lock = lockResults[address];
     let veSocPower = 0;
 
+    const socAmount = lock
+      ? parseFloat(formatUnits(lock.veSocAmount, options.decimals || 18))
+      : 0;
     // Check if user has an active lock (amount > 0 and lock hasn't expired)
     if (lock && Number(lock.amount) > 0) {
       const endTime = Number(lock.endTime);
       const startTime = Number(lock.startTime);
-
       // Only calculate power if lock hasn't expired
       if (endTime > currentTimestamp) {
         const veSocAmount = parseFloat(
@@ -118,10 +238,21 @@ async function calculateVeSocNftPower(
         const lockDuration = endTime - startTime;
         const remainingTime = endTime - currentTimestamp;
 
-        if (lockDuration > 0) {
+        if (minRemainingLockTime > 0 && remainingTime <= minRemainingLockTime) {
+          veSocPower = 0;
+        } else if (lockDuration > 0) {
           // veSocPower = veSocAmount * (remainingTime / lockDuration)
           veSocPower = veSocAmount * (remainingTime / lockDuration);
         }
+      }
+    }
+
+    if (enforceActiveVoteLock && veSocPower > 0) {
+      let activeVotes = activeVotesByAddress[address.toLowerCase()] || 0;
+      activeVotes += 1; // Add one for the current vote
+      const requiredLock = minLockPerActiveVote * activeVotes;
+      if (socAmount < requiredLock) {
+        veSocPower = 0;
       }
     }
 
@@ -223,17 +354,13 @@ export async function strategy(
       blockTag
     );
   } else {
-    // Get current block timestamp for veSocPower calculation
-    const block = await provider.getBlock(blockTag);
-    const currentTimestamp = block.timestamp;
-
     return await calculateVeSocNftPower(
+      space,
       network,
       provider,
       addresses,
       options,
-      blockTag,
-      currentTimestamp
+      blockTag
     );
   }
 }

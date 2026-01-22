@@ -19,6 +19,7 @@ veSocPower = veSocAmount * (remainingTime / lockDuration)
 - If `endTime < currentTimestamp` or lock amount is 0, veSocPower = 0 (no active lock)
 - Only locks with `amount > 0` that haven't expired are considered
 - The power decreases linearly as the lock approaches expiration
+- If `minRemainingLockTime` is set and `remainingTime` is less than or equal to it, veSocPower = 0
 
 **NFT Multiplier:**
 - Fetches user's NFT IDs using `userPasses(address)` method
@@ -29,6 +30,22 @@ veSocPower = veSocAmount * (remainingTime / lockDuration)
 **Final Score:**
 ```
 finalScore = veSocPower * maxConsensusValue
+```
+
+**Active Vote Lock Requirement (Optional):**
+If `minLockPerActiveVote` is set to a value greater than 0, the strategy checks the
+number of the user's active Snapshot votes in the current space (`n`) and enforces:
+```
+if lock.amount < n * minLockPerActiveVote, then veSocPower = 0
+```
+The Snapshot GraphQL endpoint is configurable via `snapshotGraphqlEndpoint`.
+If you need to override the space used for filtering, set `snapshotSpace`.
+If `minLockPerActiveVote` is 0 or omitted, the strategy behaves exactly as before.
+
+**Remaining Lock Time Requirement (Optional):**
+If `minRemainingLockTime` is set to a value greater than 0, the strategy requires:
+```
+if remainingTime <= minRemainingLockTime, then veSocPower = 0
 ```
 
 ### 2. vesoc-supply-ratio
@@ -75,7 +92,11 @@ The consensus API should return an array of objects with the following format (r
     "nftContractAddress": "0x0987654321098765432109876543210987654321",
     "consensusApi": "https://api.project.com/nft/consensus",
     "strategyType": "vesoc-nft-power",
-    "decimals": 18
+    "decimals": 18,
+    "minLockPerActiveVote": "1000000000000000000",
+    "minRemainingLockTime": 86400,
+    "snapshotGraphqlEndpoint": "https://testnet.hub.snapshot.org/graphql",
+    "snapshotSpace": "your-space-id"
   }
 }
 ```
