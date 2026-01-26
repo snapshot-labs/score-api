@@ -50,6 +50,9 @@ async function fetchActiveVotesCount(
   const counts: Record<string, number> = Object.fromEntries(
     voters.map(voter => [voter, 0])
   );
+  if (spaceId === '') {
+    return counts;
+  }
   const spaces = [spaceId];
   const proposalIds: string[] = [];
 
@@ -176,7 +179,7 @@ async function calculateVeSocNftPower(
     ? await fetchActiveVotesCount(
         addresses,
         snapshotGraphqlEndpoint,
-        options.snapshotSpace || space,
+        options.snapshotSpace || '',
         currentTimestamp
       )
     : {};
@@ -222,7 +225,7 @@ async function calculateVeSocNftPower(
     let veSocPower = 0;
 
     const socAmount = lock
-      ? parseFloat(formatUnits(lock.veSocAmount, options.decimals || 18))
+      ? parseFloat(formatUnits(lock.amount, options.decimals || 18))
       : 0;
     // Check if user has an active lock (amount > 0 and lock hasn't expired)
     if (lock && Number(lock.amount) > 0) {
