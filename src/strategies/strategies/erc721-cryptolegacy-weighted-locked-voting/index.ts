@@ -19,6 +19,10 @@ export async function strategy(
 ) {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
+  if (options.tokenIdWeightRanges && options.tokenIdWeightRanges.length > 100) {
+    throw new Error('tokenIdWeightRanges must be less than or equal to 100');
+  }
+
   // Get locked NFT info from locker
   const callLocker = new Multicaller(network, provider, lockerAbi, {
     blockTag
