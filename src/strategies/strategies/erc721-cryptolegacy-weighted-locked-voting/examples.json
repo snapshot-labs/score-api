@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Example query",
+    "strategy": {
+      "name": "erc721-cryptolegacy-weighted-locked-voting",
+      "params": {
+        "address": "0xFd7ceF1Aa59792E44bb92ad1fBB553bD19d5682c",
+        "locker": "0x2C8660b01F7d45561370AC1DE3E75cf7F80199a6",
+        "defaultWeight": 1,
+        "tokenIdWeightRanges": [
+          { "start": 1, "end": 100, "weight": 20 },
+          { "start": 101, "end": 300, "weight": 9 },
+          { "start": 301, "end": 700, "weight": 4 },
+          { "start": 701, "end": 1500, "weight": 2 }
+        ]
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0x2D0685130a764bA15b6926f7021a17C6F3864287",
+      "0x09D93FFB83c5e9c0Bb6E30071576DB8d99a615F8",
+      "0xc55F9C77826fC596f61bB537Bd692843d7709317"
+    ],
+    "snapshot": 24300000
+  }
+]
