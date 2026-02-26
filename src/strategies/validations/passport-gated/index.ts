@@ -33,7 +33,7 @@ const stampCredentials = STAMPS.map(stamp => {
   };
 });
 
-// Useful to get stamp metadata and update `stampsMetata.json`
+// Useful to get stamp metadata and update `stampsMetadata.json`
 // console.log('stampCredentials', JSON.stringify(stampCredentials.map((s) => ({"const": s.id, title: s.name}))));
 
 function hasValidIssuanceAndExpiration(credential: any, proposalTs: string) {
@@ -100,13 +100,13 @@ async function validateStamps(
 }
 
 function evalPassportScore(scoreData: any, minimumThreshold = 0): boolean {
-  // scoreData.evidence?.type === 'ThresholdScoreCheck' -> Returned if using Boolean Unique Humanity Scorer (should not be used)
+  // scoreData.evidence?.type === 'ThresholdScoreCheck': Returned if using Boolean Unique Humanity Scorer (should not be used)
   if (scoreData.evidence?.type === 'ThresholdScoreCheck') {
     return (
       Number(scoreData.evidence.rawScore) > Number(scoreData.evidence.threshold)
     );
   }
-  // scoreData.score -> Returned if using Unique Humanity Score
+  // scoreData.score: Returned if using Unique Humanity Score
   return Number(scoreData.score) >= minimumThreshold;
 }
 

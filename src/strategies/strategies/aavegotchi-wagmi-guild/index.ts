@@ -2,7 +2,7 @@ import { formatUnits } from '@ethersproject/units';
 import { subgraphRequest } from '../../utils';
 
 const AAVEGOTCHI_SUBGRAPH_URL = {
-  8453: 'https://subgraph.satsuma-prod.com/tWYl5n5y04oz/aavegotchi/aavegotchi-core-base/api'
+  8453: 'https://api.goldsky.com/api/public/project_cmh3flagm0001r4p25foufjtt/subgraphs/aavegotchi-core-base/prod/gn'
 };
 
 const itemPriceParams = {

@@ -1,6 +1,6 @@
 # Staked Uniswap Modifiable
 
-This stategy is a fork of the staked-uniswap strategy that allows users to customise the function to get the total staked amount of uniswap-lp tokens in the contract.
+This strategy is a fork of the staked-uniswap strategy that allows users to customise the function to get the total staked amount of uniswap-lp tokens in the contract.
 
 This strategy returns a score that is equivalent to the token amount provided in the uniswap liqudity pool
 ## Accepted options

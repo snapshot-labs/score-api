@@ -45,6 +45,28 @@
           "default": 2,
           "title": "Token Decimals",
           "description": "Number of decimal places for veSOC token"
+        },
+        "minLockPerActiveVote": {
+          "type": "number",
+          "title": "Minimum Lock Per Active Vote",
+          "description": "Minimum lock amount required per active vote (0 disables the active vote lock check)"
+        },
+        "minRemainingLockTime": {
+          "type": "number",
+          "minimum": 0,
+          "title": "Minimum Remaining Lock Time",
+          "description": "Minimum remaining lock time required for veSocPower (0 disables the remaining time check)"
+        },
+        "snapshotGraphqlEndpoint": {
+          "type": "string",
+          "format": "uri",
+          "title": "Snapshot GraphQL Endpoint",
+          "description": "Snapshot GraphQL endpoint used to query active votes"
+        },
+        "snapshotSpace": {
+          "type": "string",
+          "title": "Snapshot Space",
+          "description": "Optional override for Snapshot space id used when counting active votes"
         }
       },
       "required": ["veSocLockerAddress"],

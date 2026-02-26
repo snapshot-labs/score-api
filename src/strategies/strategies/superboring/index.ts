@@ -61,12 +61,12 @@ export async function strategy(
     Object.entries(sbResult).filter(([key]) => key !== 'torexes')
   );
 
-  // extract the addresses of regitered torexes
+  // extract the addresses of registered torexes
   const torexAddrs = Array.isArray(sbResult['torexes'])
     ? sbResult['torexes'].map(tuple => tuple[0])
     : [];
 
-  // Now we have all torex adresses and can get the staked amounts for each user
+  // Now we have all torex addresses and can get the staked amounts for each user
 
   // Construct second batch call to SuperBoring contract
   // Since the SuperBoring contract does (corrently) not allow to query the overall staked amount of a user,

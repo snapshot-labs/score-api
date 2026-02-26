@@ -1,6 +1,7 @@
 import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
-import { Multicaller } from '../../utils';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { Multicaller, subgraphRequest } from '../../utils';
+import { getAllReserves } from '../uniswap-v3/helper';
 
 // signatures of the methods we need
 const abi = [
@@ -21,6 +22,14 @@ const DECIMALS = 18;
 // we must bound the number of fontaines per locker to avoid RPC timeouts
 const MAX_FONTAINES_PER_LOCKER = 100;
 
+const UNISWAP_V3_SUBGRAPH_URL = {
+  '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV',
+  '8453':
+    'https://subgrapher.snapshot.org/subgraph/arbitrum/43Hwfi3dJSoGpyas9VwNoDAv55yjgGrPpNSmbQZArzMG',
+  '42161':
+    'https://subgrapher.snapshot.org/subgraph/arbitrum/FbCGRftH4a3yZugY7TnbYgPJVEv2LvMT6oF1fxPe9aJM'
+};
+
 interface LockerState {
   availableBalance: BigNumber;
   stakedBalance: BigNumber;
@@ -37,14 +46,7 @@ export async function strategy(
 ): Promise<Record<string, number>> {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
-  // 1. GET UNLOCKED BALANCES
-  const mCall1 = new Multicaller(network, provider, abi, { blockTag });
-  addresses.forEach(address =>
-    mCall1.call(address, options.tokenAddress, 'balanceOf', [address])
-  );
-  const unlockedBalances: Record<string, BigNumberish> = await mCall1.execute();
-
-  // 2. GET LOCKER ADDRESSES
+  // 1. GET LOCKER ADDRESSES
   const mCall2 = new Multicaller(network, provider, abi, { blockTag });
   // lockerFactory.getUserLocker(). Returns the deterministic address and a bool "exists".
   addresses.forEach(address =>
@@ -60,7 +62,7 @@ export async function strategy(
   );
   const existingLockers = Object.values(lockerByAddress);
 
-  // 3. GET LOCKER STATE (available balance, staked balance, fontaine count)
+  // 2. GET LOCKER STATE (available balance, staked balance, fontaine count)
   const mCall3 = new Multicaller(network, provider, abi, { blockTag });
   existingLockers.forEach(lockerAddress => {
     mCall3.call(
@@ -97,7 +99,7 @@ export async function strategy(
     };
   });
 
-  // 4. GET ALL THE FONTAINES
+  // 3. GET ALL THE FONTAINES
   const mCall4 = new Multicaller(network, provider, abi, { blockTag });
   existingLockers.forEach(lockerAddress => {
     const fontaineCount = lockerStates[lockerAddress].fontaineCount;
@@ -113,29 +115,112 @@ export async function strategy(
   });
   const fontaineAddrs: Record<string, string> = await mCall4.execute();
 
-  // 5. GET THE FONTAINE'S BALANCES
+  // 4. GET UNLOCKED BALANCES AND FONTAINE BALANCES
   const mCall5 = new Multicaller(network, provider, abi, { blockTag });
+  addresses.forEach(address =>
+    mCall5.call(`unlocked-${address}`, options.tokenAddress, 'balanceOf', [
+      address
+    ])
+  );
   existingLockers.forEach(lockerAddress => {
     for (let i = 0; i < lockerStates[lockerAddress].fontaineCount; i++) {
       const fontaineAddress = fontaineAddrs[`${lockerAddress}-${i}`];
-      mCall5.call(`${lockerAddress}-${i}`, options.tokenAddress, 'balanceOf', [
-        fontaineAddress
-      ]);
+      mCall5.call(
+        `fontaine-${lockerAddress}-${i}`,
+        options.tokenAddress,
+        'balanceOf',
+        [fontaineAddress]
+      );
     }
   });
-  const fontaineBalances: Record<string, BigNumberish> = await mCall5.execute();
+  const balanceResults: Record<string, BigNumberish> = await mCall5.execute();
+  // Split results: remove prefixes to match expected key formats
+  const unlockedBalances: Record<string, BigNumberish> = {};
+  const fontaineBalances: Record<string, BigNumberish> = {};
+  Object.entries(balanceResults).forEach(([key, value]) => {
+    if (key.startsWith('unlocked-')) {
+      unlockedBalances[key.replace('unlocked-', '')] = value;
+    } else if (key.startsWith('fontaine-')) {
+      fontaineBalances[key.replace('fontaine-', '')] = value;
+    }
+  });
 
-  // Note: all 5 allowed multicalls are "used".
-  // If needed we could "free" one by combining the balance queries of mCall1 and mCall5
+  // 5. GET UNISWAP V3 POSITIONS FOR LOCKERS
+  const uniswapV3Balances: Record<string, number> = {};
+  if (options.poolAddress && existingLockers.length > 0) {
+    const tokenReserve =
+      options.tokenReserve === 0 ? 'token0Reserve' : 'token1Reserve';
+    const _lockerAddresses = existingLockers.map(addr => addr.toLowerCase());
+
+    const params = {
+      positions: {
+        __args: {
+          where: {
+            pool: options.poolAddress.toLowerCase(),
+            owner_in: _lockerAddresses
+          }
+        },
+        id: true,
+        owner: true,
+        liquidity: true,
+        tickLower: { tickIdx: true },
+        tickUpper: { tickIdx: true },
+        pool: { tick: true, sqrtPrice: true, liquidity: true, feeTier: true },
+        token0: { symbol: true, decimals: true, id: true },
+        token1: { symbol: true, decimals: true, id: true }
+      }
+    };
+
+    if (snapshot !== 'latest') {
+      // @ts-ignore
+      params.positions.__args.block = { number: snapshot };
+    }
+
+    const rawData = await subgraphRequest(
+      options.subgraph || UNISWAP_V3_SUBGRAPH_URL[network],
+      params
+    );
+
+    // Map positions to lockers (same structure as uniswap-v3 strategy)
+    const lockerPositions: Record<string, any[]> = {};
+    rawData?.positions?.forEach((position: any) => {
+      const lockerAddr = position.owner.toLowerCase();
+      if (!lockerPositions[lockerAddr]) {
+        lockerPositions[lockerAddr] = [];
+      }
+      lockerPositions[lockerAddr].push(position);
+    });
+
+    // Calculate reserves for each locker
+    Object.entries(lockerPositions).forEach(([lockerAddr, positions]) => {
+      const reserves = getAllReserves(positions);
+      const supAmount = reserves.reduce(
+        (sum: number, pos: any) => sum + (pos[tokenReserve] || 0),
+        0
+      );
+
+      // Find user address for this locker
+      const userAddr = Object.entries(lockerByAddress).find(
+        ([, addr]) => addr.toLowerCase() === lockerAddr
+      )?.[0];
+
+      if (userAddr) {
+        uniswapV3Balances[userAddr] =
+          (uniswapV3Balances[userAddr] || 0) + supAmount;
+      }
+    });
+  }
 
   // SUM UP ALL THE BALANCES
   const balances = Object.fromEntries(
     addresses.map(address => {
       const lockerAddress: string = lockerByAddress[address];
-      const unlockedBalance = BigNumber.from(unlockedBalances[address]);
+      const unlockedBalance = BigNumber.from(unlockedBalances[address] || 0);
 
       // if no locker -> return unlocked balance
-      if (!lockerAddress) return [address, unlockedBalance];
+      if (!lockerAddress) {
+        return [address, unlockedBalance];
+      }
 
       // else add all balances in locker and related fontaines
       const availableBalance = lockerStates[lockerAddress].availableBalance;
@@ -146,10 +231,16 @@ export async function strategy(
         fontaineBalances
       );
 
+      const uniswapV3Balance = parseUnits(
+        (uniswapV3Balances[address] || 0).toFixed(18),
+        DECIMALS
+      );
+
       const totalBalance = unlockedBalance
         .add(availableBalance)
         .add(stakedBalance)
-        .add(fontaineBalanceSum);
+        .add(fontaineBalanceSum)
+        .add(uniswapV3Balance);
 
       return [address, totalBalance];
     })
@@ -171,8 +262,6 @@ function getFontaineBalancesForLocker(
   balances: Record<string, BigNumberish>
 ): BigNumber {
   return Array.from({ length: fontaineCount })
-    .map((_, i) =>
-      BigNumber.from(balances[`balance-${lockerAddress}-${i}`] || 0)
-    )
+    .map((_, i) => BigNumber.from(balances[`${lockerAddress}-${i}`] || 0))
     .reduce((sum, balance) => sum.add(balance), BigNumber.from(0));
 }

@@ -116,7 +116,7 @@ export async function strategy(
         ) {
           //if delegator has delegated to more than one staker, we need to add that amount also to calculate score.
           if (!score[getAddress(delegator.delegatorAddress)]) {
-            //if score[delegator] has no score setup already we will put it as intial amount
+            //if score[delegator] has no score setup already we will put it as initial amount
             score[getAddress(delegator.delegatorAddress)] = wei_to_ether(
               Number(razor_amount)
             );
@@ -145,7 +145,7 @@ export async function strategy(
         );
         //score will be based on the current stake in the block Number
         if (!score[getAddress(Staker.staker)]) {
-          //if score[delegator] has no score setup already we will put it as intial amount
+          //if score[delegator] has no score setup already we will put it as initial amount
           score[getAddress(Staker.staker)] = wei_to_ether(Number(razor_amount));
         } else {
           // update the score of delegator by adding new Stoken -> razor Value

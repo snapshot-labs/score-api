@@ -21,6 +21,23 @@
           "pattern": "^0x[a-fA-F0-9]{40}$",
           "minLength": 42,
           "maxLength": 42
+        },
+        "poolAddress": {
+          "type": "string",
+          "title": "Uniswap V3 pool address containing SUP",
+          "examples": ["e.g. 0xBa154BEAa14172fF9384B82499732c669527d85D"],
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "minLength": 42,
+          "maxLength": 42
+        },
+        "tokenReserve": {
+          "type": "number",
+          "title": "Token reserve to consider (0 for token0, 1 for token1)",
+          "examples": [0, 1]
+        },
+        "subgraph": {
+          "type": "string",
+          "title": "Custom subgraph URL (defaults to Uniswap V3 subgraph)"
         }
       },
       "required": ["tokenAddress", "lockerFactoryAddress"],

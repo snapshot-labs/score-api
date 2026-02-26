@@ -39,7 +39,7 @@ query Attestations($schemaId: String!) {
 /**
  * Query EAS subgraph to determine if user is attested
  * @param schemaId Schema UID
- * @param address Targer user address
+ * @param address Target user address
  * @param network Network ID (1 = mainnet, 11155111 = sepolia)
  * @returns
  */
