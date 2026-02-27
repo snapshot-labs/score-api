@@ -1,7 +1,18 @@
+import fetch from 'cross-fetch';
+
 export const supportedProtocols = ['evm', 'starknet'];
 
 export async function strategy(space, network, provider, addresses, options) {
-  const whitelist = options?.addresses.map(address => address.toLowerCase());
+  let whitelist = options?.addresses || [];
+
+  if (options?.url) {
+    const response = await fetch(options.url);
+    const data = await response.json();
+    whitelist = data.addresses || [];
+  }
+
+  whitelist = whitelist.map(address => address.toLowerCase());
+
   return Object.fromEntries(
     addresses.map(address => [
       address,
