@@ -36,7 +36,10 @@ export async function strategy(
   const ownerKeys: Array<{ owner: string; key: string }> = [];
 
   for (const owner of addresses) {
-    const count = Math.min(Number(balances[owner] || 0), maxBondsPerAddress);
+    const count = Math.min(
+      BigNumber.from(balances[owner] ?? 0).toNumber(),
+      maxBondsPerAddress
+    );
     for (let i = 0; i < count; i++) {
       const key = `${owner}-${i}`;
       ownerKeys.push({ owner, key });
