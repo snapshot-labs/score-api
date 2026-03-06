@@ -27,7 +27,7 @@ export async function strategy(
   const maxBondsPerAddress = options.maxBondsPerAddress ?? 10;
 
   const balancesCall = new Multicaller(network, provider, nftAbi, { blockTag });
-  addresses.forEach((address) => {
+  addresses.forEach(address => {
     balancesCall.call(address, options.nftBondAddress, 'balanceOf', [address]);
   });
   const balances: Record<string, BigNumberish> = await balancesCall.execute();
@@ -48,7 +48,7 @@ export async function strategy(
   }
 
   if (ownerKeys.length === 0) {
-    return Object.fromEntries(addresses.map((a) => [a, 0]));
+    return Object.fromEntries(addresses.map(a => [a, 0]));
   }
 
   const tokenIds: Record<string, BigNumberish> = await tokenIdsCall.execute();
@@ -58,21 +58,24 @@ export async function strategy(
   });
   for (const { key } of ownerKeys) {
     const tokenId = tokenIds[key];
-    weightCall.call(key, options.governanceBondingAddress, 'getNormalizedWeight', [
-      tokenId
-    ]);
+    weightCall.call(
+      key,
+      options.governanceBondingAddress,
+      'getNormalizedWeight',
+      [tokenId]
+    );
   }
   const weights: Record<string, BigNumberish> = await weightCall.execute();
 
   const totals: Record<string, BigNumber> = Object.fromEntries(
-    addresses.map((a) => [a, BigNumber.from(0)])
+    addresses.map(a => [a, BigNumber.from(0)])
   );
   for (const { owner, key } of ownerKeys) {
     totals[owner] = totals[owner].add(weights[key] ?? 0);
   }
 
   return Object.fromEntries(
-    addresses.map((address) => [
+    addresses.map(address => [
       address,
       parseFloat(formatUnits(totals[address], decimals))
     ])
