@@ -23,7 +23,13 @@ function instrumentRateLimitedRequests(req, res, next) {
 }
 
 export default function initMetrics(app: Express) {
-  init(app, { whitelistedPath, errorHandler: capture });
+  init(app, {
+    whitelistedPath,
+    errorHandler: capture,
+    promBundleOptions: {
+      buckets: [0.003, 0.03, 0.1, 0.3, 1.5, 3, 5, 10]
+    }
+  });
 
   app.use(instrumentRateLimitedRequests);
 }
