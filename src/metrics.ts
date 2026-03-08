@@ -27,7 +27,7 @@ export default function initMetrics(app: Express) {
     whitelistedPath,
     errorHandler: capture,
     promBundleOptions: {
-      buckets: [0.003, 0.03, 0.1, 0.3, 1.5, 3, 5, 10]
+      buckets: [0.03, 0.3, 1.5, 3, 5, 10]
     }
   });
 
