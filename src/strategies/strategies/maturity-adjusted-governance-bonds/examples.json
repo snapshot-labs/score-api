@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Base Mainnet - Rize Governance Bonds",
+    "strategy": {
+      "name": "maturity-adjusted-governance-bonds",
+      "params": {
+        "nftBondAddress": "0xF33F231B769CCC1C7f74190De14340fBD51879FF",
+        "governanceBondingAddress": "0x5a134098bDBEb05Da9eAc35439c5624547ed26eE",
+        "decimals": 2,
+        "maxBondsPerAddress": 10,
+        "symbol": "gRIZE"
+      }
+    },
+    "network": "8453",
+    "addresses": [
+      "0xe0Eabf92c1406C77A8B51ecD257277C8B7AaAefA",
+      "0x0000000000000000000000000000000000000002",
+      "0xeaa5d02e7432ed8aac79903b383217b1eb67245a",
+      "0x5BED7C9bACDf9fbF251a4A3f416F0aA56FA7860D",
+      "0x525c1c6025923610edfe3a4fa702b35e69c85320",
+      "0xFF5096fE7482aAc4815576cC3960e4eb99e5344a",
+      "0x676f0F5cEE4e2ec724541EDf5427c918C1dAdb22"
+    ],
+    "snapshot": 42967544
+  }
+]

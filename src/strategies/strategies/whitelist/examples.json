@@ -1,6 +1,6 @@
 [
   {
-    "name": "Example query",
+    "name": "Example query with inline addresses",
     "strategy": {
       "name": "whitelist",
       "params": {
@@ -15,6 +15,24 @@
     "addresses": [
       "0xa478c2975ab1ea89e8196811f51a7b7ade33eb11",
       "0xeF8305E140ac520225DAf050e2f71d5fBcC543e7",
+      "0x1E1A51E25f2816335cA436D65e9Af7694BE232ad"
+    ],
+    "snapshot": 11437846
+  },
+  {
+    "name": "Example query with remote URL (array format)",
+    "strategy": {
+      "name": "whitelist",
+      "params": {
+        "symbol": "POINT",
+        "url": "https://ipfs.4everland.io/ipfs/bafkreibhrbywezxacyjwmjemqnms7yb4ngkjimdtk4xj3levi52iqccxse"
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0x00000000080480B4Dee2a7Fe4E59D7Ce1289D83C",
+      "0x00027F06C31Ca6d84A6293Be3104A2808F8ea6fC",
+      "0x00000536dC895151Bc3273802209947478Ba75a1",
       "0x1E1A51E25f2816335cA436D65e9Af7694BE232ad"
     ],
     "snapshot": 11437846
