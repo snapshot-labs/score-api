@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Strategy",
+  "definitions": {
+    "Strategy": {
+      "title": "Strategy",
+      "type": "object",
+      "properties": {
+        "poolAddress": {
+          "type": "string",
+          "title": "Uniswap V3 Pool Address",
+          "examples": ["0x02623e0e65a1d8537f6235512839e2f7b76c7a12"],
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "minLength": 42,
+          "maxLength": 42
+        },
+        "tokenReserve": {
+          "type": "number",
+          "title": "Token Reserve (0 for token0, 1 for token1)",
+          "examples": [0, 1],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "feeTier": {
+          "type": "number",
+          "title": "Fee Tier (10000 = 1%)",
+          "examples": [10000],
+          "minimum": 100,
+          "maximum": 1000000
+        },
+        "subgraph": {
+          "type": "string",
+          "title": "Custom Subgraph URL (optional)",
+          "examples": ["https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3"]
+        }
+      },
+      "required": ["poolAddress", "tokenReserve"],
+      "additionalProperties": false
+    }
+  }
+}
