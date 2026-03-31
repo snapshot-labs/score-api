@@ -25,7 +25,7 @@ const abi = [
   }
 ];
 
-// Whitelisted staking contracts (top 30 on sep 2nd)
+// Whitelisted staking contracts (Active 200 addresses on Mar 30th 2026)
 const WHITELISTED_CONTRACTS = [
   '0x02cb02c72e8a0975e69e88298443e984d965a49eab38f5bdde1f5072daa09cfe',
   '0x0362dc7da60bfddc8e3146028dfd94941c6e22403c98b5947104e637543b475d',
