@@ -1,8 +1,11 @@
 # strk-staked-balance
 
-This strategy returns the staked STRK balance of voters across whitelisted staking contracts on Starknet. It aggregates the staked amounts from multiple staking pools (200 active pools on 30th March 2026) to calculate the total voting power for each address.
+This strategy returns the staked STRK balance of voters on Starknet by combining two sources:
 
-The strategy calls the `get_pool_member_info` function on whitelisted staking contracts to retrieve staking information for each voter address.
+1. **Pool delegator balances** — Calls `get_pool_member_info` on 200 whitelisted staking pool contracts to get delegated amounts.
+2. **Direct staker balances** — Calls `get_staker_info` on the staking contract to get `amount_own` for direct stakers.
+
+Both are summed to calculate total voting power per address.
 
 ## Parameters
 
