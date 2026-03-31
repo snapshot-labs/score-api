@@ -242,10 +242,7 @@ export async function strategy(
   );
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
-  const multi = new Multicaller(network, provider, abi, { 
-    blockTag, 
-    limit: 100 
-  });
+  const multi = new Multicaller(network, provider, abi, { blockTag });
 
   // Loop through all whitelisted contracts and addresses to gather multicall data
   for (const contractAddress of WHITELISTED_CONTRACTS) {
