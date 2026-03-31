@@ -1,5 +1,4 @@
 import { BigNumberish } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 import snapshotjs from '@snapshot-labs/snapshot.js';
 
@@ -24,6 +23,9 @@ const abi = [
     state_mutability: 'view'
   }
 ];
+
+const STAKING_CONTRACT =
+  '0x00ca1702e64c81d9a07b86bd2c540188d92a2c73cf5cc0e508d949015e7e84a7';
 
 // Whitelisted staking contracts (Active 200 addresses on Mar 30th 2026)
 const WHITELISTED_CONTRACTS = [
@@ -259,14 +261,12 @@ export async function strategy(
   const result: Record<string, any> = await multi.execute();
 
   // Aggregate staked balances for each address across all contracts
-  const addressBalances: Record<string, BigNumberish> = {};
+  const addressBalances: Record<string, BigNumberish> = Object.fromEntries(
+    formattedAddresses.map(a => [a, '0'])
+  );
 
   for (const [callKey, response] of Object.entries(result)) {
     const [, voterAddress] = callKey.split('-');
-
-    if (!addressBalances[voterAddress]) {
-      addressBalances[voterAddress] = '0';
-    }
 
     // Parse the response to extract the staked amount
     if (response && Array.isArray(response) && response.length > 0) {
@@ -281,11 +281,32 @@ export async function strategy(
     }
   }
 
-  // Convert to final voting power format
+  // Check own staker info on the staking contract
+  const stakerMulti = new Multicaller(network, provider, abi, { blockTag });
+
+  for (const voterAddress of formattedAddresses) {
+    stakerMulti.call(voterAddress, STAKING_CONTRACT, 'get_staker_info_v1', [
+      voterAddress
+    ]);
+  }
+
+  const stakerResult: Record<string, any> = await stakerMulti.execute();
+
+  for (const [voterAddress, response] of Object.entries(stakerResult)) {
+    if (!response || !Array.isArray(response)) continue;
+    if (response.length >= 5 && response[4] && response[4] !== '0x0') {
+      const currentBalance = BigInt(addressBalances[voterAddress].toString());
+      addressBalances[voterAddress] = (
+        currentBalance + BigInt(response[4])
+      ).toString();
+    }
+  }
+
+  // Convert to final voting power format (truncate to 6 decimals)
   return Object.fromEntries(
     Object.entries(addressBalances).map(([address, balance]) => [
       address,
-      parseFloat(formatUnits(balance, 18))
+      Number(BigInt(balance.toString()) / 1000000000000n) / 1e6
     ])
   );
 }
