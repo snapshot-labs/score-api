@@ -76,7 +76,7 @@ export async function strategy(
   }
 
   if (!options?.avt) {
-    throw new Error('Missing required option: token');
+    throw new Error('Missing required option: avt');
   }
 
   if (!addresses.length) {
@@ -99,7 +99,9 @@ export async function strategy(
 
   const block = await provider.getBlock(blockTag);
   if (!block || block.timestamp == null) {
-    throw new Error(`Unable to resolve timestamp for snapshot ${String(blockTag)}`);
+    throw new Error(
+      `Unable to resolve timestamp for snapshot ${String(blockTag)}`
+    );
   }
 
   const timestampSec = Number(block.timestamp);
@@ -115,7 +117,9 @@ export async function strategy(
       [chunk, timestampSec]
     );
 
-    for (const [address, balance] of Object.entries(avnResponse?.balances ?? {})) {
+    for (const [address, balance] of Object.entries(
+      avnResponse?.balances ?? {}
+    )) {
       avnBalancesByAddress[normalizeAddress(address)] = balance;
     }
   }
