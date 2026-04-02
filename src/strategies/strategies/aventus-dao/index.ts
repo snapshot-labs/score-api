@@ -1,10 +1,21 @@
 import { formatUnits } from '@ethersproject/units';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
-const AVN_RPC_URL = 'https://avn-parachain.mainnet.aventus.io';
-const AVT_TOKEN_ADDRESS = '0x0d88eD6E74bbFD96B831231638b66C05571e824F';
 const AVT_DECIMALS = 18;
 const MAX_BATCH_SIZE = 500;
+const MAINNET_NETWORK = '1';
+const SEPOLIA_NETWORK = '11155111';
+
+const CONFIG = {
+  [MAINNET_NETWORK]: {
+    avn: 'https://avn-parachain.mainnet.aventus.io',
+    avt: '0x0d88eD6E74bbFD96B831231638b66C05571e824F'
+  },
+  [SEPOLIA_NETWORK]: {
+    avn: 'https://avn-parachain.testnet.aventus.io',
+    avt: '0x608156959E3a2192a870b4BaC660200afB4c649F'
+  }
+} as const;
 
 type AvnBalancesResponse = {
   balances?: Record<string, string>;
@@ -62,7 +73,7 @@ function chunkArray<T>(items: T[], size: number): T[][] {
 
 export async function strategy(
   _space: string,
-  _network: string,
+  network: string,
   provider: any,
   addresses: string[],
   _options: any,
@@ -72,11 +83,19 @@ export async function strategy(
     return {};
   }
 
+  const config = CONFIG[network as keyof typeof CONFIG];
+
+  if (!config) {
+    throw new Error(`Unsupported network: ${network}`);
+  }
+
+  const { avn: AVN_RPC_URL, avt: AVT_TOKEN_ADDRESS } = config;
+
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
   const erc20ScoresPromise = erc20BalanceOfStrategy(
     _space,
-    _network,
+    network,
     provider,
     addresses,
     {
