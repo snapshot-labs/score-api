@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Example query",
+    "strategy": {
+      "name": "aventus-dao",
+      "params": {}
+    },
+    "network": "1",
+    "addresses": [
+      "0x3E49AE09aB305F19777BEAA0bb8D94fEE6b24FC1",
+      "0x67A332D4549903f4A861A960053CA4CB4D24E06b",
+      "0x8F9327cF2195696937858de2AE5179AE5b2B429d"
+    ],
+    "snapshot": 24775000
+  }
+]
