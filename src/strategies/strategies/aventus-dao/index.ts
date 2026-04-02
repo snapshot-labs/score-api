@@ -1,13 +1,10 @@
 import { formatUnits } from '@ethersproject/units';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
+const AVN_RPC_URL = 'https://avn-parachain.mainnet.aventus.io';
+const AVT_TOKEN_ADDRESS = '0x0d88eD6E74bbFD96B831231638b66C05571e824F';
 const AVT_DECIMALS = 18;
 const MAX_BATCH_SIZE = 500;
-
-type StrategyOptions = {
-  avn: string;
-  avt: string;
-};
 
 type AvnBalancesResponse = {
   balances?: Record<string, string>;
@@ -68,17 +65,9 @@ export async function strategy(
   _network: string,
   provider: any,
   addresses: string[],
-  options: StrategyOptions,
+  _options: any,
   snapshot: number | string
 ): Promise<Record<string, number>> {
-  if (!options?.avn) {
-    throw new Error('Missing required option: avn');
-  }
-
-  if (!options?.avt) {
-    throw new Error('Missing required option: avt');
-  }
-
   if (!addresses.length) {
     return {};
   }
@@ -91,7 +80,7 @@ export async function strategy(
     provider,
     addresses,
     {
-      address: options.avt,
+      address: AVT_TOKEN_ADDRESS,
       decimals: AVT_DECIMALS
     },
     snapshot
@@ -112,7 +101,7 @@ export async function strategy(
 
   for (const chunk of addressChunks) {
     const avnResponse = await callJsonRpc<AvnBalancesResponse>(
-      options.avn,
+      AVN_RPC_URL,
       'avn_getLinkedBalancesAtOrBeforeTimestamp',
       [chunk, timestampSec]
     );
