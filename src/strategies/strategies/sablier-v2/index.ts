@@ -99,8 +99,8 @@ export async function strategy(
     );
   });
 
-  console.log('=== SABLIER V2 ===');
-  console.log(options.policy, prepared);
+  // console.log('=== SABLIER V2 ===');
+  // console.log(options.policy, prepared);
 
   return prepared;
 }

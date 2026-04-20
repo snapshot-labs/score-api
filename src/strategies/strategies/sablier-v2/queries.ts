@@ -49,7 +49,7 @@ async function getRecipientStreams(
       queries.RecipientStreamsByAsset(params)
     )) as IStreamsByAssetResult;
 
-    const list = results?.streams;
+    const list = results?.lockupStreams;
 
     if (list && list.length) {
       list.forEach(item => {
@@ -118,7 +118,7 @@ async function getSenderStreams(
       queries.SenderStreamsByAsset(params)
     )) as IStreamsByAssetResult;
 
-    const list = results?.streams;
+    const list = results?.lockupStreams;
 
     if (list && list.length) {
       list.forEach(item => {
@@ -463,8 +463,8 @@ async function getLatestBlock(
       const { data } = await response.json();
       const result = Number(data._meta.block.number);
 
-      console.log('=== SABLIER V2 ===');
-      console.log(`Fetched latest subgraph indexed block at {${result}}`);
+      // console.log('=== SABLIER V2 ===');
+      // console.log(`Fetched latest subgraph indexed block at {${result}}`);
 
       return result;
     }
