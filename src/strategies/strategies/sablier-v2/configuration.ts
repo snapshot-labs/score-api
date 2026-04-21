@@ -145,7 +145,7 @@ type IAccountMap = Map<
 >;
 
 interface IStreamsByAssetResult {
-  streams: {
+  lockupStreams: {
     id: string;
     contract: string;
     canceled: boolean;
@@ -167,7 +167,7 @@ const RecipientStreamsByAsset = ({
   accounts,
   skip = 0
 }: IStreamsByAssetParams) => ({
-  streams: {
+  lockupStreams: {
     __args: {
       block: { number: block },
       first,
@@ -198,7 +198,7 @@ const SenderStreamsByAsset = ({
   accounts,
   skip = 0
 }: IStreamsByAssetParams) => ({
-  streams: {
+  lockupStreams: {
     __args: {
       block: { number: block },
       first,
