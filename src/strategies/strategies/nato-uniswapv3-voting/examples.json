@@ -1,0 +1,23 @@
+[
+  {
+    "name": "NATO Uniswap V3 1% Tier Pool Example",
+    "strategy": {
+      "name": "nato-uniswapv3-voting",
+      "params": {
+        "poolAddress": "0x02623e0e65a1d8537f6235512839e2f7b76c7a12",
+        "tokenReserve": 0,
+        "feeTier": 10000
+      }
+    },
+    "network": "8453",
+    "addresses": [
+      "0x4f0fd563be89ec8c3e7d595bf3639128c0a7c33a",
+      "0xda1dba3c1b1cdeaf1419a85ba5b454547bda5662",
+      "0x581ab14804196e9b20f02291cf863bc1b4745a87",
+      "0x5d62dd87f40090ba3d065b4c6bb63b8c8ff883b3",
+      "0x949dc9da1ce5bb121fbc1bea61b2a42dc8bedae6",
+      "0x7cee21fd74cff3b91c1c7251b7a4294349a0da79"
+    ],
+    "snapshot": 30937953
+  }
+]
