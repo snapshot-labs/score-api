@@ -3,8 +3,8 @@ import { getProvider, multicall, subgraphRequest } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 
-const VE_SDT = '0x0C30476f66034E11782938DF8e4384970B6c9e8a';
-const VE_PROXY_BOOST_SDT = '0xD67bdBefF01Fc492f1864E61756E5FBB3f173506';
+const VE_SDT = '0x94818A7baa7e9F5dC62ce4da1B52ef9a760b80B8';
+const VE_PROXY_BOOST_SDT = '0xaB05ca46d1c78CAbB051efFE35099714Cad2AddA';
 const TOKENLESS_PRODUCTION = 40;
 
 // Used ABI
