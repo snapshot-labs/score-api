@@ -3,8 +3,8 @@ import { getProvider, multicall, subgraphRequest } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 
-const VE_SDT = '0x94818A7baa7e9F5dC62ce4da1B52ef9a760b80B8';
-const VE_PROXY_BOOST_SDT = '0xaB05ca46d1c78CAbB051efFE35099714Cad2AddA';
+const VL_SDT = '0x94818A7baa7e9F5dC62ce4da1B52ef9a760b80B8';
+const VL_PROXY_BOOST_SDT = '0xaB05ca46d1c78CAbB051efFE35099714Cad2AddA';
 const TOKENLESS_PRODUCTION = 40;
 
 // Used ABI
@@ -66,7 +66,7 @@ export async function strategy(
       veSDTUserAddresses[address].toLowerCase();
   }
 
-  const mainnetCalls: any[] = [[VE_SDT, 'totalSupply']];
+  const mainnetCalls: any[] = [[VL_SDT, 'totalSupply']];
 
   const destinationChainCalls: any[] = [
     [options.sdTokenGaugeDestinationChain, 'totalSupply']
@@ -108,7 +108,7 @@ export async function strategy(
 
   // Queries
   const ajustedBalancesMainnet = addresses.map((address: any) => [
-    VE_PROXY_BOOST_SDT,
+    VL_PROXY_BOOST_SDT,
     'adjusted_balance_of',
     [veSDTUserAddressesMap[address.toLowerCase()] || address]
   ]);

@@ -6,7 +6,7 @@ const abi = [
   'function working_supply() external view returns (uint256)'
 ];
 
-const veSDT = '0x94818A7baa7e9F5dC62ce4da1B52ef9a760b80B8';
+const vlSDT = '0x94818A7baa7e9F5dC62ce4da1B52ef9a760b80B8';
 
 const F1 = 0.4;
 const F2 = 0.6;
@@ -49,7 +49,7 @@ export async function strategy(
 
   // Query
   const veSDTBalanceQuery = addresses.map((address: any) => [
-    veSDT,
+    vlSDT,
     'balanceOf',
     [address]
   ]);
@@ -64,7 +64,7 @@ export async function strategy(
     abi,
     [
       [options.veToken, 'balanceOf', [options.lockerToken]],
-      [veSDT, 'totalSupply'],
+      [vlSDT, 'totalSupply'],
       [options.gauge, 'totalSupply'],
       [options.gauge, 'working_supply'],
       ...veSDTBalanceQuery,

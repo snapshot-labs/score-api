@@ -3,8 +3,8 @@ import { getProvider, multicall, subgraphRequest } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 
-const VE_SDT = '0x94818A7baa7e9F5dC62ce4da1B52ef9a760b80B8';
-const VE_PROXY_BOOST_SDT = '0xaB05ca46d1c78CAbB051efFE35099714Cad2AddA';
+const VL_SDT = '0x94818A7baa7e9F5dC62ce4da1B52ef9a760b80B8';
+const VL_PROXY_BOOST_SDT = '0xaB05ca46d1c78CAbB051efFE35099714Cad2AddA';
 const TOKENLESS_PRODUCTION = 40;
 const MIN_BOOST = 0.4;
 
@@ -79,7 +79,7 @@ export async function strategy(
 
   // Queries
   const ajustedBalancesMainnet = addresses.map((address: any) => [
-    VE_PROXY_BOOST_SDT,
+    VL_PROXY_BOOST_SDT,
     'adjusted_balance_of',
     [address]
   ]);
@@ -106,7 +106,7 @@ export async function strategy(
     let calls: any[] = ajustedBalancesMainnet;
     if (isEnd) {
       // Fetch veSDT total supply
-      calls.push([VE_SDT, 'totalSupply']);
+      calls.push([VL_SDT, 'totalSupply']);
     }
 
     let callResp: any[] = await multicall('1', mainnetProvider, abi, calls, {
