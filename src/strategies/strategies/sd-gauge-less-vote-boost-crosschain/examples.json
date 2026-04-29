@@ -10,7 +10,7 @@
         "liquidLocker": "0x1E6F87A9ddF744aF31157d8DaA1e3025648d042d",
         "symbol": "sdToken-voting-power",
         "decimals": 18,
-        "twavpDaysInterval": 10,
+        "twavpDaysInterval": 1,
         "twavpNumberOfBlocks": 2,
         "whiteListedAddress": ["0x1c0D72a330F2768dAF718DEf8A19BAb019EEAd09"],
         "blocksPerDay": 28798,
@@ -26,8 +26,12 @@
       "0x803585733d4554e712dcaCc2AcEA3a23b96de1e0",
       "0xD4f9FE0039Da59e6DDb21bbb6E84e0C9e83D73eD",
       "0x87e21De231FA9bf7cF5E30E8FF5388E781e9080C",
-      "0xb24B5d309a1A64135770A954496b3c408c558806"
+      "0xb24B5d309a1A64135770A954496b3c408c558806",
+      "0xF930EBBd05eF8b25B1797b9b2109DDC9B0d43063",
+      "0xb7BFcDC3a2AA2aF3Fe653C9E8a19830977E1993C",
+      "0x806346b423dDB4727C1f5dC718886430aA7CE9cF",
+      "0x6E65Ce4Cc07fEB24b7D0439422B7FE58b93b9Cf6"
     ],
-    "snapshot": 44392800
+    "snapshot": 95000778
   }
 ]
