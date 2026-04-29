@@ -1,0 +1,21 @@
+[
+  {
+    "name": "Example query",
+    "strategy": {
+      "name": "vetree-staking",
+      "params": {
+        "address": "0x478bf562B2A39FF8530ee41Ff0dfb39d8bdd2192",
+        "symbol": "TREE",
+        "decimals": 18
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0x73a417Ec261e76a38010fCb3F4d2c7f781E96d19",
+      "0x22Eca76e0db4FB0a7B73c4dfa554c450abD9e2b8",
+      "0x0719d4c9126444cad11B3473820bD1FbeEA842A5",
+      "0xB8c9c9f2ced710C685C1c2543E59688f9c6612c6"
+    ],
+    "snapshot": 24957404
+  }
+]
