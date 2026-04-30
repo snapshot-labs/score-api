@@ -123,7 +123,12 @@ export async function strategy(
     ])
   );
   existingLockers.forEach(lockerAddress => {
-    for (let i = 0; i < lockerStates[lockerAddress].fontaineCount; i++) {
+    const fontaineCount = lockerStates[lockerAddress].fontaineCount;
+    for (
+      let i = fontaineCount - 1;
+      i >= 0 && i >= fontaineCount - MAX_FONTAINES_PER_LOCKER;
+      i--
+    ) {
       const fontaineAddress = fontaineAddrs[`${lockerAddress}-${i}`];
       mCall5.call(
         `fontaine-${lockerAddress}-${i}`,
