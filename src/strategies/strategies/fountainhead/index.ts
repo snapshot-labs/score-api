@@ -20,7 +20,7 @@ const abi = [
 const DECIMALS = 18;
 
 // we must bound the number of fontaines per locker to avoid RPC timeouts
-const MAX_FONTAINES_PER_LOCKER = 100;
+const MAX_FONTAINES_PER_LOCKER = 1024;
 
 const UNISWAP_V3_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV',
@@ -123,7 +123,12 @@ export async function strategy(
     ])
   );
   existingLockers.forEach(lockerAddress => {
-    for (let i = 0; i < lockerStates[lockerAddress].fontaineCount; i++) {
+    const fontaineCount = lockerStates[lockerAddress].fontaineCount;
+    for (
+      let i = fontaineCount - 1;
+      i >= 0 && i >= fontaineCount - MAX_FONTAINES_PER_LOCKER;
+      i--
+    ) {
       const fontaineAddress = fontaineAddrs[`${lockerAddress}-${i}`];
       mCall5.call(
         `fontaine-${lockerAddress}-${i}`,
