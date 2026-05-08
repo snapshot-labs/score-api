@@ -5,6 +5,7 @@
       "name": "galxe-staking",
       "params": {
         "address": "0x7bBE09E066077b3888432EedEC958F64B2E47239",
+        "tokenAddress": "0xe4Cc45Bb5DBDA06dB6183E8bf016569f40497Aa5",
         "decimals": 18
       }
     },
