@@ -1,6 +1,6 @@
 import fetch from 'cross-fetch';
-import { subgraphRequest } from '../../utils';
 import { EnumType } from 'json-to-graphql-query';
+import { subgraphRequest } from '../../utils';
 
 // Interfaces
 interface PoktNetworkOptions {

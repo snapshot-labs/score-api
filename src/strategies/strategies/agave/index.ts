@@ -1,6 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
-import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { Multicaller } from '../../utils';
+import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',

@@ -1,5 +1,5 @@
-import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
+import { formatUnits } from '@ethersproject/units';
 import fetch from 'cross-fetch';
 
 interface EpochStakeAmount {

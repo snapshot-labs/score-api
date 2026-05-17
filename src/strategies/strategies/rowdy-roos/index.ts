@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { Multicaller } from '../../utils';
 
 const ERC20_ABI = [
   'function balanceOf(address account) external view returns (uint256)'

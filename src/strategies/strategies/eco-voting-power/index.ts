@@ -1,10 +1,9 @@
-import { WeiPerEther, Zero, One } from '@ethersproject/constants';
-import { formatEther } from '@ethersproject/units';
-import { BigNumber } from '@ethersproject/bignumber';
-import { StaticJsonRpcProvider } from '@ethersproject/providers';
-
-import { getBlockNumber, subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
+import { BigNumber } from '@ethersproject/bignumber';
+import { One, WeiPerEther, Zero } from '@ethersproject/constants';
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
+import { formatEther } from '@ethersproject/units';
+import { getBlockNumber, subgraphRequest } from '../../utils';
 
 const ECO_SUBGRAPH_BY_CHAIN_ID = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/6Ff7vyzHA1vaiTE5jnHcdUuwpWrxrbr1KwJs9yKKEEzc',

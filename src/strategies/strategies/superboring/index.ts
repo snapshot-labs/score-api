@@ -1,4 +1,4 @@
-import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
+import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 

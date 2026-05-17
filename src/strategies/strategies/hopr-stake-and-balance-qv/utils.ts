@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { subgraphRequest } from '../../utils';
 import { parseUnits } from '@ethersproject/units';
+import { subgraphRequest } from '../../utils';
 
 /*
  ******************************************
@@ -72,7 +72,7 @@ export async function subgraphRequestsToVariousServices(
     try {
       // first try with hosted service
       return subgraphRequest(hostedSubgraphUrl, builtQuery);
-    } catch (error) {
+    } catch {
       // console.log('Failed to get data from hostedSubgraphUrl');
     }
   }
@@ -81,7 +81,7 @@ export async function subgraphRequestsToVariousServices(
   if (stuidoDevSubgraphUrl) {
     try {
       return subgraphRequest(stuidoDevSubgraphUrl, builtQuery);
-    } catch (error) {
+    } catch {
       // console.log('Failed to get data from stuidoDevSubgraphUrl');
     }
   }
@@ -90,7 +90,7 @@ export async function subgraphRequestsToVariousServices(
   if (studioProdSubgraphUrl) {
     try {
       return subgraphRequest(studioProdSubgraphUrl, builtQuery);
-    } catch (error) {
+    } catch {
       // console.log('Failed to get data from studioProdSubgraphUrl');
     }
   }
@@ -322,7 +322,7 @@ export function trimArray<T>(
   originalArray: Array<T>,
   size: number = QUERY_LIMIT
 ): Array<Array<T>> {
-  return Array.apply(null, Array(Math.ceil(originalArray.length / size))).map(
-    (_e, i) => originalArray.slice(i * size, (i + 1) * size)
+  return [...Array(Math.ceil(originalArray.length / size))].map((_e, i) =>
+    originalArray.slice(i * size, (i + 1) * size)
   );
 }

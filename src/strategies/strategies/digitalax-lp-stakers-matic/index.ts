@@ -1,8 +1,9 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
-const bignumber_1 = require('@ethersproject/bignumber');
-const quickswap_1 = require('../digitalax-mona-quickswap');
-const bn = num => {
-  return bignumber_1.BigNumber.from(num.toString());
+import { strategy as quickswapStrategy } from '../digitalax-mona-quickswap';
+
+const bn = (num): any => {
+  return BigNumber.from(num.toString());
 };
 
 const abiStaking = [
@@ -45,7 +46,7 @@ export async function strategy(
   );
 
   // Get just the LP MONA equivalent for just the LP Staking contract
-  const uniswap = await quickswap_1.strategy(
+  const uniswap = await quickswapStrategy(
     _space,
     network,
     _provider,

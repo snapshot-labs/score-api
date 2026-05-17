@@ -1,5 +1,4 @@
-import { Multicaller } from '../../utils';
-import { subgraphRequest } from '../../utils';
+import { Multicaller, subgraphRequest } from '../../utils';
 interface Prices {
   [id: string]: 0 | 5 | 10 | 20 | 50 | 100 | 300 | 2000 | 3000 | 10000;
 }
@@ -458,7 +457,7 @@ export async function strategy(
   };
 
   for (let i = 0; i <= 5; i++) {
-    query.users['gotchisOriginalOwned' + i] = {
+    query.users[`gotchisOriginalOwned${i}`] = {
       __aliasFor: 'gotchisOriginalOwned',
       __args: {
         first: maxResultsPerQuery,

@@ -2,8 +2,8 @@ import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Contract } from '@ethersproject/contracts';
 import { Provider } from '@ethersproject/providers';
-import { subgraphRequest, ipfsGet } from '../../utils';
 import { DebtCacheABI, SNXHoldersResult, SynthetixStateABI } from './helper';
+import { ipfsGet, subgraphRequest } from '../../utils';
 
 const SynthetixStateContractAddress =
   '0x4b9Ca5607f1fF8019c1C6A3c2f0CC8de622D5B82';

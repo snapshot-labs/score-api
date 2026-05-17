@@ -79,8 +79,8 @@ router.post('/', async (req, res) => {
 
   try {
     methodFn.verify(params);
-  } catch (e: any) {
-    return rpcError(res, 400, e, id);
+  } catch (err: any) {
+    return rpcError(res, 400, err, id);
   }
 
   try {
@@ -88,8 +88,8 @@ router.post('/', async (req, res) => {
       params
     ]);
     return rpcSuccess(res, response.result, id, response.cache);
-  } catch (e: any) {
-    return handlePostError(res, params, method, e, id);
+  } catch (err: any) {
+    return handlePostError(res, params, method, err, id);
   }
 });
 
@@ -161,10 +161,10 @@ router.post('/api/scores', async (req, res) => {
         addresses
       }
     );
-  } catch (e: any) {
-    capture(e, { params, strategies });
+  } catch (err: any) {
+    capture(err, { params, strategies });
     // @ts-ignore
-    const errorMessage = e?.message || e || 'Unknown error';
+    const errorMessage = err?.message || err || 'Unknown error';
     console.log(
       '[rpc] Get scores failed',
       network,
@@ -174,7 +174,7 @@ router.post('/api/scores', async (req, res) => {
       JSON.stringify(errorMessage).slice(0, 256),
       requestId
     );
-    return rpcError(res, 500, e, null);
+    return rpcError(res, 500, err, null);
   }
   const cache = result.cache || false;
   delete result.cache;

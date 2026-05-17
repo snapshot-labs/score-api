@@ -1,5 +1,5 @@
-import fetch from 'cross-fetch';
 import { getAddress } from '@ethersproject/address';
+import fetch from 'cross-fetch';
 
 export async function strategy(
   space,
@@ -12,7 +12,7 @@ export async function strategy(
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
   const req = await fetch(
-    'https://api.rocketpool.net/mainnet/delegates/block/' + blockTag
+    `https://api.rocketpool.net/mainnet/delegates/block/${blockTag}`
   );
   const resp = await req.json();
 

@@ -1,9 +1,9 @@
-import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
-import { formatUnits, parseUnits } from '@ethersproject/units';
-import { Contract } from '@ethersproject/contracts';
 import { defaultAbiCoder } from '@ethersproject/abi';
-import { strategy as fetchERC20Balances } from '../erc20-balance-of';
 import { getAddress } from '@ethersproject/address';
+import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
+import { Contract } from '@ethersproject/contracts';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { strategy as fetchERC20Balances } from '../erc20-balance-of';
 
 const BalancerVaultAbi = [
   'function getPoolTokens(bytes32 poolId) external view returns (address[] tokens, uint256[] balances, uint256 lastChangeBlock)'

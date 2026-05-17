@@ -1,7 +1,7 @@
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
-import { subgraphRequest, call } from '../../utils';
+import { formatUnits } from '@ethersproject/units';
 import { calculateEmission } from './utils';
+import { call, subgraphRequest } from '../../utils';
 
 const EASY_STAKING_SUBGRAPH_URL =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/3jhMxbXh6Ua3WXfa7BuFHdh4nUDZaVgLVrvoouhUNPfT';

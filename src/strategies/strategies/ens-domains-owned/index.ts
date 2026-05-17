@@ -59,7 +59,7 @@ export async function strategy(
   );
 
   let result = await subgraphRequest(ENS_SUBGRAPH_URL[network], params);
-  result = [].concat.apply([], Object.values(result));
+  result = ([] as any[]).concat(...Object.values(result));
 
   const score = {};
   if (result) {

@@ -1,5 +1,5 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { getAddress } from '@ethersproject/address';
+import { BigNumber } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 
 const abi = [

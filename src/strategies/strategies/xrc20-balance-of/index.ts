@@ -1,5 +1,5 @@
-import { strategy as erc20BalanceStrategy } from '../erc20-balance-of';
 import { customFetch } from '../../utils';
+import { strategy as erc20BalanceStrategy } from '../erc20-balance-of';
 
 interface ApiReturn {
   balance: string[];

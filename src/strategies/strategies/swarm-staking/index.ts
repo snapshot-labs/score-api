@@ -1,8 +1,8 @@
+import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { subgraphRequest } from '../../utils';
-import { getAddress } from '@ethersproject/address';
 import creatorToProxyMap from './creator-to-proxy-map';
+import { subgraphRequest } from '../../utils';
 
 // 137 - Polygon network number
 const SUBGRAPH_URL = {

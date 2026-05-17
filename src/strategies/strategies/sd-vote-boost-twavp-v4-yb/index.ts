@@ -1,6 +1,6 @@
-import { multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
+import { multicall } from '../../utils';
 
 export const author = 'pierremarsotlyon1';
 export const version = '0.0.1';

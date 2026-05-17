@@ -1,5 +1,5 @@
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller, customFetch } from '../../utils';
+import { customFetch, Multicaller } from '../../utils';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',

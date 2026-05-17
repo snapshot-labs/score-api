@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address';
-import { getDelegationsData } from '../../utils/delegation';
 import { getScoresDirect } from '../../utils';
+import { getDelegationsData } from '../../utils/delegation';
 
 export async function strategy(
   space,

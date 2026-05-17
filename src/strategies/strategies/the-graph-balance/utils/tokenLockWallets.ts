@@ -1,6 +1,6 @@
 import { Provider } from '@ethersproject/providers';
-import { subgraphRequest } from '../../../utils';
 import { verifyResults } from './graphUtils';
+import { subgraphRequest } from '../../../utils';
 
 export const TOKEN_DISTRIBUTION_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/ChfAJn6jQEBjVqtdUiThfG6sWy2Sr5XQPNucE9DkgXSN',

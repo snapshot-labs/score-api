@@ -1,5 +1,5 @@
 import { getAddress } from '@ethersproject/address';
-import { getScoresDirect, customFetch } from '../../utils';
+import { customFetch, getScoresDirect } from '../../utils';
 
 const DEFAULT_SPREADSHEET_ID =
   '2PACX-1vQsn8e6KQOwqfHoA4rWDke63jTwfcshHxcZwOzVharOoAARWy6aX0TvN-uzzgtmAn3F5vDbuDKnk5Jw';

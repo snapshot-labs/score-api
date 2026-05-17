@@ -1,6 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
 import { Contract } from '@ethersproject/contracts';
+import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
 // To avoid future memory issues, we limit the number of vestings supported by the strategy
@@ -39,18 +39,18 @@ export async function getAllVestings(
 
   const multi = new Multicaller(network, provider, abi, { blockTag });
   for (let id = 1; id <= idCount; ++id) {
-    multi.call('usr' + id, dssVestAddress, 'usr', [id]);
-    multi.call('accrued' + id, dssVestAddress, 'accrued', [id]);
-    multi.call('unpaid' + id, dssVestAddress, 'unpaid', [id]);
+    multi.call(`usr${id}`, dssVestAddress, 'usr', [id]);
+    multi.call(`accrued${id}`, dssVestAddress, 'accrued', [id]);
+    multi.call(`unpaid${id}`, dssVestAddress, 'unpaid', [id]);
   }
   const vestings: Record<string, string | BigNumberish> = await multi.execute();
 
   const result: Vesting[] = [];
 
   for (let id = 1; id <= idCount; ++id) {
-    const usr = vestings['usr' + id] as string;
-    const accrued = parseFloat(formatUnits(vestings['accrued' + id], decimals));
-    const unpaid = parseFloat(formatUnits(vestings['unpaid' + id], decimals));
+    const usr = vestings[`usr${id}`] as string;
+    const accrued = parseFloat(formatUnits(vestings[`accrued${id}`], decimals));
+    const unpaid = parseFloat(formatUnits(vestings[`unpaid${id}`], decimals));
     result.push({
       id,
       usr,

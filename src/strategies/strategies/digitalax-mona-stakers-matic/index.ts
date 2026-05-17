@@ -1,7 +1,8 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
-const bignumber_1 = require('@ethersproject/bignumber');
-const bn = num => {
-  return bignumber_1.BigNumber.from(num.toString());
+
+const bn = (num): any => {
+  return BigNumber.from(num.toString());
 };
 
 const abiStaking = [

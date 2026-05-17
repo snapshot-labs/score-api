@@ -1,7 +1,6 @@
-import { formatUnits, parseUnits } from '@ethersproject/units';
 import { isAddress } from '@ethersproject/address';
 import { isHexString } from '@ethersproject/bytes';
-
+import { formatUnits, parseUnits } from '@ethersproject/units';
 import { customFetch, Multicaller } from '../../utils';
 
 // https://github.com/safe-global/safe-token/blob/81e0f3548033ca9916f38444f2e62e5f3bb2d3e1/contracts/VestingPool.sol
@@ -85,7 +84,7 @@ export async function strategy(
   return Object.keys(vestings).reduce(
     (result, key) => {
       // get it from the map by vestingId. A entry is guaranteed to exist
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
       const [{ account, amount }] = allocationMap[key]!;
 
       const hasAlreadyClaimed = vestings[key].account === account;

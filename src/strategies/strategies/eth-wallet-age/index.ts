@@ -1,6 +1,5 @@
 import { EnumType } from 'json-to-graphql-query';
-
-import { subgraphRequest, customFetch } from '../../utils';
+import { customFetch, subgraphRequest } from '../../utils';
 
 const getJWT = async dfuseApiKey => {
   const rawResponse = await customFetch('https://auth.dfuse.io/v1/auth/issue', {

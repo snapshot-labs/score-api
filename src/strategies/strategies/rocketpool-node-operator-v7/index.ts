@@ -1,6 +1,6 @@
-import { Multicaller } from '../../utils';
 import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
+import { Multicaller } from '../../utils';
 
 const rocketNetworkVoting = '0xA9d27E1952f742d659143a544d3e535fFf3Eebe1';
 const rocketNetworkVotingAbi = [

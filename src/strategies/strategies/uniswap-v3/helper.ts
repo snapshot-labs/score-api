@@ -1,5 +1,5 @@
-import { FeeAmount, Pool, Position } from '@uniswap/v3-sdk';
 import { Token } from '@uniswap/sdk-core';
+import { FeeAmount, Pool, Position } from '@uniswap/v3-sdk';
 
 export const getFeeAmount = (fee: string): FeeAmount | undefined => {
   const feeAmount: FeeAmount | undefined = Object.values(FeeAmount).includes(

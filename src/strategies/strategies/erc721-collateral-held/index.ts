@@ -1,7 +1,7 @@
+import { getAddress } from '@ethersproject/address';
 import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
-import { getAddress } from '@ethersproject/address';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',

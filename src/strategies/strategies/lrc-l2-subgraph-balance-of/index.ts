@@ -48,10 +48,9 @@ export async function strategy(
   snapshot
 ): Promise<Record<string, number>> {
   const _addresses = addresses.map(address => address.toLowerCase());
-  const addressSubsets = Array.apply(
-    null,
-    Array(Math.ceil(_addresses.length / LIMIT))
-  ).map((_e, i) => _addresses.slice(i * LIMIT, (i + 1) * LIMIT));
+  const addressSubsets = [...Array(Math.ceil(_addresses.length / LIMIT))].map(
+    (_e, i) => _addresses.slice(i * LIMIT, (i + 1) * LIMIT)
+  );
 
   const response = await Promise.all(
     addressSubsets.map(subset =>

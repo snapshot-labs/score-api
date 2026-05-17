@@ -1,8 +1,8 @@
 import { getAddress } from '@ethersproject/address';
-import { strategy as meebitsdaoStrategy } from '../meebitsdao';
+import { getProvider, getSnapshots, subgraphRequest } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { strategy as erc721Strategy } from '../erc721';
-import { subgraphRequest, getProvider, getSnapshots } from '../../utils';
+import { strategy as meebitsdaoStrategy } from '../meebitsdao';
 
 const MEEBITSDAO_DELEGATION_SUBGRAPH_URL =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/6ZRqJohQ1nJ9a3mESbFudJSmnuCmo3n1LCz4BbRqzNRt';

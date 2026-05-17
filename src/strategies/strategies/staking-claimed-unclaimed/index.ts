@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { Multicaller } from '../../utils';
 import { formatEther } from '@ethersproject/units';
+import { Multicaller } from '../../utils';
 
 const stakingAbi = [
   'function depositsOf(address account) public view returns (uint256[] memory)',

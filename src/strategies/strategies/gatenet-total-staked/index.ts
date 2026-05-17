@@ -1,6 +1,6 @@
-import { Multicaller, subgraphRequest } from '../../utils';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
+import { Multicaller, subgraphRequest } from '../../utils';
 
 const UNSTAKE = 'Unstake';
 const STAKE = 'Stake';

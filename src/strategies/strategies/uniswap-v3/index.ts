@@ -1,5 +1,5 @@
-import { subgraphRequest } from '../../utils';
 import { getAllReserves } from './helper';
+import { subgraphRequest } from '../../utils';
 
 const UNISWAP_V3_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV',
