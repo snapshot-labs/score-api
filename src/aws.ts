@@ -41,7 +41,7 @@ export async function get(key) {
     // @ts-ignore
     const str = await streamToString(Body);
     return JSON.parse(str);
-  } catch (e) {
+  } catch {
     return false;
   }
 }

@@ -50,7 +50,7 @@ async function getLpTokenOnBsc(addresses, snapshot) {
       IdLPToken = IdLPToken.sub(BigNumber.from(deposit.inputTokenAmounts[0]));
     }
     pancakeIDLPScore[account.id] = IdLPToken.div(WeiPerEther).toNumber();
-    pancakeIDLPScore[account.id] < 0 && (pancakeIDLPScore[account.id] = 0);
+    if (pancakeIDLPScore[account.id] < 0) pancakeIDLPScore[account.id] = 0;
   }
   return pancakeIDLPScore;
 }

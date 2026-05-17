@@ -72,7 +72,7 @@ export async function subgraphRequestsToVariousServices(
     try {
       // first try with hosted service
       return subgraphRequest(hostedSubgraphUrl, builtQuery);
-    } catch (error) {
+    } catch {
       // console.log('Failed to get data from hostedSubgraphUrl');
     }
   }
@@ -81,7 +81,7 @@ export async function subgraphRequestsToVariousServices(
   if (stuidoDevSubgraphUrl) {
     try {
       return subgraphRequest(stuidoDevSubgraphUrl, builtQuery);
-    } catch (error) {
+    } catch {
       // console.log('Failed to get data from stuidoDevSubgraphUrl');
     }
   }
@@ -90,7 +90,7 @@ export async function subgraphRequestsToVariousServices(
   if (studioProdSubgraphUrl) {
     try {
       return subgraphRequest(studioProdSubgraphUrl, builtQuery);
-    } catch (error) {
+    } catch {
       // console.log('Failed to get data from studioProdSubgraphUrl');
     }
   }

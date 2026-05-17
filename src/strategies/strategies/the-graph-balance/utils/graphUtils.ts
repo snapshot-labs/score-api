@@ -81,11 +81,11 @@ export function verifyResults(
   type: string
 ): void {
   const diff = `expected:\n ${expectedResults}\ngot:\n ${result}`;
-  result === expectedResults
-    ? console.log(`>>> SUCCESS: ${type} match expected results`)
-    : console.error(
-        `>>> ERROR: ${type} do not match expected results\n${diff}`
-      );
+  if (result === expectedResults) {
+    console.log(`>>> SUCCESS: ${type} match expected results`);
+  } else {
+    console.error(`>>> ERROR: ${type} do not match expected results\n${diff}`);
+  }
 }
 /**
  * splits an array in even chunks and returns a list of chunks

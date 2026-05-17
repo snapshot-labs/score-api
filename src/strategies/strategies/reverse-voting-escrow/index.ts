@@ -115,7 +115,7 @@ export async function strategy(
         walletToVestedAmount,
         tempWalletVestedAmounts
       );
-    } catch (e) {
+    } catch {
       // !! IGNORE Multicall REVERTS !! //
     }
   }

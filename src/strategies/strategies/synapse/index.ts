@@ -95,7 +95,7 @@ async function getChainBalance(
         );
       });
       stakingResult = await stakingMulti.execute();
-    } catch (error) {
+    } catch {
       const balanceMulti = new Multicaller(network, provider, stakingAbi, {
         blockTag
       });
@@ -110,7 +110,7 @@ async function getChainBalance(
 
       try {
         stakingResult = await balanceMulti.execute();
-      } catch (error) {
+      } catch {
         console.warn(`Failed to fetch staking balances for network ${network}`);
       }
     }

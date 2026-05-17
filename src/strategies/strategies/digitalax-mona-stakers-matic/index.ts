@@ -1,4 +1,5 @@
 import { multicall } from '../../utils';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const bignumber_1 = require('@ethersproject/bignumber');
 const bn = num => {
   return bignumber_1.BigNumber.from(num.toString());

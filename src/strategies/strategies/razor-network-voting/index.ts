@@ -13,7 +13,7 @@ function sRZR_to_RZR(
 ) {
   try {
     return stake.mul(amount).div(totalSupply);
-  } catch (err) {
+  } catch {
     return BigNumber.from(0);
     // do nothing
   }

@@ -50,7 +50,7 @@ export async function strategy(
   let responseData: any = await response.text();
   try {
     responseData = JSON.parse(responseData);
-  } catch (e) {
+  } catch {
     throw new Error(
       `[api-v2] Errors found in API: URL: ${url}, Status: ${response.status}` +
       response.ok

@@ -22,6 +22,7 @@ const id = Object.keys(snapshot.validations).find(
 );
 if (!id) throw 'Validation not found';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const examples = require(
   `../../../src/strategies/validations/${id}/examples.json`
 ).map((example, index) => ({ index, example }));
@@ -56,8 +57,9 @@ describe('Validation', () => {
   // Check schema is valid with examples.json
   let schema;
   try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     schema = require(`../../../src/strategies/validations/${id}/schema.json`);
-  } catch (error) {
+  } catch {
     schema = null;
   }
   (schema ? it : it.skip)(
@@ -88,6 +90,7 @@ describe('All validations', () => {
   it('All validations should have examples.json', () => {
     Object.keys(snapshot.validations).forEach(validation => {
       expect(
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         require(
           `../../../src/strategies/validations/${validation}/examples.json`
         )

@@ -1,5 +1,7 @@
 import { multicall } from '../../utils';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const bignumber_1 = require('@ethersproject/bignumber');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const quickswap_1 = require('../digitalax-mona-quickswap');
 const bn = num => {
   return bignumber_1.BigNumber.from(num.toString());

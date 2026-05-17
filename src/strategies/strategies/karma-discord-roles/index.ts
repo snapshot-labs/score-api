@@ -8,7 +8,7 @@ async function getBlockTimestamp(provider, snapshot) {
   let block;
   try {
     block = await provider.getBlock(blockTag);
-  } catch (error) {
+  } catch {
     throw new Error('Failed to get block information');
   }
   return ((block?.timestamp || 0) * 1000).toString();

@@ -57,7 +57,7 @@ export async function strategy(
   let block;
   try {
     block = await provider.getBlock(blockTag);
-  } catch (error) {
+  } catch {
     throw new Error('Failed to get block information');
   }
   const now = block.timestamp;

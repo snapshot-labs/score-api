@@ -1,4 +1,5 @@
 import { formatUnits } from '@ethersproject/units';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { getAddress } = require('@ethersproject/address');
 import { customFetch } from '../../utils';
 

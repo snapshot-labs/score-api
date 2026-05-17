@@ -140,7 +140,7 @@ async function getErc20Balance(
       });
 
       return result;
-    } catch (error: any) {
+    } catch {
       return {};
     }
   } else {

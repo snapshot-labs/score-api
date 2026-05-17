@@ -28,6 +28,7 @@ const moreArg = args[1];
 
 const strategy = Object.keys(snapshot.strategies).find(s => strategyArg == s);
 if (!strategy) throw 'Strategy not found';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const examples = require(
   `../../../src/strategies/strategies/${strategy}/examples.json`
 ).map((example, index) => ({ index, example }));
@@ -234,10 +235,11 @@ describe.each(examples)(
   ({ example }) => {
     let schema;
     try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       schema = require(
         `../../../src/strategies/strategies/${strategy}/schema.json`
       );
-    } catch (error) {
+    } catch {
       schema = null;
     }
     (schema ? it : it.skip)(

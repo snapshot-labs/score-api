@@ -16,7 +16,7 @@ export async function strategy(space, network, provider, addresses, options) {
 
   try {
     responseData = JSON.parse(responseData);
-  } catch (e) {
+  } catch {
     throw new Error(
       `[whitelist-weighted-json] Errors found in API: URL: ${url}, Status: ${response.status}` +
       response.ok
