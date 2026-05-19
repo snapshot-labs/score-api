@@ -20,7 +20,7 @@ export async function strategy(
 ) {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
-  // flexible voucher banlanceOf
+  // flexible voucher balanceOf
   const callWalletToCrucibleCount = new Multicaller(network, provider, abi, {
     blockTag
   });

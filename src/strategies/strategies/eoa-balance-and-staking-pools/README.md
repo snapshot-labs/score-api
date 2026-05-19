@@ -1,4 +1,4 @@
-# Token holders and staking pool partecipants strategy 
+# Token holders and staking pool participants strategy
 
 This strategy returns the balances of the voters from both staking pools and ERC20 XMT tokens on Ethereum mainnet.
 
