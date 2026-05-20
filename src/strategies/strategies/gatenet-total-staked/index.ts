@@ -104,7 +104,7 @@ export async function strategy(
 
     if (compoundDeposits.length > 0) {
       let rawTransactions;
-      // Keeping split condition for the case of Only deposite transaction.
+      // Keeping split condition for the case of Only deposit transaction.
       if (compoundWithdraws.length > 0) {
         rawTransactions = compoundDeposits
           .concat(compoundWithdraws)

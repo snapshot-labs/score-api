@@ -97,7 +97,7 @@ export async function strategy(
   );
   const floorQuoteAmount = BigInt(multiSnapshotBlockResult.floorQuoteAmount);
 
-  // Get the cloest block number before the end of the auction
+  // Get the closest block number before the end of the auction
   const auctionEndBlock = await getNearestBlockNumberBeforeTimestamp(
     Number(auctionEndTimestamp)
   );
@@ -118,7 +118,7 @@ export async function strategy(
   const multiAuctionEndResult = await multiAuctionEnd.execute();
   const vestingDuration = BigInt(options.vestingDuration);
 
-  // Any amount that was bought from the auction need to be linearly vested for {options.vestingDuration} time
+  // Any amount that was bought from the auction needs to be linearly vested for {options.vestingDuration} time
   return Object.fromEntries(
     addresses
       .map(address => {
