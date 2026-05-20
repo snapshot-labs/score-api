@@ -22,6 +22,11 @@ const DECIMALS = 18;
 // we must bound the number of fontaines per locker to avoid RPC timeouts
 const MAX_FONTAINES_PER_LOCKER = 1024;
 
+// SuperToken balanceOf and the locker getters do real-time balance math, so
+// they are gas-heavy. Cap the number of calls per multicall batch well below
+// the snapshot.js default (500) to stay under RPC nodes' eth_call gas limit.
+const MULTICALL_LIMIT = 100;
+
 const UNISWAP_V3_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV',
   '8453':
@@ -47,7 +52,10 @@ export async function strategy(
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
   // 1. GET LOCKER ADDRESSES
-  const mCall2 = new Multicaller(network, provider, abi, { blockTag });
+  const mCall2 = new Multicaller(network, provider, abi, {
+    blockTag,
+    limit: MULTICALL_LIMIT
+  });
   // lockerFactory.getUserLocker(). Returns the deterministic address and a bool "exists".
   addresses.forEach(address =>
     mCall2.call(address, options.lockerFactoryAddress, 'getUserLocker', [
@@ -63,7 +71,10 @@ export async function strategy(
   const existingLockers = Object.values(lockerByAddress);
 
   // 2. GET LOCKER STATE (available balance, staked balance, fontaine count)
-  const mCall3 = new Multicaller(network, provider, abi, { blockTag });
+  const mCall3 = new Multicaller(network, provider, abi, {
+    blockTag,
+    limit: MULTICALL_LIMIT
+  });
   existingLockers.forEach(lockerAddress => {
     mCall3.call(
       `available-${lockerAddress}`,
@@ -100,7 +111,10 @@ export async function strategy(
   });
 
   // 3. GET ALL THE FONTAINES
-  const mCall4 = new Multicaller(network, provider, abi, { blockTag });
+  const mCall4 = new Multicaller(network, provider, abi, {
+    blockTag,
+    limit: MULTICALL_LIMIT
+  });
   existingLockers.forEach(lockerAddress => {
     const fontaineCount = lockerStates[lockerAddress].fontaineCount;
     // iterate backwards, so we have fontaines ordered by creation time (most recent first).
@@ -116,7 +130,10 @@ export async function strategy(
   const fontaineAddrs: Record<string, string> = await mCall4.execute();
 
   // 4. GET UNLOCKED BALANCES AND FONTAINE BALANCES
-  const mCall5 = new Multicaller(network, provider, abi, { blockTag });
+  const mCall5 = new Multicaller(network, provider, abi, {
+    blockTag,
+    limit: MULTICALL_LIMIT
+  });
   addresses.forEach(address =>
     mCall5.call(`unlocked-${address}`, options.tokenAddress, 'balanceOf', [
       address
