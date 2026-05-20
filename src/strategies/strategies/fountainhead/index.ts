@@ -22,6 +22,8 @@ const DECIMALS = 18;
 // we must bound the number of fontaines per locker to avoid RPC timeouts
 const MAX_FONTAINES_PER_LOCKER = 1024;
 
+const MULTICALL_LIMIT = 200;
+
 const UNISWAP_V3_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV',
   '8453':
@@ -63,7 +65,10 @@ export async function strategy(
   const existingLockers = Object.values(lockerByAddress);
 
   // 2. GET LOCKER STATE (available balance, staked balance, fontaine count)
-  const mCall3 = new Multicaller(network, provider, abi, { blockTag });
+  const mCall3 = new Multicaller(network, provider, abi, {
+    blockTag,
+    limit: MULTICALL_LIMIT
+  });
   existingLockers.forEach(lockerAddress => {
     mCall3.call(
       `available-${lockerAddress}`,
@@ -116,7 +121,10 @@ export async function strategy(
   const fontaineAddrs: Record<string, string> = await mCall4.execute();
 
   // 4. GET UNLOCKED BALANCES AND FONTAINE BALANCES
-  const mCall5 = new Multicaller(network, provider, abi, { blockTag });
+  const mCall5 = new Multicaller(network, provider, abi, {
+    blockTag,
+    limit: MULTICALL_LIMIT
+  });
   addresses.forEach(address =>
     mCall5.call(`unlocked-${address}`, options.tokenAddress, 'balanceOf', [
       address
