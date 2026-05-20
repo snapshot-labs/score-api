@@ -83,12 +83,9 @@ export async function getDelegationsData(
             getDelegationReverseData(delegation))
       );
 
-    if (
-      ['stgdao.eth', 'superfluid.eth'].includes(space) &&
-      snapshot !== 'latest'
-    ) {
+    if (space === 'stgdao.eth' && snapshot !== 'latest') {
       // TODO: implement LRU so memory doesn't explode
-      // we only cache stgdao and superfluid for now
+      // we only cache stgdao for now
       console.log(`[with-delegation] Caching ${cacheKey}`);
       DELEGATION_DATA_CACHE[cacheKey] = delegationsReverse;
     }
