@@ -13,5 +13,7 @@
     "inlineSources": true,
     "sourceRoot": "/",
     "skipLibCheck": true
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"]
 }
