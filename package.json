@@ -87,7 +87,7 @@
   },
   "prettier": "@snapshot-labs/prettier-config",
   "engines": {
-    "node": ">=16 < 17 || >= 18"
+    "node": ">=22.6.0"
   },
   "resolutions": {
     "@uniswap/v3-periphery": "1.4.1"
