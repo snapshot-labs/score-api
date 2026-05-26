@@ -12,8 +12,6 @@ updates:
     allow:
       - dependency-name: "@snapshot-labs/*"
     groups:
-      snapshot-labs-tooling:
+      snapshot:
         patterns:
-          - "@snapshot-labs/eslint-config"
-          - "@snapshot-labs/eslint-config-base"
-          - "@snapshot-labs/prettier-config"
+          - "@snapshot-labs/*"
