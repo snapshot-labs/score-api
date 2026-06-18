@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Strategy",
+  "definitions": {
+    "Strategy": {
+      "title": "Strategy",
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "title": "Symbol",
+          "examples": ["e.g. LDO"],
+          "maxLength": 16
+        },
+        "address": {
+          "type": "string",
+          "title": "Token contract address",
+          "examples": ["e.g. 0x5a98fcbea516cf06857215779fd812ca3bef1b32"],
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "minLength": 42,
+          "maxLength": 42
+        },
+        "decimals": {
+          "type": "number",
+          "title": "Decimals",
+          "examples": ["e.g. 18"],
+          "minimum": 0
+        },
+        "votingContract": {
+          "type": "string",
+          "title": "Lido Voting contract address",
+          "examples": ["e.g. 0x2e59A20f205bB85a89C53f1936454680651E618e"],
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "minLength": 42,
+          "maxLength": 42
+        },
+        "delegationSpace": {
+          "type": "string",
+          "title": "Snapshot-registry delegation space",
+          "examples": ["e.g. lido-snapshot.eth"],
+          "maxLength": 64
+        }
+      },
+      "required": ["address", "decimals", "votingContract"],
+      "additionalProperties": false
+    }
+  }
+}
