@@ -1,7 +1,7 @@
 # voting-proxy
 
 Generic overriding strategy for older multisigs that cannot upgrade to
-ERC-1271 or move their staked position.
+ERC-1271 or change where their existing Snapshot voting power lives.
 
 The voter submits a Snapshot vote from a small ERC-1271 voting proxy. If that
 proxy has zero direct voting power, this strategy calls `source()` on the proxy,
