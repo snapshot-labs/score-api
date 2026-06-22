@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Strategy",
+  "definitions": {
+    "Strategy": {
+      "title": "Strategy",
+      "type": "object",
+      "properties": {
+        "strategies": {
+          "type": "array",
+          "title": "Inner strategies",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "network": {
+                "type": "string"
+              },
+              "params": {
+                "type": "object"
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["strategies"],
+      "additionalProperties": false
+    }
+  }
+}
