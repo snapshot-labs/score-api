@@ -2,6 +2,11 @@ import { capture } from '@snapshot-labs/snapshot-sentry';
 import express from 'express';
 import { INVALID_ADDRESS_MESSAGE, MAX_STRATEGIES } from './constants';
 import disabled from './disabled.json';
+import {
+  isProviderError,
+  shouldReport,
+  summarizeError
+} from './helpers/providerErrors';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
 import { getVp, validate, verifyGetVp, verifyValidate } from './methods';
@@ -51,6 +56,17 @@ function handlePostError(
   e: any,
   id: string | null
 ) {
+  if (isProviderError(e)) {
+    if (shouldReport(`provider:${method}:${e?.code ?? 'unknown'}`)) {
+      capture(e, { params, method });
+      console.log(
+        `[rpc] ${method} failed (upstream provider, throttled)`,
+        summarizeError(e)
+      );
+    }
+    return rpcError(res, 500, e, id);
+  }
+
   capture(e, { params, method });
   let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
@@ -162,6 +178,20 @@ router.post('/api/scores', async (req, res) => {
       }
     );
   } catch (err: any) {
+    if (isProviderError(err)) {
+      if (shouldReport(`scores:${network}:${err?.code ?? 'unknown'}`)) {
+        capture(err, { params, strategies });
+        console.log(
+          '[rpc] Get scores failed (upstream provider, throttled)',
+          network,
+          space,
+          summarizeError(err),
+          requestId
+        );
+      }
+      return rpcError(res, 500, err, null);
+    }
+
     capture(err, { params, strategies });
     // @ts-ignore
     const errorMessage = err?.message || err || 'Unknown error';
