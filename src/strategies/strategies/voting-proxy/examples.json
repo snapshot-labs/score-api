@@ -1,16 +1,16 @@
 [
   {
-    "name": "Voting proxy with whitelisted source",
+    "name": "Voting proxy with factory",
     "strategy": {
       "name": "voting-proxy",
       "params": {
-        "proxies": ["0x966885831bD5FdaAe28Fae45dB0B396E3135549c"],
+        "factory": "0x1111111111111111111111111111111111111111",
         "strategies": [
           {
             "name": "whitelist",
             "params": {
               "symbol": "VP",
-              "addresses": ["0x135bb4cc36b5069Bc66130404F68dA593f9Fc2E8"]
+              "addresses": ["0x966885831bD5FdaAe28Fae45dB0B396E3135549c"]
             }
           }
         ]

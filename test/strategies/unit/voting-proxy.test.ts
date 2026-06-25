@@ -12,15 +12,15 @@ const source = address('20');
 const proxyHigh = address('30');
 const proxyLow = address('11');
 const zeroAddress = address('00');
+const factory = address('40');
 const multicall3Address = '0xcA11bde05977b3631167028862bE2a173976CA11';
 const sourcePageSize = 200;
 const aggregate3Interface = new Interface([
   'function aggregate3(tuple(address target, bool allowFailure, bytes callData)[] calls) view returns (tuple(bool success, bytes returnData)[] returnData)'
 ]);
-const sourceInterface = new Interface([
-  'function source() view returns (address)'
+const factoryInterface = new Interface([
+  'function source(address proxy) view returns (address)'
 ]);
-const sourceCalldata = sourceInterface.encodeFunctionData('source', []);
 type ProviderCallTx = { to: string; data: string };
 type ProviderCall = [ProviderCallTx, number | 'latest'];
 type SourceResult = string | 'failed' | 'malformed';
@@ -93,7 +93,7 @@ describe('voting-proxy strategy', () => {
     getScoresDirectMock.mockReset();
   });
 
-  it('requires at least one configured proxy', async () => {
+  it('requires a configured factory', async () => {
     await expect(
       strategy(
         'space',
@@ -103,10 +103,10 @@ describe('voting-proxy strategy', () => {
         { strategies: [{ name: 'fixed-score' }] },
         123
       )
-    ).rejects.toThrow('voting-proxy requires at least one proxy');
+    ).rejects.toThrow('voting-proxy requires a factory');
   });
 
-  it('resolves zero-vp proxy sources with multicall3 allowFailure at the snapshot block', async () => {
+  it('resolves zero-vp proxy sources from a factory with multicall3 allowFailure at the snapshot block', async () => {
     const provider = createProvider([source]);
     getScoresDirectMock
       .mockResolvedValueOnce([{ [proxyHigh]: 0 }])
@@ -119,7 +119,7 @@ describe('voting-proxy strategy', () => {
     expect(firstProviderCall(provider)[0].to).toBe(multicall3Address);
     expect(firstProviderCall(provider)[1]).toBe(123);
     expect(decodeAggregate3Calls(provider)).toEqual([
-      [proxyHigh.toLowerCase(), true, sourceCalldata]
+      [factory, true, factorySourceCalldata(proxyHigh)]
     ]);
     expect(getScoresDirectMock).toHaveBeenNthCalledWith(
       2,
@@ -132,22 +132,21 @@ describe('voting-proxy strategy', () => {
     );
   });
 
-  it('ignores source lookups from voters outside the configured proxies', async () => {
-    const provider = createProvider([source]);
+  it('ignores voters not registered in the factory', async () => {
+    const provider = createProvider([zeroAddress, source]);
     getScoresDirectMock
       .mockResolvedValueOnce([{ [proxyHigh]: 0, [proxyLow]: 0 }])
       .mockResolvedValueOnce([{ [source]: 12 }]);
 
     await expect(
-      scoreStrategy(provider, [proxyHigh, proxyLow], 123, {
-        proxies: [proxyLow]
-      })
+      scoreStrategy(provider, [proxyHigh, proxyLow], 123)
     ).resolves.toEqual({
       [proxyHigh]: 0,
       [proxyLow]: 12
     });
     expect(decodeAggregate3Calls(provider)).toEqual([
-      [proxyLow.toLowerCase(), true, sourceCalldata]
+      [factory, true, factorySourceCalldata(proxyHigh)],
+      [factory, true, factorySourceCalldata(proxyLow)]
     ]);
   });
 
@@ -280,7 +279,11 @@ function encodeAggregate3Result(sourceResult: SourceResult): [boolean, string] {
 }
 
 function encodeSourceResult(sourceResult: string): string {
-  return sourceInterface.encodeFunctionResult('source', [sourceResult]);
+  return factoryInterface.encodeFunctionResult('source', [sourceResult]);
+}
+
+function factorySourceCalldata(proxy: string): string {
+  return factoryInterface.encodeFunctionData('source', [proxy.toLowerCase()]);
 }
 
 function firstProviderCall(
@@ -342,7 +345,7 @@ function scoreStrategy(
     '1',
     provider,
     addresses,
-    { proxies: addresses, strategies: [{ name: 'fixed-score' }], ...options },
+    { factory, strategies: [{ name: 'fixed-score' }], ...options },
     snapshot
   );
 }

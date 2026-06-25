@@ -6,15 +6,10 @@
       "title": "Strategy",
       "type": "object",
       "properties": {
-        "proxies": {
-          "type": "array",
-          "title": "Allowed proxy addresses",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "pattern": "^0x[a-fA-F0-9]{40}$"
-          }
+        "factory": {
+          "type": "string",
+          "title": "Voting proxy factory",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
         },
         "strategies": {
           "type": "array",
@@ -42,7 +37,7 @@
           }
         }
       },
-      "required": ["proxies", "strategies"],
+      "required": ["factory", "strategies"],
       "additionalProperties": false
     }
   }

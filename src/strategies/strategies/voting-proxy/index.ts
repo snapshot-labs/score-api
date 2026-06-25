@@ -7,11 +7,11 @@ const MULTICALL3_ADDRESS = '0xcA11bde05977b3631167028862bE2a173976CA11';
 const MULTICALL3_ABI = [
   'function aggregate3(tuple(address target, bool allowFailure, bytes callData)[] calls) view returns (tuple(bool success, bytes returnData)[] returnData)'
 ];
-const SOURCE_ABI = ['function source() view returns (address)'];
+const FACTORY_ABI = ['function source(address proxy) view returns (address)'];
 const SOURCE_PAGE_SIZE = 200;
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 const multicallInterface = new Interface(MULTICALL3_ABI);
-const sourceInterface = new Interface(SOURCE_ABI);
+const factoryInterface = new Interface(FACTORY_ABI);
 
 type InnerStrategy = {
   name: string;
@@ -33,11 +33,10 @@ export async function strategy(
   if (!Array.isArray(strategies) || !strategies.length) {
     throw new Error('voting-proxy requires at least one inner strategy');
   }
-  const proxies = options?.proxies;
-  if (!Array.isArray(proxies) || !proxies.length) {
-    throw new Error('voting-proxy requires at least one proxy');
+  const factory = options?.factory;
+  if (typeof factory !== 'string') {
+    throw new Error('voting-proxy requires a factory');
   }
-  const proxyKeys = new Set(proxies.map(addressKey));
 
   return scoreWithVotingProxy({
     addresses,
@@ -51,11 +50,7 @@ export async function strategy(
         snapshot
       ),
     resolveSources: candidates =>
-      resolveSources(
-        provider,
-        candidates.filter(address => proxyKeys.has(addressKey(address))),
-        snapshot
-      )
+      resolveSources(provider, factory, candidates, snapshot)
   });
 }
 
@@ -88,12 +83,18 @@ async function scoreStrategies(
 
 async function resolveSources(
   provider,
+  factory: string,
   addresses: string[],
   snapshot: Snapshot
 ): Promise<Record<string, string>> {
   if (!provider?.call) return {};
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
-  const sources = await callSourceMulticall(provider, addresses, blockTag);
+  const sources = await callSourceMulticall(
+    provider,
+    factory,
+    addresses,
+    blockTag
+  );
 
   const entries = addresses.map((address, i) => {
     const source = normalizeSource(sources[i]);
@@ -114,6 +115,7 @@ function normalizeSource(value: unknown): string | undefined {
 
 async function callSourceMulticall(
   provider,
+  factory: string,
   addresses: string[],
   blockTag: number | 'latest'
 ): Promise<unknown[]> {
@@ -122,6 +124,7 @@ async function callSourceMulticall(
     Array.from({ length: pages }, (_, i) =>
       callSourceMulticallPage(
         provider,
+        factory,
         addresses.slice(i * SOURCE_PAGE_SIZE, (i + 1) * SOURCE_PAGE_SIZE),
         blockTag
       )
@@ -133,6 +136,7 @@ async function callSourceMulticall(
 
 async function callSourceMulticallPage(
   provider,
+  factory: string,
   addresses: string[],
   blockTag: number | 'latest'
 ): Promise<unknown[]> {
@@ -141,9 +145,9 @@ async function callSourceMulticallPage(
       to: MULTICALL3_ADDRESS,
       data: multicallInterface.encodeFunctionData('aggregate3', [
         addresses.map(address => [
-          address.toLowerCase(),
+          factory.toLowerCase(),
           true,
-          sourceInterface.encodeFunctionData('source', [])
+          factoryInterface.encodeFunctionData('source', [address.toLowerCase()])
         ])
       ])
     },
@@ -164,12 +168,8 @@ function decodeSourceResult(result): string | undefined {
   if (!success || typeof returnData !== 'string') return undefined;
 
   try {
-    return sourceInterface.decodeFunctionResult('source', returnData)[0];
+    return factoryInterface.decodeFunctionResult('source', returnData)[0];
   } catch {
     return undefined;
   }
-}
-
-function addressKey(address: string): string {
-  return address.toLowerCase();
 }
