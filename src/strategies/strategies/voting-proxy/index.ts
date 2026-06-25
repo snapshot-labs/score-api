@@ -1,14 +1,16 @@
 import { Interface } from '@ethersproject/abi';
-import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 import type { Snapshot } from '../../types';
+import { getScoresDirect } from '../../utils';
 import { scoreWithVotingProxy } from './proxyScoring';
 
-const MULTICALL_ABI = [
-  'function aggregate(tuple(address target, bytes callData)[] calls) view returns (uint256 blockNumber, bytes[] returnData)'
+const MULTICALL3_ADDRESS = '0xcA11bde05977b3631167028862bE2a173976CA11';
+const MULTICALL3_ABI = [
+  'function aggregate3(tuple(address target, bool allowFailure, bytes callData)[] calls) view returns (tuple(bool success, bytes returnData)[] returnData)'
 ];
 const SOURCE_ABI = ['function source() view returns (address)'];
+const SOURCE_PAGE_SIZE = 200;
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-const multicallInterface = new Interface(MULTICALL_ABI);
+const multicallInterface = new Interface(MULTICALL3_ABI);
 const sourceInterface = new Interface(SOURCE_ABI);
 
 type InnerStrategy = {
@@ -43,8 +45,7 @@ export async function strategy(
         strategies,
         snapshot
       ),
-    resolveSources: proxies =>
-      resolveSources(network, provider, proxies, snapshot)
+    resolveSources: proxies => resolveSources(provider, proxies, snapshot)
   });
 }
 
@@ -57,7 +58,7 @@ async function scoreStrategies(
   snapshot: Snapshot
 ): Promise<Record<string, number>> {
   const totals = Object.fromEntries(addresses.map(address => [address, 0]));
-  const scoresByStrategy = await getInnerScores(
+  const scoresByStrategy = await getScoresDirect(
     space,
     strategies,
     network,
@@ -75,40 +76,15 @@ async function scoreStrategies(
   return totals;
 }
 
-async function getInnerScores(
-  space: string,
-  strategies: InnerStrategy[],
-  network: string,
-  provider,
-  addresses: string[],
-  snapshot: Snapshot
-): Promise<Record<string, number>[]> {
-  const { getScoresDirect } = await import('../../utils');
-  return getScoresDirect(
-    space,
-    strategies,
-    network,
-    provider,
-    addresses,
-    snapshot
-  );
-}
-
 async function resolveSources(
-  network: string,
   provider,
   addresses: string[],
   snapshot: Snapshot
 ): Promise<Record<string, string>> {
-  if (!provider) return {};
+  if (!provider?.call) return {};
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
-
-  let sources: unknown[];
-  try {
-    sources = await callSourceMulticall(network, provider, addresses, blockTag);
-  } catch {
-    return {};
-  }
+  // Snapshot signature validation must gate which proxy votes are accepted.
+  const sources = await callSourceMulticall(provider, addresses, blockTag);
 
   const entries = addresses.map((address, i) => {
     const source = normalizeSource(sources[i]);
@@ -128,20 +104,36 @@ function normalizeSource(value: unknown): string | undefined {
 }
 
 async function callSourceMulticall(
-  network: string,
   provider,
   addresses: string[],
   blockTag: number | 'latest'
 ): Promise<unknown[]> {
-  const multicallAddress = getMulticallAddress(network);
-  if (!multicallAddress) return [];
+  const pages = Math.ceil(addresses.length / SOURCE_PAGE_SIZE);
+  const results = await Promise.all(
+    Array.from({ length: pages }, (_, i) =>
+      callSourceMulticallPage(
+        provider,
+        addresses.slice(i * SOURCE_PAGE_SIZE, (i + 1) * SOURCE_PAGE_SIZE),
+        blockTag
+      )
+    )
+  );
 
+  return results.flat();
+}
+
+async function callSourceMulticallPage(
+  provider,
+  addresses: string[],
+  blockTag: number | 'latest'
+): Promise<unknown[]> {
   const result = await provider.call(
     {
-      to: multicallAddress,
-      data: multicallInterface.encodeFunctionData('aggregate', [
+      to: MULTICALL3_ADDRESS,
+      data: multicallInterface.encodeFunctionData('aggregate3', [
         addresses.map(address => [
           address.toLowerCase(),
+          true,
           sourceInterface.encodeFunctionData('source', [])
         ])
       ])
@@ -149,23 +141,22 @@ async function callSourceMulticall(
     blockTag
   );
 
-  const [, returnData] = multicallInterface.decodeFunctionResult(
-    'aggregate',
+  const [returnData] = multicallInterface.decodeFunctionResult(
+    'aggregate3',
     result
-  );
+  ) as [unknown[]];
 
   return returnData.map(decodeSourceResult);
 }
 
-function decodeSourceResult(result: string): string | undefined {
+function decodeSourceResult(result): string | undefined {
+  const success = result.success ?? result[0];
+  const returnData = result.returnData ?? result[1];
+  if (!success || typeof returnData !== 'string') return undefined;
+
   try {
-    return sourceInterface.decodeFunctionResult('source', result)[0];
+    return sourceInterface.decodeFunctionResult('source', returnData)[0];
   } catch {
     return undefined;
   }
-}
-
-function getMulticallAddress(network: string): string | undefined {
-  return (networks as Record<string, { multicall?: string }>)[network]
-    ?.multicall;
 }

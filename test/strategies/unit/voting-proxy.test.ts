@@ -1,5 +1,4 @@
 import { Interface } from '@ethersproject/abi';
-import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 import { strategy } from '../../../src/strategies/strategies/voting-proxy';
 import { scoreWithVotingProxy } from '../../../src/strategies/strategies/voting-proxy/proxyScoring';
 import { getScoresDirect } from '../../../src/strategies/utils';
@@ -13,8 +12,10 @@ const source = address('20');
 const proxyHigh = address('30');
 const proxyLow = address('11');
 const zeroAddress = address('00');
-const aggregateInterface = new Interface([
-  'function aggregate(tuple(address target, bytes callData)[] calls) view returns (uint256 blockNumber, bytes[] returnData)'
+const multicall3Address = '0xcA11bde05977b3631167028862bE2a173976CA11';
+const sourcePageSize = 200;
+const aggregate3Interface = new Interface([
+  'function aggregate3(tuple(address target, bool allowFailure, bytes callData)[] calls) view returns (tuple(bool success, bytes returnData)[] returnData)'
 ]);
 const sourceInterface = new Interface([
   'function source() view returns (address)'
@@ -22,6 +23,7 @@ const sourceInterface = new Interface([
 const sourceCalldata = sourceInterface.encodeFunctionData('source', []);
 type ProviderCallTx = { to: string; data: string };
 type ProviderCall = [ProviderCallTx, number | 'latest'];
+type SourceResult = string | 'failed' | 'malformed';
 
 const getScoresDirectMock = jest.mocked(getScoresDirect);
 
@@ -73,6 +75,17 @@ describe('voting-proxy scoring', () => {
 
     expect(result).toEqual({ [source]: 12, [proxyHigh]: 0 });
   });
+
+  it('lets a proxy use the source score when the direct source voter has no score', async () => {
+    const { result } = await scoreFixture({
+      addresses: [source, proxyHigh],
+      directScores: { [source]: 0, [proxyHigh]: 0 },
+      sourceByProxy: { [proxyHigh]: source },
+      sourceScores: { [source]: 12 }
+    });
+
+    expect(result).toEqual({ [source]: 0, [proxyHigh]: 12 });
+  });
 });
 
 describe('voting-proxy strategy', () => {
@@ -80,7 +93,7 @@ describe('voting-proxy strategy', () => {
     getScoresDirectMock.mockReset();
   });
 
-  it('resolves zero-vp proxy sources with one multicall at the snapshot block', async () => {
+  it('resolves zero-vp proxy sources with multicall3 allowFailure at the snapshot block', async () => {
     const provider = createProvider([source]);
     getScoresDirectMock
       .mockResolvedValueOnce([{ [proxyHigh]: 0 }])
@@ -90,10 +103,10 @@ describe('voting-proxy strategy', () => {
       [proxyHigh]: 12
     });
     expect(provider.call).toHaveBeenCalledTimes(1);
-    expect(firstProviderCall(provider)[0].to).toBe(networks['1'].multicall);
+    expect(firstProviderCall(provider)[0].to).toBe(multicall3Address);
     expect(firstProviderCall(provider)[1]).toBe(123);
-    expect(decodeAggregateCalls(provider)).toEqual([
-      [proxyHigh.toLowerCase(), sourceCalldata]
+    expect(decodeAggregate3Calls(provider)).toEqual([
+      [proxyHigh.toLowerCase(), true, sourceCalldata]
     ]);
     expect(getScoresDirectMock).toHaveBeenNthCalledWith(
       2,
@@ -104,6 +117,51 @@ describe('voting-proxy strategy', () => {
       [source],
       123
     );
+  });
+
+  it('keeps successful source results when other multicall3 calls fail', async () => {
+    const provider = createProvider(['failed', source]);
+    getScoresDirectMock
+      .mockResolvedValueOnce([{ [proxyHigh]: 0, [proxyLow]: 0 }])
+      .mockResolvedValueOnce([{ [source]: 12 }]);
+
+    await expect(
+      scoreStrategy(provider, [proxyHigh, proxyLow], 123)
+    ).resolves.toEqual({
+      [proxyHigh]: 0,
+      [proxyLow]: 12
+    });
+    expect(getScoresDirectMock).toHaveBeenNthCalledWith(
+      2,
+      'space',
+      [{ name: 'fixed-score' }],
+      '1',
+      provider,
+      [source],
+      123
+    );
+  });
+
+  it('pages source lookups through multicall3', async () => {
+    const proxies = Array.from({ length: sourcePageSize + 1 }, (_, i) =>
+      numberedAddress(i + 1)
+    );
+    const sources = proxies.map((_, i) => numberedAddress(i + 1000));
+    const directScores = Object.fromEntries(proxies.map(proxy => [proxy, 0]));
+    const sourceScores = Object.fromEntries(
+      sources.map(sourceAddress => [sourceAddress, 1])
+    );
+    const provider = createProvider(sources);
+
+    getScoresDirectMock
+      .mockResolvedValueOnce([directScores])
+      .mockResolvedValueOnce([sourceScores]);
+
+    await scoreStrategy(provider, proxies, 123);
+
+    expect(provider.call).toHaveBeenCalledTimes(2);
+    expect(decodeAggregate3Calls(provider, 0)).toHaveLength(sourcePageSize);
+    expect(decodeAggregate3Calls(provider, 1)).toHaveLength(1);
   });
 
   it('keeps malformed and zero source results unresolved', async () => {
@@ -119,7 +177,7 @@ describe('voting-proxy strategy', () => {
     expect(getScoresDirectMock).toHaveBeenCalledTimes(1);
   });
 
-  it('decodes aggregate source results and uses latest for non-number snapshots', async () => {
+  it('decodes aggregate3 source results and uses latest for non-number snapshots', async () => {
     const provider = createProvider([source]);
     getScoresDirectMock
       .mockResolvedValueOnce([{ [proxyHigh]: 0 }])
@@ -133,13 +191,18 @@ describe('voting-proxy strategy', () => {
     expect(firstProviderCall(provider)[1]).toBe('latest');
   });
 
-  it('treats failed multicalls and missing providers as unresolved sources', async () => {
+  it('propagates multicall3 transport failures', async () => {
     getScoresDirectMock.mockResolvedValue([{ [proxyHigh]: 0 }]);
-    const provider = createProvider([], new Error('not a contract'));
+    const provider = createProvider([], new Error('rpc failed'));
 
-    await expect(scoreStrategy(provider, [proxyHigh], 123)).resolves.toEqual({
-      [proxyHigh]: 0
-    });
+    await expect(scoreStrategy(provider, [proxyHigh], 123)).rejects.toThrow(
+      'rpc failed'
+    );
+  });
+
+  it('treats missing providers as unresolved sources', async () => {
+    getScoresDirectMock.mockResolvedValue([{ [proxyHigh]: 0 }]);
+
     await expect(scoreStrategy(null, [proxyHigh], 123)).resolves.toEqual({
       [proxyHigh]: 0
     });
@@ -150,21 +213,41 @@ function address(byte: string): string {
   return `0x${byte.repeat(20)}`;
 }
 
-function createProvider(sourceResults: Array<string>, error?: Error) {
+function numberedAddress(value: number): string {
+  return `0x${value.toString(16).padStart(40, '0')}`;
+}
+
+function createProvider(sourceResults: SourceResult[], error?: Error) {
+  let resultIndex = 0;
+
   return {
-    call: jest.fn<Promise<string>, ProviderCall>(async () => {
+    call: jest.fn<Promise<string>, ProviderCall>(async ({ data }) => {
       if (error) throw error;
 
-      return aggregateInterface.encodeFunctionResult('aggregate', [
-        123,
-        sourceResults.map(encodeSourceResult)
+      const calls = aggregate3Interface.decodeFunctionData(
+        'aggregate3',
+        data
+      )[0];
+      const pageResults = sourceResults.slice(
+        resultIndex,
+        resultIndex + calls.length
+      );
+      resultIndex += calls.length;
+
+      return aggregate3Interface.encodeFunctionResult('aggregate3', [
+        pageResults.map(encodeAggregate3Result)
       ]);
     })
   };
 }
 
+function encodeAggregate3Result(sourceResult: SourceResult): [boolean, string] {
+  if (sourceResult === 'failed') return [false, '0x'];
+  if (sourceResult === 'malformed') return [true, '0x1234'];
+  return [true, encodeSourceResult(sourceResult)];
+}
+
 function encodeSourceResult(sourceResult: string): string {
-  if (sourceResult === 'malformed') return '0x1234';
   return sourceInterface.encodeFunctionResult('source', [sourceResult]);
 }
 
@@ -174,16 +257,17 @@ function firstProviderCall(
   return provider.call.mock.calls[0] as ProviderCall;
 }
 
-function decodeAggregateCalls(
-  provider: ReturnType<typeof createProvider>
-): string[][] {
-  const calls = aggregateInterface.decodeFunctionData(
-    'aggregate',
-    firstProviderCall(provider)[0].data
+function decodeAggregate3Calls(
+  provider: ReturnType<typeof createProvider>,
+  callIndex = 0
+): Array<[string, boolean, string]> {
+  const calls = aggregate3Interface.decodeFunctionData(
+    'aggregate3',
+    (provider.call.mock.calls[callIndex] as ProviderCall)[0].data
   )[0];
 
-  return Array.from(calls as unknown as Array<[string, string]>).map(
-    ([target, data]) => [target, data]
+  return Array.from(calls as unknown as Array<[string, boolean, string]>).map(
+    ([target, allowFailure, data]) => [target, allowFailure, data]
   );
 }
 

@@ -10,9 +10,14 @@ strategies, and returns that voting power under the original proxy voter.
 
 Reference contract and tests: https://github.com/orbs-network/voting-proxy
 
-If several proxy voters resolve to the same source, a direct source voter wins.
-Otherwise, the lowest proxy address wins deterministically and the other proxies
-return `0`.
+This strategy only maps voting power from `source()` to the proxy voter. It does
+not validate ERC-1271 signatures or prove that a voter is an Orbs voting proxy.
+Use it only with Snapshot signature validation against the proxy contract;
+pairing it with arbitrary `source()` contracts is unsafe.
+
+If several proxy voters resolve to the same source, a direct source voter with a
+positive score wins. Otherwise, the lowest proxy address wins deterministically
+and the other proxies return `0`.
 
 Here is an example of parameters:
 
@@ -23,9 +28,9 @@ Here is an example of parameters:
       "name": "erc20-balance-of",
       "network": "1",
       "params": {
-        "address": "0xToken",
-        "symbol": "TOKEN",
-        "decimals": 18
+        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "symbol": "USDC",
+        "decimals": 6
       }
     }
   ]

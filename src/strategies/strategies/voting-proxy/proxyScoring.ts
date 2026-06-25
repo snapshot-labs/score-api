@@ -20,7 +20,7 @@ export async function scoreWithVotingProxy({
   const winningProxyBySource = winnersBySource(
     proxyCandidates,
     sourcesByProxy,
-    new Set(addresses.map(addressKey))
+    directScores
   );
   const sources = Object.keys(winningProxyBySource);
   const sourceScores = normalizeAddressKeys(
@@ -44,14 +44,14 @@ export async function scoreWithVotingProxy({
 function winnersBySource(
   proxies: string[],
   sourcesByProxy: SourceMap,
-  voterKeys: Set<string>
+  directScores: ScoreMap
 ): SourceMap {
   const winners: SourceMap = {};
 
   for (const proxy of proxies) {
     const source = sourcesByProxy[addressKey(proxy)];
     const sourceKey = source && addressKey(source);
-    if (!sourceKey || voterKeys.has(sourceKey)) continue;
+    if (!sourceKey || (directScores[sourceKey] ?? 0) > 0) continue;
 
     const proxyKey = addressKey(proxy);
     if (!winners[sourceKey] || proxyKey < winners[sourceKey]) {

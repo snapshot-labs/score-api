@@ -10,11 +10,15 @@
           "type": "array",
           "title": "Inner strategies",
           "minItems": 1,
+          "maxItems": 10,
           "items": {
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "not": {
+                  "const": "voting-proxy"
+                }
               },
               "network": {
                 "type": "string"
