@@ -33,6 +33,11 @@ export async function strategy(
   if (!Array.isArray(strategies) || !strategies.length) {
     throw new Error('voting-proxy requires at least one inner strategy');
   }
+  const proxies = options?.proxies;
+  if (!Array.isArray(proxies) || !proxies.length) {
+    throw new Error('voting-proxy requires at least one proxy');
+  }
+  const proxyKeys = new Set(proxies.map(addressKey));
 
   return scoreWithVotingProxy({
     addresses,
@@ -45,7 +50,12 @@ export async function strategy(
         strategies,
         snapshot
       ),
-    resolveSources: proxies => resolveSources(provider, proxies, snapshot)
+    resolveSources: candidates =>
+      resolveSources(
+        provider,
+        candidates.filter(address => proxyKeys.has(addressKey(address))),
+        snapshot
+      )
   });
 }
 
@@ -83,7 +93,6 @@ async function resolveSources(
 ): Promise<Record<string, string>> {
   if (!provider?.call) return {};
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
-  // Snapshot signature validation must gate which proxy votes are accepted.
   const sources = await callSourceMulticall(provider, addresses, blockTag);
 
   const entries = addresses.map((address, i) => {
@@ -159,4 +168,8 @@ function decodeSourceResult(result): string | undefined {
   } catch {
     return undefined;
   }
+}
+
+function addressKey(address: string): string {
+  return address.toLowerCase();
 }

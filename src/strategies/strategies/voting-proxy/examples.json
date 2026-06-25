@@ -4,6 +4,7 @@
     "strategy": {
       "name": "voting-proxy",
       "params": {
+        "proxies": ["0x966885831bD5FdaAe28Fae45dB0B396E3135549c"],
         "strategies": [
           {
             "name": "whitelist",

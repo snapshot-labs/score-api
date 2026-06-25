@@ -93,6 +93,19 @@ describe('voting-proxy strategy', () => {
     getScoresDirectMock.mockReset();
   });
 
+  it('requires at least one configured proxy', async () => {
+    await expect(
+      strategy(
+        'space',
+        '1',
+        null,
+        [proxyHigh],
+        { strategies: [{ name: 'fixed-score' }] },
+        123
+      )
+    ).rejects.toThrow('voting-proxy requires at least one proxy');
+  });
+
   it('resolves zero-vp proxy sources with multicall3 allowFailure at the snapshot block', async () => {
     const provider = createProvider([source]);
     getScoresDirectMock
@@ -117,6 +130,25 @@ describe('voting-proxy strategy', () => {
       [source],
       123
     );
+  });
+
+  it('ignores source lookups from voters outside the configured proxies', async () => {
+    const provider = createProvider([source]);
+    getScoresDirectMock
+      .mockResolvedValueOnce([{ [proxyHigh]: 0, [proxyLow]: 0 }])
+      .mockResolvedValueOnce([{ [source]: 12 }]);
+
+    await expect(
+      scoreStrategy(provider, [proxyHigh, proxyLow], 123, {
+        proxies: [proxyLow]
+      })
+    ).resolves.toEqual({
+      [proxyHigh]: 0,
+      [proxyLow]: 12
+    });
+    expect(decodeAggregate3Calls(provider)).toEqual([
+      [proxyLow.toLowerCase(), true, sourceCalldata]
+    ]);
   });
 
   it('keeps successful source results when other multicall3 calls fail', async () => {
@@ -299,13 +331,18 @@ async function scoreFixture({
   return { result, scoredAddressSets, resolvedAddressSets };
 }
 
-function scoreStrategy(provider, addresses: string[], snapshot) {
+function scoreStrategy(
+  provider,
+  addresses: string[],
+  snapshot,
+  options: Record<string, unknown> = {}
+) {
   return strategy(
     'space',
     '1',
     provider,
     addresses,
-    { strategies: [{ name: 'fixed-score' }] },
+    { proxies: addresses, strategies: [{ name: 'fixed-score' }], ...options },
     snapshot
   );
 }
