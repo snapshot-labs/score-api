@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Strategy",
+  "definitions": {
+    "Strategy": {
+      "title": "Strategy",
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "title": "Voting proxy factory",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "strategies": {
+          "type": "array",
+          "title": "Inner strategies",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "not": {
+                  "const": "voting-proxy"
+                }
+              },
+              "network": {
+                "type": "string"
+              },
+              "params": {
+                "type": "object"
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["factory", "strategies"],
+      "additionalProperties": false
+    }
+  }
+}
