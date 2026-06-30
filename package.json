@@ -37,9 +37,9 @@
     "@ethersproject/wallet": "^5.6.2",
     "@ethersproject/web": "^5.6.1",
     "@snapshot-labs/keycard": "0.5.1",
-    "@snapshot-labs/snapshot-metrics": "^1.4.1",
-    "@snapshot-labs/snapshot-sentry": "^1.5.5",
-    "@snapshot-labs/snapshot.js": "^0.14.14",
+    "@snapshot-labs/snapshot-metrics": "^1.4.3",
+    "@snapshot-labs/snapshot-sentry": "^3.0.1",
+    "@snapshot-labs/snapshot.js": "^0.14.22",
     "@spruceid/didkit-wasm-node": "^0.2.1",
     "@uniswap/sdk-core": "^3.0.1",
     "@uniswap/v3-sdk": "^3.9.0",
@@ -65,8 +65,8 @@
     ]
   },
   "devDependencies": {
-    "@snapshot-labs/eslint-config": "^0.1.0-beta.18",
-    "@snapshot-labs/prettier-config": "^0.1.0-beta.19",
+    "@snapshot-labs/eslint-config": "^0.1.1",
+    "@snapshot-labs/prettier-config": "^0.1.0",
     "@types/express": "^4.17.11",
     "@types/jest": "^29.5.3",
     "@types/node": "^14.14.21",
