@@ -18,6 +18,7 @@
           "maxItems": 10,
           "items": {
             "type": "object",
+            "default": { "name": "", "params": {} },
             "properties": {
               "name": {
                 "type": "string",
