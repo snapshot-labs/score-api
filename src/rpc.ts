@@ -2,6 +2,11 @@ import { capture } from '@snapshot-labs/snapshot-sentry';
 import express from 'express';
 import { INVALID_ADDRESS_MESSAGE, MAX_STRATEGIES } from './constants';
 import disabled from './disabled.json';
+import {
+  isProviderError,
+  shouldReport,
+  summarizeError
+} from './helpers/providerErrors';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
 import { getVp, validate, verifyGetVp, verifyValidate } from './methods';
@@ -51,6 +56,21 @@ function handlePostError(
   e: any,
   id: string | null
 ) {
+  // Upstream RPC-provider failures (e.g. rpc.snapshot.org 403/5xx) can arrive
+  // thousands per minute during a proxy outage. Reporting each one to Sentry
+  // and logging the full error stalls the event loop. Throttle those to a
+  // sampled trickle, keyed by method + provider error fingerprint.
+  if (isProviderError(e)) {
+    if (shouldReport(`provider:${method}:${e?.code ?? 'unknown'}`)) {
+      capture(e, { params, method });
+      console.log(
+        `[rpc] ${method} failed (upstream provider, throttled)`,
+        summarizeError(e)
+      );
+    }
+    return rpcError(res, 500, e, id);
+  }
+
   capture(e, { params, method });
   let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
 
@@ -162,6 +182,23 @@ router.post('/api/scores', async (req, res) => {
       }
     );
   } catch (e: any) {
+    // Throttle reporting of upstream RPC-provider failures so a proxy outage
+    // (rpc.snapshot.org 403/5xx) does not produce a per-request Sentry/log
+    // flood that stalls the event loop. See helpers/providerErrors.
+    if (isProviderError(e)) {
+      if (shouldReport(`scores:${network}:${e?.code ?? 'unknown'}`)) {
+        capture(e, { params, strategies });
+        console.log(
+          '[rpc] Get scores failed (upstream provider, throttled)',
+          network,
+          space,
+          summarizeError(e),
+          requestId
+        );
+      }
+      return rpcError(res, 500, e, null);
+    }
+
     capture(e, { params, strategies });
     // @ts-ignore
     const errorMessage = e?.message || e || 'Unknown error';
