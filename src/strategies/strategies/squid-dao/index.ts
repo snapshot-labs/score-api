@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller, call } from '../../utils';
+import { call, Multicaller } from '../../utils';
 
 const vewsSquidContractAddress = '0x58807e624b9953c2279e0efae5edcf9c7da08c7b';
 const nftContractAddress = '0x7136ca86129e178399b703932464df8872f9a57a';

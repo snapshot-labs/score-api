@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { multicall, customFetch } from '../../utils';
+import { customFetch, multicall } from '../../utils';
 
 const STAKING_CONTRACT = '0xd2863157539b1D11F39ce23fC4834B62082F6874';
 const abi = [

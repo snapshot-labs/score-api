@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address';
-import { multicall, subgraphRequest } from '../../utils';
 import { getAllReserves } from './helper';
+import { multicall, subgraphRequest } from '../../utils';
 
 const liquidity = {
   inputs: [],

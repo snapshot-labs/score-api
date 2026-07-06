@@ -1,6 +1,6 @@
 import strategies from '..';
-import { strategy as proofOfHumanityStrategy } from '../proof-of-humanity';
 import { strategy as brightIdStrategy } from '../brightid';
+import { strategy as proofOfHumanityStrategy } from '../proof-of-humanity';
 
 export async function strategy(
   space,

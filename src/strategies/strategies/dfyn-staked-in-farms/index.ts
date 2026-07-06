@@ -1,6 +1,5 @@
 import { formatUnits } from '@ethersproject/units';
-import { multicall } from '../../utils';
-import { subgraphRequest } from '../../utils';
+import { multicall, subgraphRequest } from '../../utils';
 
 const DFYN_SUBGRAPH_URL =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/FuxKHMLaziLFcQi5c4y3p1JY1ZGLA81rFqBfZfbQZDpo';
@@ -36,8 +35,8 @@ const getAllLP = async (skip, stakedLP, snapshot) => {
   try {
     const response = await subgraphRequest(DFYN_SUBGRAPH_URL, params);
     return response.pairs;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
   }
 };
 
@@ -109,7 +108,7 @@ export async function strategy(
     { blockTag }
   );
 
-  stakedLP = [].concat.apply([], stakedLP);
+  stakedLP = [].concat(...stakedLP);
   const dfyn_lp: any[] = await getLP(stakedLP, snapshot);
   let temp: any = [];
   if (options.contractAddresses.length > 1) {
@@ -121,7 +120,7 @@ export async function strategy(
     dfyn_lp.sort((a, b) => itemPositions[a.id] - itemPositions[b.id]);
 
     // grouping all balances of a particular address together
-    LP_balances = [].concat.apply([], LP_balances);
+    LP_balances = [].concat(...LP_balances);
     for (let i = addresses.length; i > 0; i--) {
       temp.push(LP_balances.splice(0, Math.ceil(LP_balances.length / i)));
     }

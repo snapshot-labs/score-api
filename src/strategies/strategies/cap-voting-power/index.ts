@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
 import { Contract } from '@ethersproject/contracts';
+import { formatUnits } from '@ethersproject/units';
 
 const abi = ['function totalSupply(uint256 t) external view returns (uint256)'];
 
@@ -57,7 +57,7 @@ export async function strategy(
   let block;
   try {
     block = await provider.getBlock(blockTag);
-  } catch (error) {
+  } catch {
     throw new Error('Failed to get block information');
   }
   const now = block.timestamp;

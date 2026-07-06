@@ -1,8 +1,8 @@
 import { getAddress } from '@ethersproject/address';
-import { fetchJson } from '@ethersproject/web';
-import { JsonRpcProvider } from '@ethersproject/providers';
-import { blake2bHex } from 'blakejs';
 import { formatFixed } from '@ethersproject/bignumber';
+import { JsonRpcProvider } from '@ethersproject/providers';
+import { fetchJson } from '@ethersproject/web';
+import { blake2bHex } from 'blakejs';
 
 export function readLittleEndianBigInt(hex: string) {
   return BigInt(`0x${hex.match(/../g)?.reverse().join('')}`);

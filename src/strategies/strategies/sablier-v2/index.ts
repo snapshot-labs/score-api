@@ -1,20 +1,18 @@
-import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
-import type { StaticJsonRpcProvider } from '@ethersproject/providers';
-
-import { deployments, policies } from './configuration';
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
+import { formatUnits } from '@ethersproject/units';
+import { deployments, IOptions, policies } from './configuration';
 import {
   getLatestBlock,
   getRecipientDepositedAmounts,
   getRecipientReservedAmounts,
-  getRecipientStreams,
   getRecipientStreamedAmounts,
+  getRecipientStreams,
   getRecipientUnstreamedAmounts,
   getRecipientWithdrawableAmounts,
   getSenderDepositedAmounts,
   getSenderStreams
 } from './queries';
-import type { IOptions } from './configuration';
 
 function validate(network: string, addresses: string[], options: IOptions) {
   if (!Object.hasOwn(deployments, network)) {

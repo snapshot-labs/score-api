@@ -1,6 +1,6 @@
-import { call, Multicaller } from '../../utils';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
+import { call, Multicaller } from '../../utils';
 
 const DSSVestAbi = [
   'function usr(uint256 _id) external view returns (address)',
@@ -93,12 +93,12 @@ export async function strategy(
     { blockTag }
   );
   ids.forEach(id => {
-    multiVestCaller.call('tot' + id, options.DSSVestAddress, 'tot', [id]);
-    multiVestCaller.call('accrued' + id, options.DSSVestAddress, 'accrued', [
+    multiVestCaller.call(`tot${id}`, options.DSSVestAddress, 'tot', [id]);
+    multiVestCaller.call(`accrued${id}`, options.DSSVestAddress, 'accrued', [
       id
     ]);
-    multiVestCaller.call('bgn' + id, options.DSSVestAddress, 'bgn', [id]);
-    multiVestCaller.call('fin' + id, options.DSSVestAddress, 'fin', [id]);
+    multiVestCaller.call(`bgn${id}`, options.DSSVestAddress, 'bgn', [id]);
+    multiVestCaller.call(`fin${id}`, options.DSSVestAddress, 'fin', [id]);
   });
 
   const multiVestResult: Record<string, BigNumberish> =
@@ -114,11 +114,11 @@ export async function strategy(
 
       if (!ids.length) return initialVotingPower;
       const votingPower = ids.reduce((vp, id) => {
-        const totalVested = multiVestResult['tot' + id];
-        const totalAccrued = multiVestResult['accrued' + id];
+        const totalVested = multiVestResult[`tot${id}`];
+        const totalAccrued = multiVestResult[`accrued${id}`];
 
-        const bgn = multiVestResult['bgn' + id];
-        const fin = multiVestResult['fin' + id];
+        const bgn = multiVestResult[`bgn${id}`];
+        const fin = multiVestResult[`fin${id}`];
         if (!(id && totalAccrued && totalVested && bgn && fin)) return vp;
         return vp.add(
           vestedAmountPower(

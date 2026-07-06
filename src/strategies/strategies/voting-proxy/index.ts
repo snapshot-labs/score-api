@@ -1,7 +1,7 @@
 import { Interface } from '@ethersproject/abi';
-import type { Snapshot } from '../../types';
-import { getScoresDirect } from '../../utils';
 import { scoreWithVotingProxy } from './proxyScoring';
+import { Snapshot } from '../../types';
+import { getScoresDirect } from '../../utils';
 
 const MULTICALL3_ADDRESS = '0xcA11bde05977b3631167028862bE2a173976CA11';
 const MULTICALL3_ABI = [

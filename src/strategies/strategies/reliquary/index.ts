@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller, call } from '../../utils';
+import { call, Multicaller } from '../../utils';
 
 // coAuthor = 'franzns'
 

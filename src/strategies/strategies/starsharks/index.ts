@@ -1,5 +1,5 @@
+import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
-const { getAddress } = require('@ethersproject/address');
 import { customFetch } from '../../utils';
 
 const API_URLS = {

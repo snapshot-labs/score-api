@@ -1,5 +1,5 @@
-import { EnumType } from 'json-to-graphql-query';
 import { getAddress } from '@ethersproject/address';
+import { EnumType } from 'json-to-graphql-query';
 import { subgraphRequest } from '../../utils';
 
 const SUBGRAPH_QUERY_ADDRESSES_LIMIT = 2000;

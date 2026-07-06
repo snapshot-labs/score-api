@@ -1,7 +1,7 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller } from '../../utils';
 import examplesFile from './examples.json';
+import { Multicaller } from '../../utils';
 
 export const examples = examplesFile;
 
@@ -80,7 +80,7 @@ export async function strategy(
   options.communityStake.forEach(communityStakeAddress => {
     addresses.forEach(address =>
       multiCommunityStake.call(
-        communityStakeAddress + '-' + address,
+        `${communityStakeAddress}-${address}`,
         communityStakeAddress,
         'userInfo',
         [address]
@@ -103,7 +103,7 @@ export async function strategy(
     multiCssLPs.call('totalSupply', cssLpAddr.address, 'totalSupply');
     addresses.forEach(address =>
       multiCssLPs.call(
-        cssLpAddr.address + '-' + address,
+        `${cssLpAddr.address}-${address}`,
         options.masterCSS,
         'userInfo',
         [cssLpAddr.pid, address]
@@ -135,7 +135,7 @@ export async function strategy(
       addUserBalance(
         userBalances,
         userAddr,
-        communityStakeCSS[communityStakeAddr + '-' + userAddr][0]
+        communityStakeCSS[`${communityStakeAddr}-${userAddr}`][0]
       );
     });
   });
@@ -145,7 +145,7 @@ export async function strategy(
       addUserBalance(
         userBalances,
         userAddr,
-        bn(resultCssLPs[cssLPAddr.address + '-' + userAddr][0])
+        bn(resultCssLPs[`${cssLPAddr.address}-${userAddr}`][0])
           .mul(bn(resultCssLPs.balanceOf))
           .div(bn(resultCssLPs.totalSupply))
       );

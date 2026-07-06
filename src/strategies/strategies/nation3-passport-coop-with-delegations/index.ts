@@ -1,7 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
-import { subgraphRequest } from '../../utils';
+import { Multicaller, subgraphRequest } from '../../utils';
 
 type Query = { [key: string]: any };
 

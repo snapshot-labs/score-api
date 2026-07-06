@@ -1,16 +1,16 @@
 import { BigNumber } from '@ethersproject/bignumber';
-
 import { multicall } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import {
-  createCallToReadUsersData,
-  createCallsToReadUsersData,
-  toDecimals,
+  bep20Abi,
   calculateBep20InLPForUser,
+  createCallsToReadUsersData,
+  createCallToReadUsersData,
+  farmingAbi,
+  getStakingBalanceOf,
   sfundStakingAbi,
-  getStakingBalanceOf
+  toDecimals
 } from './utils';
-import { farmingAbi, bep20Abi } from './utils';
 
 export async function strategy(
   space,

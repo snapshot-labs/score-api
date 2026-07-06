@@ -1,7 +1,7 @@
 import { getAddress } from '@ethersproject/address';
-import { subgraphRequest, getScoresDirect } from '../../utils';
 import { Strategy } from '@snapshot-labs/snapshot.js/dist/src/voting/types';
 import { Snapshot } from '../../types';
+import { getScoresDirect, subgraphRequest } from '../../utils';
 
 const DEFAULT_BACKEND_URL =
   'https://api.studio.thegraph.com/query/87073/split-delegation/version/latest';

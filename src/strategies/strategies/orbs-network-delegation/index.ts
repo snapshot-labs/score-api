@@ -1,7 +1,7 @@
-import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
+import { getAddress } from '@ethersproject/address';
+import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
-import { getAddress } from '@ethersproject/address';
 
 const abi = [
   'function getDelegatedStake(address addr) external view returns (uint256)',

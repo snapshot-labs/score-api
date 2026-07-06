@@ -1,7 +1,7 @@
-import { FeeAmount, Pool, Position } from '@uniswap/v3-sdk';
-import { Token } from '@uniswap/sdk-core';
-import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
+import { Token } from '@uniswap/sdk-core';
+import { FeeAmount, Pool, Position } from '@uniswap/v3-sdk';
+import { Multicaller } from '../../utils';
 
 export const getFeeAmount = (fee: string): FeeAmount | undefined => {
   const feeAmount: FeeAmount | undefined = Object.values(FeeAmount).includes(

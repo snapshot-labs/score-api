@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { Multicaller } from '../../utils';
 
 type batch = [stakeAmount: BigNumber, timeStamp: BigNumber];
 const stakeAmount = 0; // index of the stake amount in the batch tuple

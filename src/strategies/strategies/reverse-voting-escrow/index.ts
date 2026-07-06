@@ -1,7 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-
-import { Multicaller, customFetch } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { customFetch, Multicaller } from '../../utils';
 
 const abi = [
   'function balanceOf(address owner) external view returns (uint256)',
@@ -115,7 +114,7 @@ export async function strategy(
         walletToVestedAmount,
         tempWalletVestedAmounts
       );
-    } catch (e) {
+    } catch {
       // !! IGNORE Multicall REVERTS !! //
     }
   }

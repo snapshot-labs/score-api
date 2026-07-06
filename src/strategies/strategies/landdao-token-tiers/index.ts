@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Multicaller, customFetch } from '../../utils';
+import { customFetch, Multicaller } from '../../utils';
 
 const abi = [
   'function balanceOf(address owner) external view returns (uint256 balance)',
@@ -35,7 +35,7 @@ export async function strategy(
   for (const [walletAddress, count] of Object.entries(walletToBalanceOf)) {
     for (let index = 0; index < count.toNumber(); index++) {
       callWalletToAddresses.call(
-        walletAddress.toString() + '-' + index.toString(),
+        `${walletAddress.toString()}-${index.toString()}`,
         options.address,
         'tokenOfOwnerByIndex',
         [walletAddress, index]
@@ -47,7 +47,7 @@ export async function strategy(
 
   // fetch ipfs tier weights
   const response = await customFetch(
-    'https://ipfs.io/ipfs/' + options.tokenWeightIPFS,
+    `https://ipfs.io/ipfs/${options.tokenWeightIPFS}`,
     {
       method: 'GET',
       headers: {

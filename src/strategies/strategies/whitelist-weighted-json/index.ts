@@ -1,5 +1,5 @@
-import fetch from 'cross-fetch';
 import { getAddress } from '@ethersproject/address';
+import fetch from 'cross-fetch';
 
 export async function strategy(space, network, provider, addresses, options) {
   const url = options.url;
@@ -16,10 +16,9 @@ export async function strategy(space, network, provider, addresses, options) {
 
   try {
     responseData = JSON.parse(responseData);
-  } catch (e) {
+  } catch {
     throw new Error(
-      `[whitelist-weighted-json] Errors found in API: URL: ${url}, Status: ${response.status}` +
-      response.ok
+      `[whitelist-weighted-json] Errors found in API: URL: ${url}, Status: ${response.status}${response.ok}`
         ? `, Response: ${responseData.substring(0, 512)}`
         : ''
     );

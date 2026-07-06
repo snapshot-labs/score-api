@@ -40,7 +40,7 @@ export async function strategy(
   const arrayOfProxyWallets = Object.keys(data).map(function (key) {
     return data[key];
   });
-  const flattenedWalletAddresses = [].concat.apply([], arrayOfProxyWallets);
+  const flattenedWalletAddresses = [].concat(...arrayOfProxyWallets);
 
   // Query for token holdings
   const addressScores = await erc721BalanceOfStrategy(

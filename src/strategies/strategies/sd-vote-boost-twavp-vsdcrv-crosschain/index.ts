@@ -1,7 +1,7 @@
 import { getAddress } from '@ethersproject/address';
-import { getProvider, multicall, subgraphRequest } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
+import { getProvider, multicall, subgraphRequest } from '../../utils';
 
 // Used ABI
 const abi = [

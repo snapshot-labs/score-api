@@ -1,5 +1,5 @@
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
 import { multicall, subgraphRequest } from '../../utils';
 
 const tokenAndPoolAbi = [
@@ -170,9 +170,8 @@ export async function strategy(
   // get block timestamp to search on xDai subgraph
   const snapshotXdaiBlock = await getXdaiBlockNumber(block.timestamp);
   // trim addresses to sub of "LIMIT" addresses.
-  const addressSubsets = Array.apply(
-    null,
-    Array(Math.ceil(addresses.length / LIMIT))
+  const addressSubsets = Array(
+    ...Array(Math.ceil(addresses.length / LIMIT))
   ).map((_e, i) => addresses.slice(i * LIMIT, (i + 1) * LIMIT));
   const returnedFromSubgraph = await Promise.all(
     addressSubsets.map(subset => xHoprSubgraphQuery(subset, snapshotXdaiBlock))

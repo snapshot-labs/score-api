@@ -41,13 +41,13 @@ export async function strategy(
   });
   addresses.forEach(address => {
     multiBalances.call(
-      address + '-stakedBotto',
+      `${address}-stakedBotto`,
       options.stakingAddress,
       'userStakes',
       [address]
     );
     multiBalances.call(
-      address + '-stakedLPs',
+      `${address}-stakedLPs`,
       options.miningAddress,
       'totalUserStake',
       [address]
@@ -59,9 +59,9 @@ export async function strategy(
 
   return Object.fromEntries(
     addresses.map(adr => {
-      const stakedBotto = _formatUnits(balances[adr + '-stakedBotto']);
+      const stakedBotto = _formatUnits(balances[`${adr}-stakedBotto`]);
       const stakedLPsBottos =
-        (_formatUnits(balances[adr + '-stakedLPs']) *
+        (_formatUnits(balances[`${adr}-stakedLPs`]) *
           _formatUnits(reserves['_reserve0'])) /
         _formatUnits(totalSupply);
       return [adr, stakedBotto + stakedLPsBottos];
