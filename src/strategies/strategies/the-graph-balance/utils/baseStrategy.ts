@@ -1,7 +1,5 @@
-import { Provider } from '@ethersproject/providers';
 import { getAddress } from '@ethersproject/address';
-import { getTokenLockWallets } from './tokenLockWallets';
-
+import { Provider } from '@ethersproject/providers';
 import {
   GraphAccountScores,
   GraphStrategyOptions,
@@ -9,6 +7,7 @@ import {
   StrategyFunction,
   verifyResults
 } from './graphUtils';
+import { getTokenLockWallets } from './tokenLockWallets';
 
 const DEFAULT_PAGE_SIZE = 1000;
 const VALID_STRATEGIES = ['balance', 'indexing', 'delegation'];

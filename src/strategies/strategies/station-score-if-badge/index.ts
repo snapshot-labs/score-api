@@ -1,6 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
 import { Contract } from '@ethersproject/contracts';
+import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
 // To avoid future memory issues, we limit the number of members supported by the strategy

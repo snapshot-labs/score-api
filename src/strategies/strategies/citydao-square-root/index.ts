@@ -1,6 +1,5 @@
 // Types
-import type { StaticJsonRpcProvider } from '@ethersproject/providers';
-
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
 // Strategies
 import { strategy as erc1155BalanceOfStrategy } from '../erc1155-balance-of';
 

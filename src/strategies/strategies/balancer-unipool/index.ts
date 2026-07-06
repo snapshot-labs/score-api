@@ -1,6 +1,6 @@
-import { multicall } from '../../utils';
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
+import { multicall } from '../../utils';
 
 // Merged ABIs from below contracts:
 // * BPool from Balancer-labs: https://github.com/balancer-labs/balancer-core/blob/master/contracts/BPool.sol

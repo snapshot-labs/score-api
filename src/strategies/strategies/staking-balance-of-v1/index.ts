@@ -1,6 +1,6 @@
+import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
-import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 
 const vestingABI = [
   'function getUserInfo(uint256 _pid, address _account) view returns (uint256 amount, uint256 totalRedeemed, uint256 lastClaimTimestamp, uint256 depositTimestamp)',
@@ -65,7 +65,7 @@ export async function strategy(
   addresses.forEach((address: string) => {
     if (poolRecords[options.pid_1].active) {
       multi.call(
-        address + '_' + options.pid_1,
+        `${address}_${options.pid_1}`,
         options.staking_contract,
         'getUserInfo',
         [options.pid_1, address]
@@ -73,14 +73,14 @@ export async function strategy(
     }
     if (options.pid_2 && poolRecords[options.pid_2].active)
       multi.call(
-        address + '_' + options.pid_2,
+        `${address}_${options.pid_2}`,
         options.staking_contract,
         'getUserInfo',
         [options.pid_2, address]
       );
     if (options.pid_3 && poolRecords[options.pid_3].active)
       multi.call(
-        address + '_' + options.pid_3,
+        `${address}_${options.pid_3}`,
         options.staking_contract,
         'getUserInfo',
         [options.pid_3, address]

@@ -1,7 +1,7 @@
+import * as bignumber_1 from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
-const bignumber_1 = require('@ethersproject/bignumber');
-const uniswap_1 = require('../uniswap');
-const bn = num => {
+import * as uniswap_1 from '../uniswap';
+const bn = (num): any => {
   return bignumber_1.BigNumber.from(num.toString());
 };
 

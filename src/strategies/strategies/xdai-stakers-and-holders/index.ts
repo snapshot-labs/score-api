@@ -1,5 +1,5 @@
 import { formatUnits } from '@ethersproject/units';
-import { subgraphRequest, customFetch } from '../../utils';
+import { customFetch, subgraphRequest } from '../../utils';
 
 const SUBGRAPH_URL =
   'https://api.thegraph.com/subgraphs/name/maxaleks/xdai-stakers';

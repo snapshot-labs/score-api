@@ -1,5 +1,5 @@
-import { baseStrategy } from './utils/baseStrategy';
 import { balanceStrategy } from './balances';
+import { baseStrategy } from './utils/baseStrategy';
 
 export async function strategy(
   _space,

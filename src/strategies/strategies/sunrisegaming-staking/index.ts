@@ -1,6 +1,6 @@
-import { multicall } from '../../utils';
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
+import { multicall } from '../../utils';
 
 const masterChefAbi = [
   'function userInfo(uint256, address) view returns (uint256 amount, uint256 rewardDebt)'

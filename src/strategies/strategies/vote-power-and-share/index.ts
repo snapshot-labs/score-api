@@ -1,6 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
-import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { multicall } from '../../utils';
+import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
 const abi = ['function totalSupply() public returns (uint256)'];
 

@@ -1,5 +1,5 @@
-import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
+import { Multicaller } from '../../utils';
 
 const abi = [
   'function getTier(uint256 _tokenId) external pure returns (uint8)'

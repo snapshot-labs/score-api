@@ -105,7 +105,7 @@ export function isAddressValid(address: string, allowEmpty = false): boolean {
   try {
     snapshot.utils.getFormattedAddress(address);
     return true;
-  } catch (e: any) {
+  } catch {
     return false;
   }
 }

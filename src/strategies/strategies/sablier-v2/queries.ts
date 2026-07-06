@@ -1,14 +1,16 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import type { StaticJsonRpcProvider } from '@ethersproject/providers';
-import type {
-  IOptions,
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
+import {
+  abi,
+  deployments,
   IAccountMap,
+  IOptions,
   IStreamsByAssetParams,
-  IStreamsByAssetResult
+  IStreamsByAssetResult,
+  page,
+  queries
 } from './configuration';
-
-import { abi, deployments, queries, page } from './configuration';
-import { multicall, subgraphRequest, customFetch } from '../../utils';
+import { customFetch, multicall, subgraphRequest } from '../../utils';
 
 /**
  * Query the subgraph for all the streams owned by all recipients.
@@ -468,8 +470,8 @@ async function getLatestBlock(
 
       return result;
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
   }
 
   return await provider.getBlockNumber();

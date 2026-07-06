@@ -39,7 +39,7 @@ export async function strategy(
 
   const batchQuery = i => {
     return {
-      ['parcelsOwned_' + i]: {
+      [`parcelsOwned_${i}`]: {
         __aliasFor: 'parcelsOwned',
         __args: {
           first: maxResponsePerQuery,

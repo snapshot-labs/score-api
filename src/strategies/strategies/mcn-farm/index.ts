@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { call, multicall } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 
 const FARM_ADDRESS = '0x15dEd15fE32EBac0b6cFb08cdAB112cca8380423';
 const MCN_ADDRESS = '0xD91E9a0fEf7C0fa4EBdAF4d0aCF55888949A2a9b';
@@ -27,7 +27,7 @@ export async function strategy(
   const tokenAddress = options.tokenAddress || MCN_ADDRESS;
   const farmAddress = options.stakingAddress || FARM_ADDRESS;
   const pools = await call(provider, abi, [farmAddress, 'getPoolList', []]);
-  const flatten = arr => [].concat.apply([], arr);
+  const flatten = arr => [].concat(...arr);
   const product = (...sets) => {
     return sets.reduce(
       (acc, set) => flatten(acc.map(x => set.map(y => [...x, y]))),

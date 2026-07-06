@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatEther } from '@ethersproject/units';
 import { multicall } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 
 const tokenAbi = [
   'function balanceOf(address account) external view returns (uint256)'

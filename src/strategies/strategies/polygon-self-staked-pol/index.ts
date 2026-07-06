@@ -1,7 +1,7 @@
+import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
-import { getAddress } from '@ethersproject/address';
 
 const stakeManagerABI = [
   'function getValidatorContract(uint256) view returns (address)',

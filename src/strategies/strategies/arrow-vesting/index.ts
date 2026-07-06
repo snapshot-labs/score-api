@@ -74,12 +74,12 @@ export async function strategy(
 
           batchResults = await vestingFactoryMulti.execute();
           break; // Success, exit retry loop
-        } catch (error) {
+        } catch (err) {
           retries--;
           if (retries === 0) {
             console.warn(
               `Failed to fetch vesting contracts batch ${startIdx}-${endIdx} after 3 retries:`,
-              error instanceof Error ? error.message : String(error)
+              err instanceof Error ? err.message : String(err)
             );
             // Continue with next batch instead of throwing
             batchResults = {};
@@ -152,12 +152,12 @@ export async function strategy(
 
           batchResults = await vestingContractMulti.execute();
           break; // Success, exit retry loop
-        } catch (error) {
+        } catch (err) {
           retries--;
           if (retries === 0) {
             console.warn(
               `Failed to fetch vesting parameters batch ${startIdx}-${endIdx} after 3 retries:`,
-              error instanceof Error ? error.message : String(error)
+              err instanceof Error ? err.message : String(err)
             );
             // Continue with next batch instead of throwing
             batchResults = {};

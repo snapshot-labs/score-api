@@ -1,5 +1,5 @@
-import { Multicaller } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
+import { Multicaller } from '../../utils';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',
@@ -35,7 +35,7 @@ export async function strategy(
   for (const [walletAddress, count] of Object.entries(walletToBalanceOf)) {
     for (let index = 0; index < count.toNumber(); index++) {
       callWalletToAddresses.call(
-        walletAddress.toString() + '-' + index.toString(),
+        `${walletAddress.toString()}-${index.toString()}`,
         options.address,
         'tokenOfOwnerByIndex',
         [walletAddress, index]

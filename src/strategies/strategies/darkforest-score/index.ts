@@ -1,5 +1,5 @@
-import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
+import { subgraphRequest } from '../../utils';
 
 const calcScore = (score: number) => {
   return score == 0 ? 0 : Math.floor(Math.log2(score));

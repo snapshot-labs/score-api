@@ -1,8 +1,8 @@
-import { strategy as UniswapV3Strategy } from '../uniswap-v3';
-import { subgraphRequest } from '../../utils';
+import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
 import { WeiPerEther } from '@ethersproject/constants';
-import { getAddress } from '@ethersproject/address';
+import { subgraphRequest } from '../../utils';
+import { strategy as UniswapV3Strategy } from '../uniswap-v3';
 
 const pancakeV3Subgraph =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/78EUqzJmEVJsAKvWghn7qotf9LVGqcTQxJhT5z84ZmgJ';
@@ -50,7 +50,9 @@ async function getLpTokenOnBsc(addresses, snapshot) {
       IdLPToken = IdLPToken.sub(BigNumber.from(deposit.inputTokenAmounts[0]));
     }
     pancakeIDLPScore[account.id] = IdLPToken.div(WeiPerEther).toNumber();
-    pancakeIDLPScore[account.id] < 0 && (pancakeIDLPScore[account.id] = 0);
+    if (pancakeIDLPScore[account.id] < 0) {
+      pancakeIDLPScore[account.id] = 0;
+    }
   }
   return pancakeIDLPScore;
 }

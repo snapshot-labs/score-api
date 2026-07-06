@@ -1,4 +1,4 @@
-import { subgraphRequest, customFetch } from '../../utils';
+import { customFetch, subgraphRequest } from '../../utils';
 
 const Networks: {
   [network: string]: {
@@ -136,7 +136,7 @@ export async function strategy(
     graphqlData.data.allNFTsByOwnersCoresAndChain.reduce((map, item) => {
       map[item.owner.toLowerCase()] = item.nfts.reduce((m, i) => {
         if (!options.params.blacklistNFTID?.includes(i.id)) {
-          m[i.nftCore.contractAddress.toLowerCase() + '-' + i.id] = i.name;
+          m[`${i.nftCore.contractAddress.toLowerCase()}-${i.id}`] = i.name;
         }
         return m;
       }, {});
@@ -150,7 +150,7 @@ export async function strategy(
         subgraphOwnersWithNfts[nft.ownership[0].owner] = {};
       }
       subgraphOwnersWithNfts[nft.ownership[0].owner][
-        nftContract.id + '-' + nft.tokenID
+        `${nftContract.id}-${nft.tokenID}`
       ] = '';
     });
   });

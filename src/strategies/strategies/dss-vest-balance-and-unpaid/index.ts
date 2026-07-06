@@ -1,5 +1,5 @@
-import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { strategy as dssVestUnpaidStrategy } from '../dss-vest-unpaid';
+import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
 export async function strategy(
   space,

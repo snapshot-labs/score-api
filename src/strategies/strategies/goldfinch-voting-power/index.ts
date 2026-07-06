@@ -1,6 +1,6 @@
+import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 import { strategy as erc20BalanceOf } from '../erc20-balance-of';
-import { formatUnits } from '@ethersproject/units';
 
 const COMMUNITY_REWARDS = '0x0Cd73c18C085dEB287257ED2307eC713e9Af3460';
 const STAKING_REWARDS = '0xFD6FF39DA508d281C2d255e9bBBfAb34B6be60c3';

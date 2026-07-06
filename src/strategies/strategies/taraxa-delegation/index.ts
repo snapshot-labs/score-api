@@ -1,6 +1,6 @@
+import { getAddress } from '@ethersproject/address';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { getAddress } from '@ethersproject/address';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
 import { Multicaller } from '../../utils';
 

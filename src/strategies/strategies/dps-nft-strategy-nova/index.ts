@@ -43,7 +43,6 @@ export async function strategy(
     params_nova.holders.__args.block = { number: snapshot };
   }
 
-  // eslint-disable-next-line prefer-const
   let page_nova = 0;
 
   while (page_nova !== -1) {

@@ -1,8 +1,8 @@
 import { getAddress } from '@ethersproject/address';
-import { subgraphRequest } from '../../utils';
-import { formatUnits, parseUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
-import { verifyResultsLength, verifyResults } from './oceanUtils';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { verifyResults, verifyResultsLength } from './oceanUtils';
+import { subgraphRequest } from '../../utils';
 
 const OCEAN_ERC20_DECIMALS = 18;
 const OCEAN_SUBGRAPH_URL = {

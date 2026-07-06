@@ -40,8 +40,8 @@ export async function strategy(
       addresses.map(a => [a, Number(results[a] ?? 0)])
     );
     return out;
-  } catch (e) {
-    console.error(`${apiBase}/v1/vp`, 'VP API error at slot:', slot, e);
+  } catch (err) {
+    console.error(`${apiBase}/v1/vp`, 'VP API error at slot:', slot, err);
     return Object.fromEntries(addresses.map(a => [a, 0]));
   }
 }

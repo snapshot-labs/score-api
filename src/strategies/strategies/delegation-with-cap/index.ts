@@ -1,5 +1,5 @@
-import { getDelegations } from '../../utils/delegation';
 import { call, getScoresDirect } from '../../utils';
+import { getDelegations } from '../../utils/delegation';
 
 export async function strategy(
   space,

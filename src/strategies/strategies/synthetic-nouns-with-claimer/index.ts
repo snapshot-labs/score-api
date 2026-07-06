@@ -1,5 +1,5 @@
 import { getAddress } from '@ethersproject/address';
-import { Multicaller, customFetch } from '../../utils';
+import { customFetch, Multicaller } from '../../utils';
 
 const abi = ['function ownerOf(uint256 index) external view returns (address)'];
 

@@ -1,6 +1,6 @@
+import { getAddress } from '@ethersproject/address';
 import { BigNumber, FixedNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { getAddress } from '@ethersproject/address';
 import { subgraphRequest } from '../../utils';
 
 const SUBGRAPH_URL_ROOT =

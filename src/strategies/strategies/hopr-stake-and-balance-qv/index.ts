@@ -1,6 +1,5 @@
-import { formatUnits, parseUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
-import { multicall } from '../../utils';
+import { formatUnits, parseUnits } from '@ethersproject/units';
 import {
   getGnosisBlockNumber,
   getHostedSubgraphUrl,
@@ -11,6 +10,7 @@ import {
   safeStakeSubgraphQuery,
   trimArray
 } from './utils';
+import { multicall } from '../../utils';
 
 /**
  * @dev Calculate score based on Quadratic Voting-like system.
