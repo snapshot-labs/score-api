@@ -1,9 +1,9 @@
+import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
-import { formatEther } from '@ethersproject/units';
 import { Contract } from '@ethersproject/contracts';
 import { Provider } from '@ethersproject/providers';
+import { formatEther } from '@ethersproject/units';
 import { getProvider, Multicaller } from '../../utils';
-import { getAddress } from '@ethersproject/address';
 
 const SDSABI = [
   'function balanceOf(address account) external view returns (uint256)',

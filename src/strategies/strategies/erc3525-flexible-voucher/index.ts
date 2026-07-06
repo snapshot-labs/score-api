@@ -1,8 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { hexZeroPad } from '@ethersproject/bytes';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller } from '../../utils';
 import { claimCoefficient, maturitiesCoefficient } from './utils';
+import { Multicaller } from '../../utils';
 
 const abi = [
   'function getSnapshot(uint256 tokenId) view returns (tuple(tuple(address issuer, uint8 claimType, uint64 startTime, uint64 latestStartTime, uint64[] terms, uint32[] percentages, bool isValid), uint256 tokenId, uint256 vestingAmount))',
@@ -50,7 +50,7 @@ export async function strategy(
   )) {
     for (let index = 0; index < crucibleCount.toNumber(); index++) {
       callWalletToCrucibleAddresses.call(
-        walletAddress.toString() + '-' + index.toString(),
+        `${walletAddress.toString()}-${index.toString()}`,
         options.address,
         'tokenOfOwnerByIndex',
         [walletAddress, index]

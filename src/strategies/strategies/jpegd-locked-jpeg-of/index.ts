@@ -1,7 +1,6 @@
-import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
-import { multicall } from '../../utils';
-import { subgraphRequest } from '../../utils';
+import { formatUnits } from '@ethersproject/units';
+import { multicall, subgraphRequest } from '../../utils';
 
 const SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/9CyfknHXr1cJrxraayn37zEmu1v4BS69i9NjLQW9XJT4'

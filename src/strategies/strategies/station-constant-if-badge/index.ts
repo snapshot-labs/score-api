@@ -1,7 +1,7 @@
 import {
-  getAllMembers,
+  fetchBadgeBalances,
   filterMembers,
-  fetchBadgeBalances
+  getAllMembers
 } from '../station-score-if-badge';
 
 export async function strategy(

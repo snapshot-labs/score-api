@@ -1,8 +1,8 @@
+import { getDelegations } from '../../utils/delegation';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { strategy as xdaiEasyStakingStrategy } from '../xdai-easy-staking';
 import { strategy as xdaiPOSDAOStakingStrategy } from '../xdai-posdao-staking';
 import { strategy as xdaiStakeHoldersStrategy } from '../xdai-stake-holders';
-import { getDelegations } from '../../utils/delegation';
 
 export async function strategy(
   space,

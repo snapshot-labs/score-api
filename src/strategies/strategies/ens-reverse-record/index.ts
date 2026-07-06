@@ -1,5 +1,5 @@
-import { call } from '../../utils';
 import namehash from 'eth-ens-namehash';
+import { call } from '../../utils';
 
 const abi = [
   {

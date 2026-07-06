@@ -11,7 +11,7 @@ import { rpcError } from './utils';
 const app = express();
 const PORT = process.env.PORT ?? 3003;
 
-initLogger(app);
+initLogger();
 initMetrics(app);
 
 app.disable('x-powered-by');

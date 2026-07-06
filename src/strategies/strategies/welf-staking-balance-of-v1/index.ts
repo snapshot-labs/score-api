@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 
 const abi = [
   'function getUserStakes(uint256 poolId, address user) view returns (tuple(uint256 amount, uint256 startTime, uint256 lastClaimTime)[])',
@@ -88,8 +88,8 @@ export async function strategy(
     }
 
     return votingPower;
-  } catch (error) {
-    console.error('WelfStaking strategy error:', error);
+  } catch (err) {
+    console.error('WelfStaking strategy error:', err);
     // Return zero voting power for all addresses if there's an error
     return addresses.reduce((acc, address) => ({ ...acc, [address]: 0 }), {});
   }

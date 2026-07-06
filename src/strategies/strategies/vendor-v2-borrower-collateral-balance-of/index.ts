@@ -1,8 +1,8 @@
-import { BigNumberish } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
 import { AbiCoder } from '@ethersproject/abi';
-import { Multicaller } from '../../utils';
+import { BigNumberish } from '@ethersproject/bignumber';
 import { BlockTag, StaticJsonRpcProvider } from '@ethersproject/providers';
+import { formatUnits } from '@ethersproject/units';
+import { Multicaller } from '../../utils';
 
 const abi = [
   'function debts(address borrower) external view returns (uint256, uint256)',

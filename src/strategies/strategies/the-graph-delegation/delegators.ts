@@ -1,14 +1,14 @@
-import { Provider } from '@ethersproject/providers';
 import { BigNumber } from '@ethersproject/bignumber';
+import { Provider } from '@ethersproject/providers';
 import { subgraphRequest } from '../../utils';
 import {
-  GRAPH_NETWORK_SUBGRAPH_URL,
-  bnWEI,
   bdMulBn,
-  GraphAccountScores,
+  bnWEI,
   calcNonStakedTokens,
-  verifyResults,
-  GraphStrategyOptions
+  GRAPH_NETWORK_SUBGRAPH_URL,
+  GraphAccountScores,
+  GraphStrategyOptions,
+  verifyResults
 } from '../the-graph-balance/utils/graphUtils';
 
 export async function delegatorsStrategy(

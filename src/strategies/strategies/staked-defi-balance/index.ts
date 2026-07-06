@@ -1,8 +1,8 @@
 // src/strategies/staked-defi-balance/index.ts
 
-import { formatUnits } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
-import { multicall, getProvider } from '../../utils';
+import { formatUnits } from '@ethersproject/units';
+import { getProvider, multicall } from '../../utils';
 import openStakingAbi from './ABI/openStakingABI.json';
 import standardStakingAbi from './ABI/standardStakingABI.json';
 import { ABI } from './types';

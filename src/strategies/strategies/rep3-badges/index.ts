@@ -1,8 +1,7 @@
 import { error } from 'console';
-import { subgraphRequest } from '../../utils';
-import { formatUnits } from '@ethersproject/units';
-import { Multicaller } from '../../utils';
 import { getAddress } from '@ethersproject/address';
+import { formatUnits } from '@ethersproject/units';
+import { Multicaller, subgraphRequest } from '../../utils';
 
 const REP3_SUBGRAPH_API_URLS_BY_CHAIN_ID = {
   '80001': 'https://api.thegraph.com/subgraphs/name/eth-jashan/rep3-mumbai',
@@ -140,7 +139,7 @@ async function getErc20Balance(
       });
 
       return result;
-    } catch (error: any) {
+    } catch {
       return {};
     }
   } else {
@@ -154,7 +153,7 @@ export async function strategy(
   provider,
   addresses,
   options,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   snapshot
 ) {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';

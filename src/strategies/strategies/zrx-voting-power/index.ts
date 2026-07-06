@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { multicall, customFetch } from '../../utils';
+import { customFetch, multicall } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
 const ZRX_STAKING_POOLS = {

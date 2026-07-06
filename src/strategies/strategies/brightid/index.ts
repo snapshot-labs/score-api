@@ -1,6 +1,4 @@
-import { multicall } from '../../utils';
-import { subgraphRequest } from '../../utils';
-import { getProvider } from '../../utils';
+import { getProvider, multicall, subgraphRequest } from '../../utils';
 
 const abi = [
   'function isVerifiedUser(address _user) external view returns (bool)'

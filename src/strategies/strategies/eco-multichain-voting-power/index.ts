@@ -1,8 +1,7 @@
-import { formatEther } from '@ethersproject/units';
 import { getAddress } from '@ethersproject/address';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
-
+import { formatEther } from '@ethersproject/units';
 import { getBlockNumber, getProvider, Multicaller } from '../../utils';
 
 const contracts = {

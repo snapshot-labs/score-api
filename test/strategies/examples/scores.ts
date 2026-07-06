@@ -185,9 +185,9 @@ const addresses = [
       snapshotBlockNumber
     );
     console.log(scores);
-  } catch (e) {
+  } catch (err) {
     console.log('getScores failed');
-    console.error(e);
+    console.error(err);
   }
   console.timeEnd('getScores');
 })();

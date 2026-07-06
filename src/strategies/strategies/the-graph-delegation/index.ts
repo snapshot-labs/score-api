@@ -1,5 +1,5 @@
-import { baseStrategy } from '../the-graph-balance/utils/baseStrategy';
 import { delegatorsStrategy } from './delegators';
+import { baseStrategy } from '../the-graph-balance/utils/baseStrategy';
 
 export async function strategy(
   _space,

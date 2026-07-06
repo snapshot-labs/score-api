@@ -1,5 +1,4 @@
 import strategies from '..';
-
 import {
   ConstantOperand,
   migrateLegacyOptions,

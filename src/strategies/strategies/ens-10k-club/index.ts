@@ -1,5 +1,5 @@
-import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
+import { subgraphRequest } from '../../utils';
 
 const ENS_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5XqPmWe6gjyrJtFn9cLy237i4cWw2j9HcUJEXsP5qGtH'
@@ -57,7 +57,7 @@ export async function strategy(
   );
 
   let result = await subgraphRequest(ENS_SUBGRAPH_URL[network], params);
-  result = [].concat.apply([], Object.values(result));
+  result = ([] as any[]).concat(...Object.values(result));
   const votes = {};
   if (result) {
     result.forEach(registration => {

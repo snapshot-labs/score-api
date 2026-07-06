@@ -1,7 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Provider } from '@ethersproject/providers';
 import { formatUnits } from '@ethersproject/units';
-
 import { multicall } from '../../utils';
 
 const v1StakingABI = [

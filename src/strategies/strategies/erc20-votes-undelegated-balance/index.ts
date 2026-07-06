@@ -1,5 +1,5 @@
-import { formatUnits } from '@ethersproject/units';
 import { getAddress, isAddress } from '@ethersproject/address';
+import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
 const abi = [

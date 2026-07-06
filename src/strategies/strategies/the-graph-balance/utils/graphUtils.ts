@@ -1,6 +1,6 @@
-import { parseUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Provider } from '@ethersproject/providers';
+import { parseUnits } from '@ethersproject/units';
 
 export const GRAPH_NETWORK_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/9Co7EQe5PgW3ugCUJrJgRv4u9zdEuDJf8NvMWftNsBH8',
@@ -81,11 +81,11 @@ export function verifyResults(
   type: string
 ): void {
   const diff = `expected:\n ${expectedResults}\ngot:\n ${result}`;
-  result === expectedResults
-    ? console.log(`>>> SUCCESS: ${type} match expected results`)
-    : console.error(
-        `>>> ERROR: ${type} do not match expected results\n${diff}`
-      );
+  if (result === expectedResults) {
+    console.log(`>>> SUCCESS: ${type} match expected results`);
+  } else {
+    console.error(`>>> ERROR: ${type} do not match expected results\n${diff}`);
+  }
 }
 /**
  * splits an array in even chunks and returns a list of chunks

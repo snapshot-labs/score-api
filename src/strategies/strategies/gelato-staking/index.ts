@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { Multicaller } from '../../utils';
 
 const abi = [
   'function stakers() external view returns (address[])',

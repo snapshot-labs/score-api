@@ -1,7 +1,7 @@
 import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
-import { subgraphRequest } from '../../utils';
 import { getAllReserves, getStakeInfo, UNISWAP_V3_STAKER } from './helper';
+import { subgraphRequest } from '../../utils';
 
 const UNISWAP_V3_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'

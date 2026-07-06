@@ -13,7 +13,7 @@ const abi = [
 // Helper function to convert address to userId (bytes32)
 function getIdForAddress(address) {
   // Pad the address to 32 bytes with zeros on the right
-  return '0x' + address.toLowerCase().slice(2).padEnd(64, '0');
+  return `0x${address.toLowerCase().slice(2).padEnd(64, '0')}`;
 }
 
 export async function strategy(

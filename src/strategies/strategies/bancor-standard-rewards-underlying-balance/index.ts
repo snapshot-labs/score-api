@@ -1,7 +1,6 @@
-import { formatUnits } from '@ethersproject/units';
 import { BigNumberish } from '@ethersproject/bignumber';
-import { call } from '../../utils';
-import { Multicaller } from '../../utils';
+import { formatUnits } from '@ethersproject/units';
+import { call, Multicaller } from '../../utils';
 
 const bancorNetworkInfoABI = [
   'function poolTokenToUnderlying(address pool, uint256 poolTokenAmount) external view returns (uint256)'

@@ -1,5 +1,5 @@
-import { subgraphRequest } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
+import { subgraphRequest } from '../../utils';
 
 const LIMIT = 500;
 
@@ -32,9 +32,8 @@ export async function strategy(
   snapshot
 ) {
   const _addresses = addresses.map(x => x.toLowerCase());
-  const addressSubsets = Array.apply(
-    null,
-    Array(Math.ceil(_addresses.length / LIMIT))
+  const addressSubsets = Array(
+    ...Array(Math.ceil(_addresses.length / LIMIT))
   ).map((_e, i) => _addresses.slice(i * LIMIT, (i + 1) * LIMIT));
 
   const returnedFromSubgraph = await Promise.all(

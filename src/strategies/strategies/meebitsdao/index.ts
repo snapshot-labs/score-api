@@ -1,4 +1,4 @@
-import { multicall, customFetch } from '../../utils';
+import { customFetch, multicall } from '../../utils';
 
 const abi = [
   'function ownerOf(uint256 tokenId) public view returns (address owner)',
