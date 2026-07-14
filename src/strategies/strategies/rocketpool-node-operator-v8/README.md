@@ -1,4 +1,4 @@
-# rocketpool-node-operator-delegate-v8
+# rocketpool-node-operator-v8
 
 This is a strategy for node operators, it returns the vote power for a node address.
 
