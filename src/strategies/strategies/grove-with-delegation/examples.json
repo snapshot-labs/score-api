@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Example query with whitelisted delegates",
+    "strategy": {
+      "name": "grove-with-delegation",
+      "params": {
+        "symbol": "stGROVE",
+        "whitelistedDelegates": [
+          "0xE0B9B0d8F89a92142292408cE14FdAD195FD040f"
+        ]
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0xE0B9B0d8F89a92142292408cE14FdAD195FD040f",
+      "0xF3Ddcaa3BD5D04ba08beC69cf34D9d9C9c112d14",
+      "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba",
+      "0x491EDFB0B8b608044e227225C715981a30F3A44E",
+      "0x6D51cCd36B43a438f04f5433F3EFeddeF5E5dc4B"
+    ],
+    "snapshot": 25502973
+  },
+  {
+    "name": "Example query without whitelisted delegates",
+    "strategy": {
+      "name": "grove-with-delegation",
+      "params": {
+        "symbol": "stGROVE"
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0xE0B9B0d8F89a92142292408cE14FdAD195FD040f",
+      "0xF3Ddcaa3BD5D04ba08beC69cf34D9d9C9c112d14",
+      "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba",
+      "0x491EDFB0B8b608044e227225C715981a30F3A44E",
+      "0x6D51cCd36B43a438f04f5433F3EFeddeF5E5dc4B"
+    ],
+    "snapshot": 25502973
+  }
+]
