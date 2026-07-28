@@ -1,5 +1,9 @@
 import 'dotenv/config';
-import { fallbackLogger, initLogger } from '@snapshot-labs/snapshot-sentry';
+import {
+  fallbackLogger,
+  initLogger,
+  Sentry
+} from '@snapshot-labs/snapshot-sentry';
 import cors from 'cors';
 import express from 'express';
 import { checkKeycard } from './helpers/keycard';
@@ -28,3 +32,11 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));
+
+async function shutdown() {
+  await Sentry.close(2000);
+  process.exit(0);
+}
+
+process.once('SIGTERM', shutdown);
+process.once('SIGINT', shutdown);
