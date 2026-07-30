@@ -2,8 +2,8 @@ import { getAddress } from '@ethersproject/address';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { getVotingDelegators } from './votingDelegations';
 import {
-  getSnapshotDelegations,
-  getSnapshotDelegatorSet
+  getSnapshotDelegationCandidates,
+  getSnapshotEffectiveDelegates
 } from './snapshotDelegations';
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
@@ -19,7 +19,9 @@ export async function strategy(
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
   const votingContract = options.votingContract;
   const delegationSpace = options.delegationSpace || space;
-  const addressesLc = new Set(addresses.map((a: string) => a.toLowerCase()));
+  const scoredAddressByLc = new Map<string, string>(
+    addresses.map((address: string) => [address.toLowerCase(), address])
+  );
   const votingAddresses = addresses.filter(
     (address: string) => address.toLowerCase() !== ZERO_ADDRESS
   );
@@ -28,8 +30,8 @@ export async function strategy(
   const delegations: Record<string, Set<string>> = {};
   addresses.forEach((address: string) => (delegations[address] = new Set()));
 
-  // Fetch both Voting and Snapshot delegators
-  const [votingDelegatorsMap, snapshotDelegatorsMap] = await Promise.all([
+  // Fetch Voting delegators and the Snapshot delegators pointing at a scored delegate
+  const [votingDelegatorsMap, snapshotCandidates] = await Promise.all([
     getVotingDelegators(
       network,
       provider,
@@ -37,46 +39,60 @@ export async function strategy(
       votingAddresses,
       blockTag
     ),
-    getSnapshotDelegations(delegationSpace, network, addresses, snapshot)
+    getSnapshotDelegationCandidates(
+      delegationSpace,
+      network,
+      addresses,
+      snapshot
+    )
   ]);
 
-  // Snapshot delegators go in first; the Voting pass below defers to them (Snapshot wins).
-  Object.entries(snapshotDelegatorsMap).forEach(([delegate, delegators]) => {
-    delegators.forEach(delegator =>
-      delegations[delegate].add(getAddress(delegator))
-    );
-  });
-
-  // A delegator from Voting is credited only if it has no Snapshot delegation.
   const votingCandidates: { delegate: string; delegator: string }[] = [];
   Object.entries(votingDelegatorsMap).forEach(([delegate, delegators]) => {
     delegators.forEach((delegator: string) => {
-      if (addressesLc.has(delegator.toLowerCase())) {
+      if (scoredAddressByLc.has(delegator.toLowerCase())) {
         return; // delegator is voting directly → keeps its own power
       }
       votingCandidates.push({ delegate, delegator });
     });
   });
 
-  // Apply the "Snapshot wins" rule: if a delegator has a Snapshot delegation, it is not credited to its Voting delegate.
-  if (votingCandidates.length > 0) {
-    const uniqueDelegators = [
-      ...new Set(votingCandidates.map(c => c.delegator))
-    ];
-    const snapshotDelegators = await getSnapshotDelegatorSet(
-      delegationSpace,
-      network,
-      uniqueDelegators,
-      snapshot
-    );
-    votingCandidates.forEach(({ delegate, delegator }) => {
-      if (snapshotDelegators.has(delegator.toLowerCase())) {
-        return; // Snapshot wins
-      }
+  // One `delegator_in` read serves both sides: the Snapshot delegator's effective
+  // delegate, and whether a Voting delegator has a Snapshot delegation at all.
+  const effectiveSnapshotDelegates = await getSnapshotEffectiveDelegates(
+    delegationSpace,
+    network,
+    [
+      ...snapshotCandidates,
+      ...votingCandidates.map(candidate => candidate.delegator)
+    ],
+    snapshot
+  );
 
-      delegations[delegate].add(getAddress(delegator));
-    });
-  }
+  snapshotCandidates.forEach(delegator => {
+    const effectiveDelegate = effectiveSnapshotDelegates.get(delegator);
+    if (!effectiveDelegate) {
+      return;
+    }
+
+    // A space-specific override can point outside the scored set; that power
+    // belongs to the override target, not to any scored delegate.
+    const scoredDelegate = scoredAddressByLc.get(effectiveDelegate);
+    if (!scoredDelegate) {
+      return;
+    }
+
+    delegations[scoredDelegate].add(getAddress(delegator));
+  });
+
+  // A delegator from Voting is credited only if it has no Snapshot delegation.
+  votingCandidates.forEach(({ delegate, delegator }) => {
+    if (effectiveSnapshotDelegates.has(delegator.toLowerCase())) {
+      return; // Snapshot wins
+    }
+
+    delegations[delegate].add(getAddress(delegator));
+  });
 
   // Unique delegators across all delegates
   const allDelegators = [

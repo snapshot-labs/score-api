@@ -1,9 +1,11 @@
-import { getAddress } from '@ethersproject/address';
 import { subgraphRequest, SNAPSHOT_SUBGRAPH_URL } from '../../utils';
 
-// "snapshot.js" below refers to the @snapshot-labs/snapshot.js SDK, whose
-// delegation helpers (buildSpaceIn, getDelegatesBySpace) this file mirrors so
-// its output matches the canonical utils/delegation.getDelegations.
+// Mirrors the snapshot.js delegation helpers (buildSpaceIn, getDelegatesBySpace),
+// but resolves precedence like `utils/delegation.getDelegationsData` rather than
+// `getDelegations`: the latter drops rows whose delegate is not being scored
+// before applying the override, so a space-specific delegation pointing outside
+// the scored set cannot win. Scores here can differ from the `delegation`
+// strategy for that reason.
 
 const PAGE_SIZE = 1000;
 const CHUNK_SIZE = 500; // max addresses per `_in` filter
@@ -84,27 +86,28 @@ async function queryDelegations(
 }
 
 /**
- * Each queried delegate's Snapshot delegators (delegate → delegators), read from
- * the Delegate Registry v1. Scoped via `delegate_in` to avoid paginating the
- * whole space; output matches `utils/delegation.getDelegations`.
+ * Delegators (lowercased) with at least one delegation row pointing at one of
+ * `addresses`, minus those voting directly. A superset of who gets credited: a
+ * row here can still lose to a space-specific one pointing elsewhere, which only
+ * `getSnapshotEffectiveDelegates` sees.
  */
-export async function getSnapshotDelegations(
+export async function getSnapshotDelegationCandidates(
   space: string,
   network: string,
   addresses: string[],
   snapshot: number | 'latest'
-): Promise<Record<string, string[]>> {
+): Promise<string[]> {
   const subgraphUrl = SNAPSHOT_SUBGRAPH_URL[network];
-  if (!subgraphUrl) {
-    return {};
+  if (!subgraphUrl || addresses.length === 0) {
+    return [];
   }
 
-  const addressesLc = addresses.map(address => address.toLowerCase());
+  const addressesLc = new Set(addresses.map(address => address.toLowerCase()));
   const spaceIn = buildSpaceIn(space);
 
   const rows = (
     await Promise.all(
-      chunk(addressesLc, CHUNK_SIZE).map(part =>
+      chunk([...addressesLc], CHUNK_SIZE).map(part =>
         queryDelegations(
           subgraphUrl,
           { space_in: spaceIn, delegate_in: part },
@@ -114,54 +117,38 @@ export async function getSnapshotDelegations(
     )
   ).flat();
 
-  // Override + space precedence, identical to `utils/delegation.getDelegations`:
-  // drop delegators that are themselves voting, and let a space-specific
-  // delegation override a global ('') one.
-  const delegations = rows.filter(
-    delegation =>
-      addressesLc.includes(delegation.delegate) &&
-      !addressesLc.includes(delegation.delegator)
-  );
-  const delegationsReverse: Record<string, string> = {};
-  delegations.forEach(
-    delegation =>
-      (delegationsReverse[delegation.delegator] = delegation.delegate)
-  );
-  delegations
-    .filter(delegation => delegation.space !== '')
-    .forEach(
-      delegation =>
-        (delegationsReverse[delegation.delegator] = delegation.delegate)
-    );
-
-  return Object.fromEntries(
-    addresses.map(address => [
-      address,
-      Object.entries(delegationsReverse)
-        .filter(([, delegate]) => address.toLowerCase() === delegate)
-        .map(([delegator]) => getAddress(delegator))
-    ])
-  );
+  return [
+    ...new Set(
+      rows
+        .map(delegation => delegation.delegator)
+        .filter(delegator => !addressesLc.has(delegator))
+    )
+  ];
 }
 
 /**
- * The subset of `delegators` (lowercased) that have **any** Snapshot
- * delegation in the space — used to enforce "Snapshot wins": a Voting delegator
- * is only credited onchain if it has no Snapshot delegation. Address-scoped via
- * `delegator_in`, so it reads only these delegators' rows, not the whole space.
+ * Effective Snapshot delegate per delegator, both lowercased; no entry means no
+ * delegation in the space. Reads every row of each delegator via `delegator_in`,
+ * which is what makes the precedence below correct: a `delegate_in` scoped read
+ * cannot see a competing space-specific row and would credit the wrong delegate.
+ *
+ * Also serves the "Snapshot wins" rule: a Voting delegator counts onchain only
+ * when it has no entry here.
  */
-export async function getSnapshotDelegatorSet(
+export async function getSnapshotEffectiveDelegates(
   space: string,
   network: string,
   delegators: string[],
   snapshot: number | 'latest'
-): Promise<Set<string>> {
+): Promise<Map<string, string>> {
   const subgraphUrl = SNAPSHOT_SUBGRAPH_URL[network];
   if (!subgraphUrl || delegators.length === 0) {
-    return new Set();
+    return new Map();
   }
 
-  const delegatorsLc = delegators.map(delegator => delegator.toLowerCase());
+  const delegatorsLc = [
+    ...new Set(delegators.map(delegator => delegator.toLowerCase()))
+  ];
   const spaceIn = buildSpaceIn(space);
 
   const rows = (
@@ -176,5 +163,17 @@ export async function getSnapshotDelegatorSet(
     )
   ).flat();
 
-  return new Set(rows.map(delegation => delegation.delegator));
+  // Space precedence, as in `utils/delegation.getDelegations`: space-specific
+  // rows overwrite global ('') ones regardless of which came first.
+  const delegateByDelegator = new Map<string, string>();
+  rows.forEach(delegation =>
+    delegateByDelegator.set(delegation.delegator, delegation.delegate)
+  );
+  rows
+    .filter(delegation => delegation.space !== '')
+    .forEach(delegation =>
+      delegateByDelegator.set(delegation.delegator, delegation.delegate)
+    );
+
+  return delegateByDelegator;
 }
