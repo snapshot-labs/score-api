@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Snapshot + Lido Voting delegation union (real Lido delegates)",
+    "strategy": {
+      "name": "lido-voting-delegation",
+      "params": {
+        "symbol": "LDO",
+        "address": "0x5a98fcbea516cf06857215779fd812ca3bef1b32",
+        "decimals": 18,
+        "votingContract": "0x2e59A20f205bB85a89C53f1936454680651E618e",
+        "delegationSpace": "lido-snapshot.eth"
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0x42E6DD8D517abB3E4f6611Ca53a8D1243C183fB0",
+      "0xB6647e02AE6Dd74137cB80b1C24333852E4AF890",
+      "0xa4181C75495f60106AE539B7C55c0D263f2fb737"
+    ],
+    "snapshot": 25073276
+  },
+  {
+    "name": "Override parity (a delegator that also voted is excluded)",
+    "strategy": {
+      "name": "lido-voting-delegation",
+      "params": {
+        "symbol": "LDO",
+        "address": "0x5a98fcbea516cf06857215779fd812ca3bef1b32",
+        "decimals": 18,
+        "votingContract": "0x2e59A20f205bB85a89C53f1936454680651E618e",
+        "delegationSpace": "lido-snapshot.eth"
+      }
+    },
+    "network": "1",
+    "addresses": [
+      "0x42E6DD8D517abB3E4f6611Ca53a8D1243C183fB0",
+      "0x3d56d86a60b92132b37f226EA5A23F84C805Ce29",
+      "0xa4181C75495f60106AE539B7C55c0D263f2fb737"
+    ],
+    "snapshot": 25073276
+  }
+]
