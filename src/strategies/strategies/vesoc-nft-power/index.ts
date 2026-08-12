@@ -1,7 +1,7 @@
-import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
+import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { customFetch, Multicaller, subgraphRequest } from '../../utils';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
+import { customFetch, Multicaller, subgraphRequest } from '../../utils';
 
 // ABI for VeSocLocker contract
 const veSocLockerAbi = [

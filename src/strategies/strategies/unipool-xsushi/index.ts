@@ -1,6 +1,6 @@
-import { multicall } from '../../utils';
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
+import { multicall } from '../../utils';
 
 const contractAbi = [
   'function balanceOf(address account) view returns (uint256)',

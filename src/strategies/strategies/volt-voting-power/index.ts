@@ -1,8 +1,6 @@
 import { formatUnits } from '@ethersproject/units';
-
-import { strategy as pagination } from '../pagination';
-
 import { subgraphRequest } from '../../utils';
+import { strategy as pagination } from '../pagination';
 
 const VOLTSWAP_SUBGRAPH = {
   '82': 'https://graph-meter.voltswap.finance/subgraphs/name/meterio/uniswap-v2-subgraph',

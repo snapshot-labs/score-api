@@ -74,35 +74,35 @@ export async function strategy(
 
   addresses.forEach((address: string) => {
     multi.call(
-      address + '_' + options.vesting_1,
+      `${address}_${options.vesting_1}`,
       options.vesting_1,
       'userPropertiesList',
       [address]
     );
     if (options.vesting_2)
       multi.call(
-        address + '_' + options.vesting_2,
+        `${address}_${options.vesting_2}`,
         options.vesting_2,
         'userPropertiesList',
         [address]
       );
     if (options.vesting_3)
       multi.call(
-        address + '_' + options.vesting_3,
+        `${address}_${options.vesting_3}`,
         options.vesting_3,
         'userPropertiesList',
         [address]
       );
     if (options.vesting_4)
       multi.call(
-        address + '_' + options.vesting_4,
+        `${address}_${options.vesting_4}`,
         options.vesting_4,
         'userPropertiesList',
         [address]
       );
     if (options.vesting_5)
       multi.call(
-        address + '_' + options.vesting_5,
+        `${address}_${options.vesting_5}`,
         options.vesting_5,
         'userPropertiesList',
         [address]

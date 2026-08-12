@@ -1,9 +1,9 @@
-import {
-  getAllMembers,
-  fetchBadgeBalances,
-  fetchScores
-} from '../station-score-if-badge';
 import { getAllVestings } from '../dss-vest-unpaid';
+import {
+  fetchBadgeBalances,
+  fetchScores,
+  getAllMembers
+} from '../station-score-if-badge';
 
 export async function strategy(
   space,

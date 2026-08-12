@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)'
@@ -34,10 +34,10 @@ export async function strategy(
     }
   );
   addresses.forEach(address => {
-    tokenMulti.call(address, options.tokenAddress, 'balanceOf', [address]),
-      stakedMulti.call(address, options.stakedAddress, options.methodABI.name, [
-        address
-      ]);
+    tokenMulti.call(address, options.tokenAddress, 'balanceOf', [address]);
+    stakedMulti.call(address, options.stakedAddress, options.methodABI.name, [
+      address
+    ]);
   });
   const tokenBalance = tokenMulti.execute();
   const stakedBalance = stakedMulti.execute();

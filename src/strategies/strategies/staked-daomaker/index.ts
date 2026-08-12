@@ -1,6 +1,6 @@
-import { multicall } from '../../utils';
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
+import { multicall } from '../../utils';
 
 const abi = [
   'function stakeCount(address stakerAddr) view returns (uint256)',
@@ -40,7 +40,7 @@ export async function strategy(
   // preparing second array for multicall
   const arrayForMultiCall: any = [];
   for (const i in stakeCountByWallet) {
-    const num = Number(stakeCountByWallet[i] + '');
+    const num = Number(`${stakeCountByWallet[i]}`);
     stakeAmountByWallet.push({ wallet: addresses[i], amt: BigNumber.from(0) });
 
     if (num > 0) {

@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { Web3Provider } from '@ethersproject/providers';
 import { formatUnits } from '@ethersproject/units';
-import { BigNumber } from '@ethersproject/bignumber';
 import { customFetch } from '../../utils';
 
 export async function strategy(

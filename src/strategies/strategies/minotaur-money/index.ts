@@ -1,5 +1,5 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { Multicaller, call } from '../../utils';
+import { call, Multicaller } from '../../utils';
 
 const minoContractAddress = '0x3A1138075bd97a33F23A87824b811146FA44288E';
 const sMinoContractAddress = '0xB46fe6791A30d51970EA3B840C9fa5F1F107b86F';
@@ -102,21 +102,21 @@ export async function strategy(
 
   for (const address of addresses) {
     const wsMinoScore = BigNumber.from(
-      mmfUserInfo[address + '0'] //from mmf pool
-        ? mmfUserInfo[address + '0']['amount']
+      mmfUserInfo[`${address}0`] //from mmf pool
+        ? mmfUserInfo[`${address}0`]['amount']
         : 0
     )
-      .add(minoBalances[address + '1'] || 0) // wsMinoBalances
+      .add(minoBalances[`${address}1`] || 0) // wsMinoBalances
       .mul(index); // timeses by 10^9 effectively
 
     const minoScore = wsMinoScore
       .add(
-        BigNumber.from(minoBalances[address + '0'] || 0).mul(
+        BigNumber.from(minoBalances[`${address}0`] || 0).mul(
           BigNumber.from(10).pow(18)
         )
       ) // mino balances
       .add(
-        BigNumber.from(minoBalances[address + '2'] || 0).mul(
+        BigNumber.from(minoBalances[`${address}2`] || 0).mul(
           BigNumber.from(10).pow(18)
         )
       ); // sMino balances

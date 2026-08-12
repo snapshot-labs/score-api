@@ -101,7 +101,7 @@ export async function strategy(
   provider,
   addresses,
   options,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   snapshot
 ) {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';

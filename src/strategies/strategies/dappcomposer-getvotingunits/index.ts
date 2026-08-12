@@ -1,6 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
-import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { Multicaller } from '../../utils';
 
 export const name = 'dappcomposer-getvotingunits';
 

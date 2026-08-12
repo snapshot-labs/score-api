@@ -1,6 +1,5 @@
 import { formatUnits } from '@ethersproject/units';
-import { getBlockNumber } from '../../utils';
-import { multicall } from '../../utils';
+import { getBlockNumber, multicall } from '../../utils';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)'

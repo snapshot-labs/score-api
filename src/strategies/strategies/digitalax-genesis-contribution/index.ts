@@ -1,6 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { subgraphRequest, multicall, customFetch } from '../../utils';
+import { customFetch, multicall, subgraphRequest } from '../../utils';
 
 const abiStaking = [
   'function getGenesisContribution(uint256 _tokenId) external view returns (uint256)'

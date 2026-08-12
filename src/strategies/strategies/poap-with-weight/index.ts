@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address';
-import { subgraphRequest } from '../../utils';
 import examplesFile from './examples.json';
+import { subgraphRequest } from '../../utils';
 
 export const examples = examplesFile;
 

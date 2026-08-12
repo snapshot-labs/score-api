@@ -1,5 +1,5 @@
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
 
 const BIG18 = BigNumber.from('1000000000000000000');
@@ -130,6 +130,7 @@ class VoteScorer {
     string,
     VotingScheme
   >();
+
   private dexReserveData: Array<DexReserveSupply> =
     new Array<DexReserveSupply>();
 

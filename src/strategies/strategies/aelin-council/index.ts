@@ -1,7 +1,7 @@
 import { getAddress } from '@ethersproject/address';
 import { Contract } from '@ethersproject/contracts';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { subgraphRequest, customFetch } from '../../utils';
+import { customFetch, subgraphRequest } from '../../utils';
 
 const GRAPH_API_URL = {
   uniswap: {

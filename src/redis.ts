@@ -19,8 +19,8 @@ let client;
   setInterval(async () => {
     try {
       await client.set('heartbeat', (Date.now() / 1e3).toFixed());
-    } catch (e) {
-      console.log('[redis] Heartbeat failed', e);
+    } catch (err) {
+      console.log('[redis] Heartbeat failed', err);
     }
   }, 10e3);
 })();

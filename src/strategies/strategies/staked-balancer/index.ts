@@ -1,6 +1,5 @@
-import { multicall } from '../../utils';
 import { getAddress } from '@ethersproject/address';
-import { subgraphRequest } from '../../utils';
+import { multicall, subgraphRequest } from '../../utils';
 
 const erc20ABI = [
   'function balanceOf(address account) external view returns (uint256)',

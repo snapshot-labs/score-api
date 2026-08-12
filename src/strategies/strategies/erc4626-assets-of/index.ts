@@ -1,6 +1,5 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-
 import { Multicaller } from '../../utils';
 
 const abi: string[] = [

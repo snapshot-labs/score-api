@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
-import { sha256, customFetch } from '../../utils';
+import { customFetch, sha256 } from '../../utils';
 
 export async function strategy(
   space,
@@ -21,10 +21,10 @@ export async function strategy(
   if (type === 'ipfs') {
     url = url.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
   } else if (type === 'api-get') {
-    url += '?network=' + network;
-    url += '&snapshot=' + snapshot;
-    url += '&addresses=' + addresses.join(',');
-    if (additionalParameters) url += '&' + additionalParameters;
+    url += `?network=${network}`;
+    url += `&snapshot=${snapshot}`;
+    url += `&addresses=${addresses.join(',')}`;
+    if (additionalParameters) url += `&${additionalParameters}`;
   } else if (type === 'api-post') {
     const requestBody = {
       options,
@@ -50,10 +50,9 @@ export async function strategy(
   let responseData: any = await response.text();
   try {
     responseData = JSON.parse(responseData);
-  } catch (e) {
+  } catch {
     throw new Error(
-      `[api-v2] Errors found in API: URL: ${url}, Status: ${response.status}` +
-      response.ok
+      `[api-v2] Errors found in API: URL: ${url}, Status: ${response.status}${response.ok}`
         ? `, Response: ${responseData.substring(0, 512)}`
         : ''
     );

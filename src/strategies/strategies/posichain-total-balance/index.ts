@@ -1,8 +1,8 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { formatUnits } from '@ethersproject/units';
-import { BigNumber } from '@ethersproject/bignumber';
-import { multicall } from '../../utils';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
+import { multicall } from '../../utils';
 
 const abi = [
   'function getEthBalance(address addr) public view returns (uint256 balance)'
@@ -35,7 +35,7 @@ export async function strategy(
         address,
         parseFloat(
           formatUnits(
-            BigNumber.from('0x' + balance.toString(16)),
+            BigNumber.from(`0x${balance.toString(16)}`),
             options && options.decimals ? options.decimals : 18
           )
         )

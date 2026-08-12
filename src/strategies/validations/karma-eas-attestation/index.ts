@@ -1,5 +1,5 @@
-import Validation from '../validation';
 import { customFetch } from '../../utils';
+import Validation from '../validation';
 
 interface Attestation {
   attester: string;
@@ -69,6 +69,7 @@ export default class extends Validation {
   public title = 'Karma EAS Attestation';
   public description =
     'Use EAS attest.sh to determine if user can create a proposal.';
+
   public proposalValidationOnly = true;
 
   protected async doValidate(): Promise<boolean> {

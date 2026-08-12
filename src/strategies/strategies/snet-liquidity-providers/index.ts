@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller, call } from '../../utils';
+import { call, Multicaller } from '../../utils';
 
 type FinalResult = [
   Record<string, BigNumberish>,

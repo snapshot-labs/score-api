@@ -1,7 +1,7 @@
-import { subgraphRequest } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 import { getAddress } from '@ethersproject/address';
-import { parseUnits, formatUnits } from '@ethersproject/units';
+import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { subgraphRequest } from '../../utils';
 
 const GIVETH_SUBGRAPH_API =
   'https://subgrapher.snapshot.org/subgraph/arbitrum/D1nWhEyZsWmsuqUJTzZZXfpxDXht5WKte7nDdDV6Ah7Y';

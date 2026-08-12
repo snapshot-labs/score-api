@@ -1,5 +1,5 @@
-import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
+import { subgraphRequest } from '../../utils';
 
 async function getTopHoldersBalance(
   url,

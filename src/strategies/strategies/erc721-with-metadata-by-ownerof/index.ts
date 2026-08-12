@@ -1,5 +1,5 @@
-import { multicall } from '../../utils';
 import snapshots from '@snapshot-labs/snapshot.js';
+import { multicall } from '../../utils';
 
 const abi = [
   'function ownerOf(uint256 tokenId) public view returns (address owner)'

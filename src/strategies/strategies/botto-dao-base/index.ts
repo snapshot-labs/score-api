@@ -22,7 +22,7 @@ export async function strategy(
 
   addresses.forEach(address => {
     multiBalances.call(
-      address + '-stakedBotto',
+      `${address}-stakedBotto`,
       options.stakingAddress,
       'userStakes',
       [address]
@@ -33,7 +33,7 @@ export async function strategy(
 
   const result = Object.fromEntries(
     addresses.map(adr => {
-      const stakedBotto = _formatUnits(balances[adr + '-stakedBotto'] || 0);
+      const stakedBotto = _formatUnits(balances[`${adr}-stakedBotto`] || 0);
       return [adr, stakedBotto];
     })
   );

@@ -1,4 +1,4 @@
-import { Address, DelegatedMapping, AddressScore } from './types';
+import { Address, AddressScore, DelegatedMapping } from './types';
 
 export const lowerCaseAddress = (address: Address) =>
   address.toLowerCase() as Address;

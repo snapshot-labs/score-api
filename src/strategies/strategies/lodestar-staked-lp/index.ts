@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { formatUnits } from '@ethersproject/units';
-import { Multicaller, multicall } from '../../utils';
 import { getAddress } from '@ethersproject/address';
+import { formatUnits } from '@ethersproject/units';
+import { multicall, Multicaller } from '../../utils';
 
 const abi = [
   'function userInfo(address) view returns (uint256 amount, uint256 rewardDebt)',

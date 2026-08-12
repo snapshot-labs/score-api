@@ -1,5 +1,5 @@
-import { getProvider, getSnapshots } from '../../utils';
 import strategies from '..';
+import { getProvider, getSnapshots } from '../../utils';
 
 export async function strategy(
   space,

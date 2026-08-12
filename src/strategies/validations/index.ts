@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, existsSync } from 'fs';
+import { existsSync, readdirSync, readFileSync } from 'fs';
 import path from 'path';
 
 const validationClasses: any = {};
@@ -13,12 +13,13 @@ for (const dirName of dirs) {
     const validationPath = path.join(validationsDir, dirName);
     const indexPath = path.join(validationPath, 'index');
 
-    if (existsSync(indexPath + '.ts') || existsSync(indexPath + '.js')) {
+    if (existsSync(`${indexPath}.ts`) || existsSync(`${indexPath}.js`)) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const module = require(`./${dirName}`);
       validationClasses[dirName] = module.default || module;
     }
-  } catch (error) {
-    console.warn(`Failed to load validation ${dirName}:`, error);
+  } catch (err) {
+    console.warn(`Failed to load validation ${dirName}:`, err);
   }
 }
 
@@ -35,7 +36,7 @@ Object.keys(validationClasses).forEach(function (validationName) {
         'utf8'
       )
     );
-  } catch (error) {
+  } catch {
     examples = null;
   }
 
@@ -43,7 +44,7 @@ Object.keys(validationClasses).forEach(function (validationName) {
     schema = JSON.parse(
       readFileSync(path.join(__dirname, validationName, 'schema.json'), 'utf8')
     );
-  } catch (error) {
+  } catch {
     schema = null;
   }
 
@@ -52,7 +53,7 @@ Object.keys(validationClasses).forEach(function (validationName) {
       path.join(__dirname, validationName, 'README.md'),
       'utf8'
     );
-  } catch (error) {
+  } catch {
     about = '';
   }
 

@@ -1,6 +1,6 @@
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
-import { multicall, customFetch } from '../../utils';
+import { formatUnits } from '@ethersproject/units';
+import { customFetch, multicall } from '../../utils';
 
 /*
  * Generic masterchef pool balance or price strategy. Accepted options:

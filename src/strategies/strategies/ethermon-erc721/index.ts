@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Multicaller, customFetch } from '../../utils';
+import { customFetch, Multicaller } from '../../utils';
 
 const abi1 = [
   'function getMonsterObj(uint64 _objId) external view returns(uint64 objId, uint32 classId, address trainer, uint32 exp, uint32 createIndex, uint32 lastClaimIndex, uint createTime)',
@@ -32,7 +32,7 @@ export async function strategy(
     const balance = clamp(+player_addresses[address[0]].toString(), 0, 200);
     for (let i = 0; i < balance; i++) {
       multi1.call(
-        address[0].toString() + '-' + i.toString(),
+        `${address[0].toString()}-${i.toString()}`,
         options.EMONA_ADDRESS,
         'tokenOfOwnerByIndex',
         [address[0], i]
@@ -46,7 +46,7 @@ export async function strategy(
     const address = address_token[0].split('-')[0].toString();
     const token = +address_token[1].toString();
     multi2.call(
-      address + '-' + token,
+      `${address}-${token}`,
       options.EMON_DATA_ADDRESS,
       'getMonsterObj',
       [token]
@@ -56,7 +56,7 @@ export async function strategy(
   const monObject: Record<string, number> = await multi2.execute();
 
   const response = await customFetch(
-    'https://storageapi.fleek.co/' + options.tokenWeightIPFS,
+    `https://storageapi.fleek.co/${options.tokenWeightIPFS}`,
     {
       method: 'GET',
       headers: {

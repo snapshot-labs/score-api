@@ -38,7 +38,7 @@ export async function strategy(
   if (options.contractAddresses.length > 1) {
     // grouping all balances of a particular address together
     const result: any = [];
-    response = [].concat.apply([], response);
+    response = [].concat(...response);
     for (let i = addresses.length; i > 0; i--) {
       result.push(response.splice(0, Math.ceil(response.length / i)));
     }

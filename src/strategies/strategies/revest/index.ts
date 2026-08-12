@@ -1,8 +1,7 @@
 import { defaultAbiCoder } from '@ethersproject/abi';
 import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
-import { multicall } from '../../utils';
-import { subgraphRequest } from '../../utils';
+import { multicall, subgraphRequest } from '../../utils';
 
 export const SUBGRAPH_URL = {
   '1': 'https://api.thegraph.com/subgraphs/name/alexvorobiov/eip1155subgraph'

@@ -14,9 +14,9 @@ const addresses = ['0xde1E6A7ED0ad3F61D531a8a78E83CcDdbd6E0c49'];
       13413053
     );
     console.log(scores);
-  } catch (e) {
+  } catch (err) {
     console.log('getDelegations failed');
-    console.error(e);
+    console.error(err);
   }
   console.timeEnd('getDelegations');
 })();

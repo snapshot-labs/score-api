@@ -1,7 +1,7 @@
+import * as bignumber_1 from '@ethersproject/bignumber';
 import { multicall } from '../../utils';
-const bignumber_1 = require('@ethersproject/bignumber');
-const quickswap_1 = require('../digitalax-mona-quickswap');
-const bn = num => {
+import * as quickswap_1 from '../digitalax-mona-quickswap';
+const bn = (num): any => {
   return bignumber_1.BigNumber.from(num.toString());
 };
 

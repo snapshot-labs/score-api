@@ -1,7 +1,6 @@
-import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
-import { multicall } from '../../utils';
+import { multicall, subgraphRequest } from '../../utils';
 
 const abi = [
   'function isWearerOfHat(address _user, uint256 _hatId) external view returns (bool isWearer)'

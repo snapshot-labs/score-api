@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { formatUnits } from '@ethersproject/units';
-import { BigNumber } from '@ethersproject/bignumber';
 
 type Params = {
   symbol: string;
@@ -29,7 +29,7 @@ export async function strategy(
       address,
       parseFloat(
         formatUnits(
-          BigNumber.from('0x' + balance.toString(16)),
+          BigNumber.from(`0x${balance.toString(16)}`),
           options && options.decimals ? options.decimals : 18
         )
       )

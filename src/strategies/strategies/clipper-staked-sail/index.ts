@@ -1,5 +1,5 @@
-import { multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
+import { multicall } from '../../utils';
 
 const vesailTokenAddress = '0x26fE2f89a1FEf1bC90b8a89D8AD18a1891166ff5';
 const decimals = 18;

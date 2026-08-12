@@ -1,5 +1,5 @@
-import { multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
+import { multicall } from '../../utils';
 
 const data_reader_address = '0x8458fe26CbF3B8295755654C02ABaDFB1d3CBCe6';
 const data_reader_abi = [

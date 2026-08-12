@@ -1,5 +1,5 @@
-import { Multicaller, subgraphRequest } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { Multicaller, subgraphRequest } from '../../utils';
 
 const abi = [
   'function subscriptions(address user) external view returns (uint256)',

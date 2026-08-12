@@ -1,9 +1,9 @@
 export function hatIdDecimalToHex(hatId) {
-  return `0x` + BigInt(hatId).toString(16).padStart(64, `0`);
+  return `0x${BigInt(hatId).toString(16).padStart(64, `0`)}`;
 }
 
 export function treeIdDecimalToHex(treeId) {
-  return `0x` + treeId.toString(16).padStart(8, `0`);
+  return `0x${treeId.toString(16).padStart(8, `0`)}`;
 }
 
 export function hatIdHexToDecimal(hatId) {
@@ -27,7 +27,7 @@ export function hatIdDecimalToIp(hatId) {
     if (domainAtLevel === `0000`) {
       break;
     }
-    ip += `.` + parseInt(domainAtLevel, 16);
+    ip += `.${parseInt(domainAtLevel, 16)}`;
   }
   return ip;
 }

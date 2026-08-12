@@ -1,7 +1,7 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { keccak256 } from '@ethersproject/keccak256';
 import { pack } from '@ethersproject/solidity';
 import { Multicaller } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 
 const abi = [
   'function delegateNonce(address) external view returns (uint256)',

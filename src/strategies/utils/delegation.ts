@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address';
-import { getDelegatesBySpace } from '../utils';
 import { Snapshot } from '../types';
+import { getDelegatesBySpace } from '../utils';
 
 const DELEGATION_DATA_CACHE = {};
 

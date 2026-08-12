@@ -33,7 +33,7 @@ export async function strategy(
   for (const [walletAddress, count] of Object.entries(walletBalanceOf)) {
     for (let index = 0; index < count.toNumber(); index++) {
       multiCallTokenOfOwner.call(
-        walletAddress.toString() + '-' + index.toString(),
+        `${walletAddress.toString()}-${index.toString()}`,
         options.address,
         'tokenOfOwnerByIndex',
         [walletAddress, index]

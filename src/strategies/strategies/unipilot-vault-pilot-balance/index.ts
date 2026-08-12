@@ -1,7 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-
-import { subgraphRequest, call, multicall } from '../../utils';
+import { call, multicall, subgraphRequest } from '../../utils';
 
 function bn(num: any): BigNumber {
   return BigNumber.from(num.toString());

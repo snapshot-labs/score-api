@@ -1,6 +1,6 @@
-import { formatUnits } from '@ethersproject/units';
-import { BigNumber } from '@ethersproject/bignumber';
 import { getAddress } from '@ethersproject/address';
+import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
 const SUPPORTED_CHAINS = {
@@ -95,7 +95,7 @@ async function getChainBalance(
         );
       });
       stakingResult = await stakingMulti.execute();
-    } catch (error) {
+    } catch {
       const balanceMulti = new Multicaller(network, provider, stakingAbi, {
         blockTag
       });
@@ -110,7 +110,7 @@ async function getChainBalance(
 
       try {
         stakingResult = await balanceMulti.execute();
-      } catch (error) {
+      } catch {
         console.warn(`Failed to fetch staking balances for network ${network}`);
       }
     }
@@ -131,8 +131,8 @@ async function getChainBalance(
         return [address, formattedTokenBalance + formattedStakedBalance];
       })
     );
-  } catch (error) {
-    throw new Error(`Error fetching balances for network ${network}: ${error}`);
+  } catch (err) {
+    throw new Error(`Error fetching balances for network ${network}: ${err}`);
   }
 }
 

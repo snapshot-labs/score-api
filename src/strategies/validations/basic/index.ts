@@ -1,6 +1,6 @@
-import Validation from '../validation';
-import { getProvider, getScoresDirect } from '../../utils';
 import { Protocol } from '../../types';
+import { getProvider, getScoresDirect } from '../../utils';
+import Validation from '../validation';
 
 export default class extends Validation {
   public id = 'basic';

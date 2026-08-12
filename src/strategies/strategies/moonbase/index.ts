@@ -1,7 +1,7 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller } from '../../utils';
 import examplesFile from './examples.json';
+import { Multicaller } from '../../utils';
 
 export const examples = examplesFile;
 

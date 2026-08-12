@@ -1,6 +1,5 @@
 import { formatUnits } from '@ethersproject/units';
-import { getBlockNumber } from '../../utils';
-import { Multicaller } from '../../utils';
+import { getBlockNumber, Multicaller } from '../../utils';
 
 export async function strategy(
   space,

@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, existsSync } from 'fs';
+import { existsSync, readdirSync, readFileSync } from 'fs';
 import path from 'path';
 import { DEFAULT_SUPPORTED_PROTOCOLS } from '../constants';
 
@@ -18,12 +18,13 @@ for (const dirName of dirs) {
     const indexPath = path.join(strategyPath, 'index');
 
     // Check if index file exists (either .ts or .js after compilation)
-    if (existsSync(indexPath + '.ts') || existsSync(indexPath + '.js')) {
+    if (existsSync(`${indexPath}.ts`) || existsSync(`${indexPath}.js`)) {
       // Use require to dynamically load the module
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       strategies[dirName] = require(`./${dirName}`);
     }
-  } catch (error) {
-    console.warn(`Failed to load strategy ${dirName}:`, error);
+  } catch (err) {
+    console.warn(`Failed to load strategy ${dirName}:`, err);
   }
 }
 
@@ -41,7 +42,7 @@ Object.keys(strategies).forEach(function (strategyName) {
         'utf8'
       )
     );
-  } catch (error) {
+  } catch {
     examples = null;
   }
 
@@ -52,7 +53,7 @@ Object.keys(strategies).forEach(function (strategyName) {
         'utf8'
       )
     );
-  } catch (error) {
+  } catch {
     schema = null;
   }
 
@@ -61,7 +62,7 @@ Object.keys(strategies).forEach(function (strategyName) {
       path.join(strategiesDir, strategyName, 'README.md'),
       'utf8'
     );
-  } catch (error) {
+  } catch {
     about = '';
   }
 
@@ -72,7 +73,7 @@ Object.keys(strategies).forEach(function (strategyName) {
         'utf8'
       )
     );
-  } catch (error) {
+  } catch {
     manifest = null;
   }
 

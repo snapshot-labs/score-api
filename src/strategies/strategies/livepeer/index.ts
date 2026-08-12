@@ -1,6 +1,6 @@
+import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
-import { getAddress } from '@ethersproject/address';
 
 // Livepeer contracts on Arbitrum
 const VOTING_CHECKPOINT_CONTRACT = '0x0B9C254837E72Ebe9Fe04960C43B69782E68169A';

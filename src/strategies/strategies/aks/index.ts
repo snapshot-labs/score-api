@@ -1,4 +1,4 @@
-import { subgraphRequest, customFetch } from '../../utils';
+import { customFetch, subgraphRequest } from '../../utils';
 
 type VotingResponse = {
   verificationHash: string;

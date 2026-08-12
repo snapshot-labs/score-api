@@ -32,7 +32,7 @@ export async function strategy(
   Object.entries(balance).map(async ([address, balance]) => {
     const num = Number(balance.toString());
     for (let i = 0; i < num; i++) {
-      const path = address + '-' + i;
+      const path = `${address}-${i}`;
       nftIdCall.call(path, options.address, 'tokenOfOwnerByIndex', [
         address,
         i
@@ -42,7 +42,7 @@ export async function strategy(
 
   const stakingCheck = new Multicaller(network, provider, abi, { blockTag });
   addresses.forEach(address => {
-    const stakedPath = address + '-' + 'staked';
+    const stakedPath = `${address}-` + `staked`;
     stakingCheck.call(stakedPath, options.address, 'stakedNft', [address]);
   });
 

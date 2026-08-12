@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Voting proxy with factory",
+    "strategy": {
+      "name": "voting-proxy",
+      "params": {
+        "factory": "0x1111111111111111111111111111111111111111",
+        "strategies": [
+          {
+            "name": "whitelist",
+            "params": {
+              "symbol": "VP",
+              "addresses": ["0x966885831bD5FdaAe28Fae45dB0B396E3135549c"]
+            }
+          }
+        ]
+      }
+    },
+    "network": "56",
+    "addresses": [
+      "0x966885831bD5FdaAe28Fae45dB0B396E3135549c",
+      "0x000000000000000000000000000000000000dEaD",
+      "0x2222222222222222222222222222222222222222"
+    ],
+    "snapshot": 105693000
+  }
+]

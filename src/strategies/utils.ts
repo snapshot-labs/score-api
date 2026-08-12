@@ -1,9 +1,9 @@
+import { createHash } from 'crypto';
+import snapshot from '@snapshot-labs/snapshot.js';
 import fetch from 'cross-fetch';
 import _strategies from './strategies';
-import snapshot from '@snapshot-labs/snapshot.js';
-import { getDelegations } from './utils/delegation';
-import { createHash } from 'crypto';
 import { Protocol, Score, Snapshot, VotingPower } from './types';
+import { getDelegations } from './utils/delegation';
 
 export function sha256(str) {
   return createHash('sha256').update(str).digest('hex');
@@ -74,8 +74,8 @@ export async function getScoresDirect(
         )
       )
     );
-  } catch (e) {
-    return Promise.reject(e);
+  } catch (err) {
+    return Promise.reject(err);
   }
 }
 

@@ -1,5 +1,5 @@
-import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
+import { subgraphRequest } from '../../utils';
 
 const SUBGRAPH_URL_MAP = {
   '10': 'https://subgrapher.snapshot.org/subgraph/arbitrum/6YMD95vYriDkmTJewC2vYubqVZrc6vdk3Sp3mR3YCQUw',

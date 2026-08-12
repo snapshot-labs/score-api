@@ -1,5 +1,5 @@
-import { getVp } from '../../../src/strategies/utils';
 import { strategies, testConfig } from './fixtures/vp-fixtures';
+import { getVp } from '../../../src/strategies/utils';
 
 const { network, snapshot, space, evmAddress, starknetAddress } = testConfig;
 const TEST_TIMEOUT = 20e3;

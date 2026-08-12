@@ -1,6 +1,5 @@
 import { formatUnits } from '@ethersproject/units';
-import { multicall } from '../../utils';
-import { Multicaller } from '../../utils';
+import { multicall, Multicaller } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
 //abi

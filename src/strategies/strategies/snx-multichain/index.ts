@@ -1,6 +1,6 @@
-import { getProvider, getSnapshots } from '../../utils';
-import strategies from '..';
 import { Contract } from '@ethersproject/contracts';
+import strategies from '..';
+import { getProvider, getSnapshots } from '../../utils';
 
 const CONTRACT_ADDRESSES = {
   '1': {

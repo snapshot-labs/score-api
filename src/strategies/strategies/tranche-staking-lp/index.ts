@@ -1,7 +1,6 @@
 // Inspired by https://github.com/snapshot-labs/snapshot.js/blob/master/src/strategies/uniswap/index.ts
 import { formatUnits } from '@ethersproject/units';
-import { multicall } from '../../utils';
-import { subgraphRequest } from '../../utils';
+import { multicall, subgraphRequest } from '../../utils';
 
 const UNISWAP_SUBGRAPH_URL = {
   '1': 'https://subgrapher.snapshot.org/subgraph/arbitrum/EYCKATKGBKLWvSfwvBjzfCBmGwYNdVkduYXVivCsLRFu'

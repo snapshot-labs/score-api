@@ -1,5 +1,5 @@
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
 
 const SAFF_STAKING_V2 = '0x4eB4C5911e931667fE1647428F38401aB1661763';

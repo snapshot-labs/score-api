@@ -1,6 +1,6 @@
+import { getAddress } from '@ethersproject/address';
 import fetch from 'cross-fetch';
 import { getScoresDirect, Multicaller, sha256 } from '../../utils';
-import { getAddress } from '@ethersproject/address';
 
 const signerRegistryContractAddress =
   '0xc1062617d10Ae99E09D941b60746182A87eAB38F';
@@ -37,7 +37,7 @@ export async function strategy(
   }
 
   const req = await fetch(
-    'https://api.rocketpool.net/mainnet/delegates/block/' + blockTag,
+    `https://api.rocketpool.net/mainnet/delegates/block/${blockTag}`,
     {
       headers: {
         'X-Snapshot-API-Secret': getSnapshotSecretHeader()

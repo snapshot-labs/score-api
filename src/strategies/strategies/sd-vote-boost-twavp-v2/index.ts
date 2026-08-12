@@ -1,5 +1,5 @@
-import { multicall } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
+import { multicall } from '../../utils';
 
 // Used ABI
 const abi = [

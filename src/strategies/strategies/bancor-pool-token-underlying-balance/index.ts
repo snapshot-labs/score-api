@@ -1,5 +1,5 @@
-import { call } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { call } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 
 const erc20ABI = [

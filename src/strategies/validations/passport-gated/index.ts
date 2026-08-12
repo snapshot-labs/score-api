@@ -1,7 +1,6 @@
 import snapshot from '@snapshot-labs/snapshot.js';
-import { customFetch } from '../../utils';
-
 import STAMPS from './stampsMetadata.json';
+import { customFetch } from '../../utils';
 import Validation from '../validation';
 
 // Create one from https://scorer.gitcoin.co/#/dashboard/api-keys

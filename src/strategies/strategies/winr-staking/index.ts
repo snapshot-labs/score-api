@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { Multicaller } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 
 const abi = [
   'function getActiveIndexes(address staker) external view returns (uint256[])',

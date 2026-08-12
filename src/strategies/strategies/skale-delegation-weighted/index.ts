@@ -1,7 +1,7 @@
-import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
-import { Multicaller, multicall, subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
+import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
+import { multicall, Multicaller, subgraphRequest } from '../../utils';
 
 const abi = [
   'function getAndUpdateDelegatedAmount(address wallet) external returns (uint)',

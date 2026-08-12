@@ -82,8 +82,8 @@ describe('getVp function', () => {
     try {
       await getVp(params);
       fail('Expected getVp to throw an error'); // This will fail the test if no error is thrown
-    } catch (error) {
-      expect(error).toMatch('something wrong with the strategies');
+    } catch (err) {
+      expect(err).toMatch('something wrong with the strategies');
     }
   });
 
@@ -273,8 +273,8 @@ describe('validate', () => {
     try {
       await validate({ ...mockedArgs, validation: 'notFoundValidation' });
       fail('Expected validate to throw an error');
-    } catch (error: any) {
-      expect(error).toBe('Validation not found');
+    } catch (err: any) {
+      expect(err).toBe('Validation not found');
     }
   });
 

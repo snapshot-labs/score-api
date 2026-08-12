@@ -1,7 +1,7 @@
 import { getAddress } from '@ethersproject/address';
-import { getProvider, multicall, subgraphRequest } from '../../utils';
 import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
+import { getProvider, multicall, subgraphRequest } from '../../utils';
 
 const VL_SDT = '0x94818A7baa7e9F5dC62ce4da1B52ef9a760b80B8';
 const VL_PROXY_BOOST_SDT = '0xaB05ca46d1c78CAbB051efFE35099714Cad2AddA';

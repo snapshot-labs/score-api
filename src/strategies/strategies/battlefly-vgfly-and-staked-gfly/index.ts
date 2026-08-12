@@ -1,7 +1,7 @@
-import { multicall, Multicaller, subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
+import { multicall, Multicaller, subgraphRequest } from '../../utils';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)',

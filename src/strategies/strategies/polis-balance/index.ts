@@ -1,7 +1,7 @@
-import { formatUnits } from '@ethersproject/units';
-import { multicall, Multicaller } from '../../utils';
 import { BigNumberish } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
+import { multicall, Multicaller } from '../../utils';
 
 const abi = [
   'function getEthBalance(address addr) public view returns (uint256 balance)'
@@ -84,7 +84,7 @@ export async function strategy(
     const pools = result_delegated_pools[addresses[i]];
     for (const pool of pools) {
       multi_staked.call(
-        addresses[i] + '-' + pool.toString(),
+        `${addresses[i]}-${pool.toString()}`,
         options.staking,
         'stakeAmount',
         [pool, addresses[i]]

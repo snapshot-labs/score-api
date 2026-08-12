@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 
 /*
  * Generic masterchef pool balance strategy. Accepted options:

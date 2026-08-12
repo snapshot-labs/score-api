@@ -1,6 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
-import { Multicaller } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { Multicaller } from '../../utils';
 
 const abiStaking = ['function stakes(address) public view returns (uint256)'];
 const abiProxyRegistry = [

@@ -1,9 +1,9 @@
-import { formatUnits, parseUnits } from '@ethersproject/units';
-import { Contract } from '@ethersproject/contracts';
-import { strategy as fetchERC20Balances } from '../erc20-balance-of';
-import { strategy as fetchERC20Votes } from '../erc20-votes';
 import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
+import { Contract } from '@ethersproject/contracts';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { strategy as fetchERC20Balances } from '../erc20-balance-of';
+import { strategy as fetchERC20Votes } from '../erc20-votes';
 
 const BPTAbi = [
   'function getTokens() external view returns (address[] tokens)'

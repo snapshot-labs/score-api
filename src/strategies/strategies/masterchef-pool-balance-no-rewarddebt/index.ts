@@ -1,6 +1,6 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
 import { multicall } from '../../utils';
-import { BigNumber } from '@ethersproject/bignumber';
 
 /*
  * Masterchef pool balance strategy. Differs from strategy masterchef-pool-balance by working with masterchefs

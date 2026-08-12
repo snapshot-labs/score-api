@@ -1,5 +1,5 @@
-import { strategy as erc721WithMultiplier } from '../erc721-with-multiplier';
 import { multicall } from '../../utils';
+import { strategy as erc721WithMultiplier } from '../erc721-with-multiplier';
 import { WeightRange } from './types';
 
 const abi = [

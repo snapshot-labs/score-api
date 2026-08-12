@@ -1,15 +1,15 @@
 import { multicall } from '../../utils';
 import { strategy as erc721BalanceOfStrategy } from '../erc721';
 import { abi, delegatexyzV2ContractAddress } from './constants';
-import { lowerCaseAddress, calculateVotingPower } from './utils';
 import {
   Address,
-  DelegationType,
+  AddressScore,
+  DelegatedMapping,
   Delegation,
   DelegationStruct,
-  DelegatedMapping,
-  AddressScore
+  DelegationType
 } from './types';
+import { calculateVotingPower, lowerCaseAddress } from './utils';
 
 export async function strategy(
   space,

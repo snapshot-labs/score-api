@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller, customFetch } from '../../utils';
+import { customFetch, Multicaller } from '../../utils';
 
 const abi = [
   'function claimed(uint256 tranche, address user) external view returns (bool)',
@@ -38,7 +38,7 @@ export async function strategy(
     throw new Error('apiUrl is not defined in options');
   }
 
-  const url = options.apiUrl + '?address=' + notClaimedAddresses.join(',');
+  const url = `${options.apiUrl}?address=${notClaimedAddresses.join(',')}`;
   const apiResponse = await customFetch(url, {
     method: 'GET',
     headers: {

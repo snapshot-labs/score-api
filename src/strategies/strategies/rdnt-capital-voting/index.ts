@@ -1,6 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller, multicall, call } from '../../utils';
+import { call, multicall, Multicaller } from '../../utils';
 
 const erc20Abi = [
   'function balanceOf(address owner) external returns (uint256)'

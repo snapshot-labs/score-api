@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { hexZeroPad } from '@ethersproject/bytes';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller, multicall } from '../../utils';
+import { multicall, Multicaller } from '../../utils';
 
 const abi = [
   'function balanceOf(address owner) external view returns (uint256)',
@@ -100,7 +100,7 @@ export async function strategy(
   )) {
     for (let index = 0; index < crucibleCount.toNumber(); index++) {
       callWalletToCrucibleAddresses.call(
-        walletAddress.toString() + '-' + index.toString(),
+        `${walletAddress.toString()}-${index.toString()}`,
         options.crucibleFactory,
         'tokenOfOwnerByIndex',
         [walletAddress, index]

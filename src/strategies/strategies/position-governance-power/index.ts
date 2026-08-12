@@ -1,6 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { Multicaller, multicall } from '../../utils';
+import { multicall, Multicaller } from '../../utils';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)'

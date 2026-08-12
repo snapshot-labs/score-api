@@ -1,10 +1,10 @@
 import { performance } from 'perf_hooks';
-import fetch from 'cross-fetch';
-import snapshot from '../../../src/strategies';
 import snapshotjs from '@snapshot-labs/snapshot.js';
-import addresses from './addresses.json';
-import starknetAddresses from './addresses-starknet.json';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
+import fetch from 'cross-fetch';
+import starknetAddresses from './addresses-starknet.json';
+import addresses from './addresses.json';
+import snapshot from '../../../src/strategies';
 
 jest.useFakeTimers({ advanceTimers: true, doNotFake: ['performance'] });
 
@@ -28,6 +28,7 @@ const moreArg = args[1];
 
 const strategy = Object.keys(snapshot.strategies).find(s => strategyArg == s);
 if (!strategy) throw 'Strategy not found';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const examples = require(
   `../../../src/strategies/strategies/${strategy}/examples.json`
 ).map((example, index) => ({ index, example }));
@@ -234,10 +235,11 @@ describe.each(examples)(
   ({ example }) => {
     let schema;
     try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       schema = require(
         `../../../src/strategies/strategies/${strategy}/schema.json`
       );
-    } catch (error) {
+    } catch {
       schema = null;
     }
     (schema ? it : it.skip)(

@@ -26,9 +26,9 @@ export async function set(key, value) {
       Body: JSON.stringify(value),
       ContentType: 'application/json; charset=utf-8'
     });
-  } catch (e: any) {
-    capture(e, { key });
-    console.log('[aws] Store cache failed', e);
+  } catch (err: any) {
+    capture(err, { key });
+    console.log('[aws] Store cache failed', err);
   }
 }
 
@@ -41,7 +41,7 @@ export async function get(key) {
     // @ts-ignore
     const str = await streamToString(Body);
     return JSON.parse(str);
-  } catch (e) {
+  } catch {
     return false;
   }
 }

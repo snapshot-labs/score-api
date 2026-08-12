@@ -35,7 +35,7 @@ export default class Validation {
   async validate(customAuthor = this.author): Promise<boolean> {
     try {
       this.validateAddressType(customAuthor);
-    } catch (e) {
+    } catch {
       return false;
     }
 
@@ -61,7 +61,7 @@ export default class Validation {
       ) {
         return true;
       }
-    } catch (error) {
+    } catch {
       // If isStarknetAddress throws an error, fall through to the standard error
     }
 

@@ -1,5 +1,5 @@
-import { BigNumberish } from '@ethersproject/bignumber';
 import { getAddress } from '@ethersproject/address';
+import { BigNumberish } from '@ethersproject/bignumber';
 import { Multicaller } from '../../utils';
 import { getDelegations } from '../../utils/delegation';
 

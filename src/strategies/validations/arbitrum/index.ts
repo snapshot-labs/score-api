@@ -1,7 +1,6 @@
-import Validation from '../validation';
-import { getProvider, getScoresDirect } from '../../utils';
-import { multicall } from '../../utils';
 import { formatUnits } from '@ethersproject/units';
+import { getProvider, getScoresDirect, multicall } from '../../utils';
+import Validation from '../validation';
 
 const abi = [
   'function getVotes(address account) view returns (uint256)',
@@ -15,6 +14,7 @@ export default class extends Validation {
   public title = 'Arbitrum DAO Percentage of Votable Supply';
   public description =
     'Use with erc20-votes to validate by percentage of votable supply.';
+
   public proposalValidationOnly = true;
   public hasInnerStrategies = true;
 

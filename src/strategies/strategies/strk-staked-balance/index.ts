@@ -1,6 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber';
-import { Multicaller } from '../../utils';
 import snapshotjs from '@snapshot-labs/snapshot.js';
+import { Multicaller } from '../../utils';
 
 export const supportedProtocols = ['starknet'];
 

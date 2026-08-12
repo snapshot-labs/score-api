@@ -1,6 +1,6 @@
-import { subgraphRequest } from '../../utils';
 import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
+import { subgraphRequest } from '../../utils';
 const PAGE_SIZE = 1000;
 const RAZOR_NETWORK_SUBGRAPH_URL =
   'https://graph-indexer.razorscan.io/subgraphs/name/razor/razor';
@@ -13,7 +13,7 @@ function sRZR_to_RZR(
 ) {
   try {
     return stake.mul(amount).div(totalSupply);
-  } catch (err) {
+  } catch {
     return BigNumber.from(0);
     // do nothing
   }

@@ -1,4 +1,4 @@
-import { subgraphRequest, customFetch } from '../../utils';
+import { customFetch, subgraphRequest } from '../../utils';
 
 const Endpoint: {
   name: string;
@@ -118,9 +118,9 @@ export async function strategy(
       map[item.owner.toLowerCase()] = item.nfts.reduce((m, i) => {
         if (!options.params.blacklistNFTID?.includes(i.id)) {
           m[
-            i.nftCore.contractAddress.toLowerCase() +
-              '-0x' +
-              Number.parseInt(i.id).toString(16)
+            `${i.nftCore.contractAddress.toLowerCase()}-0x${Number.parseInt(
+              i.id
+            ).toString(16)}`
           ] = i.name;
         }
         return m;

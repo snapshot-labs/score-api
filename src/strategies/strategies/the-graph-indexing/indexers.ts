@@ -2,12 +2,12 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { Provider } from '@ethersproject/providers';
 import { subgraphRequest } from '../../utils';
 import {
+  bnWEI,
+  calcNonStakedTokens,
   GRAPH_NETWORK_SUBGRAPH_URL,
   GraphAccountScores,
-  calcNonStakedTokens,
-  bnWEI,
-  verifyResults,
-  GraphStrategyOptions
+  GraphStrategyOptions,
+  verifyResults
 } from '../the-graph-balance/utils/graphUtils';
 
 export async function indexersStrategy(

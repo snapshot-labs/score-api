@@ -1,9 +1,9 @@
+import { BigNumber } from '@ethersproject/bignumber';
+import { WeiPerEther, Zero } from '@ethersproject/constants';
+import { formatEther } from '@ethersproject/units';
+import { multicall, Multicaller, subgraphRequest } from '../../utils';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
 import { strategy as masterChefPoolBalanceStrategy } from '../masterchef-pool-balance';
-import { formatEther } from '@ethersproject/units';
-import { Zero, WeiPerEther } from '@ethersproject/constants';
-import { BigNumber } from '@ethersproject/bignumber';
-import { multicall, subgraphRequest, Multicaller } from '../../utils';
 
 const chunk = (arr, size) =>
   Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
@@ -111,12 +111,12 @@ async function getSmartChefStakedCakeAmount(
       let result;
       try {
         result = await subgraphRequest(smartChefUrl, params);
-      } catch (error) {
+      } catch (err) {
         if (!triedBlockNumber) {
           triedBlockNumber = true;
           continue;
         } else {
-          throw error;
+          throw err;
         }
       }
       if (!Array.isArray(result.users) && !triedBlockNumber) {

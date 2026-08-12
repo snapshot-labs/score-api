@@ -1,5 +1,5 @@
-import { formatUnits } from '@ethersproject/units';
 import { BigNumber } from '@ethersproject/bignumber';
+import { formatUnits } from '@ethersproject/units';
 import { multicall, subgraphRequest } from '../../utils';
 
 const tokenAbi = ['function balanceOf(address) view returns (uint256)'];
@@ -148,9 +148,8 @@ export async function strategy(
     : await getMainnetBlockNumber(block.timestamp);
 
   // trim addresses to sub of "LIMIT" addresses.
-  const addressSubsets = Array.apply(
-    null,
-    Array(Math.ceil(addresses.length / LIMIT))
+  const addressSubsets = Array(
+    ...Array(Math.ceil(addresses.length / LIMIT))
   ).map((_e, i) => addresses.slice(i * LIMIT, (i + 1) * LIMIT));
   const returnedFromSubgraph = isEth
     ? await Promise.all(

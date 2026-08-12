@@ -50,8 +50,8 @@ describe('serve function', () => {
     try {
       await serve(id, mockAction, []);
       fail('Expected serve to throw an error');
-    } catch (error: any) {
-      expect(error.message).toBe('test error');
+    } catch (err: any) {
+      expect(err.message).toBe('test error');
     }
 
     expect(mockAction).toHaveBeenCalledTimes(1);
