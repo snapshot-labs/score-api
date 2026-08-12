@@ -1,22 +1,17 @@
 import { getAddress } from '@ethersproject/address';
-
 const mockSubgraphRequest = jest.fn();
 const mockGetVotingDelegators = jest.fn();
 const mockErc20BalanceOf = jest.fn();
-
 jest.mock('../../utils', () => ({
   subgraphRequest: (...args: any[]) => mockSubgraphRequest(...args),
   SNAPSHOT_SUBGRAPH_URL: { '1': 'https://mock.com' }
 }));
-
 jest.mock('./votingDelegations', () => ({
   getVotingDelegators: (...args: any[]) => mockGetVotingDelegators(...args)
 }));
-
 jest.mock('../erc20-balance-of', () => ({
   strategy: (...args: any[]) => mockErc20BalanceOf(...args)
 }));
-
 import { strategy } from './index';
 
 const SPACE = 'lido-snapshot.eth';
@@ -24,17 +19,17 @@ const NETWORK = '1';
 const GLOBAL = '';
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
-const LDO_TOKEN = getAddress('0x' + 'ff'.repeat(20));
-const VOTING_CONTRACT = getAddress('0x' + 'ee'.repeat(20));
+const LDO_TOKEN = getAddress(`0x${'ff'.repeat(20)}`);
+const VOTING_CONTRACT = getAddress(`0x${'ee'.repeat(20)}`);
 
 // Scored delegates
-const DELEGATE_A = getAddress('0x' + 'a1'.repeat(20));
-const DELEGATE_B = getAddress('0x' + 'b2'.repeat(20));
+const DELEGATE_A = getAddress(`0x${'a1'.repeat(20)}`);
+const DELEGATE_B = getAddress(`0x${'b2'.repeat(20)}`);
 // Delegate outside the scored set
-const UNSCORED_DELEGATE = getAddress('0x' + 'c3'.repeat(20));
+const UNSCORED_DELEGATE = getAddress(`0x${'c3'.repeat(20)}`);
 // Delegators
-const SNAPSHOT_DELEGATOR = getAddress('0x' + 'd4'.repeat(20));
-const VOTING_DELEGATOR = getAddress('0x' + 'e5'.repeat(20));
+const SNAPSHOT_DELEGATOR = getAddress(`0x${'d4'.repeat(20)}`);
+const VOTING_DELEGATOR = getAddress(`0x${'e5'.repeat(20)}`);
 
 interface DelegationRow {
   delegator: string;

@@ -1,4 +1,4 @@
-import { subgraphRequest, SNAPSHOT_SUBGRAPH_URL } from '../../utils';
+import { SNAPSHOT_SUBGRAPH_URL, subgraphRequest } from '../../utils';
 
 // Mirrors the snapshot.js delegation helpers (buildSpaceIn, getDelegatesBySpace),
 // but resolves precedence like `utils/delegation.getDelegationsData` rather than
@@ -38,7 +38,6 @@ async function queryDelegations(
 ): Promise<any[]> {
   const byKey = new Map<string, any>();
   let pivot = 0;
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     const params: any = {
       delegations: {

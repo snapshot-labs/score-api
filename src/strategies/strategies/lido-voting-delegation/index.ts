@@ -1,10 +1,10 @@
 import { getAddress } from '@ethersproject/address';
 import { strategy as erc20BalanceOfStrategy } from '../erc20-balance-of';
-import { getVotingDelegators } from './votingDelegations';
 import {
   getSnapshotDelegationCandidates,
   getSnapshotEffectiveDelegates
 } from './snapshotDelegations';
+import { getVotingDelegators } from './votingDelegations';
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
