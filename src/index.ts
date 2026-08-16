@@ -1,6 +1,4 @@
 import 'dotenv/config';
-// Keep between dotenv/config and express: it needs SENTRY_DSN loaded, and Sentry
-// instruments express at init. Moving it either way fails silently.
 import './instrument';
 import { fallbackLogger, Sentry } from '@snapshot-labs/snapshot-sentry';
 import cors from 'cors';
