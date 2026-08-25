@@ -31,7 +31,7 @@ export const getReserves = ({
     new Token(1, token1.id, Number(token1.decimals), token1.symbol)
   ];
 
-  const _fee = getFeeAmount(feeTier) ?? 0;
+  const _fee = (getFeeAmount(feeTier) ?? 0) as FeeAmount;
   const pool = new Pool(
     _baseToken,
     _quoteToken,
