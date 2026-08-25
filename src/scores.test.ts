@@ -6,6 +6,7 @@ import { getCurrentBlockNum, sha256 } from './utils';
 jest.mock('./utils');
 jest.mock('./aws');
 jest.mock('./strategies');
+jest.mock('./helpers/provider', () => ({ getProvider: jest.fn(() => ({})) }));
 
 describe('scores function', () => {
   const mockArgs = {
