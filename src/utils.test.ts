@@ -3,7 +3,7 @@ process.env.BROVIDER_URL = 'test.brovider.url';
 
 import { createHash } from 'crypto';
 import { EMPTY_ADDRESS } from './constants';
-import snapshot from './strategies';
+import { getProvider } from './helpers/provider';
 import {
   blockNumByNetwork,
   clone,
@@ -30,6 +30,7 @@ jest.mock('./strategies', () => {
     }
   };
 });
+jest.mock('./helpers/provider', () => ({ getProvider: jest.fn() }));
 
 jest.mock('crypto', () => ({
   createHash: jest.fn(() => ({
@@ -64,7 +65,7 @@ describe('getCurrentBlockNum function', () => {
     const mockProvider = {
       getBlockNumber: jest.fn().mockResolvedValue(firstRequestBlockNum)
     };
-    (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
+    (getProvider as jest.Mock).mockReturnValue(mockProvider);
     await getCurrentBlockNum(firstRequestBlockNum, '1');
 
     const result = await getCurrentBlockNum(secondRequestBlockNum, '1');
@@ -78,7 +79,7 @@ describe('getCurrentBlockNum function', () => {
     const mockProvider = {
       getBlockNumber: jest.fn().mockResolvedValue(firstRequestBlockNum)
     };
-    (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
+    (getProvider as jest.Mock).mockReturnValue(mockProvider);
     await getCurrentBlockNum(firstRequestBlockNum, '1');
 
     const result = await getCurrentBlockNum(secondRequestBlockNum, '1');
@@ -90,13 +91,11 @@ describe('getCurrentBlockNum function', () => {
     const mockProvider = {
       getBlockNumber: jest.fn().mockResolvedValue(mockBlockNumber)
     };
-    (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
+    (getProvider as jest.Mock).mockReturnValue(mockProvider);
 
     const result = await getCurrentBlockNum(110, '1');
 
-    expect(snapshot.utils.getProvider).toHaveBeenCalledWith('1', {
-      broviderUrl: process.env.BROVIDER_URL
-    });
+    expect(getProvider).toHaveBeenCalledWith('1');
     expect(mockProvider.getBlockNumber).toHaveBeenCalled();
     expect(result).toBe(120);
   });
@@ -106,7 +105,7 @@ describe('getCurrentBlockNum function', () => {
     const mockProvider = {
       getBlockNumber: jest.fn().mockResolvedValue(mockBlockNumber)
     };
-    (snapshot.utils.getProvider as jest.Mock).mockReturnValue(mockProvider);
+    (getProvider as jest.Mock).mockReturnValue(mockProvider);
 
     const result = await getCurrentBlockNum(110, '1');
 

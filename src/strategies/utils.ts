@@ -3,7 +3,10 @@ import snapshot from '@snapshot-labs/snapshot.js';
 import fetch from 'cross-fetch';
 import _strategies from './strategies';
 import { Protocol, Score, Snapshot, VotingPower } from './types';
+import { getProvider } from '../helpers/provider';
 import { getDelegations } from './utils/delegation';
+
+export { getProvider };
 
 export function sha256(str) {
   return createHash('sha256').update(str).digest('hex');
@@ -204,7 +207,6 @@ export const {
   call,
   getDelegatesBySpace,
   getBlockNumber,
-  getProvider,
   getSnapshots,
   getFormattedAddress,
   SNAPSHOT_SUBGRAPH_URL
