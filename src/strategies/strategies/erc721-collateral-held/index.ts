@@ -31,7 +31,7 @@ export async function strategy(
     addresses.map(address => [address, []])
   );
   for (const address of addresses) {
-    const balance = result[address];
+    const balance = Number(result[address]);
     for (let i = 0; i < balance; i++) {
       multi2.call(`${address}_${i}`, options.address, 'tokenOfOwnerByIndex', [
         address,
