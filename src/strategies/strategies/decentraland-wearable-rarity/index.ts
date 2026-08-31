@@ -43,7 +43,7 @@ export async function strategy(
 
   const chunks = chunk(addresses, SUBGRAPH_QUERY_ADDRESSES_LIMIT);
   // initialize multipliers and params
-  const multiplers = options.multipliers || {};
+  const multipliers = options.multipliers || {};
 
   for (const chunk of chunks) {
     const params = {
@@ -99,7 +99,7 @@ export async function strategy(
           .toLowerCase()
           .trim();
         scores[userAddress] =
-          (scores[userAddress] ?? 0) + (multiplers[rarity] ?? 0);
+          (scores[userAddress] ?? 0) + (multipliers[rarity] ?? 0);
       }
 
       hasNext = nfts.length === params.nfts.__args.first;
