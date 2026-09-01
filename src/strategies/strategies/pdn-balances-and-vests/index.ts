@@ -30,14 +30,14 @@ export async function strategy(
   const addressesWithVestLength: Record<string, BigNumberish> =
     await multi.execute();
 
-  const formatedAddressVests = Object.entries(addressesWithVestLength).reduce<
+  const formattedAddressVests = Object.entries(addressesWithVestLength).reduce<
     Record<string, number>
   >((acc, [addresses, vestLength]) => {
     acc[addresses] = Number(vestLength);
     return acc;
   }, {});
 
-  Object.entries(formatedAddressVests).forEach(([address, vestLength]) => {
+  Object.entries(formattedAddressVests).forEach(([address, vestLength]) => {
     if (vestLength > 0) {
       const vestIndexes = Array.from(Array(vestLength).keys());
 
