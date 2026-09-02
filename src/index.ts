@@ -21,11 +21,11 @@ app.use(cors({ maxAge: 86400 }));
 app.use(checkKeycard, rateLimit);
 app.use('/', rpc);
 
-fallbackLogger(app);
-
 app.use((req, res) => {
   rpcError(res, 404, {}, req.body.id);
 });
+
+fallbackLogger(app);
 
 app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));
 
