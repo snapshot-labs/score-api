@@ -13,7 +13,7 @@ export async function strategy(
   options,
   snapshot
 ) {
-  const multipler = options.multiplier || 1;
+  const multiplier = options.multiplier || 1;
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
   const response = await multicall(
     network,
@@ -25,7 +25,7 @@ export async function strategy(
   return Object.fromEntries(
     response.map((value, i) => [
       addresses[i],
-      parseFloat(formatUnits(value.toString(), 0)) * multipler
+      parseFloat(formatUnits(value.toString(), 0)) * multiplier
     ])
   );
 }

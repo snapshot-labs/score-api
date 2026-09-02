@@ -39,7 +39,7 @@ export async function strategy(
   }
 
   const chunks = chunk(addresses, SUBGRAPH_QUERY_ADDRESSES_LIMIT);
-  const multipler = options.multiplier || 1;
+  const multiplier = options.multiplier || 1;
 
   for (const chunk of chunks) {
     const params = {
@@ -78,7 +78,7 @@ export async function strategy(
       for (const estate of nfts) {
         const userAddress = getAddress(estate.owner.id);
         scores[userAddress] =
-          (scores[userAddress] || 0) + estate.searchEstateSize * multipler;
+          (scores[userAddress] || 0) + estate.searchEstateSize * multiplier;
       }
 
       params.nfts.__args.skip += params.nfts.__args.first;

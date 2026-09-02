@@ -69,7 +69,7 @@ export async function strategy(
     params.balances.__args.block = { number: snapshot };
   }
   const balData = await subgraphRequest(BALANCER_SUBGRAPH_API, poolParams);
-  const balFormatedData = formatReserveBalance(balData, options.decimals);
+  const balFormattedData = formatReserveBalance(balData, options.decimals);
 
   params.balances.__args.where.id_in = addresses.map(address =>
     address.toLowerCase()
@@ -86,8 +86,8 @@ export async function strategy(
 
     const balGIV = calcGivAmount(
       BigNumber.from(balancerLp).add(balancerLpStaked),
-      balFormatedData.totalShares,
-      balFormatedData.balance
+      balFormattedData.totalShares,
+      balFormattedData.balance
     );
     score[getAddress(id)] = parseFloat(
       formatUnits(totalGIV.add(balGIV), options.decimals)
