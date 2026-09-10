@@ -37,6 +37,11 @@
             },
             "required": ["name", "params"]
           }
+        },
+        "useLatestBlock": {
+          "title": "Use latest block",
+          "description": "Check strategies against the current block instead of the proposal snapshot block. Useful for non-transferable tokens so users can vote right after minting.",
+          "type": "boolean"
         }
       },
       "required": ["minScore"],

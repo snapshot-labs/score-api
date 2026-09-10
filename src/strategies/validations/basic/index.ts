@@ -16,6 +16,8 @@ export default class extends Validation {
 
     if (!minScore) return true;
 
+    if (this.params.useLatestBlock) this.snapshot = 'latest';
+
     const scores = await getScoresDirect(
       this.space,
       this.params.strategies,
