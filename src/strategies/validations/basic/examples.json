@@ -14,5 +14,22 @@
         }
       ]
     }
+  },
+  {
+    "name": "Example of a basic validation checking the latest block",
+    "author": "0xeF8305E140ac520225DAf050e2f71d5fBcC543e7",
+    "space": "fabien.eth",
+    "network": "1",
+    "snapshot": 20000000,
+    "params": {
+      "minScore": 1,
+      "useLatestBlock": true,
+      "strategies": [
+        {
+          "name": "ticket",
+          "params": {}
+        }
+      ]
+    }
   }
 ]

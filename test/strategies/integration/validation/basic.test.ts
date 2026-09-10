@@ -1,3 +1,4 @@
+import * as utils from '../../../../src/strategies/utils';
 import BasicValidation from '../../../../src/strategies/validations/basic';
 
 describe('Basic Validation Integration Tests', () => {
@@ -575,6 +576,58 @@ describe('Basic Validation Integration Tests', () => {
         const result = await validation.validate();
         expect(result).toBe(true);
       }, 30000);
+    });
+
+    describe('useLatestBlock', () => {
+      const author = '0xeF8305E140ac520225DAf050e2f71d5fBcC543e7';
+      const params = {
+        minScore: 1,
+        strategies: [{ name: 'whitelist', params: { addresses: [author] } }]
+      };
+      let getScoresDirectSpy: jest.SpyInstance;
+
+      beforeEach(() => {
+        getScoresDirectSpy = jest
+          .spyOn(utils, 'getScoresDirect')
+          .mockResolvedValue([{ [author]: 1 }]);
+      });
+
+      afterEach(() => {
+        getScoresDirectSpy.mockRestore();
+      });
+
+      it('should use the proposal snapshot by default', async () => {
+        validation = new BasicValidation(author, 'test-space', '1', 123456, {
+          ...params
+        });
+
+        await expect(validation.validate()).resolves.toBe(true);
+        expect(getScoresDirectSpy).toHaveBeenCalledWith(
+          'test-space',
+          params.strategies,
+          '1',
+          expect.anything(),
+          [author],
+          123456
+        );
+      });
+
+      it('should use the latest block when useLatestBlock is true', async () => {
+        validation = new BasicValidation(author, 'test-space', '1', 123456, {
+          ...params,
+          useLatestBlock: true
+        });
+
+        await expect(validation.validate()).resolves.toBe(true);
+        expect(getScoresDirectSpy).toHaveBeenCalledWith(
+          'test-space',
+          params.strategies,
+          '1',
+          expect.anything(),
+          [author],
+          'latest'
+        );
+      });
     });
   });
 });
