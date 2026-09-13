@@ -5,7 +5,7 @@ import Validation from '../validation';
 export default class extends Validation {
   public id = 'basic';
   public github = 'bonustrack';
-  public version = '0.2.0';
+  public version = '0.3.0';
   public title = 'Basic';
   public description = 'Use any strategy to determine if a user can vote.';
   public supportedProtocols: Protocol[] = ['evm', 'starknet'];
@@ -16,7 +16,17 @@ export default class extends Validation {
 
     if (!minScore) return true;
 
-    if (this.params.useLatestBlock) this.snapshot = 'latest';
+    if (this.params.useLatestBlock) {
+      const hasBlockRange = (this.params.strategies || []).some(
+        strategy => strategy.params?.start || strategy.params?.end
+      );
+      if (hasBlockRange) {
+        throw new Error(
+          'useLatestBlock cannot be combined with strategies that define start or end'
+        );
+      }
+      this.snapshot = 'latest';
+    }
 
     const scores = await getScoresDirect(
       this.space,
