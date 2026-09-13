@@ -16,7 +16,7 @@ describe('Basic Validation Integration Tests', () => {
 
       expect(validation.id).toBe('basic');
       expect(validation.github).toBe('bonustrack');
-      expect(validation.version).toBe('0.2.0');
+      expect(validation.version).toBe('0.3.0');
       expect(validation.title).toBe('Basic');
       expect(validation.description).toBe(
         'Use any strategy to determine if a user can vote.'
