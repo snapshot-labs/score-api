@@ -16,7 +16,7 @@
     }
   },
   {
-    "name": "Example of a basic validation checking an SBT at the latest block",
+    "name": "Example of a basic validation checking an erc721 balance at the latest block",
     "author": "0xeF8305E140ac520225DAf050e2f71d5fBcC543e7",
     "space": "fabien.eth",
     "network": "1",
