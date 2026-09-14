@@ -16,17 +16,7 @@ export default class extends Validation {
 
     if (!minScore) return true;
 
-    if (this.params.useLatestBlock) {
-      const hasBlockRange = (this.params.strategies || []).some(
-        strategy => strategy.params?.start || strategy.params?.end
-      );
-      if (hasBlockRange) {
-        throw new Error(
-          'useLatestBlock cannot be combined with strategies that define start or end'
-        );
-      }
-      this.snapshot = 'latest';
-    }
+    if (this.params.useLatestBlock) this.snapshot = 'latest';
 
     const scores = await getScoresDirect(
       this.space,

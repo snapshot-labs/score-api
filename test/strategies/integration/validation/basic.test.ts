@@ -628,19 +628,6 @@ describe('Basic Validation Integration Tests', () => {
           'latest'
         );
       });
-
-      it('should throw when a strategy defines start or end', async () => {
-        validation = new BasicValidation(author, 'test-space', '1', 123456, {
-          ...params,
-          useLatestBlock: true,
-          strategies: [{ ...params.strategies[0], params: { end: 100 } }]
-        });
-
-        await expect(validation.validate()).rejects.toThrow(
-          'useLatestBlock cannot be combined with strategies that define start or end'
-        );
-        expect(getScoresDirectSpy).not.toHaveBeenCalled();
-      });
     });
   });
 });
