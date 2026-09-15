@@ -37,6 +37,11 @@
             },
             "required": ["name", "params"]
           }
+        },
+        "useLatestBlock": {
+          "title": "Validate at the latest block",
+          "description": "Check the strategies at the current block instead of the proposal snapshot block, so users who receive tokens after the proposal is created can still vote. Only use with non-transferable tokens (SBTs).",
+          "type": "boolean"
         }
       },
       "required": ["minScore"],

@@ -5,7 +5,7 @@ import Validation from '../validation';
 export default class extends Validation {
   public id = 'basic';
   public github = 'bonustrack';
-  public version = '0.2.0';
+  public version = '0.3.0';
   public title = 'Basic';
   public description = 'Use any strategy to determine if a user can vote.';
   public supportedProtocols: Protocol[] = ['evm', 'starknet'];
@@ -15,6 +15,8 @@ export default class extends Validation {
     const minScore = this.params.minScore;
 
     if (!minScore) return true;
+
+    if (this.params.useLatestBlock) this.snapshot = 'latest';
 
     const scores = await getScoresDirect(
       this.space,

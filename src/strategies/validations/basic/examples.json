@@ -14,5 +14,26 @@
         }
       ]
     }
+  },
+  {
+    "name": "Example of a basic validation checking an erc721 balance at the latest block",
+    "author": "0xeF8305E140ac520225DAf050e2f71d5fBcC543e7",
+    "space": "fabien.eth",
+    "network": "1",
+    "snapshot": 20000000,
+    "params": {
+      "minScore": 1,
+      "useLatestBlock": true,
+      "strategies": [
+        {
+          "name": "erc721",
+          "network": "1",
+          "params": {
+            "address": "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85",
+            "symbol": "ENS"
+          }
+        }
+      ]
+    }
   }
 ]
