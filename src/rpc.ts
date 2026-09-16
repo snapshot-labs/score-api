@@ -20,6 +20,26 @@ import { version } from '../package.json';
 
 const router = express.Router();
 
+const CAPTURE_INTERVAL = 5 * 60e3;
+const lastCapture = new Map<string, number>();
+
+function captureOnce(
+  method: string,
+  network: string,
+  space: string,
+  e: any,
+  context: any
+) {
+  const key = [method, network, space, e?.code ?? e?.message ?? e]
+    .join(':')
+    .slice(0, 200);
+  const now = Date.now();
+  if (now - (lastCapture.get(key) ?? 0) < CAPTURE_INTERVAL) return;
+  if (lastCapture.size >= 1000) lastCapture.clear();
+  lastCapture.set(key, now);
+  capture(e, context);
+}
+
 const METHODS = {
   get_vp: {
     verify: verifyGetVp,
@@ -51,15 +71,24 @@ function handlePostError(
   e: any,
   id: string | null
 ) {
-  capture(e, { params, method });
-  let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 1000);
+  const { network, space, snapshot, address, author, strategies } = params;
+  captureOnce(method, network, space, e, { params, method });
+  let error = JSON.stringify(e?.message || e || 'Unknown error').slice(0, 300);
 
   // Detect provider error
   if (e?.reason && e?.error?.reason && e?.error?.url) {
     error = `[provider issue] ${e.error.url}, reason: ${e.reason}, ${e.error.reason}`;
   }
 
-  console.log(`[rpc] ${method} failed`, JSON.stringify(params), error);
+  console.log(
+    `[rpc] ${method} failed`,
+    network,
+    space,
+    snapshot,
+    address ?? author,
+    strategies?.map(s => s.name).join(','),
+    error
+  );
   return rpcError(res, 500, e, id);
 }
 
@@ -162,7 +191,7 @@ router.post('/api/scores', async (req, res) => {
       }
     );
   } catch (err: any) {
-    capture(err, { params, strategies });
+    captureOnce('scores', network, space, err, { params, strategies });
     // @ts-ignore
     const errorMessage = err?.message || err || 'Unknown error';
     console.log(
@@ -170,7 +199,7 @@ router.post('/api/scores', async (req, res) => {
       network,
       space,
       snapshot,
-      JSON.stringify(strategies),
+      strategyNames.join(','),
       JSON.stringify(errorMessage).slice(0, 256),
       requestId
     );
