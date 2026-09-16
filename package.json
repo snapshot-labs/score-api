@@ -10,7 +10,7 @@
     "build": "tsc",
     "postbuild": "copyfiles -u 0 \"src/**/*.md\" build/ && copyfiles -u 0 \"src/**/*.json\" build/",
     "dev": "nodemon src/index.ts",
-    "start": "node build/src/index.js",
+    "start": "node --max-old-space-size=3072 build/src/index.js",
     "test:unit": "jest --config=jest.config.unit.ts",
     "test:unit:watch": "yarn test:unit --watch",
     "test:strategy": "jest -i test/strategies/unit/strategy.test.ts --testTimeout=300000 --collectCoverage=false --config=jest.config.unit.ts",
