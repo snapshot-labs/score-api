@@ -3,6 +3,7 @@ import './instrument';
 import { fallbackLogger, Sentry } from '@snapshot-labs/snapshot-sentry';
 import cors from 'cors';
 import express from 'express';
+import initDiagnostics, { memoryLine } from './diagnostics';
 import { checkKeycard } from './helpers/keycard';
 import rateLimit from './helpers/rateLimit';
 import initMetrics from './metrics';
@@ -13,6 +14,7 @@ const app = express();
 const PORT = process.env.PORT ?? 3003;
 
 initMetrics(app);
+initDiagnostics(app);
 
 app.disable('x-powered-by');
 app.use(express.json({ limit: '8mb' }));
@@ -29,7 +31,8 @@ app.use((req, res) => {
 
 app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));
 
-async function shutdown() {
+async function shutdown(signal: string) {
+  console.log(`[diag] received ${signal} ${memoryLine()}`);
   await Sentry.close(2000);
   process.exit(0);
 }
