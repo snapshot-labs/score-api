@@ -170,6 +170,7 @@ router.post('/api/scores', async (req, res) => {
       network,
       space,
       snapshot,
+      addresses.length,
       JSON.stringify(strategies),
       JSON.stringify(errorMessage).slice(0, 256),
       requestId
