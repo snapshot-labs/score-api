@@ -1,0 +1,93 @@
+[
+  {
+    "name": "SINGULARRY held in THENA V3 and PancakeSwap v3 positions",
+    "strategy": {
+      "name": "cl-positions-token-amount",
+      "params": {
+        "symbol": "SINGULARRY-LP",
+        "token": "0x18EA4dF6a9CDE2472f2321a4Ec77da106498A66E",
+        "decimals": 18,
+        "sources": [
+          {
+            "type": "algebra-integral",
+            "positionManager": "0x643B68Bf3f855B8475C0A700b6D1020bfc21d02e",
+            "pools": [
+              {
+                "address": "0x256Aa364c44c44a3714bdB548237B0A4fD7DE6C2"
+              },
+              {
+                "address": "0x42357e7cfc6Ca734969b798f992da7909d578c3F"
+              },
+              {
+                "address": "0x26399Af833bCa82c0c8c2EF4255B4939b26C39F5",
+                "deployer": "0xF807462b5ce54A89e2F5B847D8281030eAfE241B"
+              },
+              {
+                "address": "0x657481E0FDe1F80ee5aaa1f73497Ecd2693960d3",
+                "deployer": "0xF807462b5ce54A89e2F5B847D8281030eAfE241B"
+              },
+              {
+                "address": "0x92DA0118E46CD101D61d272de6Df387B1bD36C04",
+                "deployer": "0xF807462b5ce54A89e2F5B847D8281030eAfE241B"
+              },
+              {
+                "address": "0x72fB92B9945a7cC24C0758Ad9764C59e827b5b67",
+                "deployer": "0xF807462b5ce54A89e2F5B847D8281030eAfE241B"
+              },
+              {
+                "address": "0xe45B1525e84C7eE29282DD19bcad37eE5b5Fd6FD",
+                "deployer": "0xF807462b5ce54A89e2F5B847D8281030eAfE241B"
+              }
+            ]
+          },
+          {
+            "type": "uniswap-v3",
+            "positionManager": "0x46A15B0b27311cedF172AB29E4f4766fbE7F4364",
+            "stakingContracts": [
+              "0x556B9306565093C855AEA9AE92A594704c2Cd59e"
+            ],
+            "pools": [
+              {
+                "address": "0xEeFF64823c63F87FA6539ea702ca71221329E7D8"
+              },
+              {
+                "address": "0xDe93afB226e0D335bB86999ecE04DD68653FA165"
+              },
+              {
+                "address": "0x3c1b43BeF75ace557498981B2F8F17Eb216d73A5"
+              },
+              {
+                "address": "0xB3e4089Aa2e5713424a02dFD0187755c5F8809E5"
+              },
+              {
+                "address": "0x898b804e5dd2F1f4175A29e22122C8b3c883ff04"
+              },
+              {
+                "address": "0x55fC9f9eB41c0e49BfA021CfbD962Bdaf9D2c2Ea"
+              },
+              {
+                "address": "0xDEC6118C6F72796c08ce930e715fE37FE4AB2b1c"
+              },
+              {
+                "address": "0x2336C13b4E18f2902Dd043c58749fDC131197401"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "network": "56",
+    "addresses": [
+      "0xDF0F9AC301C9e7d35600C3d277e7076724c84497",
+      "0xAB1Be1DDA54CB70E08A051155282965ade7C5186",
+      "0x5b9eab62F0Ca917e3002f8C7c382089E15367A77",
+      "0x7246F53140B5d908Ec0a4b5236516E8A98eCd61d",
+      "0xA92Ca08e762fcBA1743134d6132e5111a8102363",
+      "0x75cD516c49F580a496B62c94260764f6DF227C4b",
+      "0x3A22B7AFa2A837cfe5116fB6F833235a47768087",
+      "0x5B621d5f5E92729C7f92c9D62dA1B4B24831DD4A",
+      "0xFFbe52C52355e03CeDc93Be7Fb6B014cD8c718E2"
+    ],
+    "snapshot": 124768108
+  }
+]
