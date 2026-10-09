@@ -56,7 +56,12 @@ describe('getCurrentBlockNum function', () => {
   });
 
   afterAll(() => {
-    process.env.BROVIDER_URL = originalBroviderUrl;
+    // Assigning undefined to process.env stores the string "undefined"
+    if (originalBroviderUrl === undefined) {
+      delete process.env.BROVIDER_URL;
+    } else {
+      process.env.BROVIDER_URL = originalBroviderUrl;
+    }
   });
 
   it('should return block number from blockNumByNetwork if it exists and is less than or equal to snapshotBlock', async () => {
