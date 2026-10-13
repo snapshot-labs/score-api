@@ -16,6 +16,8 @@ Mimic the structure found in `./examples.json`, and fill in the parameters.
 
 Parameters:
 
+- `backendUrl`
+  - This field is optional, and defaults to `https://split-delegation.snapshot.box`. Spaces still set to the former Gnosis Guild API, `https://delegate-api.gnosisguild.org`, use it too.
 - `strategies`
   - This field is an array of the snapshot strategies you want to use to calculate raw voting score.
 - `totalSupply`
