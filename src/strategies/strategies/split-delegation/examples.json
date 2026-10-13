@@ -4,7 +4,7 @@
     "strategy": {
       "name": "split-delegation",
       "params": {
-        "backendUrl": "https://delegate-api.gnosisguild.org",
+        "backendUrl": "https://split-delegation.snapshot.box",
         "totalSupply": 1000000000,
         "delegationOverride": false,
         "strategies": [

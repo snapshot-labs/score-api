@@ -3,7 +3,9 @@ import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { Strategy } from '@snapshot-labs/snapshot.js/dist/src/voting/types';
 import fetch from 'cross-fetch';
 
-const DEFAULT_BACKEND_URL = 'https://delegate-api.gnosisguild.org';
+const DEFAULT_BACKEND_URL = 'https://split-delegation.snapshot.box';
+// the Gnosis Guild API, which is no longer running, now served by Snapshot
+const LEGACY_BACKEND_URL = 'https://delegate-api.gnosisguild.org';
 
 type Params = {
   backendUrl: string;
@@ -26,12 +28,17 @@ export async function strategy(
   snapshot: string | number
 ): Promise<Record<string, number>> {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
+  const backendUrl =
+    !options.backendUrl ||
+    options.backendUrl.replace(/\/+$/, '') === LEGACY_BACKEND_URL
+      ? DEFAULT_BACKEND_URL
+      : options.backendUrl;
 
   if (options.strategies.length > 8)
     throw new Error('Maximum 8 strategies allowed');
 
   const response = await fetch(
-    `${options.backendUrl}/api/v1/${space}/${blockTag}/voting-power`,
+    `${backendUrl}/api/v1/${space}/${blockTag}/voting-power`,
     {
       method: 'POST',
       headers: {
