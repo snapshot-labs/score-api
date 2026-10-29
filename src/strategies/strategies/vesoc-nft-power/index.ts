@@ -1,7 +1,11 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import networks from '@snapshot-labs/snapshot.js/src/networks.json';
-import { customFetch, Multicaller, subgraphRequest } from '../../utils';
+import {
+  customFetch,
+  getMulticallAddress,
+  Multicaller,
+  subgraphRequest
+} from '../../utils';
 
 // ABI for VeSocLocker contract
 const veSocLockerAbi = [
@@ -133,7 +137,7 @@ async function calculateVeSocNftPower(
   blockTag: any
 ): Promise<Record<string, number>> {
   const multicallAddress =
-    options.multicallAddress || networks[network]?.multicall;
+    options.multicallAddress || getMulticallAddress(network);
   if (!multicallAddress) {
     throw new Error('missing multicall address for current timestamp');
   }
