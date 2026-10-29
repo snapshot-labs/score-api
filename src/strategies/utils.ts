@@ -201,6 +201,7 @@ function validateStrategies(strategies: any[]): void {
 
 export const {
   multicall,
+  getMulticallAddress,
   Multicaller,
   subgraphRequest,
   ipfsGet,
@@ -217,6 +218,7 @@ export default {
   getScoresDirect,
   customFetch,
   multicall,
+  getMulticallAddress,
   Multicaller,
   subgraphRequest,
   ipfsGet,
