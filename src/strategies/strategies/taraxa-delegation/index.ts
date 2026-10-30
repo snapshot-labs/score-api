@@ -1,8 +1,7 @@
 import { getAddress } from '@ethersproject/address';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import networks from '@snapshot-labs/snapshot.js/src/networks.json';
-import { Multicaller } from '../../utils';
+import { getMulticallAddress, Multicaller } from '../../utils';
 
 const abi = [
   'function getTotalDelegation(address delegator) external view returns (uint256 total_delegation)',
@@ -34,7 +33,7 @@ export async function strategy(
   const resultDelegations: Record<string, BigNumberish> = await multi.execute();
 
   addresses.forEach((address: string) => {
-    multi.call(address, networks[network].multicall, 'getEthBalance', [
+    multi.call(address, getMulticallAddress(network), 'getEthBalance', [
       address
     ]);
   });

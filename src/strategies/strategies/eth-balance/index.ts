@@ -1,6 +1,5 @@
 import { formatUnits } from '@ethersproject/units';
-import networks from '@snapshot-labs/snapshot.js/src/networks.json';
-import { multicall } from '../../utils';
+import { getMulticallAddress, multicall } from '../../utils';
 
 const abi = [
   'function getEthBalance(address addr) public view returns (uint256 balance)'
@@ -20,7 +19,7 @@ export async function strategy(
     provider,
     abi,
     addresses.map((address: any) => [
-      networks[network].multicall,
+      getMulticallAddress(network),
       'getEthBalance',
       [address]
     ]),
