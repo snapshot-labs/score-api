@@ -15,6 +15,7 @@ export default async function serve(id, action, args) {
       })
       .finally(() => {
         ongoingRequests.delete(key);
+        requestDeduplicatorSize.set(ongoingRequests.size);
       });
     ongoingRequests.set(key, requestPromise);
   }

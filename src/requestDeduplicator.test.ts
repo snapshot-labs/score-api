@@ -24,6 +24,7 @@ describe('serve function', () => {
     expect(response).toBe('response');
     expect(mockAction).toHaveBeenCalledTimes(1);
     expect(requestDeduplicatorSize.set).toHaveBeenCalledWith(1);
+    expect(requestDeduplicatorSize.set).toHaveBeenLastCalledWith(0);
   });
 
   it('should not initiate a new request if one is ongoing with the same id', async () => {
@@ -56,5 +57,6 @@ describe('serve function', () => {
 
     expect(mockAction).toHaveBeenCalledTimes(1);
     expect(requestDeduplicatorSize.set).toHaveBeenCalledWith(1);
+    expect(requestDeduplicatorSize.set).toHaveBeenLastCalledWith(0);
   });
 });
