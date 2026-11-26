@@ -49,17 +49,15 @@ type OracleStrategy = {
 const safeBlocks: Record<string, { number: number; fetchedAt: number }> = {};
 const safeBlockRequests: Record<string, Promise<number>> = {};
 
-// The oracle is a Safe. score-api holds owner keys, enough to reach its threshold
+// The oracle is any account. score-api signs for it with one key: the account's own, or one of its owners'
+// if it is a Safe, whose other owners can run their own servers
 function getOracle() {
-  const safe = process.env.ORACLE_SAFE_ADDRESS;
-  const keys = process.env.ORACLE_OWNER_PRIVATE_KEYS;
-  if (!safe || !keys) throw new Error('oracle is not configured');
+  const address = process.env.ORACLE_ADDRESS;
+  const key = process.env.ORACLE_PRIVATE_KEY;
+  if (!address || !key) throw new Error('oracle is not configured');
 
   try {
-    return {
-      safe: getAddress(safe),
-      owners: keys.split(',').map(key => new Wallet(key.trim()))
-    };
+    return { address: getAddress(address), signer: new Wallet(key.trim()) };
   } catch {
     // ethers puts an invalid key in its error message, which would be logged and returned to the caller
     throw new Error('oracle is not configured correctly');
@@ -200,35 +198,28 @@ export async function getSignedVp(params: SignedVpRequestParams) {
   const vp = raw > 0n ? raw : 0n;
 
   const chainId = Number(params.network);
-  const digest = _TypedDataEncoder.hash(
-    {
-      name: 'snapshot-x',
-      version: '1.0.0',
-      chainId,
-      verifyingContract: getAddress(params.strategy)
-    },
-    SCORE_TYPES,
-    {
-      params: params.params,
-      votingPower: vp,
-      blockNumber: params.snapshot,
-      voter
-    }
-  );
-
-  // EIP-1271 through the Safe fallback handler: each owner signs the Safe message over the digest, and
-  // the Safe expects the signatures sorted by owner address
-  const signatures = await Promise.all(
-    oracle.owners.map(async owner => ({
-      owner: owner.address.toLowerCase(),
-      signature: await owner._signTypedData(
-        { chainId, verifyingContract: oracle.safe },
-        SAFE_MESSAGE_TYPES,
-        { message: digest }
-      )
-    }))
-  );
-  signatures.sort((a, b) => (a.owner < b.owner ? -1 : 1));
+  const domain = {
+    name: 'snapshot-x',
+    version: '1.0.0',
+    chainId,
+    verifyingContract: getAddress(params.strategy)
+  };
+  const score = {
+    params: params.params,
+    votingPower: vp,
+    blockNumber: params.snapshot,
+    voter
+  };
+  // An account signs the score itself. A Safe checks its owners' signatures of a Safe message over the
+  // score digest (EIP-1271 through its fallback handler)
+  const signature =
+    oracle.signer.address === oracle.address
+      ? await oracle.signer._signTypedData(domain, SCORE_TYPES, score)
+      : await oracle.signer._signTypedData(
+          { chainId, verifyingContract: oracle.address },
+          SAFE_MESSAGE_TYPES,
+          { message: _TypedDataEncoder.hash(domain, SCORE_TYPES, score) }
+        );
 
   console.log(
     '[oracle] signed',
@@ -245,7 +236,7 @@ export async function getSignedVp(params: SignedVpRequestParams) {
   return {
     result: {
       vp: vp.toString(),
-      signature: `0x${signatures.map(s => s.signature.slice(2)).join('')}`
+      signature
     },
     cache: false
   };

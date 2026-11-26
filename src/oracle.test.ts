@@ -1,4 +1,5 @@
 import { defaultAbiCoder } from '@ethersproject/abi';
+import { _TypedDataEncoder } from '@ethersproject/hash';
 import { keccak256 } from '@ethersproject/keccak256';
 import { toUtf8Bytes } from '@ethersproject/strings';
 import { verifyTypedData, Wallet } from '@ethersproject/wallet';
@@ -26,9 +27,9 @@ jest.mock('./strategies', () => ({
 
 const STRATEGY = '0x59db2D5A9dC316bdc8015172Cf80891d95E2D201';
 const SAFE = Wallet.createRandom().address;
+const signer = Wallet.createRandom();
 const VOTER = '0x537f1896541d28F4c70116EEa602b1B34Da95163';
 const SAFE_HEAD = 12_000_100;
-const owners = [Wallet.createRandom(), Wallet.createRandom()];
 const rawStrategy = snapshot.strategies['erc20-balance-of']
   .rawStrategy as jest.Mock;
 const provider = {
@@ -97,33 +98,56 @@ function contractDigest(vp: bigint) {
 describe('get_signed_vp', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env.ORACLE_SAFE_ADDRESS = SAFE;
-    process.env.ORACLE_OWNER_PRIVATE_KEYS = owners
-      .map(o => o.privateKey)
-      .join(',');
+    process.env.ORACLE_ADDRESS = SAFE;
+    process.env.ORACLE_PRIVATE_KEY = signer.privateKey;
     (getProvider as jest.Mock).mockReturnValue(provider);
     rawStrategy.mockResolvedValue({ [VOTER]: 1_514_415_861_332_052_753n });
   });
 
-  it('signs the exact raw voting power as the Safe, owner signatures sorted by address', async () => {
+  it('signs the exact raw voting power as one owner of a Safe oracle', async () => {
     const { result } = await getSignedVp(request);
 
     // A balance a float can't hold exactly is signed to the wei
     expect(result.vp).toBe('1514415861332052753');
-    const signatures = result.signature.slice(2).match(/.{130}/g)!;
-    expect(signatures).toHaveLength(2);
-    const recovered = signatures.map(s =>
+    expect(
       verifyTypedData(
         { chainId: 11155111, verifyingContract: SAFE },
         { SafeMessage: [{ name: 'message', type: 'bytes' }] },
         { message: contractDigest(1_514_415_861_332_052_753n) },
-        `0x${s}`
+        result.signature
       )
+    ).toBe(signer.address);
+  });
+
+  it('signs the score itself when the oracle is the signer account', async () => {
+    process.env.ORACLE_ADDRESS = signer.address.toLowerCase();
+    const { result } = await getSignedVp(request);
+
+    const domain = {
+      name: 'snapshot-x',
+      version: '1.0.0',
+      chainId: 11155111,
+      verifyingContract: STRATEGY
+    };
+    const types = {
+      Score: [
+        { name: 'params', type: 'bytes' },
+        { name: 'votingPower', type: 'uint256' },
+        { name: 'blockNumber', type: 'uint32' },
+        { name: 'voter', type: 'address' }
+      ]
+    };
+    const score = {
+      params: request.params,
+      votingPower: 1_514_415_861_332_052_753n,
+      blockNumber: request.snapshot,
+      voter: VOTER
+    };
+    expect(_TypedDataEncoder.hash(domain, types, score)).toBe(
+      contractDigest(1_514_415_861_332_052_753n)
     );
-    expect(recovered).toEqual(
-      owners
-        .map(o => o.address)
-        .sort((a, b) => (a.toLowerCase() < b.toLowerCase() ? -1 : 1))
+    expect(verifyTypedData(domain, types, score, result.signature)).toBe(
+      signer.address
     );
   });
 
@@ -172,7 +196,7 @@ describe('get_signed_vp', () => {
   });
 
   it('refuses to sign when the oracle is not configured', async () => {
-    delete process.env.ORACLE_OWNER_PRIVATE_KEYS;
+    delete process.env.ORACLE_PRIVATE_KEY;
 
     await expect(getSignedVp(request)).rejects.toThrow(
       'oracle is not configured'
@@ -183,14 +207,12 @@ describe('get_signed_vp', () => {
     ['one character missing', (key: string) => key.slice(0, -1)],
     ['one character too many', (key: string) => `${key}0`],
     ['quotes', (key: string) => `"${key}"`]
-  ])('never echoes an owner key with %s in its error', async (_, mangle) => {
-    process.env.ORACLE_OWNER_PRIVATE_KEYS = mangle(owners[0].privateKey);
+  ])('never echoes the key with %s in its error', async (_, mangle) => {
+    process.env.ORACLE_PRIVATE_KEY = mangle(signer.privateKey);
 
     const error = await getSignedVp(request).catch(err => err);
     expect(error.message).toBe('oracle is not configured correctly');
-    expect(JSON.stringify(error)).not.toContain(
-      owners[0].privateKey.slice(2, 40)
-    );
+    expect(JSON.stringify(error)).not.toContain(signer.privateKey.slice(2, 40));
   });
 
   it('logs what it signs, without keys', async () => {
@@ -201,9 +223,7 @@ describe('get_signed_vp', () => {
     expect(line).toContain('[oracle] signed');
     expect(line).toContain(keccak256(request.params));
     expect(line).toContain('1514415861332052753');
-    for (const owner of owners) {
-      expect(line).not.toContain(owner.privateKey.slice(2));
-    }
+    expect(line).not.toContain(signer.privateKey.slice(2));
     log.mockRestore();
   });
 });
