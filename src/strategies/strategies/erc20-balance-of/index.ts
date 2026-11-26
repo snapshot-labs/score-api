@@ -1,19 +1,19 @@
 import { BigNumberish } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
-import { Multicaller } from '../../utils';
+import { formatRawScores, Multicaller } from '../../utils';
 
 const abi = [
   'function balanceOf(address account) external view returns (uint256)'
 ];
 
-export async function strategy(
-  space,
+// Exact: token balances in base units
+export async function rawStrategy(
+  _space,
   network,
   provider,
   addresses,
   options,
   snapshot
-): Promise<Record<string, number>> {
+): Promise<Record<string, bigint>> {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
 
   const multi = new Multicaller(network, provider, abi, { blockTag });
@@ -25,7 +25,21 @@ export async function strategy(
   return Object.fromEntries(
     Object.entries(result).map(([address, balance]) => [
       address,
-      parseFloat(formatUnits(balance, options.decimals))
+      BigInt(balance.toString())
     ])
+  );
+}
+
+export async function strategy(
+  space,
+  network,
+  provider,
+  addresses,
+  options,
+  snapshot
+): Promise<Record<string, number>> {
+  return formatRawScores(
+    await rawStrategy(space, network, provider, addresses, options, snapshot),
+    options.decimals
   );
 }

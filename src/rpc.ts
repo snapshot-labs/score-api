@@ -5,6 +5,7 @@ import disabled from './disabled.json';
 import getStrategies from './helpers/strategies';
 import getValidations from './helpers/validations';
 import { getVp, validate, verifyGetVp, verifyValidate } from './methods';
+import { getSignedVp, verifySignedVp } from './oracle';
 import serve from './requestDeduplicator';
 import scores from './scores';
 import {
@@ -28,6 +29,10 @@ const METHODS = {
   validate: {
     verify: verifyValidate,
     run: validate
+  },
+  get_signed_vp: {
+    verify: verifySignedVp,
+    run: getSignedVp
   }
 };
 
@@ -78,7 +83,7 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    methodFn.verify(params);
+    await methodFn.verify(params);
   } catch (err: any) {
     return rpcError(res, 400, err, id);
   }

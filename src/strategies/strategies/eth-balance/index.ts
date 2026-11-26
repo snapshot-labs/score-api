@@ -1,18 +1,18 @@
-import { formatUnits } from '@ethersproject/units';
-import { getMulticallAddress, multicall } from '../../utils';
+import { formatRawScores, getMulticallAddress, multicall } from '../../utils';
 
 const abi = [
   'function getEthBalance(address addr) public view returns (uint256 balance)'
 ];
 
-export async function strategy(
-  space,
+// Exact: native balances in wei
+export async function rawStrategy(
+  _space,
   network,
   provider,
   addresses,
-  options,
+  _options,
   snapshot
-) {
+): Promise<Record<string, bigint>> {
   const blockTag = typeof snapshot === 'number' ? snapshot : 'latest';
   const response = await multicall(
     network,
@@ -25,12 +25,22 @@ export async function strategy(
     ]),
     { blockTag }
   );
-  const decimals = options.decimals || 18;
 
   return Object.fromEntries(
-    response.map((value, i) => [
-      addresses[i],
-      parseFloat(formatUnits(value.toString(), decimals))
-    ])
+    response.map((value, i) => [addresses[i], BigInt(value.toString())])
+  );
+}
+
+export async function strategy(
+  space,
+  network,
+  provider,
+  addresses,
+  options,
+  snapshot
+) {
+  return formatRawScores(
+    await rawStrategy(space, network, provider, addresses, options, snapshot),
+    options.decimals || 18
   );
 }
