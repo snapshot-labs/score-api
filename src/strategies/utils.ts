@@ -1,4 +1,5 @@
 import { createHash } from 'crypto';
+import { formatUnits } from '@ethersproject/units';
 import snapshot from '@snapshot-labs/snapshot.js';
 import fetch from 'cross-fetch';
 import _strategies from './strategies';
@@ -197,6 +198,19 @@ function validateStrategies(strategies: any[]): void {
   if (invalidStrategies.length > 0) {
     throw new Error(`Invalid strategies: ${invalidStrategies.join(', ')}`);
   }
+}
+
+// The float scores of an exact strategy, from its raw values, with the formula strategies used before
+export function formatRawScores(
+  raw: Record<string, bigint>,
+  decimals?: number
+): Record<string, number> {
+  return Object.fromEntries(
+    Object.entries(raw).map(([address, value]) => [
+      address,
+      parseFloat(formatUnits(value.toString(), decimals))
+    ])
+  );
 }
 
 export const {
